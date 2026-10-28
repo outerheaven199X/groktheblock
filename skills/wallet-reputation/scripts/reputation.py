@@ -18,8 +18,8 @@ def main():
         h = history.history_for(w)
         wa = None
         if a.live:
-            sigs, g = D.get_signatures(w, max_pages=3)
-            wa = age(int(time.time()) - (sigs[0].get("blockTime") or 0)) if sigs and g else None
+            first, _ = D.wallet_first_tx(w)
+            wa = age(int(time.time()) - first["timestamp"]) if first else None
         rep = C.compute_reputation(h, wa)
         out.append({"wallet": w, **rep, "walletAge": wa, "history": h})
         print(f"{w}: {rep['score']}/100 {rep['grade']}  {'; '.join(rep['factors']) or 'no flagged history on this machine'}")

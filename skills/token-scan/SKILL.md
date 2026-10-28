@@ -5,6 +5,7 @@ description: Scan a Solana token (mint or $TICKER) and classify every wallet in 
 # Token Scan (port of CryptOSINT's scanner)
 
 ## Steps
+0. Export in the original envelope format: `skills/token-scan/scripts/export.py <result.json>` writes `cryptosint-<type>-<id>-<ts>.json`.
 1. Get the mint. If the user gives a $TICKER, the script resolves it through DexScreener to the highest-liquidity Solana pair and prints the mint it picked. Confirm that mint with the user, because tickers are not unique.
 2. Run `.venv/bin/python skills/token-scan/scripts/token_scan.py <mint> [--max-tx 200] [--sig-pages 20] [--origins 10]`. This takes 1 to 3 minutes on public RPC.
 3. Read `out/scan-<SYMBOL>-<mint6>.json`. The fields are `organicScore`, `counts`, `verdict`, `wallets` (top 50, each with class, entry block, tx count, supply %, `solFlowEstimate`, tag, reputation, and wallet age/funder for flagged wallets), `lpMonitor` (pools, liquidity, RugCheck authorities, LP locked %, risks, top holders), `bundleSignal`, `copyNetwork`, and `scanWindow`.

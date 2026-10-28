@@ -52,6 +52,8 @@ def check(entry, mint):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["add", "remove", "list", "check"]); ap.add_argument("token", nargs="?")
     ap.add_argument("--min-sol", type=float, default=10); ap.add_argument("--json", action="store_true")
+    ap.add_argument("--loop", type=int, default=0, help="keep polling for N seconds (webhook-free fast mode)")
+    ap.add_argument("--every", type=int, default=0, help="seconds between polls in --loop (default 10 with Helius, 30 without)")
     a = ap.parse_args(); w = load()
     if a.cmd == "add":
         m = resolve_mint(a.token); meta = D.token_metadata(m)
@@ -62,6 +64,17 @@ def main():
     elif a.cmd == "list":
         for m, e in w.items(): print(f"${e['symbol']} {m} min {e['minSol']} SOL")
     else:
+        end = time.time() + a.loop
+        every = a.every or (10 if D.has_helius() else 30)
+        while True:
+            run_check(w, a)
+            if time.time() + every > end:
+                break
+            time.sleep(every)
+
+
+def run_check(w, a):
+    if True:
         allx = []
         for m, e in w.items():
             try: allx += check(e, m)

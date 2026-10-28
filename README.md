@@ -44,9 +44,9 @@ Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`,
 The shill detector reads saved X search results (the JSON from X's search API, with `expansions=author_id`). Inside Grok Bot, the bot fetches those with its built-in X tools. Standalone, bring your own export.
 
 ## Limits (honest version)
-- **Launch window on free RPC:** public RPC only pages newest to oldest. A token with tens of thousands of transactions can't be walked back to its launch, and the report then says `reachedLaunch: false`. A Helius key or a bigger `--sig-pages` helps.
+- **Launch window:** with a Helius key, scans go straight to launch on any coin (`getTransactionsForAddress`, ascending). Without one, public RPC only pages newest to oldest, so very busy tokens report `reachedLaunch: false`.
 - **PnL is approximate:** it's realized SOL flow in the analyzed window. Open bags count as 0.
-- **Alerts poll:** they arrive minutes late, not in real time (no webhooks).
+- **Alerts poll:** there are no webhooks. `watch_token.py check --loop 600 --every 10` polls every 10s with Helius (30s without), or run it from a routine.
 - **Leaderboard and reputation** only know what this machine has scanned.
 - **Classifier fidelity:** the rules are a faithful port of `classify.ts`, verified by `tests/test_classify.py`. Documented deviations (pool accounts excluded, on-chain supply, bundle signal) can be turned off with `--faithful`.
 

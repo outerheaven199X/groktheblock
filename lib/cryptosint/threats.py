@@ -34,7 +34,8 @@ def detect_lp_removals(txs, mint, symbol):
         if not is_lp_tx(tx): continue
         gain = fee_payer_sol_gain(tx)
         if gain <= 0: continue
-        if not any(t["mint"] == mint for t in tx["tokenTransfers"]): continue
+        # liquidity withdrawal returns BOTH sides to the remover; a plain sell only gains SOL
+        if not any(t["mint"] == mint and t.get("toUserAccount") == tx["feePayer"] for t in tx["tokenTransfers"]): continue
         if gain < MIN_LP_REMOVAL_SOL: continue
         pct = estimate_lp_pct(gain)
         sev = "CRITICAL" if pct >= CRITICAL_LP_PCT else "HIGH" if pct >= HIGH_LP_PCT else "MEDIUM"

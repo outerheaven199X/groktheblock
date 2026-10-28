@@ -7,14 +7,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
 from cryptosint import history
 from cryptosint.cli import OUT
-from cryptosint.data import write_json, short
+from cryptosint.data import write_json, short, is_program_account
 
 
 def build(kind="SNIPER", top=25):
     rows = history.load_all()
     agg = defaultdict(list)
     for r in rows:
-        if r["classification"] == kind:
+        if r["classification"] == kind and not is_program_account(r["wallet"]):
             agg[r["wallet"]].append(r)
     entries = []
     for w, rs in agg.items():

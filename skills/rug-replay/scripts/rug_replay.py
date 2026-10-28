@@ -39,7 +39,8 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
     if not txs: raise SystemExit("No transactions found for this token")
     created, deployer = txs[0]["timestamp"], txs[0]["feePayer"]
     profiles = C.build_wallet_profiles(txs, mint, deployer)
-    pools = [p.address for p in sorted(profiles, key=lambda p: -p.txCount)[:15] if D.is_program_account(p.address)]
+    cand = {p.address for p in sorted(profiles, key=lambda p: -p.txCount)[:15]} | {p.address for p in sorted(profiles, key=lambda p: -p.totalBought)[:15]} | {p.address for p in profiles if p.firstBlock <= 3 or p.isFundedByDeployer}
+    pools = [a for a in cand if D.is_program_account(a)]
     profiles = [p for p in profiles if p.address not in pools]
     supply = meta.get("supply") or sum(max(0, p.currentHolding) for p in profiles)  # on-chain supply (deviation: original estimated from observed transfers)
     wallets = C.classify_all_wallets(profiles, supply)
@@ -51,7 +52,8 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
         if is_lp_tx(tx) and any(tr["mint"] == mint for tr in tx["tokenTransfers"]):
             g = fee_payer_sol_gain(tx)
             # original flags any positive SOL gain; we keep it but require >= 1 SOL to skip normal sells
-            if g >= 1 and tx["feePayer"] in (deployer,) + tuple(a for a, k in wtype.items() if k == "INSIDER"):
+            gets_tokens = any(tr["mint"] == mint and tr.get("toUserAccount") == tx["feePayer"] for tr in tx["tokenTransfers"])
+            if g >= 1 and gets_tokens and tx["feePayer"] in (deployer,) + tuple(a for a, k in wtype.items() if k == "INSIDER"):
                 ev.append({"timestamp": tx["timestamp"], "relativeTime": rel(tx["timestamp"], created), "type": "LP_REMOVE", "wallet": tx["feePayer"],
                            "walletType": wtype.get(tx["feePayer"], "ORGANIC"), "detail": f"LP removed — {g:.1f} SOL withdrawn by {D.short(tx['feePayer'])}", "amountSol": g, "signature": tx["signature"]})
         for tr in tx["tokenTransfers"]:
@@ -99,7 +101,7 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
             "walletBreakdown": C.count_types(wallets),
             "window": {"transactionsAnalyzed": len(txs), "reachedLaunch": t["reached_genesis"], "excludedProgramAccounts": pools},
             "notes": ["Loss/profit are realized SOL flows in the analyzed window (the original summed token-unit 'pnl', which is always ~0).",
-                      "LP_REMOVE = SOL gain >= 1 by deployer/insider in an AMM tx touching the mint; heuristic.", "Signals, not accusations."]}
+                      "LP_REMOVE = deployer/insider gains >= 1 SOL AND receives the token in the same AMM tx (both sides of the pool returned); heuristic.", "organicLossEstimateSol = net SOL spent by ORGANIC wallets in the window, including positions still open.", "Signals, not accusations."]}
 
 
 def main():

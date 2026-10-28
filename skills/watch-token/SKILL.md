@@ -10,7 +10,8 @@ description: Watch Solana tokens for whale buys and sells, moves by flagged insi
 3. Create a routine (read your `routines` skill first) that runs every 5 to 15 minutes:
    - Prompt: "cd <repo> && .venv/bin/python skills/watch-token/scripts/watch_token.py check. If it prints nothing, send nothing. Otherwise send me the alerts, grouped by token, with the Solscan links."
    - Alerts arrive minutes late, not in real time.
-4. `list` shows watched tokens, and `remove <mint>` stops watching one.
+4. Fast mode, webhook-free: `watch_token.py check --loop 600 --every 10` polls every 10s for 10 minutes (Helius recommended).
+5. `list` shows watched tokens, and `remove <mint>` stops watching one.
 
 ## Alerts
 - LARGE_BUY / WHALE_SELL: the SOL flow is at or above the threshold.

@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -156,6 +157,13 @@ def token_metadata(mint: str) -> dict:
     tm = rc.get("tokenMeta") or {}
     if meta["symbol"] == "???" and tm:
         meta["name"], meta["symbol"] = tm.get("name", "Unknown"), tm.get("symbol", "???")
+    if meta["symbol"] == "???" and has_helius():
+        try:  # Helius DAS getAsset, as in the original
+            a = rpc("getAsset", {"id": mint}, retries=2) or {}
+            md = (a.get("content") or {}).get("metadata") or {}
+            meta["name"], meta["symbol"] = md.get("name", "Unknown"), md.get("symbol", "???")
+        except Exception:
+            pass
     try:
         s = rpc("getTokenSupply", [mint])["value"]
         meta["supply"] = float(s["uiAmountString"])
@@ -271,15 +279,90 @@ def fetch_transactions(sigs: list[dict], limit: int, progress: bool = True) -> l
     return out
 
 
+# ---------------- Helius fast path ----------------
+
+_gtfa_ok = [None]  # None unknown, True works, False not on this plan
+
+
+def has_helius() -> bool:
+    return bool(os.environ.get("HELIUS_API_KEY"))
+
+
+def data_source() -> str:
+    if not has_helius():
+        return "public-rpc"
+    return "helius-gtfa" if _gtfa_ok[0] else "helius-rpc"
+
+
+def helius_gtfa(address: str, max_tx: int, sort: str = "asc") -> list[dict] | None:
+    """Helius getTransactionsForAddress (sortOrder asc = straight to launch, 100 full
+    txs per call). Returns None if the key's plan doesn't allow the method."""
+    if not has_helius() or _gtfa_ok[0] is False:
+        return None
+    key = f"gtfa:{address}:{max_tx}:{sort}"
+    hit = cache_get("gtfa", key, max_age=None if sort == "asc" else 30)
+    if hit is not None:
+        _gtfa_ok[0] = True
+        return hit
+    out, token = [], None
+    while len(out) < max_tx:
+        params = {"limit": min(100, max_tx - len(out)), "sortOrder": sort, "commitment": "confirmed",
+                  "encoding": "jsonParsed", "transactionDetails": "full", "maxSupportedTransactionVersion": 1}
+        if token:
+            params["paginationToken"] = token
+        try:
+            page = rpc("getTransactionsForAddress", [address, params], retries=3)
+        except RuntimeError as e:
+            msg = str(e).lower()
+            if any(x in msg for x in ("method", "plan", "not available", "upgrade", "-32601", "forbidden", "403")):
+                _gtfa_ok[0] = False
+                print("  Helius getTransactionsForAddress not available on this plan; falling back to signature walk", file=sys.stderr)
+                return None
+            raise
+        _gtfa_ok[0] = True
+        data = (page or {}).get("data") or []
+        for raw in data:
+            sig = raw["transaction"]["signatures"][0]
+            n = normalize_tx(raw, sig)
+            if n:
+                out.append(n)
+        token = (page or {}).get("paginationToken")
+        if not data or not token:
+            break
+    cache_put("gtfa", key, out)
+    return out
+
+
 def get_token_transactions(mint: str, max_tx: int = 300, max_sig_pages: int = 20) -> dict:
-    """Launch-window transactions for a token mint (oldest first)."""
-    sigs, genesis = get_signatures(mint, max_pages=max_sig_pages)
+    """Launch-window transactions for a token mint (oldest first).
+
+    Order of preference: Helius getTransactionsForAddress (asc, true launch on any
+    size coin) -> signature walk on Helius RPC (deep: 10x pages) -> public RPC walk."""
+    g = helius_gtfa(mint, max_tx, "asc")
+    if g:
+        return {"transactions": g, "reached_genesis": True, "signatures_seen": len(g), "source": "helius-gtfa"}
+    pages = max_sig_pages * 10 if has_helius() else max_sig_pages
+    sigs, genesis = get_signatures(mint, max_pages=pages)
     txs = fetch_transactions(sigs, max_tx)
-    return {"transactions": txs, "reached_genesis": genesis, "signatures_seen": len(sigs)}
+    return {"transactions": txs, "reached_genesis": genesis, "signatures_seen": len(sigs), "source": data_source()}
+
+
+def wallet_first_tx(addr: str, max_pages: int = 3) -> tuple[dict | None, bool]:
+    """(first normalized tx, complete?) via Helius asc if possible, else sig walk."""
+    g = helius_gtfa(addr, 1, "asc")
+    if g:
+        return g[0], True
+    sigs, genesis = get_signatures(addr, max_pages=max_pages * (10 if has_helius() else 1))
+    if not sigs or not genesis:
+        return None, genesis
+    return normalize_tx(get_transaction(sigs[0]["signature"]), sigs[0]["signature"]), True
 
 
 def get_wallet_transactions(wallet: str, max_tx: int = 200) -> list[dict]:
     """Most recent wallet transactions (newest page only), oldest first."""
+    g = helius_gtfa(wallet, max_tx, "desc")
+    if g:
+        return sorted(g, key=lambda t: t["slot"])
     sigs, _ = get_signatures(wallet, max_pages=1, page_size=max(max_tx, 50), newest_only=True)
     return fetch_transactions(sigs[-max_tx:], max_tx)
 

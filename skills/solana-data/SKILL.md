@@ -11,6 +11,12 @@ Every CryptOSINT script imports the shared library at `lib/cryptosint/` (repo ro
 2. Optional: `export HELIUS_API_KEY=...` for higher rate limits. Never ask the user to paste a key into chat. If they want one, have them set it in their own environment.
 3. Optional: `export SOLANA_RPC_URL=https://a,https://b` to use your own RPC list.
 
+## Data source order
+1. With `HELIUS_API_KEY` set: Helius `getTransactionsForAddress` with `sortOrder: asc`. This jumps straight to the launch of any coin, 100 full transactions per call (tested: Fartcoin launch, 740 days back, in one call). If the key's plan doesn't allow that method, it falls back automatically.
+2. A signature walk on Helius RPC, 10 times deeper than on public RPC.
+3. A signature walk on public RPC.
+Each scan's JSON records which one it used in `scanWindow.dataSource`. Never print or log the key. Errors never include the RPC URL.
+
 ## How it works
 - RPC calls go to `api.mainnet-beta.solana.com` first and fail over to `solana-rpc.publicnode.com` on 403, 413 ("data allowance"), 429, or 5xx errors.
 - Finalized transactions are cached forever under `cache/tx/`. Signature lists are cached for 2 minutes, and DexScreener and RugCheck responses for 5 to 10 minutes.

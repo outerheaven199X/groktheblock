@@ -58,8 +58,8 @@ def scan_wallet(w: str, max_tx=200) -> dict:
     sources = [{"address": a, "amountSol": round(v[0], 4), "timestamp": iso(v[1])} for a, v in sorted(src.items(), key=lambda x: -x[1][0])[:40] if not D.is_program_account(a)][:20]
     total = sum(t["pnlSol"] for t in tokens)
     wins = sum(1 for t in tokens if t["pnlSol"] > 0)
-    sigs, genesis = D.get_signatures(w, max_pages=3)
-    wallet_age = age(int(time.time()) - (sigs[0].get("blockTime") or 0)) if sigs and genesis else None
+    first, genesis = D.wallet_first_tx(w)
+    wallet_age = age(int(time.time()) - first["timestamp"]) if first else None
     prior = history.history_for(w)
     rep_hist = [{"classification": r["classification"], "entryBlock": 0} for r in prior] + \
                [{"classification": t["classification"], "entryBlock": t["entryBlock"]} for t in tokens]

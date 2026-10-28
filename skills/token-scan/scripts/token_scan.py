@@ -22,14 +22,12 @@ def age_str(sec: int) -> str:
 
 def wallet_origin(addr: str) -> dict:
     """Wallet age + first funder (oldest tx reachable within 3 sig pages)."""
-    sigs, genesis = D.get_signatures(addr, max_pages=3)
-    if not sigs:
-        return {}
-    first = sigs[0]
-    o = {"walletAge": age_str(int(time.time()) - (first.get("blockTime") or 0)) if genesis else None,
-         "historyComplete": genesis}
-    if genesis:
-        tx = D.normalize_tx(D.get_transaction(first["signature"]), first["signature"])
+    tx, genesis = D.wallet_first_tx(addr)
+    if not tx:
+        return {"historyComplete": genesis}
+    o = {"walletAge": age_str(int(time.time()) - (tx.get("timestamp") or 0)), "historyComplete": True,
+         "firstTxTimestamp": tx.get("timestamp")}
+    if True:
         for nt in (tx or {}).get("nativeTransfers", []):
             if nt["toUserAccount"] == addr:
                 o["firstFunder"], o["firstFundAmountSol"] = nt["fromUserAccount"], nt["amount"] / D.LAMPORTS_PER_SOL
@@ -52,8 +50,10 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
         # Deviation from original (documented): drop program-owned accounts such as the
         # pump.fun bonding curve / AMM vault authorities. Otherwise the pool itself is
         # labelled INSIDER ("FUNDED BY DEPLOYER", 80%+ supply) on every pump.fun token.
-        busiest = sorted(profiles, key=lambda p: -p.txCount)[:15]
-        for p in busiest:
+        cand = {p.address: p for p in sorted(profiles, key=lambda p: -p.txCount)[:15]}
+        cand.update({p.address: p for p in sorted(profiles, key=lambda p: -p.totalBought)[:15]})
+        cand.update({p.address: p for p in profiles if p.firstBlock <= 3 or p.isFundedByDeployer})
+        for p in cand.values():
             if D.is_program_account(p.address):
                 pools.append(p.address)
         profiles = [p for p in profiles if p.address not in pools]
@@ -92,17 +92,32 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
     # Extra signal (not in original classify.ts): same-slot-as-launch buyers. Bundled
     # launches buy in block 0 and dump within seconds, so the original rules end up
     # calling them ORGANIC once their holding is ~0.
-    blk0 = [p for p in profiles if p.firstBlock == 0 and p.totalBought > 0 and p.address != deployer]
+    first_slot = txs[0]["slot"]
+    launch_buy = {}
+    for tx in txs:
+        if tx["slot"] != first_slot:
+            break
+        for tr in tx["tokenTransfers"]:
+            if tr["mint"] == mint:
+                o = tr.get("toUserAccount") or tr.get("fromUserAccount")
+                launch_buy[o] = launch_buy.get(o, 0) + (tr["tokenAmount"] if tr.get("toUserAccount") else -tr["tokenAmount"])
+    # net position at end of the launch slot (a distributor wallet that hands tokens on nets ~0)
+    launch_buy = {k: v for k, v in launch_buy.items() if v > 0}
+    blk0 = [p for p in profiles if p.address in launch_buy and p.address != deployer]
     bundle = {"block0Buyers": len(blk0),
-              "block0SupplyBoughtPct": round(100 * sum(p.totalBought for p in blk0) / total_supply, 2) if total_supply else None,
-              "block0BuyersAlreadySoldPct": round(100 * sum(1 for p in blk0 if p.totalSold >= 0.9 * p.totalBought) / len(blk0)) if blk0 else 0,
-              "wallets": [p.address for p in sorted(blk0, key=lambda p: -p.totalBought)[:20]],
+              "block0SupplyBoughtPct": round(100 * sum(launch_buy[p.address] for p in blk0) / total_supply, 2) if total_supply else None,
+              "block0BuyersAlreadySoldPct": round(100 * sum(1 for p in blk0 if p.currentHolding <= 0.1 * launch_buy[p.address]) / len(blk0)) if blk0 else 0,
+              "wallets": [p.address for p in sorted(blk0, key=lambda p: -launch_buy[p.address])[:20]],
               "valid": bool(t["reached_genesis"]),
+              "severity": None,
               "note": "Wallets that bought in the launch slot. Only meaningful when reachedLaunch is true."}
     wallets.sort(key=lambda w: (ORDER[w["type"]], w["entryBlock"]))
     lps = lp.lp_status(mint)
     best = lps["pools"][0] if lps["pools"] else {}
     first_ts = txs[0]["timestamp"]
+    if bundle["valid"] and bundle["block0SupplyBoughtPct"] is not None:
+        pct = bundle["block0SupplyBoughtPct"]
+        bundle["severity"] = "CRITICAL" if pct >= 50 else "HIGH" if pct >= 25 else "MEDIUM" if pct >= 10 else "LOW"
     result = {
         "token": {"name": meta["name"], "symbol": meta["symbol"], "mint": mint,
                   "age": age_str(int(time.time()) - first_ts) if t["reached_genesis"] else "unknown (history beyond scan window)",
@@ -111,7 +126,7 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
         "organicScore": score, "counts": counts, "wallets": wallets[:50], "allWalletCount": len(wallets),
         "copyNetwork": copy_net or None, "bundleSignal": bundle, "verdict": verdict, "lpMonitor": lps,
         "scanWindow": {"transactionsAnalyzed": len(txs), "signaturesSeen": t["signatures_seen"],
-                       "reachedLaunch": t["reached_genesis"], "excludedProgramAccounts": pools,
+                       "reachedLaunch": t["reached_genesis"], "excludedProgramAccounts": pools, "dataSource": t.get("source"),
                        "firstTx": first_ts, "lastTx": txs[-1]["timestamp"],
                        "note": "Launch window only. If reachedLaunch is false, 'block 0' is the oldest tx we could reach, not the real launch, and INSIDER/SNIPER labels are unreliable."},
         "disclaimer": "Heuristic signals from public on-chain data, not accusations. Labels describe on-chain patterns, not intent.",
@@ -143,7 +158,7 @@ def main():
         print(f"  {w['type']:8} blk {w['entryBlock']:>4} tx {w['txCount']:>3} supply {w['supplyPercent']:5.1f}%  sol {w['solFlowEstimate']:+8.3f}  {D.short(w['address'])}  {w['tag'] or ''}")
     b = r["bundleSignal"]
     if b["valid"]:
-        print(f"Bundle signal: {b['block0Buyers']} wallets bought in the launch slot = {b['block0SupplyBoughtPct']}% of supply; {b['block0BuyersAlreadySoldPct']}% of them already sold out")
+        print(f"Bundle signal [{b['severity']}]: {b['block0Buyers']} wallets bought in the launch slot = {b['block0SupplyBoughtPct']}% of supply; {b['block0BuyersAlreadySoldPct']}% of them already sold out")
     print(f"Copy relationships: {len(r['copyNetwork'] or [])}\nJSON: {out}")
 
 
