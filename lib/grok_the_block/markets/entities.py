@@ -68,14 +68,16 @@ def relation(instrument: str | None, entity: str, source: str, text: str = "") -
         if source in ("equities", "options") and f"equities:{tick}" in ENTITIES.get(entity, {}).get("instruments", []):
             return "SAME_UNDERLYING"
     if source in ("polymarket", "kalshi"):
+        if _CONDITIONAL.search(text or ""):
+            return "RELATED_ACTIVITY"  # R6-05: a conditional contract is a different event from the unconditional one
         sp = settlement_spec(text)
         if sp and sp["referenceInstrument"] and sp["referenceInstrument"] in ENTITIES.get(entity, {}).get("instruments", []):
             return "SETTLES_ON_UNDERLYING"
-        if sp and sp["settlementMetric"] == "FED_FUNDS_TARGET" and entity == "fed-policy":
-            return "SAME_EVENT"  # the policy decision itself; not the 2Y yield
+        if sp and sp["settlementMetric"] in ("FED_FUNDS_TARGET", "FED_DECISION") and entity == "fed-policy":
+            return "SAME_EVENT"  # the policy decision itself (normalized meeting/outcome); not the 2Y yield
         if _LEVEL.search(text or ""):
             return "UNRESOLVED"  # a level/threshold question without an identifiable settlement variable (R5-04)
-        return "SAME_EVENT"  # candidate; prediction questions are further split by settlement/outcome in convergence
+        return "RELATED_ACTIVITY"  # R6-05: no normalized event id / settlement / outcome → never counted from an alias alone
     if source == "sec":
         return "DISCLOSURE_REACTION"
     return "UNRESOLVED"
@@ -86,12 +88,44 @@ _DATE = re.compile(r"\b(?:on|by|at|before|after|end of)\s+((?:jan|feb|mar|apr|ma
 _CCY = {"bitcoin": "BTC", "btc": "BTC", "ethereum": "ETH", "eth": "ETH", "ether": "ETH", "solana": "SOL", "sol": "SOL"}
 
 
+_MONTHS = {m: i + 1 for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+_CONDITIONAL = re.compile(r"^\s*if\b|\bconditional\b|\bgiven that\b|\bin the event that\b|\bprovided that\b", re.I)
+
+
+def _fed_decision(t: str) -> dict | None:
+    """R6-05: a normalized FOMC decision question: outcome (cut / hike / hold / no-cut / no-hike) at one meeting month."""
+    if not re.search(r"\b(fed|fomc|federal reserve)\b", t):
+        return None
+    m = re.search(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(20\d\d)\b", t)
+    if not m:
+        return None
+    neg = re.search(r"\b(not|no|won't|will not)\s+(cut|hike|raise|lower)", t)
+    if re.search(r"\b(cut|lower|decrease)s?\b", t):
+        out = "cut"
+    elif re.search(r"\b(hike|raise|increase)s?\b", t):
+        out = "hike"
+    elif re.search(r"\b(hold|pause|unchanged|no change|keep)\b", t):
+        out = "hold"
+    else:
+        return None
+    if neg:
+        out = "no-" + ("cut" if neg.group(2) in ("cut", "lower") else "hike")
+    date = f"{m.group(2)}-{_MONTHS[m.group(1)]:02d}"
+    return {"settlementMetric": "FED_DECISION", "referenceInstrument": None, "unit": "decision", "threshold": None, "polarity": None,
+            "outcome": out, "date": date, "eventInstance": f"FED_DECISION:{out}:{date}"}
+
+
 def settlement_spec(text: str) -> dict | None:
     """R5-04: an EXPLICIT normalized settlement spec for a price/level prediction question, or None when the text doesn't
     identify one specific instrument or economic variable. Fields: settlementMetric, referenceInstrument (None for a
     variable with no listed instrument, e.g. the Fed funds target), unit, threshold, polarity, date. Generic
     "above $X" phrasing about a company forecast is NOT a share-price settlement."""
     t = (text or "").lower()
+    if _CONDITIONAL.search(t):
+        return None  # a conditional contract settles on a different event than the unconditional one (R6-05)
+    fd = _fed_decision(t)
+    if fd and not re.search(r"\b(above|below|over|under)\b\s*\$?\d", t):
+        return fd
     pol = re.search(r"\b(above|over|at least|at or above|higher than|exceed|below|under|lower than|at or below)\b\s*" + _NUM, t)
     if not pol:
         return None

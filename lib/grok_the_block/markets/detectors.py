@@ -806,7 +806,8 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
             why = _eligible(s, now, window_s)
             rel = (s.get("relations") or {}).get(ent) or EN.relation(s.get("instrument"), ent, s["source"], s.get("title", ""))
             if why is None and rel not in EN.COUNTING and rel != "DISCLOSURE_REACTION":
-                why = f"relation {rel}: exposure, not the same underlying or event"
+                why = ("relation RELATED_ACTIVITY: prediction question without a normalized event, settlement or outcome; related activity only, not counted"
+                       if rel == "RELATED_ACTIVITY" else f"relation {rel}: exposure, not the same underlying or event")
             if why:
                 if s["source"] != "cross":
                     excluded.append({"key": s["key"], "reason": why, "relation": rel})
@@ -814,8 +815,19 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
             units.setdefault(_dep(s, ent, rel), []).append((s, rel))
         # prediction questions must agree on settlement and direction to count as one SAME_EVENT observation
         pk = f"prediction:{ent}"
+        inst = None
         if pk in units:
             ps = [x for x, _ in units[pk]]
+            specs = [EN.settlement_spec(x["title"]) for x in ps]
+            insts = {(sp or {}).get("eventInstance") or (f"{sp['settlementMetric']}:{sp.get('polarity')}{sp.get('threshold')}:{sp.get('date')}" if sp else None) for sp in specs}
+            if len(insts) > 1:  # R6-05: two different normalized event instances (meeting dates, outcomes) are never one event
+                for x in ps:
+                    excluded.append({"key": x["key"], "reason": "prediction questions settle on different outcomes or meetings (normalized instances " + " vs ".join(sorted(str(i) for i in insts)) + "); not one event", "relation": "UNRESOLVED"})
+                del units[pk]
+                ps = []
+            elif insts and None not in insts:
+                inst = f"{ent}:{next(iter(insts))}"
+        if pk in units:
             terms = {settlement_terms(x["title"]) for x in ps}
             outs = {outcome_terms(x["title"]) for x in ps}
             dirs = {_direction(x) for x in ps} - {0}
@@ -886,7 +898,7 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
                                     "granularity": (r["s"].get("observation") or {}).get("granularity"), "fastEligible": (r["s"].get("observation") or {}).get("fastEligible"),
                                     "temporalCertainty": cert[r["s"]["key"]], "availableBasis": ((r["s"].get("observation") or {}).get("timeBasis") or {}).get("available")}
                                    for f, r in reps.items()],
-                  "excluded": excluded, "memberKeys": [r["s"]["key"] for r in R],
+                  "excluded": excluded, "memberKeys": [r["s"]["key"] for r in R], "eventInstance": inst,
                   "chain": [{"key": c["key"], "source": c["source"], "family": c["family"], "severity": c["severity"], "basis": c["basis"],
                              "title": c["title"], "availableTime": T.iso(c["when"]), "when": c["when"],
                              "url": (c["evidence"] or [{"url": c["subject"]["url"]}])[0]["url"]} for c in chain[:10]]},

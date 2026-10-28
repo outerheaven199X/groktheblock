@@ -38,7 +38,7 @@ Terms URLs are where the terms were expected to be found when this was written. 
 - `examples/signals-EXAMPLE.json` and `docs/signals-*.png`: generated from synthetic inputs (`tests/fixtures/contracts/make_example.py`), with `"synthetic": true` and a `[SYNTHETIC]` prefix on every title. Hashes: `docs/screenshots-provenance.json`.
 - Real responses saved for developer verification live only in `tests/fixtures/private/` (gitignored, never committed); `tests/test_private_fixtures.py` runs on them locally and prints SKIPPED elsewhere.
 - `tests/test_round5.py::test_R5_02_static_scan_*` fails if a tracked file carries a recognisable vendor payload shape without the synthetic marker.
-- Not yet converted (open): the on-chain token scan examples (`examples/scan-*.json`, `wallet-*`, `replay-*`, `watch-*`, `shill-*`, `leaderboard-*`, `threats-sample.json`) and their screenshots (`docs/ui-*.png`, `docs/graph-*.png`, `docs/verification/`). They're derived from public on-chain data via the token-tool providers in the last rows; their basis is unverified like every other row.
+- On-chain token examples (`examples/scan-*`, `wallet-*`, `replay-*`, `watch-*`, `shill-*`, `leaderboard-*`, `threats-sample.json`): **synthetic** since round 6 (`tools/synthesize_onchain.py`; real originals only in gitignored `tests/fixtures/private/onchain/`). Every image in the tree is rendered from synthetic examples. `docs/verification/` evidence files were removed from the tree. Every public asset is classified in `docs/assets-manifest.json` (sha256, source, status); `tests/test_round6.py` fails on an unclassified or changed asset.
 - Git history still contains the earlier real payloads (see `docs/review/ROUND5-RESULTS.md`); history was not rewritten.
 
 ## Open questions for review

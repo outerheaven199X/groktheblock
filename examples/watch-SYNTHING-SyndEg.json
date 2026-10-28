@@ -1,0 +1,1501 @@
+{
+ "kind": "watch",
+ "token": {
+  "symbol": "SYNTHING",
+  "mint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq"
+ },
+ "checkedAt": 1790583653,
+ "status": "ok",
+ "previousSuccessfulScanAt": 1790583546,
+ "snapshot": {
+  "at": 1790583653,
+  "verdict": "CRITICAL",
+  "organicScore": 82,
+  "bundleSeverity": "CRITICAL",
+  "bundlePct": 81.5364,
+  "liquidityUsd": 102845.6754,
+  "mcap": 1573559,
+  "mintAuthority": false,
+  "freezeAuthority": false,
+  "lpLockedPct": 100,
+  "risks": [],
+  "insiders": 18
+ },
+ "alerts": [
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.6617,
+   "timestamp": 1790583615,
+   "signature": "Syn798rxcUZ3KtK6Gps2bXpzqpBhG31Ro143tYfeAib9z8RQ4LCxJW3qiDhNqcQzYhFWsbuNH1xP3Ejz4H8aYLu",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn798rxcUZ3KtK6Gps2bXpzqpBhG31Ro143tYfeAib9z8RQ4LCxJW3qiDhNqcQzYhFWsbuNH1xP3Ejz4H8aYLu",
+   "key": "WHALE_SELL:Syn798rxcUZ3KtK6Gps2bXpzqpBhG31Ro143tYfeAib9z8RQ4LCxJW3qiDhNqcQzYhFWsbuNH1xP3Ejz4H8aYLu:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn798rxcUZ3KtK6Gps2bXpzqpBhG31Ro143tYfeAib9z8RQ4LCxJW3qiDhNqcQzYhFWsbuNH1xP3Ejz4H8aYLu"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.66 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.71477,
+   "timestamp": 1790583616,
+   "signature": "SynMUkFYr7SG49M5Qnm2xsT79fuBL4t423QK6BmWXgNYm3cfQJT18i594TH6ftohjjVBwH91EcKTFWNSjf7haMs",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynMUkFYr7SG49M5Qnm2xsT79fuBL4t423QK6BmWXgNYm3cfQJT18i594TH6ftohjjVBwH91EcKTFWNSjf7haMs",
+   "key": "WHALE_SELL:SynMUkFYr7SG49M5Qnm2xsT79fuBL4t423QK6BmWXgNYm3cfQJT18i594TH6ftohjjVBwH91EcKTFWNSjf7haMs:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynMUkFYr7SG49M5Qnm2xsT79fuBL4t423QK6BmWXgNYm3cfQJT18i594TH6ftohjjVBwH91EcKTFWNSjf7haMs"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.71 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.11621,
+   "timestamp": 1790583617,
+   "signature": "Synq7fniQnWinTPu6d4aMPVyvPeDyQDJUXmB6k6uNAhya84UqHoiFdPtgcDSqjd4qQhNqD3LEaqkQDWo7RCDa7c9",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synq7fniQnWinTPu6d4aMPVyvPeDyQDJUXmB6k6uNAhya84UqHoiFdPtgcDSqjd4qQhNqD3LEaqkQDWo7RCDa7c9",
+   "key": "LARGE_BUY:Synq7fniQnWinTPu6d4aMPVyvPeDyQDJUXmB6k6uNAhya84UqHoiFdPtgcDSqjd4qQhNqD3LEaqkQDWo7RCDa7c9:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synq7fniQnWinTPu6d4aMPVyvPeDyQDJUXmB6k6uNAhya84UqHoiFdPtgcDSqjd4qQhNqD3LEaqkQDWo7RCDa7c9"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 1.11 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynVH1Lgw5D8V1XKnU6hu9Se2fsGRPpFpJ27RkqB1FnF",
+   "walletType": null,
+   "amountSol": 0.87609,
+   "timestamp": 1790583618,
+   "signature": "Syn4zFhCyn4TatGPQ9mP19ShhMkkBAUEJLaoD6N8S3Bo6MqR3CWziWLceBj8J3TCqzM45idsgup8J7uiNjkCTk2F",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4zFhCyn4TatGPQ9mP19ShhMkkBAUEJLaoD6N8S3Bo6MqR3CWziWLceBj8J3TCqzM45idsgup8J7uiNjkCTk2F",
+   "key": "LARGE_BUY:Syn4zFhCyn4TatGPQ9mP19ShhMkkBAUEJLaoD6N8S3Bo6MqR3CWziWLceBj8J3TCqzM45idsgup8J7uiNjkCTk2F:SynVH1Lgw5D8V1XKnU6hu9Se2fsGRPpFpJ27RkqB1FnF",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4zFhCyn4TatGPQ9mP19ShhMkkBAUEJLaoD6N8S3Bo6MqR3CWziWLceBj8J3TCqzM45idsgup8J7uiNjkCTk2F"
+    },
+    {
+     "label": "SynV...1FnF",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynVH1Lgw5D8V1XKnU6hu9Se2fsGRPpFpJ27RkqB1FnF"
+    }
+   ],
+   "detail": "SynV...1FnF bought with 0.88 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3",
+   "walletType": null,
+   "amountSol": 1.25454,
+   "timestamp": 1790583619,
+   "signature": "SynPCNhJE1GYUmE1xJUyH2rnwsDVwELWFX4r4QLnJEbSfJf14V4XZf55uoBHcMUhCaZNPWwLrV2Qq4xQStThYCfH",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynPCNhJE1GYUmE1xJUyH2rnwsDVwELWFX4r4QLnJEbSfJf14V4XZf55uoBHcMUhCaZNPWwLrV2Qq4xQStThYCfH",
+   "key": "LARGE_BUY:SynPCNhJE1GYUmE1xJUyH2rnwsDVwELWFX4r4QLnJEbSfJf14V4XZf55uoBHcMUhCaZNPWwLrV2Qq4xQStThYCfH:Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynPCNhJE1GYUmE1xJUyH2rnwsDVwELWFX4r4QLnJEbSfJf14V4XZf55uoBHcMUhCaZNPWwLrV2Qq4xQStThYCfH"
+    },
+    {
+     "label": "Syni...D4r3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3"
+    }
+   ],
+   "detail": "Syni...D4r3 bought with 1.25 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3",
+   "walletType": null,
+   "amountSol": 0.87696,
+   "timestamp": 1790583619,
+   "signature": "SynCzArcC6SKTcdtT5XAeosUHJeGv7e58VsN9FB6hgmwLRhY21L62rogGDTqw8FdtwbjiXiYo5632aR2NjbELyGD",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynCzArcC6SKTcdtT5XAeosUHJeGv7e58VsN9FB6hgmwLRhY21L62rogGDTqw8FdtwbjiXiYo5632aR2NjbELyGD",
+   "key": "LARGE_BUY:SynCzArcC6SKTcdtT5XAeosUHJeGv7e58VsN9FB6hgmwLRhY21L62rogGDTqw8FdtwbjiXiYo5632aR2NjbELyGD:Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynCzArcC6SKTcdtT5XAeosUHJeGv7e58VsN9FB6hgmwLRhY21L62rogGDTqw8FdtwbjiXiYo5632aR2NjbELyGD"
+    },
+    {
+     "label": "Syni...D4r3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syni5jHBJbFLZKmi1AdDiDQSPnwSyBBf89jFEhb8D4r3"
+    }
+   ],
+   "detail": "Syni...D4r3 bought with 0.88 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.47465,
+   "timestamp": 1790583621,
+   "signature": "SynWwdFNVh7hVL7712ESfzSGXsenHdzJ6AFttk83t97ofjfPMK3MHbg37VzzPXHPBPFdFBFijs9jE11fuMLQDyqK",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynWwdFNVh7hVL7712ESfzSGXsenHdzJ6AFttk83t97ofjfPMK3MHbg37VzzPXHPBPFdFBFijs9jE11fuMLQDyqK",
+   "key": "WHALE_SELL:SynWwdFNVh7hVL7712ESfzSGXsenHdzJ6AFttk83t97ofjfPMK3MHbg37VzzPXHPBPFdFBFijs9jE11fuMLQDyqK:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynWwdFNVh7hVL7712ESfzSGXsenHdzJ6AFttk83t97ofjfPMK3MHbg37VzzPXHPBPFdFBFijs9jE11fuMLQDyqK"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.48 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.5834,
+   "timestamp": 1790583621,
+   "signature": "SyniCVwBVytBRtNvKTw6GZb6ibSCYeFU9j8TwcfF3FKS1huHPTLENiu1Rb6GGMyLyDgGrB5j79PoPtDrjCSEPGa2",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SyniCVwBVytBRtNvKTw6GZb6ibSCYeFU9j8TwcfF3FKS1huHPTLENiu1Rb6GGMyLyDgGrB5j79PoPtDrjCSEPGa2",
+   "key": "WHALE_SELL:SyniCVwBVytBRtNvKTw6GZb6ibSCYeFU9j8TwcfF3FKS1huHPTLENiu1Rb6GGMyLyDgGrB5j79PoPtDrjCSEPGa2:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SyniCVwBVytBRtNvKTw6GZb6ibSCYeFU9j8TwcfF3FKS1huHPTLENiu1Rb6GGMyLyDgGrB5j79PoPtDrjCSEPGa2"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.58 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.30935,
+   "timestamp": 1790583622,
+   "signature": "Synmcd6g7maHTCNC7syYqfuGvx8JQF6prmcU1rmYX3GTQFTKpiqEzA9KVhr8DZFw2GuYjSpaHyvRV9xZaSd5KBiD",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synmcd6g7maHTCNC7syYqfuGvx8JQF6prmcU1rmYX3GTQFTKpiqEzA9KVhr8DZFw2GuYjSpaHyvRV9xZaSd5KBiD",
+   "key": "WHALE_SELL:Synmcd6g7maHTCNC7syYqfuGvx8JQF6prmcU1rmYX3GTQFTKpiqEzA9KVhr8DZFw2GuYjSpaHyvRV9xZaSd5KBiD:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synmcd6g7maHTCNC7syYqfuGvx8JQF6prmcU1rmYX3GTQFTKpiqEzA9KVhr8DZFw2GuYjSpaHyvRV9xZaSd5KBiD"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.30 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 2.43426,
+   "timestamp": 1790583622,
+   "signature": "Syn38jAqBbsom2CP5z381aoydqjvtAZcomw5b57L9BmokZfQaT88K8DkQ5LE3e4Zv1yCF96A26Tn9feFEXKAaRd5",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn38jAqBbsom2CP5z381aoydqjvtAZcomw5b57L9BmokZfQaT88K8DkQ5LE3e4Zv1yCF96A26Tn9feFEXKAaRd5",
+   "key": "LARGE_BUY:Syn38jAqBbsom2CP5z381aoydqjvtAZcomw5b57L9BmokZfQaT88K8DkQ5LE3e4Zv1yCF96A26Tn9feFEXKAaRd5:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn38jAqBbsom2CP5z381aoydqjvtAZcomw5b57L9BmokZfQaT88K8DkQ5LE3e4Zv1yCF96A26Tn9feFEXKAaRd5"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 2.44 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.47813,
+   "timestamp": 1790583623,
+   "signature": "SynDRVeHEELd34C6TcMFTFWScRnqDXRRMegD1xRMFTa7wC1YCP5Usf6RP6m19Y1MhKYHoFMBNgC5YXQ3CmgadYw9",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynDRVeHEELd34C6TcMFTFWScRnqDXRRMegD1xRMFTa7wC1YCP5Usf6RP6m19Y1MhKYHoFMBNgC5YXQ3CmgadYw9",
+   "key": "WHALE_SELL:SynDRVeHEELd34C6TcMFTFWScRnqDXRRMegD1xRMFTa7wC1YCP5Usf6RP6m19Y1MhKYHoFMBNgC5YXQ3CmgadYw9:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynDRVeHEELd34C6TcMFTFWScRnqDXRRMegD1xRMFTa7wC1YCP5Usf6RP6m19Y1MhKYHoFMBNgC5YXQ3CmgadYw9"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.48 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.41723,
+   "timestamp": 1790583624,
+   "signature": "SynpC3Smhs2FmTHrRsiZupv4cjzQos7WYHFhNnr3rhp6engWKHt7HwDqbGAHfiRceJzE11pYJospWVai2222sG8c",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynpC3Smhs2FmTHrRsiZupv4cjzQos7WYHFhNnr3rhp6engWKHt7HwDqbGAHfiRceJzE11pYJospWVai2222sG8c",
+   "key": "LARGE_BUY:SynpC3Smhs2FmTHrRsiZupv4cjzQos7WYHFhNnr3rhp6engWKHt7HwDqbGAHfiRceJzE11pYJospWVai2222sG8c:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynpC3Smhs2FmTHrRsiZupv4cjzQos7WYHFhNnr3rhp6engWKHt7HwDqbGAHfiRceJzE11pYJospWVai2222sG8c"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 1.42 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 0.90567,
+   "timestamp": 1790583625,
+   "signature": "Syn1BTGuQycWnP9sszD88is8S6zbpsfWxUHNGFFLy3HULpVZmG4YAYviybT2t853rcfpHaNQCQcHquWH6De8oQw",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1BTGuQycWnP9sszD88is8S6zbpsfWxUHNGFFLy3HULpVZmG4YAYviybT2t853rcfpHaNQCQcHquWH6De8oQw",
+   "key": "LARGE_BUY:Syn1BTGuQycWnP9sszD88is8S6zbpsfWxUHNGFFLy3HULpVZmG4YAYviybT2t853rcfpHaNQCQcHquWH6De8oQw:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1BTGuQycWnP9sszD88is8S6zbpsfWxUHNGFFLy3HULpVZmG4YAYviybT2t853rcfpHaNQCQcHquWH6De8oQw"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 0.90 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 0.91437,
+   "timestamp": 1790583625,
+   "signature": "SynbBzbhzc3JEeYXGhc5ZXDFej3b6SJLve236HzhyGVDrLHTzojCHvsNnKJ6jvXo2MsQNjLJBfhDMzPmSCFs4L4L",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynbBzbhzc3JEeYXGhc5ZXDFej3b6SJLve236HzhyGVDrLHTzojCHvsNnKJ6jvXo2MsQNjLJBfhDMzPmSCFs4L4L",
+   "key": "LARGE_BUY:SynbBzbhzc3JEeYXGhc5ZXDFej3b6SJLve236HzhyGVDrLHTzojCHvsNnKJ6jvXo2MsQNjLJBfhDMzPmSCFs4L4L:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynbBzbhzc3JEeYXGhc5ZXDFej3b6SJLve236HzhyGVDrLHTzojCHvsNnKJ6jvXo2MsQNjLJBfhDMzPmSCFs4L4L"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 0.91 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synv8fjXv2X9LxEpb4fT9zm7dPG7n9p7SWJ4DmCqDvL9",
+   "walletType": null,
+   "amountSol": 2.85534,
+   "timestamp": 1790583626,
+   "signature": "Syn6CvCUyGHqAAckdHWSLJVJLLHrfyFsH4Xi4infgNZRGhKBWSr4HNL4BgbgYbWaZ96rAJMFfCTBJjuGDu2PwLnv",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn6CvCUyGHqAAckdHWSLJVJLLHrfyFsH4Xi4infgNZRGhKBWSr4HNL4BgbgYbWaZ96rAJMFfCTBJjuGDu2PwLnv",
+   "key": "LARGE_BUY:Syn6CvCUyGHqAAckdHWSLJVJLLHrfyFsH4Xi4infgNZRGhKBWSr4HNL4BgbgYbWaZ96rAJMFfCTBJjuGDu2PwLnv:Synv8fjXv2X9LxEpb4fT9zm7dPG7n9p7SWJ4DmCqDvL9",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn6CvCUyGHqAAckdHWSLJVJLLHrfyFsH4Xi4infgNZRGhKBWSr4HNL4BgbgYbWaZ96rAJMFfCTBJjuGDu2PwLnv"
+    },
+    {
+     "label": "Synv...DvL9",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synv8fjXv2X9LxEpb4fT9zm7dPG7n9p7SWJ4DmCqDvL9"
+    }
+   ],
+   "detail": "Synv...DvL9 bought with 2.85 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.63038,
+   "timestamp": 1790583626,
+   "signature": "SynEQynjYi5tCBZDjyQoyfshz72QVpJPKRVFLTLxAGChGh76EYdkg6s2PmXQt1VxiAaT78Lx2w9SPLEJ94iU4BLh",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynEQynjYi5tCBZDjyQoyfshz72QVpJPKRVFLTLxAGChGh76EYdkg6s2PmXQt1VxiAaT78Lx2w9SPLEJ94iU4BLh",
+   "key": "WHALE_SELL:SynEQynjYi5tCBZDjyQoyfshz72QVpJPKRVFLTLxAGChGh76EYdkg6s2PmXQt1VxiAaT78Lx2w9SPLEJ94iU4BLh:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynEQynjYi5tCBZDjyQoyfshz72QVpJPKRVFLTLxAGChGh76EYdkg6s2PmXQt1VxiAaT78Lx2w9SPLEJ94iU4BLh"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.63 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.67301,
+   "timestamp": 1790583627,
+   "signature": "Synxkb9dy1hbPVXxyAaiax5vzVhfgkarnmy25ph79R3EXZsDgNv55DpFMqwv5NTSCTXcHcQQ9uy7VoBEtdgQiyfx",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synxkb9dy1hbPVXxyAaiax5vzVhfgkarnmy25ph79R3EXZsDgNv55DpFMqwv5NTSCTXcHcQQ9uy7VoBEtdgQiyfx",
+   "key": "WHALE_SELL:Synxkb9dy1hbPVXxyAaiax5vzVhfgkarnmy25ph79R3EXZsDgNv55DpFMqwv5NTSCTXcHcQQ9uy7VoBEtdgQiyfx:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synxkb9dy1hbPVXxyAaiax5vzVhfgkarnmy25ph79R3EXZsDgNv55DpFMqwv5NTSCTXcHcQQ9uy7VoBEtdgQiyfx"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.67 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 2.3142,
+   "timestamp": 1790583627,
+   "signature": "Syni9W5MFZqJBi9iM849KqXbbLPz7gFeC1GYFgemF5NgRhFD4iA5PnEpqeDY521jrChFUMCEYd6U6aZMiFMQFcf",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syni9W5MFZqJBi9iM849KqXbbLPz7gFeC1GYFgemF5NgRhFD4iA5PnEpqeDY521jrChFUMCEYd6U6aZMiFMQFcf",
+   "key": "LARGE_BUY:Syni9W5MFZqJBi9iM849KqXbbLPz7gFeC1GYFgemF5NgRhFD4iA5PnEpqeDY521jrChFUMCEYd6U6aZMiFMQFcf:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syni9W5MFZqJBi9iM849KqXbbLPz7gFeC1GYFgemF5NgRhFD4iA5PnEpqeDY521jrChFUMCEYd6U6aZMiFMQFcf"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR bought with 2.31 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn1qqiDgbjUNgCEPukC9C15D3ZEFNNM7S9vFspQK6QT",
+   "walletType": null,
+   "amountSol": 0.96483,
+   "timestamp": 1790583628,
+   "signature": "SynkQigfvojhENEQn9LVBxQxm8Ek8sedAm128CBqjjHPqG7h7XCQxQ7oJrXUwBta9LsH8G6byAqQgRzw41BSsHia",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynkQigfvojhENEQn9LVBxQxm8Ek8sedAm128CBqjjHPqG7h7XCQxQ7oJrXUwBta9LsH8G6byAqQgRzw41BSsHia",
+   "key": "LARGE_BUY:SynkQigfvojhENEQn9LVBxQxm8Ek8sedAm128CBqjjHPqG7h7XCQxQ7oJrXUwBta9LsH8G6byAqQgRzw41BSsHia:Syn1qqiDgbjUNgCEPukC9C15D3ZEFNNM7S9vFspQK6QT",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynkQigfvojhENEQn9LVBxQxm8Ek8sedAm128CBqjjHPqG7h7XCQxQ7oJrXUwBta9LsH8G6byAqQgRzw41BSsHia"
+    },
+    {
+     "label": "Syn1...K6QT",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn1qqiDgbjUNgCEPukC9C15D3ZEFNNM7S9vFspQK6QT"
+    }
+   ],
+   "detail": "Syn1...K6QT bought with 0.97 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.44594,
+   "timestamp": 1790583628,
+   "signature": "SynqDQzd3Cvu83WFReN3Js1pAHFwsppsqYe3Ypm6HEfYKUM4W6P6GFR9XgfCHEi72bAWw2Bjjac5a8cSX14aqbG",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynqDQzd3Cvu83WFReN3Js1pAHFwsppsqYe3Ypm6HEfYKUM4W6P6GFR9XgfCHEi72bAWw2Bjjac5a8cSX14aqbG",
+   "key": "WHALE_SELL:SynqDQzd3Cvu83WFReN3Js1pAHFwsppsqYe3Ypm6HEfYKUM4W6P6GFR9XgfCHEi72bAWw2Bjjac5a8cSX14aqbG:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynqDQzd3Cvu83WFReN3Js1pAHFwsppsqYe3Ypm6HEfYKUM4W6P6GFR9XgfCHEi72bAWw2Bjjac5a8cSX14aqbG"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.44 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 0.96396,
+   "timestamp": 1790583629,
+   "signature": "SynBx3nDCBG7D2yBTH9MbaCgS1maLLdcfu3f9iiDwuoqRdaK76iEp46c1bFCxYEkHuCkiTnbq22BwxLYVhdhLb1D",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynBx3nDCBG7D2yBTH9MbaCgS1maLLdcfu3f9iiDwuoqRdaK76iEp46c1bFCxYEkHuCkiTnbq22BwxLYVhdhLb1D",
+   "key": "WHALE_SELL:SynBx3nDCBG7D2yBTH9MbaCgS1maLLdcfu3f9iiDwuoqRdaK76iEp46c1bFCxYEkHuCkiTnbq22BwxLYVhdhLb1D:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynBx3nDCBG7D2yBTH9MbaCgS1maLLdcfu3f9iiDwuoqRdaK76iEp46c1bFCxYEkHuCkiTnbq22BwxLYVhdhLb1D"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 0.97 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.28934,
+   "timestamp": 1790583629,
+   "signature": "Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP",
+   "key": "WHALE_SELL:Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.29 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 0.93699,
+   "timestamp": 1790583630,
+   "signature": "SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs",
+   "key": "WHALE_SELL:SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 0.94 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG",
+   "walletType": null,
+   "amountSol": 0.91611,
+   "timestamp": 1790583631,
+   "signature": "SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6",
+   "key": "WHALE_SELL:SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6:Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6"
+    },
+    {
+     "label": "Syno...CfyG",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG"
+    }
+   ],
+   "detail": "Syno...CfyG sold for 0.91 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8",
+   "walletType": null,
+   "amountSol": 2.08365,
+   "timestamp": 1790583632,
+   "signature": "Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ",
+   "key": "LARGE_BUY:Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ:SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ"
+    },
+    {
+     "label": "SynC...4MM8",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8"
+    }
+   ],
+   "detail": "SynC...4MM8 bought with 2.08 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi",
+   "walletType": null,
+   "amountSol": 1.56078,
+   "timestamp": 1790583632,
+   "signature": "SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp",
+   "key": "WHALE_SELL:SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp:Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp"
+    },
+    {
+     "label": "Syn5...SzVi",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi"
+    }
+   ],
+   "detail": "Syn5...SzVi sold for 1.56 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut",
+   "walletType": null,
+   "amountSol": 0.8787,
+   "timestamp": 1790583633,
+   "signature": "SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc",
+   "key": "WHALE_SELL:SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc:SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc"
+    },
+    {
+     "label": "Synx...wcut",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut"
+    }
+   ],
+   "detail": "Synx...wcut sold for 0.88 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "walletType": null,
+   "amountSol": 1.05792,
+   "timestamp": 1790583633,
+   "signature": "SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ",
+   "key": "WHALE_SELL:SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ:Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ"
+    },
+    {
+     "label": "Syn7...E7nY",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY"
+    }
+   ],
+   "detail": "Syn7...E7nY sold for 1.06 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc",
+   "walletType": null,
+   "amountSol": 0.89001,
+   "timestamp": 1790583633,
+   "signature": "SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o",
+   "key": "WHALE_SELL:SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o:SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o"
+    },
+    {
+     "label": "SynB...Pvtc",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc"
+    }
+   ],
+   "detail": "SynB...Pvtc sold for 0.89 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "walletType": null,
+   "amountSol": 1.01355,
+   "timestamp": 1790583634,
+   "signature": "Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5",
+   "key": "LARGE_BUY:Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5:Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5"
+    },
+    {
+     "label": "Syn7...E7nY",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY"
+    }
+   ],
+   "detail": "Syn7...E7nY bought with 1.01 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp",
+   "walletType": null,
+   "amountSol": 1.14492,
+   "timestamp": 1790583634,
+   "signature": "SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn",
+   "key": "LARGE_BUY:SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn:SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn"
+    },
+    {
+     "label": "SynW...Evkp",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp"
+    }
+   ],
+   "detail": "SynW...Evkp bought with 1.15 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.1745,
+   "timestamp": 1790583635,
+   "signature": "SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH",
+   "key": "WHALE_SELL:SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.17 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.67214,
+   "timestamp": 1790583635,
+   "signature": "Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn",
+   "key": "WHALE_SELL:Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.67 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 2.04015,
+   "timestamp": 1790583636,
+   "signature": "SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU",
+   "key": "LARGE_BUY:SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 bought with 2.04 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.1832,
+   "timestamp": 1790583636,
+   "signature": "Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB",
+   "key": "WHALE_SELL:Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.18 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.07619,
+   "timestamp": 1790583637,
+   "signature": "SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD",
+   "key": "WHALE_SELL:SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.08 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.06488,
+   "timestamp": 1790583637,
+   "signature": "SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W",
+   "key": "WHALE_SELL:SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih sold for 1.06 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.17711,
+   "timestamp": 1790583639,
+   "signature": "SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq",
+   "key": "LARGE_BUY:SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih bought with 1.17 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd",
+   "walletType": null,
+   "amountSol": 1.08228,
+   "timestamp": 1790583639,
+   "signature": "Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL",
+   "key": "LARGE_BUY:Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL:SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL"
+    },
+    {
+     "label": "Sync...yLbd",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd"
+    }
+   ],
+   "detail": "Sync...yLbd bought with 1.08 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9",
+   "walletType": null,
+   "amountSol": 2.02971,
+   "timestamp": 1790583640,
+   "signature": "Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt",
+   "key": "LARGE_BUY:Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt:SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt"
+    },
+    {
+     "label": "SynX...4jt9",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9"
+    }
+   ],
+   "detail": "SynX...4jt9 bought with 2.03 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.11186,
+   "timestamp": 1790583640,
+   "signature": "Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM",
+   "key": "WHALE_SELL:Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih sold for 1.11 SOL"
+  }
+ ],
+ "suppressedDuplicates": 0,
+ "recentAlerts": [
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 1.28934,
+   "timestamp": 1790583629,
+   "signature": "Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP",
+   "key": "WHALE_SELL:Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn89QspTwDFpVSz8c5jKR1otqFNxBdALQEYMPBdtDgEt5of1DnETPR2EgMhs7WQ5Z7aRPHJXPGVedLHPg1B7nP"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 1.29 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "walletType": null,
+   "amountSol": 0.93699,
+   "timestamp": 1790583630,
+   "signature": "SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs",
+   "key": "WHALE_SELL:SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs:Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynX4RXhAUnrKmW53rXH3DYYsBrZksW8m1SmfJq39gSQZpiFeL5Ksjw3QCLCTS97nDMVv6g9PW1XUDdPbCT15Zbs"
+    },
+    {
+     "label": "Synm...WyGR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synm6EiPp2UM7mULUxBH849DAddHYQxYbNHFoTEBWyGR"
+    }
+   ],
+   "detail": "Synm...WyGR sold for 0.94 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG",
+   "walletType": null,
+   "amountSol": 0.91611,
+   "timestamp": 1790583631,
+   "signature": "SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6",
+   "key": "WHALE_SELL:SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6:Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynC7ph7ESBPAgbLaU8sxnMxzxKJnDCYjSfFWaW55HWmvY4jL6C11DRCFguGzJxus7wA6E5rALaBsDsZgMJhbCn6"
+    },
+    {
+     "label": "Syno...CfyG",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syno8gkgH8aTwvDHNopGYUZdSt84ERxoHJDwtnBCCfyG"
+    }
+   ],
+   "detail": "Syno...CfyG sold for 0.91 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8",
+   "walletType": null,
+   "amountSol": 2.08365,
+   "timestamp": 1790583632,
+   "signature": "Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ",
+   "key": "LARGE_BUY:Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ:SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn4oBP3hHBLSpBnKXv9tLPiydYxH65CKvmHCFkg1Kyr2zvLniAm45F6NHVQPMDWFYD5fer3ovAsTDu1Z4qR4pUJ"
+    },
+    {
+     "label": "SynC...4MM8",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynCyKNJpALPKW9P3gPL736t6ukgbe8sXsdpC4iL4MM8"
+    }
+   ],
+   "detail": "SynC...4MM8 bought with 2.08 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi",
+   "walletType": null,
+   "amountSol": 1.56078,
+   "timestamp": 1790583632,
+   "signature": "SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp",
+   "key": "WHALE_SELL:SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp:Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynkaGfYfeBdJT1mPMrH62kppLBv1SmYwkdR7UwdsAsD5DYND5QmF195XEstz4h1wHJAqZmcd42Y3ULNoJ6uGSp"
+    },
+    {
+     "label": "Syn5...SzVi",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn5hWmeV25cGDZH9PmKjNdqVzSegR38h8f5He7mSzVi"
+    }
+   ],
+   "detail": "Syn5...SzVi sold for 1.56 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut",
+   "walletType": null,
+   "amountSol": 0.8787,
+   "timestamp": 1790583633,
+   "signature": "SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc",
+   "key": "WHALE_SELL:SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc:SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynbWYr1MLegJEnTPFkJCxLUuRoQTQp7VWgEkPMm33o8Gd1YfSH8DwZYt7DKmyA1e2STsxeL3UL7AE3b4RnhyLzc"
+    },
+    {
+     "label": "Synx...wcut",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynxUqd1p1GJBe97DLJp3NT1DDh5TYfJbSdFcbWXwcut"
+    }
+   ],
+   "detail": "Synx...wcut sold for 0.88 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "walletType": null,
+   "amountSol": 1.05792,
+   "timestamp": 1790583633,
+   "signature": "SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ",
+   "key": "WHALE_SELL:SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ:Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynxKygj1ppzVrurVAECAAPQbwfffWD7zKQZz5eF7Rxtu8C5Qkh3RCogfMcGk2VWGvHUVFkAz5LEPGJH6JZUDaKZ"
+    },
+    {
+     "label": "Syn7...E7nY",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY"
+    }
+   ],
+   "detail": "Syn7...E7nY sold for 1.06 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc",
+   "walletType": null,
+   "amountSol": 0.89001,
+   "timestamp": 1790583633,
+   "signature": "SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o",
+   "key": "WHALE_SELL:SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o:SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynFGGWgfDg8ariVRv9kC6K9uqjgHaihqCbERp9Nrj1TsPNKDhbJtV4GtLrpu6P7edz75g6j2XH9Js5zsvxBLq2o"
+    },
+    {
+     "label": "SynB...Pvtc",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynBCHCQSXQB9aR71F9TC9DZL2kHCZ9umguy7J3UPvtc"
+    }
+   ],
+   "detail": "SynB...Pvtc sold for 0.89 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "walletType": null,
+   "amountSol": 1.01355,
+   "timestamp": 1790583634,
+   "signature": "Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5",
+   "key": "LARGE_BUY:Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5:Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8vLtx3ZYCuy7N9ozwDWc6ESZZ9CjnhHxNrA1HKdNnrxp4Rd5BgnYHa4tQQPA5s41g3vTETPJcxJZ5V76kPrn5"
+    },
+    {
+     "label": "Syn7...E7nY",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn7pgP3jsX7EeJizQoafHJT1Di4Aw9q3zjnzezyE7nY"
+    }
+   ],
+   "detail": "Syn7...E7nY bought with 1.01 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp",
+   "walletType": null,
+   "amountSol": 1.14492,
+   "timestamp": 1790583634,
+   "signature": "SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn",
+   "key": "LARGE_BUY:SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn:SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynPzMKaJwU3sr8N9zH6WcPWEukawCghtaquV6hGd1kbPoJKmiXbRabDnEJyCow5pgHy6CjZL3QXCK15RW3WSDn"
+    },
+    {
+     "label": "SynW...Evkp",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynWtfFQ1X85J86oT73LiiZCmXR6DLctX4vNbbhzEvkp"
+    }
+   ],
+   "detail": "SynW...Evkp bought with 1.15 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.1745,
+   "timestamp": 1790583635,
+   "signature": "SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH",
+   "key": "WHALE_SELL:SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynBtkp211MPcgGJwf3S1Pv5jzZa1bcaTbsF7p8mgVKKxxkogz3RAcsAHFA6p4EH7L34SFcceaJj5MwMDDpCxwH"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.17 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.67214,
+   "timestamp": 1790583635,
+   "signature": "Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn",
+   "key": "WHALE_SELL:Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn1T7hYGwF4rbBocbVsFcXUe7zajwMWgpS8JK7HvDbfrpJyCbwp1LRMwRWgW9W8y3K1aML1b1NkEeMA7MsBRqmn"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.67 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 2.04015,
+   "timestamp": 1790583636,
+   "signature": "SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU",
+   "key": "LARGE_BUY:SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynZF6ZGP8tVg8wWJFE33jfunyRK2UBn5nuFuz9Dak8CB4KRFvijeSaiP78rhBut7Hq2eAR6qNyMHTwVDnfLnjDU"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 bought with 2.04 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.1832,
+   "timestamp": 1790583636,
+   "signature": "Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB",
+   "key": "WHALE_SELL:Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb3uri3GpDiZy5YpGKXGn4DCzqu4LFe18TAszK1EXumA7YeuNugFyn837cQL8nyaSnBTSHYyNxfhU9Q8N57UzB"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.18 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "walletType": null,
+   "amountSol": 1.07619,
+   "timestamp": 1790583637,
+   "signature": "SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD",
+   "key": "WHALE_SELL:SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD:SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynkJniZLeDqtF9jE1UoEGwKHfLxd9X6gT95Rvgv8t3PZF6x5PGrSjETVVwMCZPuSFSQGa4WjrCiq3JHtCr5xXJD"
+    },
+    {
+     "label": "Synt...f3Q3",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyntMJx8ujWfdSkWN5XeDRbX6gjFxnaa1fRHqkgzf3Q3"
+    }
+   ],
+   "detail": "Synt...f3Q3 sold for 1.08 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.06488,
+   "timestamp": 1790583637,
+   "signature": "SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W",
+   "key": "WHALE_SELL:SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynyCLqXzMptZmEevZoKPD6abPw9CxAgo1SW3Vmo959czVRQ81nyrw7oj59cc829ryu6NEmjhU89tpBJVXCeJ6W"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih sold for 1.06 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.17711,
+   "timestamp": 1790583639,
+   "signature": "SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq",
+   "key": "LARGE_BUY:SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/SynaBGNLV5W4X4AYQZ8XXJFoQhZPCjD9CR5gD55kk9g4RATkBx7jmiRP8XzqDhRqhEEnHWiKkhNsfgJ5v4ukCeq"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih bought with 1.17 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd",
+   "walletType": null,
+   "amountSol": 1.08228,
+   "timestamp": 1790583639,
+   "signature": "Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL",
+   "key": "LARGE_BUY:Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL:SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synv3mwYGiJ3eogdsQ7L8ctKRDekXy3PHk16R9oPuhYLQrqp7pecrZYQaU5vmi8K7Z4PgcdG9LRtfWqWa6BxrNL"
+    },
+    {
+     "label": "Sync...yLbd",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyncJdh18HGaQ6qAQQWoGpvv8jtusKo73wQMcpWFyLbd"
+    }
+   ],
+   "detail": "Sync...yLbd bought with 1.08 SOL"
+  },
+  {
+   "type": "LARGE_BUY",
+   "severity": "MEDIUM",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9",
+   "walletType": null,
+   "amountSol": 2.02971,
+   "timestamp": 1790583640,
+   "signature": "Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt",
+   "key": "LARGE_BUY:Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt:SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn8dN8hYvEDwwn6eWBHPq14N318Yb6VsZA5mqEfF9BjeHcD6gcypdAdU5tkpNo64DBd7gM5MJ1YTmPvyHeNugDt"
+    },
+    {
+     "label": "SynX...4jt9",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynXeRDs7RiNbgRi8imEhwT8WB22VyDMUUn5Yt224jt9"
+    }
+   ],
+   "detail": "SynX...4jt9 bought with 2.03 SOL"
+  },
+  {
+   "type": "WHALE_SELL",
+   "severity": "HIGH",
+   "tokenSymbol": "SYNTHING",
+   "tokenMint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "wallet": "Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "walletType": null,
+   "amountSol": 1.11186,
+   "timestamp": 1790583640,
+   "signature": "Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM",
+   "url": "https://example.invalid/synthetic/solscan.io/tx/Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM",
+   "key": "WHALE_SELL:Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM:Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih",
+   "evidence": [
+    {
+     "label": "transaction",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Syn2H4fmzL48zmNorMSD8VE62PL4s9EDo9WUwSUAcJx6v7Gdu87DfMsfeJi9H3EMYiCHMF2uWMb6F6VwqJVygDM"
+    },
+    {
+     "label": "Syn9...hxih",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn97QEdEuWBW1wUeULEmZLYw5VJG3dEQydg9YDnhxih"
+    }
+   ],
+   "detail": "Syn9...hxih sold for 1.11 SOL"
+  }
+ ],
+ "notes": [
+  "Changes compare against the previous successful snapshot; a failed provider never counts as a change.",
+  "Each alert has a dedupe key; repeats are suppressed and counted.",
+  "Signals, not accusations."
+ ],
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

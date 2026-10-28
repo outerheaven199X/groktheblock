@@ -1,0 +1,1282 @@
+{
+ "token": {
+  "name": "SYNBOT",
+  "symbol": "SYNBOT",
+  "mint": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf",
+  "age": "2h 30m",
+  "mcap": 2086,
+  "volume24h": 770730.825,
+  "totalHolders": 164,
+  "deployerAddress": "SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj",
+  "onchainSupply": 846822458.15801
+ },
+ "organicScore": 90,
+ "counts": {
+  "AGENT": 0,
+  "INSIDER": 11,
+  "COPY": 0,
+  "SNIPER": 6,
+  "ORGANIC": 147
+ },
+ "wallets": [
+  {
+   "address": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 6.758902,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 6.8% SUPPLY",
+   "solFlowEstimate": -3.066489,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 6.133078,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 6.1% SUPPLY",
+   "solFlowEstimate": -2.179437,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 5.557319,
+   "entryBlock": 0,
+   "txCount": 14,
+   "tag": "BLOCK 0 ENTRY — 5.6% SUPPLY",
+   "solFlowEstimate": 9.804291,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynSbfRNk18B4hfGGH2TqmaE8vTeA9Q2cF5e8H5RCp28",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 3.254286,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 3.2% SUPPLY",
+   "solFlowEstimate": -1.295778,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 5.131759,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 5.1% SUPPLY",
+   "solFlowEstimate": -3.459729,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 5.94533,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 5.9% SUPPLY",
+   "solFlowEstimate": -11.625549,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 5.695001,
+   "entryBlock": 0,
+   "txCount": 16,
+   "tag": "BLOCK 0 ENTRY — 5.7% SUPPLY",
+   "solFlowEstimate": -7.330794,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 7.259561,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 7.2% SUPPLY",
+   "solFlowEstimate": -10.152117,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynRVEKFTyzpfg9tPFMhMQ1EfA9acDQGcHfcLJsTit8L",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 3.191704,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 3.2% SUPPLY",
+   "solFlowEstimate": -2.474193,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "Syni3tvBkQk1UeXdDs5qDCjJ4jipRZc3i9xXhUHCjuH",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 1.4711,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 1.5% SUPPLY",
+   "solFlowEstimate": -6.705873,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynBeJRnu5yAXd76GCUfEFCctnS9LG84RvBuZsReaC19",
+   "type": "INSIDER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 2.295866,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 ENTRY — 2.3% SUPPLY",
+   "solFlowEstimate": -13.202337,
+   "walletAge": "78d",
+   "historyComplete": true,
+   "firstTxTimestamp": 1783780679,
+   "firstFunder": "Synp54mptW7nMDuQBC8ENG98ZyCHmAToHUma9AkvQWnm",
+   "firstFundAmountSol": 0.00522,
+   "reputation": {
+    "score": 38,
+    "grade": "MODERATE",
+    "factors": [
+     "INSIDER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 0,
+   "txCount": 2,
+   "tag": "DEPLOYER · BLOCK 0 SNIPE — 2 TXS",
+   "solFlowEstimate": -2.513604,
+   "reputation": {
+    "score": 12,
+    "grade": "LOW",
+    "factors": [
+     "SNIPER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   },
+   "isDeployer": true
+  },
+  {
+   "address": "SynPUPsc56Ri1rqMXJjkMuMWZ9gRDnJ1k68uMnYtp6y8",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.316831,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 SNIPE — 1 TX",
+   "solFlowEstimate": -1.306305,
+   "reputation": {
+    "score": 12,
+    "grade": "LOW",
+    "factors": [
+     "SNIPER on 1 token",
+     "Avg entry block 0.0"
+    ]
+   }
+  },
+  {
+   "address": "SynMHXXeBoCBoHGv94NFicuPuwFxtQg64yy8TBCLSQhG",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 3e-06,
+   "entryBlock": 0,
+   "txCount": 1,
+   "tag": "BLOCK 0 SNIPE — 1 TX",
+   "solFlowEstimate": -0.00261,
+   "priorHistory": [
+    {
+     "tokenSymbol": "SYNTHING",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:32:23.943211+00:00"
+    },
+    {
+     "tokenSymbol": "SYNBPZF",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:43.940839+00:00"
+    },
+    {
+     "tokenSymbol": "SYNTZPB",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:52.847096+00:00"
+    }
+   ],
+   "reputation": {
+    "score": 48,
+    "grade": "MODERATE",
+    "factors": [
+     "SNIPER on 4 tokens",
+     "Avg entry block 0.2"
+    ]
+   }
+  },
+  {
+   "address": "SynTmzQW8m4MemEKhq6e7aAEcKb9qTSPnRiNK5oAJw1S",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 7e-06,
+   "entryBlock": 1,
+   "txCount": 1,
+   "tag": "BLOCK 1 SNIPE — 1 TX",
+   "solFlowEstimate": -0.001392,
+   "priorHistory": [
+    {
+     "tokenSymbol": "SYNTHING",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:32:23.943211+00:00"
+    },
+    {
+     "tokenSymbol": "SYNTZPB",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:52.847096+00:00"
+    }
+   ],
+   "reputation": {
+    "score": 36,
+    "grade": "MODERATE",
+    "factors": [
+     "SNIPER on 3 tokens",
+     "Avg entry block 1.7"
+    ]
+   }
+  },
+  {
+   "address": "Syn4QBid9cLLcDhiw9YtGRkQCoP2BexuwBKab7ib3aHZ",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 1,
+   "txCount": 2,
+   "tag": "BLOCK 1 SNIPE — 2 TXS",
+   "solFlowEstimate": -0.0,
+   "reputation": {
+    "score": 12,
+    "grade": "LOW",
+    "factors": [
+     "SNIPER on 1 token",
+     "Avg entry block 1.0"
+    ]
+   }
+  },
+  {
+   "address": "SynC2BGTD7fMBXCxxQhyM5WfyBkHA58EeTrJoNmxRkay",
+   "type": "SNIPER",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 4e-06,
+   "entryBlock": 2,
+   "txCount": 1,
+   "tag": "BLOCK 2 SNIPE — 1 TX",
+   "solFlowEstimate": -0.001305,
+   "priorHistory": [
+    {
+     "tokenSymbol": "SYNTHING",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:32:23.943211+00:00"
+    },
+    {
+     "tokenSymbol": "SYNBPZF",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:43.940839+00:00"
+    },
+    {
+     "tokenSymbol": "SYNTZPB",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:52.847096+00:00"
+    }
+   ],
+   "reputation": {
+    "score": 48,
+    "grade": "MODERATE",
+    "factors": [
+     "SNIPER on 4 tokens",
+     "Avg entry block 1.5"
+    ]
+   }
+  },
+  {
+   "address": "SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 0,
+   "txCount": 51,
+   "tag": null,
+   "solFlowEstimate": 53.514657
+  },
+  {
+   "address": "SynVVsBQRRiy4d6c1ds2C6qmKGcHchkGHmUNSm8jm2SC",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 8e-06,
+   "entryBlock": 5,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.001392
+  },
+  {
+   "address": "SynAcoLdVAS9QXcDCukGzMwp8V1QNWkdvJjBiUamVTUB",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 5,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": -0.001479
+  },
+  {
+   "address": "Syns3CXFXq4K9A66TPc3FJBi2fUrM3bbb3L4ACmBbbw5",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.039036,
+   "entryBlock": 10,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.262914
+  },
+  {
+   "address": "SynnEMRm7eU87zhGJApNRQ7Rc6xmGviSM3A3yR9RqvJt",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.006654,
+   "entryBlock": 10,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.046458
+  },
+  {
+   "address": "SynqRXNhP1BoZfUzQyJxT5BuSfq1wVKJiSZhjasNsDHs",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.006479,
+   "entryBlock": 11,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.044805
+  },
+  {
+   "address": "SynozdMUvUZWVKr2mTE9sJVvKQRfyXZy3E9zZtjfCAJ2",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 11,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.0
+  },
+  {
+   "address": "SynNuB1FRwuqSME7h86qQH15n4BE9CEoHxopUjByzTpN",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 12,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.021576,
+   "priorHistory": [
+    {
+     "tokenSymbol": "SYNBPZF",
+     "classification": "SNIPER",
+     "timestamp": "2026-09-28T07:33:43.940839+00:00"
+    }
+   ],
+   "reputation": {
+    "score": 8,
+    "grade": "CLEAN",
+    "factors": [
+     "SNIPER on 1 token"
+    ]
+   }
+  },
+  {
+   "address": "SynJ6yQMDdC9iWrwzLRF2KPFtKHDSEJxzuVEF1svksZ3",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.034275,
+   "entryBlock": 22,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.236379
+  },
+  {
+   "address": "SynzGXxirah5ggV9FRWCBnK2PCtnwPiG8LrzjFAxZraP",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 90,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": -0.00261
+  },
+  {
+   "address": "SynRJkSfMB4SQTPCJJLcq4pN6Kh8VfuDVLroue2imtTj",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 2.311553,
+   "entryBlock": 121,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.0
+  },
+  {
+   "address": "Syn5PKzjyuwhfwiM8eLe3WKjYXwKRUfJvRBWZXW8qGa4",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 2.636143,
+   "entryBlock": 121,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.0
+  },
+  {
+   "address": "SynzHTZa7AavMeLZZJtY8dJL4FHARQo8J6UefRxCxFhT",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 1.837258,
+   "entryBlock": 121,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.0
+  },
+  {
+   "address": "SynQZDDF8BMxDHi6b1QEbmY84K1ZTQ7ydvQa1R5yNPEJ",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 1.606694,
+   "entryBlock": 121,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.06264
+  },
+  {
+   "address": "SynNNEKtKAk2eoEwjsdKFYZvceUrh22hqjskcf5ELkj",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 125,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": -0.012963
+  },
+  {
+   "address": "Syny3WHLJWytPDQH88T57Ja5fBsboDNor5UjfCFvZnqF",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.049162,
+   "entryBlock": 172,
+   "txCount": 4,
+   "tag": null,
+   "solFlowEstimate": -0.351132
+  },
+  {
+   "address": "SynNdYn1DJqn9JwiqgeWP4QvmhuHbtLU18q9cEyJe28o",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.016923,
+   "entryBlock": 173,
+   "txCount": 4,
+   "tag": null,
+   "solFlowEstimate": -0.125802
+  },
+  {
+   "address": "SynK5J6mH8C6JZNXXJCPXHBXXxs3PN3p67AEjWHXG88a",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.009164,
+   "entryBlock": 216,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": -0.067686
+  },
+  {
+   "address": "SynAAHoBhBH5ocR1PW7pH6PfMGWHb6xn86FbhUBoa9Kw",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.140806,
+   "entryBlock": 238,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.114579
+  },
+  {
+   "address": "Synx22fhySyQsP9pY9dw4ptzW7Y95LY1E4ZTfdycKAS4",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.1382,
+   "entryBlock": 243,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.10788
+  },
+  {
+   "address": "Syno5Wq8JG8tSgC9Pzs3k3zCL7xfMx35RNm76XgQtKYH",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.181539,
+   "entryBlock": 248,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.139635
+  },
+  {
+   "address": "SynveQPx8NoCounffMfNdKD3HUvuFPqAvX4USYkSRMdv",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.168158,
+   "entryBlock": 253,
+   "txCount": 3,
+   "tag": null,
+   "solFlowEstimate": 0.139635
+  },
+  {
+   "address": "Synpzm2vkhhqGjp3uJVUUUkZhG7DA2RqGzP3WtqZ57xh",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.123622,
+   "entryBlock": 258,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.10179
+  },
+  {
+   "address": "SynvyVsBvxbb13cebeZ85XVyxjSNVfYUGAQQsUXBoCF1",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.131376,
+   "entryBlock": 259,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.107532
+  },
+  {
+   "address": "SynDwmvFgprfknRVydg8AUCtPmMkyf3MqdeuDN34y9BS",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.1002,
+   "entryBlock": 262,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.082476
+  },
+  {
+   "address": "Synb1Y8hLry6d2oVdjsPNcCam5pNgPFaNuMZGZQksnMW",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.102662,
+   "entryBlock": 264,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.066729
+  },
+  {
+   "address": "Syn2HKAvK6Gws7KQG7ZJGeuzdM79tfLDhHUAZ6AUD3qQ",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.062913,
+   "entryBlock": 265,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.040977
+  },
+  {
+   "address": "SynLXujCiEddhLCj4PLjWEcmRth5Y5DNWSNRwq5EtAMn",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.068762,
+   "entryBlock": 269,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.051504
+  },
+  {
+   "address": "SynLn8LxUw7XBq6xjYLWc22GSsyWMJGDKQFrTsQZAaLd",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.149618,
+   "entryBlock": 270,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.113013
+  },
+  {
+   "address": "SynenbUi4bNTP5VsR48hWPC3Ltbt9m2ruC8c9FNueqc5",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.059126,
+   "entryBlock": 273,
+   "txCount": 1,
+   "tag": null,
+   "solFlowEstimate": 0.041673
+  },
+  {
+   "address": "SynL5ur2jF3r4qgKCjV4gDv2tZR3XtArXcDEaU5Uhkh9",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.099864,
+   "entryBlock": 275,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.073776
+  },
+  {
+   "address": "SynhNieDEMP4XqQd3X95tLPeKktn5JWm9uuPkq9pGXgy",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.0,
+   "entryBlock": 284,
+   "txCount": 2,
+   "tag": null,
+   "solFlowEstimate": 0.003828
+  },
+  {
+   "address": "SynMruHC9ZeQaFVqrVkZTv7Yyx3J66Ed997ixk6ucudD",
+   "type": "ORGANIC",
+   "pnlSol": 0.0,
+   "pnlUsd": 0,
+   "supplyPercent": 0.349337,
+   "entryBlock": 285,
+   "txCount": 3,
+   "tag": null,
+   "solFlowEstimate": 0.269004
+  }
+ ],
+ "allWalletCount": 164,
+ "copyNetwork": [
+  {
+   "leader": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+   "follower": "Syns3CXFXq4K9A66TPc3FJBi2fUrM3bbb3L4ACmBbbw5",
+   "avgDelaySeconds": 3,
+   "matchCount": 11
+  },
+  {
+   "leader": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+   "follower": "SynnEMRm7eU87zhGJApNRQ7Rc6xmGviSM3A3yR9RqvJt",
+   "avgDelaySeconds": 3,
+   "matchCount": 11
+  }
+ ],
+ "bundleSignal": {
+  "block0Buyers": 14,
+  "block0SupplyBoughtPct": 66.6681,
+  "block0BuyersAlreadySoldPct": 7,
+  "wallets": [
+   "SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L",
+   "Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa",
+   "SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p",
+   "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+   "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+   "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+   "SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR",
+   "SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw",
+   "SynSbfRNk18B4hfGGH2TqmaE8vTeA9Q2cF5e8H5RCp28",
+   "SynRVEKFTyzpfg9tPFMhMQ1EfA9acDQGcHfcLJsTit8L",
+   "SynBeJRnu5yAXd76GCUfEFCctnS9LG84RvBuZsReaC19",
+   "Syni3tvBkQk1UeXdDs5qDCjJ4jipRZc3i9xXhUHCjuH",
+   "SynPUPsc56Ri1rqMXJjkMuMWZ9gRDnJ1k68uMnYtp6y8",
+   "SynMHXXeBoCBoHGv94NFicuPuwFxtQg64yy8TBCLSQhG"
+  ],
+  "valid": true,
+  "severity": "CRITICAL",
+  "note": "Wallets that bought in the launch slot. Only meaningful when reachedLaunch is true."
+ },
+ "verdict": {
+  "severity": "CRITICAL",
+  "summary": "14 wallets held 66.67% of supply at the end of the launch slot (7% of them since sold out). Organic score 90 counts wallets, not supply; original verdict was LOW.",
+  "originalSeverity": "LOW",
+  "originalSummary": "90% organic activity. Wallet distribution appears relatively healthy. Standard sniper and bot presence within normal ranges.",
+  "escalatedBy": "bundleSignal"
+ },
+ "lpMonitor": {
+  "pools": [
+   {
+    "dex": "pumpswap",
+    "pair": "SynSB3xVtXEDbmSWvU1s3CR5HS3tgHC4eiDFkweX2u4g",
+    "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynDgMPcNeTKQHBS5Rh3xCMNEuPy9YQrQuHKYsjRLu5t",
+    "liquidityUsd": 2072.7576,
+    "priceUsd": "0.000002143",
+    "fdv": 2086,
+    "marketCap": 2086,
+    "volume24h": 770730.825,
+    "pairCreatedAt": 1790574670000
+   },
+   {
+    "dex": "pumpfun",
+    "pair": "SynKSBcby7TWwZGsstfRXYKT4GJyzQtwnuDH3FyZv5eM",
+    "url": "https://example.invalid/synthetic/dexscreener.com/solana/8ita3o7igrs9rvqwfrbg9dsgqdtlo7gpqp1zfvtksnew",
+    "liquidityUsd": null,
+    "priceUsd": "0.00002397",
+    "fdv": 20855.8488,
+    "marketCap": 20855.8488,
+    "volume24h": 4711.7199,
+    "pairCreatedAt": 1790574670000
+   }
+  ],
+  "totalLiquidityUsd": 2072.7576,
+  "rugcheck": {
+   "available": true,
+   "score": 2697,
+   "scoreNormalised": 32,
+   "rugged": false,
+   "mintAuthority": null,
+   "freezeAuthority": null,
+   "totalMarketLiquidityUsd": 2074.034932,
+   "creator": "SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj",
+   "totalHolders": 124,
+   "risks": [
+    {
+     "name": "SYNGABK",
+     "level": "danger",
+     "description": "Low amount of liquidity in the token pool"
+    }
+   ],
+   "markets": [
+    {
+     "type": "pump_fun_amm",
+     "pubkey": "SynSB3xVtXEDbmSWvU1s3CR5HS3tgHC4eiDFkweX2u4g",
+     "lpLockedPct": 100,
+     "lpLockedUsd": 2074.034932,
+     "baseUsd": 1809.615575,
+     "quoteUsd": 264.419357
+    }
+   ],
+   "topHolders": [
+    {
+     "owner": "SynSB3xVtXEDbmSWvU1s3CR5HS3tgHC4eiDFkweX2u4g",
+     "pct": 86.720749,
+     "insider": false
+    },
+    {
+     "owner": "Syn5tEJG8vc54f7EMJxWM9BDGk2hUNu8dzyGV4D1zaDj",
+     "pct": 0.211015,
+     "insider": false
+    },
+    {
+     "owner": "SynTmzQW8m4MemEKhq6e7aAEcKb9qTSPnRiNK5oAJw1S",
+     "pct": 8.5e-05,
+     "insider": false
+    },
+    {
+     "owner": "Syn4DduyM1G6fVgSQvFXF7bRNSEKUcENhkQ4tVUQKQLC",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SynZPcfzkTQ8F4VHw4i1FKQYD4FWBdUKV9AKiLnfNedi",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SynBy8jBsnU47xf5L3fKTM4S4PtT15rXqhKMUT5NG2BX",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SynCycMi3YiJrBGk1ntP78itAAUEeyzbgbBbrRZXmH6c",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SyncHsoj529CviaDZpppQD21f6UYdSQYAUqQx4NuGiz6",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SynvVLjTRFvtzrw35HCvhAE5boPR7AYA2Gjow6JrwR29",
+     "pct": 0,
+     "insider": false
+    },
+    {
+     "owner": "SynTQeWRBMiqHnBB2FRDYa5rNxuCR5TwpkqLfZK3hfb8",
+     "pct": 0,
+     "insider": false
+    }
+   ]
+  }
+ },
+ "scanWindow": {
+  "transactionsAnalyzed": 500,
+  "signaturesSeen": 500,
+  "reachedLaunch": true,
+  "excludedProgramAccounts": [
+   "SynSB3xVtXEDbmSWvU1s3CR5HS3tgHC4eiDFkweX2u4g",
+   "SynKSBcby7TWwZGsstfRXYKT4GJyzQtwnuDH3FyZv5eM"
+  ],
+  "dataSource": "helius-gtfa",
+  "firstTx": 1790574670,
+  "lastTx": 1790574823,
+  "note": "Launch window only. If reachedLaunch is false, 'block 0' is the oldest tx we could reach, not the real launch, and INSIDER/SNIPER labels are unreliable."
+ },
+ "disclaimer": "Heuristic signals from public on-chain data, not accusations. Labels describe on-chain patterns, not intent.",
+ "generatedAt": 1790583710,
+ "assessment": {
+  "subject": {
+   "kind": "token",
+   "mint": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf",
+   "symbol": "SYNBOT",
+   "name": "SYNBOT"
+  },
+  "severity": "CRITICAL",
+  "lead": {
+   "id": "bundle",
+   "severity": "CRITICAL",
+   "basis": "observed",
+   "text": "14 wallets held 66.6% of supply at the end of the launch slot, and 7% of them have since sold out.",
+   "why": "The organic score (90) counts wallets: 147 of 164 look organic. It does not weigh how much supply each wallet holds, so many small buyers cannot offset a few wallets that took 77% of supply in the first slot.",
+   "evidence": [
+    {
+     "label": "Syns…6e8L launch-slot buyer",
+     "kind": "wallet",
+     "address": "SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L"
+    },
+    {
+     "label": "Syn8…apJa launch-slot buyer",
+     "kind": "wallet",
+     "address": "Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa"
+    },
+    {
+     "label": "Synd…ye9p launch-slot buyer",
+     "kind": "wallet",
+     "address": "SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p"
+    },
+    {
+     "label": "Syn8…m5aS launch-slot buyer",
+     "kind": "wallet",
+     "address": "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS"
+    },
+    {
+     "label": "SynP…Hv6R launch-slot buyer",
+     "kind": "wallet",
+     "address": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R"
+    },
+    {
+     "label": "Synz…Bv3B launch-slot buyer",
+     "kind": "wallet",
+     "address": "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+     "url": "https://example.invalid/synthetic/solscan.io/account/Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B"
+    },
+    {
+     "label": "SynB…dpqR launch-slot buyer",
+     "kind": "wallet",
+     "address": "SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR"
+    },
+    {
+     "label": "SynW…FjSw launch-slot buyer",
+     "kind": "wallet",
+     "address": "SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw",
+     "url": "https://example.invalid/synthetic/solscan.io/account/SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw"
+    }
+   ]
+  },
+  "findings": [
+   {
+    "id": "bundle",
+    "severity": "CRITICAL",
+    "basis": "observed",
+    "text": "14 wallets held 66.6% of supply at the end of the launch slot, and 7% of them have since sold out.",
+    "why": "The organic score (90) counts wallets: 147 of 164 look organic. It does not weigh how much supply each wallet holds, so many small buyers cannot offset a few wallets that took 77% of supply in the first slot.",
+    "evidence": [
+     {
+      "label": "Syns…6e8L launch-slot buyer",
+      "kind": "wallet",
+      "address": "SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynsoJm4WK8LPPkNHD6fEgJMbX3jho62buaLptQo6e8L"
+     },
+     {
+      "label": "Syn8…apJa launch-slot buyer",
+      "kind": "wallet",
+      "address": "Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa"
+     },
+     {
+      "label": "Synd…ye9p launch-slot buyer",
+      "kind": "wallet",
+      "address": "SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p"
+     },
+     {
+      "label": "Syn8…m5aS launch-slot buyer",
+      "kind": "wallet",
+      "address": "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS"
+     },
+     {
+      "label": "SynP…Hv6R launch-slot buyer",
+      "kind": "wallet",
+      "address": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R"
+     },
+     {
+      "label": "Synz…Bv3B launch-slot buyer",
+      "kind": "wallet",
+      "address": "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B"
+     },
+     {
+      "label": "SynB…dpqR launch-slot buyer",
+      "kind": "wallet",
+      "address": "SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR"
+     },
+     {
+      "label": "SynW…FjSw launch-slot buyer",
+      "kind": "wallet",
+      "address": "SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynWjWA4i3Y7ZNTTwbx1YB4DVLMA8hScrEJjJJA2FjSw"
+     }
+    ]
+   },
+   {
+    "id": "insiders",
+    "severity": "HIGH",
+    "basis": "heuristic",
+    "text": "11 wallets match the INSIDER rule (bought in blocks 0–1 or were funded by the deployer); together the top ones hold 51.2% of supply.",
+    "evidence": [
+     {
+      "label": "Syn8…m5aS 7.2% · block 0",
+      "kind": "wallet",
+      "address": "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS"
+     },
+     {
+      "label": "SynP…Hv6R 6.8% · block 0",
+      "kind": "wallet",
+      "address": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R"
+     },
+     {
+      "label": "Synz…Bv3B 6.1% · block 0",
+      "kind": "wallet",
+      "address": "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B"
+     },
+     {
+      "label": "SynB…dpqR 5.9% · block 0",
+      "kind": "wallet",
+      "address": "SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynBNEMRQwtEhAZacwfRamHMEC8pmANnqEkFiYftdpqR"
+     },
+     {
+      "label": "Syn8…apJa 5.7% · block 0",
+      "kind": "wallet",
+      "address": "Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Syn87EvQtsFGjJA5o5QRLGDoFrthhSXkjaoQZTztapJa"
+     }
+    ]
+   },
+   {
+    "id": "copy",
+    "severity": "MEDIUM",
+    "basis": "inferred",
+    "text": "2 wallets repeatedly bought 3–30 s after the same leader, a copy-trading or shared-control pattern.",
+    "evidence": [
+     {
+      "label": "SynP…Hv6R → Syns…bbw5 · 3s · 11 matches",
+      "kind": "wallet",
+      "address": "Syns3CXFXq4K9A66TPc3FJBi2fUrM3bbb3L4ACmBbbw5",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Syns3CXFXq4K9A66TPc3FJBi2fUrM3bbb3L4ACmBbbw5"
+     },
+     {
+      "label": "SynP…Hv6R → Synn…qvJt · 3s · 11 matches",
+      "kind": "wallet",
+      "address": "SynnEMRm7eU87zhGJApNRQ7Rc6xmGviSM3A3yR9RqvJt",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynnEMRm7eU87zhGJApNRQ7Rc6xmGviSM3A3yR9RqvJt"
+     }
+    ]
+   }
+  ],
+  "coverage": {
+   "reachedLaunch": true,
+   "transactionsAnalyzed": 500,
+   "dataSource": "helius-gtfa",
+   "window": {
+    "first": 1790574670,
+    "last": 1790574823
+   },
+   "providers": [
+    {
+     "name": "dexscreener",
+     "ok": true,
+     "detail": "cached"
+    },
+    {
+     "name": "rugcheck",
+     "ok": true,
+     "detail": "cached"
+    },
+    {
+     "name": "solana-rpc",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "limits": [
+    {
+     "kind": "approximate",
+     "text": "SOL flows are realized SOL in the analyzed window, not full profit and loss."
+    },
+    {
+     "kind": "heuristic",
+     "text": "Wallet classes are timing rules ported from CryptOSINT, not identities."
+    },
+    {
+     "kind": "local-only",
+     "text": "Reputation and prior history come only from 51 token scans on this machine."
+    }
+   ]
+  },
+  "nextActions": [
+   {
+    "id": "wallet-top",
+    "label": "Scan the largest flagged wallet Syn8…m5aS",
+    "why": "See whether it repeats this pattern on other launches.",
+    "ask": "Scan wallet Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS and tell me if it enters other launches at block 0.",
+    "cli": "python skills/wallet-scan/scripts/wallet_scan.py Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS",
+    "target": {
+     "kind": "wallet",
+     "key": "Syn8LV3YRh4sEKDWzMvYosm9KgYgQAoWdhhYBcrGm5aS"
+    }
+   },
+   {
+    "id": "wallet-dev",
+    "label": "Scan the deployer SynX…vtUj",
+    "why": "Deployers that launch and exit repeatedly are a strong pattern.",
+    "ask": "Scan the deployer wallet SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj for other tokens it launched.",
+    "cli": "python skills/wallet-scan/scripts/wallet_scan.py SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj",
+    "target": {
+     "kind": "wallet",
+     "key": "SynXzZn4fGQ3pv4xbWUTtojdQAiJsLsLiXAL5N96vtUj"
+    }
+   },
+   {
+    "id": "replay",
+    "label": "Replay $SYNBOT's timeline",
+    "why": "Shows when insiders bought and sold relative to organic buyers.",
+    "ask": "Replay the rug timeline for SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf.",
+    "cli": "python skills/rug-replay/scripts/rug_replay.py SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf",
+    "target": {
+     "kind": "replay",
+     "key": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf"
+    }
+   },
+   {
+    "id": "shill",
+    "label": "Check X coordination for $SYNBOT",
+    "why": "Looks for clustered promo accounts posting the contract address.",
+    "ask": "Who is shilling SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf on X? Check for coordinated accounts.",
+    "cli": "(Grok Bot only: needs the X tools) shill-network for SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf",
+    "target": {
+     "kind": "shill",
+     "key": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf"
+    }
+   },
+   {
+    "id": "copy",
+    "label": "Open the copy-trade network",
+    "why": "Leader and follower wallets with timing.",
+    "ask": "Show the copy-trade network for this scan.",
+    "cli": "python skills/copy-network/scripts/copy_network.py out/scan-SYNBOT-4Kgx3b.json",
+    "target": {
+     "kind": "copy",
+     "key": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf"
+    }
+   },
+   {
+    "id": "watch",
+    "label": "Watch $SYNBOT for changes",
+    "why": "Alerts on liquidity, authority, verdict and large insider moves since the last scan.",
+    "ask": "Watch SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf and alert me on material changes.",
+    "cli": "python skills/watch-token/scripts/watch_token.py add SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf",
+    "target": {
+     "kind": "watch",
+     "key": "SynA6WCf3pBXTLBGHJCATyUdTtCQ7yhyMs9Ju52VCirf"
+    }
+   }
+  ]
+ },
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

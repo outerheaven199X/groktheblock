@@ -25,6 +25,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from . import timebase as T
+
 SEV = ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
 EXIT_RATIO, EXIT_COUNT, RISE = 0.75, 2, 1.25
 REMIND_FIRST, REMIND_EVERY = 6 * 3600, 24 * 3600
@@ -103,7 +105,7 @@ def _probe(probes, k):
     return float(p), True
 
 
-def _members(inc, new, probes, now):
+def _members(inc, new, probes, now, continuity=None):
     """R4-01: a recomputed convergence may list different members. Members dropped from the new list stay while their
     last valid observation is still at/above exit (or unobserved); the change is recorded, never silent."""
     old = list(inc.get("members") or [])
@@ -117,7 +119,11 @@ def _members(inc, new, probes, now):
     merged = list(dict.fromkeys(new + keep))
     if set(merged) != set(old):
         inc.setdefault("memberHistory", []).append({"at": now, "event": "MEMBERS_CHANGED", "from": old, "to": merged,
-                                                    "retainedActive": keep, "note": "dropped members kept while still anomalous or unobserved"})
+                                                    "added": [m for m in new if m not in old], "dropped": [m for m in old if m not in new],
+                                                    "retainedActive": keep, "continuity": continuity,
+                                                    "note": "dropped members kept while still anomalous or unobserved" + (
+                                                        "; same identified event instance" if continuity == "IDENTIFIED_EVENT" else
+                                                        "; CONTINUATION HYPOTHESIS: no stable event id, the recomposed set may be a different event" if continuity == "HYPOTHESIS" else "")})
         inc["memberHistory"] = inc["memberHistory"][-20:]
     inc["members"] = merged
 
@@ -125,7 +131,8 @@ def _members(inc, new, probes, now):
 def _summary(inc):
     return {"id": inc["id"], "episode": inc["episode"], "endedAs": inc.get("endedAs") or inc["state"], "members": list(inc.get("members") or []),
             "openedAt": inc.get("openedAt"), "closedAt": inc.get("resolvedAt") or inc.get("archivedAt"), "lastConfirmedAt": inc.get("lastConfirmedAt"),
-            "events": sorted(inc.get("events") or {}), "history": inc["history"][-12:], "memberHistory": (inc.get("memberHistory") or [])[-6:]}
+            "events": sorted(inc.get("events") or {}), "eventInstance": inc.get("eventInstance"), "evidence": list(inc.get("evidence") or []),
+            "continuity": inc.get("continuity"), "history": inc["history"][-12:], "memberHistory": (inc.get("memberHistory") or [])[-6:]}
 
 
 def _close(inc, now, how, note):
@@ -134,21 +141,73 @@ def _close(inc, now, how, note):
     _hist(inc, now, how, note)
 
 
-def _age(inc, now, tel, missing=None):
-    """R5-03: an incident that can't be validly observed is not RESOLVED, but it also stops looking freshly ACTIVE:
-    UNCONFIRMED after 24h without a valid observation, ARCHIVED_UNRESOLVED after 72h (re-entry opens a new episode)."""
-    last = inc.get("lastConfirmedAt") or inc.get("openedAt") or now
-    if missing:
-        lv = inc.get("memberLastValid") or {}
-        last = min([lv.get(m) or inc.get("lastConfirmedAt") or inc.get("openedAt") or now for m in missing] + [last])
-    gap = now - last
-    unc, arc = DAILY_AGE_S if inc["source"] in DAILY_SOURCES else (UNCONFIRMED_AFTER_S, ARCHIVE_UNRESOLVED_AFTER_S)
-    if gap >= arc:
-        _close(inc, now, "ARCHIVED_UNRESOLVED", f"no valid observation of {', '.join((missing or ['this instrument'])[:3])} for {gap / 3600:.0f}h; not resolved, last confirmed {inc.get('lastConfirmedAt')}")
+PUBLISH_HM = (18, 0)  # daily sources: a session's value is expected by ~18:00 ET (labelled estimate, conservative)
+PUBLISH_GRACE_S = 24 * 3600
+POLLED_AGE_S = (UNCONFIRMED_AFTER_S, ARCHIVE_UNRESOLVED_AFTER_S)
+
+
+EVENT_SOURCE_LIMIT_S = {"solana": 72 * 3600, "sec": 72 * 3600}  # = timebase.freshness limits
+
+
+def _obs_time(s, now):
+    """When the observation behind an event signal was made (watch report checkedAt), never the scan time."""
+    t = [e.get("observedAt") for e in (s.get("metrics") or {}).get("eventIds") or [] if e.get("observedAt")]
+    return max(t) if t else now
+
+
+def _src_of(member_key: str) -> str:
+    return (member_key or "").split(":", 1)[0]
+
+
+def _nth_session_publication(last: int, n: int, market: str) -> int:
+    """18:00 ET on the n-th trading session strictly after the NY date of `last` (holiday-aware, conservative)."""
+    d = T.datetime.fromtimestamp(last, T.NY).date()
+    k = 0
+    while k < n:
+        d += T.timedelta(days=1)
+        if T.is_session(d, market):
+            k += 1
+    return T.ny_ts(d, *PUBLISH_HM)
+
+
+def deadlines(source: str, last: int) -> tuple[int, int]:
+    """R6-02: when a missing observation from `source` makes an incident UNCONFIRMED / ARCHIVED_UNRESOLVED.
+    Polled sources: 24h / 72h after the last valid observation. Daily sources: the next expected publication
+    (holiday-aware) plus 24h grace, then the third; never earlier than the fixed 96h / 168h floor."""
+    if source in DAILY_SOURCES:
+        market = "bond" if source == "treasury" else "equity"
+        return (max(last + DAILY_AGE_S[0], _nth_session_publication(last, 1, market) + PUBLISH_GRACE_S),
+                max(last + DAILY_AGE_S[1], _nth_session_publication(last, 3, market) + PUBLISH_GRACE_S))
+    return last + POLLED_AGE_S[0], last + POLLED_AGE_S[1]
+
+
+def _age(inc, now, tel, missing=None, why="no valid observation"):
+    """R5-03/R6-01/R6-02: an incident that can't be validly observed (absent, stale or invalid) is not RESOLVED, but it
+    stops looking ACTIVE: UNCONFIRMED, then ARCHIVED_UNRESOLVED (re-entry opens a new episode). The deadline comes
+    from each missing contributor's own source cadence; for several, the slowest (latest) one decides."""
+    base = inc.get("lastConfirmedAt") or inc.get("openedAt") or now
+    if inc.get("kind") == "event":
+        base = inc.get("lastValidObsAt") or inc.get("openedAt") or now
+    lv = inc.get("memberLastValid") or {}
+    keys = missing or [None]
+    dl = []
+    for m in keys:
+        last = (lv.get(m) or base) if m else base
+        dl.append(deadlines(_src_of(m) if m and inc["source"] == "cross" else inc["source"], last))
+    unc, arc = max(d[0] for d in dl), max(d[1] for d in dl)
+    if inc.get("kind") == "event":  # an immutable event can't "cool"; a stale feed makes it UNCONFIRMED at once, archived after 2× the source's freshness limit
+        unc, arc = now, base + 2 * EVENT_SOURCE_LIMIT_S.get(inc["source"], 72 * 3600)
+    what = ", ".join((missing or ["this instrument"])[:3])
+    if now >= arc:
+        if inc.get("kind") == "event":
+            inc["endedAs"] = "ARCHIVED_UNRESOLVED"; inc["state"] = "ARCHIVED_UNRESOLVED"; inc["archivedAt"] = now
+            _hist(inc, now, "ARCHIVED_UNRESOLVED", f"{why} for {(now - base) / 3600:.0f}h; no longer in the active feed, not resolved")
+        else:
+            _close(inc, now, "ARCHIVED_UNRESOLVED", f"{why} of {what} for {(now - base) / 3600:.0f}h; not resolved, last confirmed {inc.get('lastConfirmedAt')}")
         tel["archivedUnresolved"] = tel.get("archivedUnresolved", 0) + 1
-    elif gap >= unc and inc["state"] != "UNCONFIRMED":
+    elif now >= unc and inc["state"] != "UNCONFIRMED":
         inc["state"] = "UNCONFIRMED"; inc["unconfirmedSince"] = now
-        _hist(inc, now, "UNCONFIRMED", f"no valid observation for {gap / 3600:.0f}h; last observed {last}")
+        _hist(inc, now, "UNCONFIRMED", f"{why} of {what} past its expected publication + grace; last valid {base}")
         tel["unconfirmed"] = tel.get("unconfirmed", 0) + 1
 
 
@@ -167,6 +226,10 @@ def _event_step(inc_all, s, now, tel):
     known = set((inc or {}).get("events") or {}) | set((inc or {}).get("archivedEventIds") or [])
     fresh = {i: e for i, e in ids.items() if i not in known}
     if inc is not None and inc["state"] not in CLOSED:
+        inc["lastValidObsAt"] = max(inc.get("lastValidObsAt") or 0, _obs_time(s, now))
+        if inc["state"] == "UNCONFIRMED":
+            inc["state"] = "OBSERVED"; inc.pop("unconfirmedSince", None)
+            _hist(inc, now, "OBSERVED", "source current again; known events unchanged")
         if fresh:
             inc["events"].update({i: {"eventTs": e["eventTs"], "url": e["url"], "firstObservedAt": now} for i, e in fresh.items()})
             inc["lastNewEventAt"] = now; inc["lastSeenAt"] = now
@@ -186,7 +249,7 @@ def _event_step(inc_all, s, now, tel):
     ep = (inc["episode"] + 1) if inc else 1
     archived = sorted(known)[-500:]
     inc = {"id": f"{k}#e{ep}", "key": k, "kind": "event", "episode": ep, "state": "OBSERVED", "source": s["source"], "openedAt": now, "lastSeenAt": now,
-           "lastNewEventAt": now, "severity": s["severity"], "title": s["title"], "lastAlertAt": None, "remindedAt": None,
+           "lastNewEventAt": now, "lastValidObsAt": _obs_time(s, now), "severity": s["severity"], "title": s["title"], "lastAlertAt": None, "remindedAt": None,
            "events": {i: {"eventTs": e["eventTs"], "url": e["url"], "firstObservedAt": now} for i, e in fresh.items()},
            "lastConfirmedAt": max(e["eventTs"] for e in fresh.values()), "newEventIds": sorted(fresh), "archivedEventIds": archived,
            "lastMagnitude": None, "lastAlertMagnitude": None, "history": [], "distinctTx": [],
@@ -227,6 +290,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
                 stale = why.startswith("source ")
                 tel["heldStale" if stale else "heldInvalid"] += 1
                 _hist(inc, now, "HELD_STALE" if stale else "HELD_INVALID", f"{why}; last confirmed state retained ({inc.get('lastConfirmedAt')})")
+                if inc["state"] not in CLOSED:  # R6-01: a present-but-invalid observation ages exactly like an absent one
+                    _age(inc, now, tel, None, "stale or invalid observation" if stale else "invalid observation")
             continue
         if s["source"] in EVENT_SOURCES:
             r = _event_step(inc_all, s, now, tel)
@@ -240,8 +305,15 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
         inc = inc_all.get(k)
         reason = None
         new_members = list((s.get("metrics") or {}).get("memberKeys") or [])
-        if inc is not None and inc["state"] not in CLOSED and new_members and inc.get("members") and not set(new_members) & set(inc["members"]):
-            _close(inc, now, "SUPERSEDED", "recomputed with a disjoint member set: a different event instance, new episode")  # R5-03
+        inst = (s.get("metrics") or {}).get("eventInstance")
+        recomposed = None
+        if inc is not None and inc["state"] not in CLOSED and new_members and inc.get("members") and set(new_members) != set(inc["members"]):
+            if not set(new_members) & set(inc["members"]):
+                _close(inc, now, "SUPERSEDED", "recomputed with a disjoint member set: a different event instance, new episode")  # R5-03
+            elif inst and inc.get("eventInstance") and inst != inc["eventInstance"]:  # R6-03
+                _close(inc, now, "SUPERSEDED", f"partial member overlap but a different identified event ({inc['eventInstance']} → {inst}): new episode")
+            else:
+                recomposed = "IDENTIFIED_EVENT" if inst and inst == inc.get("eventInstance") else "HYPOTHESIS"
         if inc is None or inc["state"] in CLOSED:
             ep = (inc["episode"] + 1) if inc else 1
             prev_eps = ((inc.get("previousEpisodes") or []) + [_summary(inc)])[-10:] if inc else []
@@ -249,7 +321,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
                    "severity": s["severity"], "entryMagnitude": mag, "lastMagnitude": mag, "lastAlertMagnitude": mag, "peakMagnitude": mag,
                    "belowCount": 0, "distinctTx": sorted(tx), "lastAlertAt": None, "lastConfirmedAt": now,
                    "members": list((s.get("metrics") or {}).get("memberKeys") or []), "remindedAt": None, "history": [], "title": s["title"],
-                   "memberLastValid": {}, "previousEpisodes": prev_eps}
+                   "memberLastValid": {}, "previousEpisodes": prev_eps, "eventInstance": inst, "evidence": list(s.get("evidence") or [])[:12],
+                   "continuity": "IDENTIFIED_EVENT" if inst else None}
             inc_all[k] = inc
             _hist(inc, now, "ENTERED", f"episode {ep}")
             reason = "NEW_EPISODE" if ep > 1 else "NEW"
@@ -258,7 +331,10 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             inc["state"] = "ACTIVE"; inc["belowCount"] = 0; inc["lastSeenAt"] = now; inc["lastMagnitude"] = mag; inc["lastConfirmedAt"] = now
             inc.pop("unconfirmedSince", None)
             if (s.get("metrics") or {}).get("memberKeys"):
-                _members(inc, list(s["metrics"]["memberKeys"]), probes, now)
+                _members(inc, list(s["metrics"]["memberKeys"]), probes, now, recomposed)
+            if recomposed:
+                inc["continuity"] = recomposed
+                inc["evidence"] = list(dict((e.get("url"), e) for e in (inc.get("evidence") or []) + list(s.get("evidence") or [])).values())[-24:]
             inc["peakMagnitude"] = max(inc["peakMagnitude"], mag); inc["title"] = s["title"]
             new_tx = tx - set(inc["distinctTx"])
             if SEV.index(s["severity"]) > SEV.index(inc["severity"]):
@@ -271,6 +347,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
                 due = (inc["openedAt"] + REMIND_FIRST) if not inc.get("remindedAt") else (inc["remindedAt"] + REMIND_EVERY)
                 if now >= due:
                     reason = "REMINDER"
+            if recomposed and not reason:
+                reason = "MEMBERS_CHANGED"  # R6-03: a recomposition is shown, never silently treated as confirmation
             inc["distinctTx"] = sorted(set(inc["distinctTx"]) | tx)[-200:]
             inc["severity"] = s["severity"] if reason == "ESCALATED" else inc["severity"]
             _hist(inc, now, reason or "UNCHANGED")
@@ -284,7 +362,10 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             continue
         src_state = source_state.get(inc["source"], "NOT_RUN")
         if inc.get("kind") == "event":  # R5-01: discrete events are archived by time, never "resolved"; outages don't complete them
-            if src_state in BAD or src_state == "NOT_RUN":
+            if src_state == "STALE":  # R6-01: the source answered with old data: that ages the event, it doesn't pause it
+                tel["heldStale"] += 1
+                _age(inc, now, tel, None, "stale source")
+            elif src_state in BAD or src_state == "NOT_RUN":
                 tel["skippedUnavailable"] += 1
                 _hist(inc, now, "SOURCE_UNAVAILABLE", f"{inc['source']} {src_state}: event evidence retained, archive clock paused")
             elif now - inc["lastNewEventAt"] >= EVENT_RETENTION_S:

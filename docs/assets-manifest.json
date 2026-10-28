@@ -1,0 +1,461 @@
+{
+ "_note": "R6-04 inventory of every public asset in the tree. tests/test_round6.py checks that every tracked asset is listed, the sha256 matches, the status is allowed, every image is synthetic and rendered only from synthetic inputs. Regenerate with tools/build_asset_manifest.py.",
+ "assets": {
+  "data/event-calendar.json": {
+   "status": "public-official",
+   "source": "official US release schedules (Federal Reserve FOMC calendar, BLS, Treasury auctions); rights row in PROVIDER-RIGHTS.md",
+   "sha256": "ef9128956f5beec7668575e5ac260d4da323adc8a7bd03441531face5028ff82"
+  },
+  "docs/graph-copy-desktop-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "f8c1de2c82d574f39cb5dd621bb599de6c54c4382d2ab8caf8ce73250e801f0d",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-copy-iphone-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "d90dd61bdd88f360da4dfb27699041e439ae650830018d73a02f254e77a73df6",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-copy-mobile-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "3bd6a5bcb4569698c64aa6fbb3b3b2be5e3e584c02e7205d58b50f89885ab961",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-copy-reduced-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "f8c1de2c82d574f39cb5dd621bb599de6c54c4382d2ab8caf8ce73250e801f0d",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-shill-desktop-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "e9939625d97cf3e4a1f78cd2f582eb156e3b255fd805523cd0d97032486be8c9",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-shill-iphone-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "ce7c94c910819208a7c3334bf7d427c3a79914f097f11f52ef9b3ed6f2e8c6ad",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-shill-mobile-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "0838d2443045dd8f4f4bc4e50d39af0e7e58d3452e5ce6d5459d0c1b56e6a13b",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/graph-shill-reduced-panel.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "74bcee9f5996eeca007d6d47e889c9f3effe43f1c74c48682da4ee1fca6f345c",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/review/eval-config.json": {
+   "status": "project-generated",
+   "source": "evaluation config/results written by this project",
+   "sha256": "9399377c9659264d98d5dbc94a1638f7c98752fbe460f310d3e0fe875135cf26"
+  },
+  "docs/review/eval-results.json": {
+   "status": "project-generated",
+   "source": "evaluation config/results written by this project",
+   "sha256": "77858bf98724388ccb12372e9ae01dd2c8cfcd2c8ac73d231034f2a367e3747d"
+  },
+  "docs/review/eval-treasury/labels.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "a4bc52524ab115911ec1d2975882b84f5fd2012fa2313cbf49a2795a49dbf3dc"
+  },
+  "docs/review/eval-treasury/manifest.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "d735c7251dd01cf94f3a224806fe98922ac08b9f0adb25fac97e7798db590e17"
+  },
+  "docs/review/eval-treasury/roster.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "5e54bf1010260e5e0d43cf6c79241ea48161ef056bf2f081374c2b0cb350f22a"
+  },
+  "docs/review/replay-fixtures.jsonl": {
+   "status": "project-generated",
+   "source": "output of the synthetic replay harness",
+   "sha256": "5e3f13836b700d6443301e3889b6730660dc524eb303d9ff27f5a1875c9470bb"
+  },
+  "docs/review/replay-real-20261028.json": {
+   "status": "project-generated",
+   "source": "aggregate counts from a local replay over treasury.gov history and one Polymarket market (title and link only; no raw series)",
+   "sha256": "c01c9edd7f55279d8731ed32f1b60527aea721a321f07d19966ebca924a1eb54"
+  },
+  "docs/review/round4-tests-before-fix.txt": {
+   "status": "project-generated",
+   "source": "test logs written by this project (paths sanitized)",
+   "sha256": "399769ad4f09e4aa49ee3384a20a5e9fe7c2851b02087b69e47f848310256276"
+  },
+  "docs/review/round5-tests-before-fix.txt": {
+   "status": "project-generated",
+   "source": "test logs written by this project (paths sanitized)",
+   "sha256": "2f3b5696224da2552940b39e3173b8adfd54c475e3b75f5f677265e86a06c5c0"
+  },
+  "docs/screenshots-provenance.json": {
+   "status": "project-generated",
+   "source": "round-5 screenshot provenance (superseded by this manifest; kept for the R5 test)",
+   "sha256": "c7373bb280e963e4abe7c9ed572b97bbb1667122980a5f77eca80087324a7aae"
+  },
+  "docs/signals-desktop-feed.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "d027484c53adcb22364e1b08c47a0ce8e8f2c68fbb9b0b7945613de74c530924",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/signals-desktop-hero.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "845e632dce541a03329557cc577c03f38abb336e242c05cf90b692de1da8cc6c",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/signals-iphone-feed.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "f64f387778726b2e7f5fadb294db5469741e47caf98ba9488b878fc5ab39cc7f",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/signals-iphone-hero.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "00fe3c7c0f46f2bfc420b839c57fa843651720934718a24278a498e8d28ca130",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/signals-mobile-feed.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "7c64cb54120221bd1f79a2976f1604cf65a798f90163b1dec6271f0c86ec9cfe",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/signals-mobile-hero.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot of the Signals tab rendering only the synthetic signals example",
+   "sha256": "fa8f4c5d94f233068723ccac9985aa3a42b5361bec8474cc043a30a2278df1b3",
+   "renderedFrom": [
+    "examples/signals-EXAMPLE.json"
+   ]
+  },
+  "docs/ui-copy-network.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "b1cca5e4377f98d20da4c986750b2d281c03e0f4715e3088912f7fe82a987c8d",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/ui-mobile.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "71cd3d2590734fc878da289941b5eeceab76f37652ece3374bc9e6affce5af1a",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/ui-rug-replay.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "17d8fc54a0a36a63f8b97fb339f138cd698524f501acfc8d69afd9319d6e6c8b",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/ui-shill-network.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "9e4e8fb2f044b1d7671bd804f409890ab9235e764cb630f2f15d1c22f96a3ece",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/ui-token-scan.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "7a1862e99fc84c1c87c76193586ab53a6b4764ded0766d7f0f3b8a9a657768a1",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "docs/ui-watch.png": {
+   "status": "synthetic",
+   "source": "Chromium-emulation screenshot rendering only the synthetic on-chain examples (R6-04)",
+   "sha256": "9e462871fc936d4520855718be293414feb4051fe76b2f305423620a374bfe8c",
+   "renderedFrom": [
+    "examples/leaderboard-INSIDER.json",
+    "examples/replay-SYNTHING-SyndEg.json",
+    "examples/scan-SYNBOT-SynA6W.json",
+    "examples/scan-SYNFART-SynMyL.json",
+    "examples/scan-SYNTHING-SyndEg.json",
+    "examples/shill-SYNTHING-anon.json",
+    "examples/signals-EXAMPLE.json",
+    "examples/threats-sample.json",
+    "examples/wallet-SynHEeK2.json",
+    "examples/watch-SYNTHING-SyndEg.json"
+   ]
+  },
+  "examples/leaderboard-INSIDER.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "0083c0a60cb662423622bbc5d4c6077f5f617ae40e7ac6bda3196c77c1603ff1"
+  },
+  "examples/provenance-sample.json": {
+   "status": "project-generated",
+   "source": "promo-provenance analysis of a generated test clip (C2PA test fixture); no chain, X or market data",
+   "sha256": "4057e325d26a55042eeb0413717976c4a119d66664151e39078464f5a0a37122"
+  },
+  "examples/replay-SYNTHING-SyndEg.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "d05d574c4a81f170ab9aa281c48493880c40b395f1fe9ac15447d8c1976247b4"
+  },
+  "examples/scan-SYNBOT-SynA6W.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "38cd7b92d3691a0b17e0c57bd6720e606f012ed5a7ff5e55e28ee9339f39e242"
+  },
+  "examples/scan-SYNFART-SynMyL.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "7c821d5acb76551a40543c1ba6ede6a871c99f7425db515c410f50f1f6828f98"
+  },
+  "examples/scan-SYNTHING-SyndEg.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "8acdc81e770cf80f6666452a5bf262c7fce3fae301c74d1c6bdd7850c3beb2f6"
+  },
+  "examples/shill-SYNTHING-anon.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "0ed0e71d9556a62c72af50478bdbe979ce19027c7c7e115a10ff11c0a9679502"
+  },
+  "examples/signals-EXAMPLE.json": {
+   "status": "synthetic",
+   "source": "tests/fixtures/contracts/make_example.py (synthetic generators through the production parsers)",
+   "sha256": "99f3f42fa7fa8331dfdf05eb2ae6851b0beefb21d4ecae14048dad632d155237"
+  },
+  "examples/threats-sample.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "90779f0d1242f41e22079b084740c5b60c14e7a528c0ceb2df0c2a5c46cbb54d"
+  },
+  "examples/wallet-SynHEeK2.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "6337a03f3e3f72e344eb9b79141c37d941d755704e3b85dbb6aafd7f0decce35"
+  },
+  "examples/watch-SYNTHING-SyndEg.json": {
+   "status": "synthetic",
+   "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
+   "sha256": "14a47807c7fd6d5a57767e8f499849a1242810001e6badcf72ffb9cba5564515"
+  },
+  "tests/fixtures/onchain-denylist.json": {
+   "status": "project-generated",
+   "source": "SHA-256 hashes of real identifiers (no identifiers themselves), for the R6-04 test",
+   "sha256": "dca17ae44fc0aef9b39cbee7ee59debd1f72bb694409b498b5a91cea28b57fc4"
+  },
+  "tests/fixtures/replay/01-arbitrage-pair.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "a4af7947ccf85602661e32d1f071a4d0a438512b14268b365b1bdac3c92d394c"
+  },
+  "tests/fixtures/replay/02-keyword-false-match.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "37ca94a89bb7e5e7d9f46d8836a603fc1128513673cc4128538715ea679469c6"
+  },
+  "tests/fixtures/replay/03-outage.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "3df300f8bc7b18c6ec2862212f35674f27c98ed8c8d773729f2e65dda29ab824"
+  },
+  "tests/fixtures/replay/04-quiet-session.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "b3a961837a19de7ed0e8d20985abf4636457dd03ab37985be16113da3e5af0f0"
+  },
+  "tests/fixtures/replay/05-midnight-boundary.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "78c3af62807d687cbf90190ae1eb8ed24cb44f32d5e7f054906660205873e6e5"
+  },
+  "tests/fixtures/replay/06-scheduled-cpi.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "389d376ca56a2f646e22e3ab6514561b8e6a918fcf63abc58e04e247ac005cd4"
+  },
+  "tests/fixtures/replay/07-cross-family-control.json": {
+   "status": "synthetic",
+   "source": "hand-written replay fixtures (invented values)",
+   "sha256": "3b1dd9562f113f5701f334931242c68f6910cdc748a0c6a20ee2fb3a3658a817"
+  },
+  "tests/fixtures/signals-fixtures.json": {
+   "status": "synthetic",
+   "source": "hand-written detector fixtures (invented values; file _note says SYNTHETIC)",
+   "sha256": "1c0d89c63ff87c12725ccb090b28b39a84ff6fae649991c8ab1d1b4edd38ca0c"
+  },
+  "ui/licenses/Bungee-OFL.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "1256e1025d54b27c033b5a1335a5b99a64ea5e6cdfd5805829128baaf0a47804"
+  },
+  "ui/licenses/GeistPixel-OFL.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "a34971681b85fa8d07ab3a336df38f8359297b6fd3cad6ebff5f4f47b61a35fc"
+  },
+  "ui/licenses/Pixelarticons-MIT.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "eb113ac5006542496193a0641f8e90dcaf392e5025540ba45c2ee042af3ae51d"
+  }
+ }
+}

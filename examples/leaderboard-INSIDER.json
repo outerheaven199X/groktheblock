@@ -1,0 +1,303 @@
+{
+ "type": "INSIDER",
+ "entries": [
+  {
+   "address": "SynHEeMKqgpPUFWoHdAHGYpaC9CzVAYUPJD4qgy1VdxX",
+   "appearances": 28,
+   "tokens": [
+    "?",
+    "SYNVDKJ",
+    "SYN19PE",
+    "SYNFK8B",
+    "SYNPPDC",
+    "SYNMZ7L",
+    "SYNJBNM",
+    "SYN5CRG",
+    "SYNM4G1",
+    "SYNYTPK",
+    "SYNHB7R",
+    "SYNJ3UB",
+    "SYN1TRN",
+    "SYNDPZ8",
+    "SYN9KJC",
+    "SYNUD3G",
+    "SYNGPQP"
+   ],
+   "winRate": 89,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 16.74141,
+   "lastSeen": "2026-09-28T07:35:27.135336+00:00"
+  },
+  {
+   "address": "SynVxwAB5GvVQjEUi9V8JaHN8j5JmQ6WYCLYwneG51Sh",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.95787,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Syn4eafGm2RHCCMPUP76LSANYBpvbeXuFGwKBVpWsaFZ",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.68817,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Syno1AH6VVUUereQE8tRUFBz5faUfAfg5oZoyfQ1eaq9",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.45327,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynG2vnUCGKWYeoQD2dVaMD8nRMsBpZVzqox4oqmbj2h",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.30537,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynVD93qAmoM3TJTbhz3RRLmFH1zSGYWpY1JVkcPse6k",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -1.88094,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynZXKEpfbBexdAofr4zsG3D9FCjRVvDv9u5E3zs54V1",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -1.39287,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Synru4QYwshTt2o5qSPJF2gzAov5KuwZCWn243CMu4us",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 87.94308,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynKumddLJsLufrXfxwAP1iM8AR6k9arzE7MEdFYR8nG",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 54.45156,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Synxuh7pkSsKQapRjKQy9VjhtbndTFpainQrMv2JUBdF",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 50.56962,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynkuJMdrZDdMmx7r1eyGM31GBm3AJGE4mpAhybeREpk",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -2.78574,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynebPHEWh4uo5U6ygsoRkMhAwZ4YGGhSrmJ55ipYxGq",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 32.21523,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynjWcynXCiQM4uFYE2LcLzQEDjzaqjhEXuBVogPBo97",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 67.96701,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Syng2VQDBMatvPANA64TE3M1rgCQFbjSncjyPZuz4ev5",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -18.99993,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynyPAiwwCGXPadvL2d2A374kR6TqaRPpXRLczdR9CVq",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -17.55573,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynMAS6k5px6WLACSp41pW2VAgV7oCCXeTPWxjSe29do",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -24.57576,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynCokG6zJagtqWp8iEZ9ZHNTMxYjM1Q6V9LPBYkRTNw",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -56.19417,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "Syne4z7TH5i5ghQgu5rirg27DLyHRFoNx6fyVsZVUvKN",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -45.6576,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynBxj7fNf1fAhHEj2KF7VV5UhNWQB4PnHGfDbo8V94h",
+   "appearances": 1,
+   "tokens": [
+    "SYNTHING"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -19.34619,
+   "lastSeen": "2026-09-28T07:32:23.943211+00:00"
+  },
+  {
+   "address": "SynKziZaCXdUoviDxuivri47p3xmE68GbLcgAQdufFqp",
+   "appearances": 1,
+   "tokens": [
+    "BGC"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.44283,
+   "lastSeen": "2026-09-28T07:32:53.800104+00:00"
+  },
+  {
+   "address": "Syn67TMnNwaCG46PgheLgnHaTMfE8nWNWUkMkCJREB2F",
+   "appearances": 1,
+   "tokens": [
+    "BGC"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -17.20077,
+   "lastSeen": "2026-09-28T07:32:53.800104+00:00"
+  },
+  {
+   "address": "SynTgZfvPrn9YcyYQaYfeCeuJKQTrYG29mwuduPNuxBd",
+   "appearances": 1,
+   "tokens": [
+    "SYNHSFX"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -0.44283,
+   "lastSeen": "2026-09-28T07:33:15.319957+00:00"
+  },
+  {
+   "address": "SynP2StQNGqFTjcyWb5HVBWVFHYT8UZVJA7cPxSmHv6R",
+   "appearances": 1,
+   "tokens": [
+    "SYNBOT"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -3.06675,
+   "lastSeen": "2026-09-28T07:33:18.009119+00:00"
+  },
+  {
+   "address": "Synz31yADYha2BuXRKfJRL4zM7YQPKg6RHpL6M93Bv3B",
+   "appearances": 1,
+   "tokens": [
+    "SYNBOT"
+   ],
+   "winRate": 0,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": -2.17935,
+   "lastSeen": "2026-09-28T07:33:18.009119+00:00"
+  },
+  {
+   "address": "SyndPbQDGCBrVm7pcKdsRG9qQKvzVC2LEtZ9Kyuzye9p",
+   "appearances": 1,
+   "tokens": [
+    "SYNBOT"
+   ],
+   "winRate": 100,
+   "avgEntryBlock": 0.0,
+   "totalEstimatedPnlSol": 2.32464,
+   "lastSeen": "2026-09-28T07:33:18.009119+00:00"
+  }
+ ],
+ "totalWalletsTracked": 182,
+ "tokensScanned": 51,
+ "dataSpan": "2026-10-28 to 2026-10-28",
+ "note": "Only covers tokens scanned on this machine. Grows as you run token-scan.",
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

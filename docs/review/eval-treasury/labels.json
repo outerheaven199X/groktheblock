@@ -1,0 +1,15 @@
+{
+ "_note": "EMPTY. Labels are added only by two blind reviewers under ADJUDICATION.md; none have been collected. Nothing here is invented.",
+ "reviewers": [],
+ "labels": [],
+ "disagreements": [],
+ "fields": [
+  "itemId",
+  "reviewer",
+  "relevance",
+  "evidenceCorrect",
+  "timestampCorrect",
+  "label",
+  "note"
+ ]
+}

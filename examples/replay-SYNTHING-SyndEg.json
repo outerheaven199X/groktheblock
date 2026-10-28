@@ -1,0 +1,1329 @@
+{
+ "token": {
+  "name": "Synthetic Thing",
+  "symbol": "SYNTHING",
+  "mint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+  "createdAt": 1790532396
+ },
+ "timeline": [
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "CREATION",
+   "wallet": "SynLAXPPGAVt72ESaBwWmT54x9HsGiVjdC4javjWwfjm",
+   "walletType": "INSIDER",
+   "detail": "Token created / first observed tx",
+   "signature": "SynQSt3ESMyY55W56fkqV1U2UFMRZiWzQzV5N4d7GnGq5H5DcsDDsbcLU92GVBdjfxq3jdqbBzyBATEk7D4AWLnR"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "SNIPER_ENTRY",
+   "wallet": "SynLAXPPGAVt72ESaBwWmT54x9HsGiVjdC4javjWwfjm",
+   "walletType": "SNIPER",
+   "detail": "SynL...wfjm bought (SNIPER) — 0.2% supply",
+   "supplyPercent": 0.15404,
+   "signature": "SynQSt3ESMyY55W56fkqV1U2UFMRZiWzQzV5N4d7GnGq5H5DcsDDsbcLU92GVBdjfxq3jdqbBzyBATEk7D4AWLnR"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynVxwAB5GvVQjEUi9V8JaHN8j5JmQ6WYCLYwneG51Sh",
+   "walletType": "INSIDER",
+   "detail": "SynV...51Sh bought (INSIDER) — 2.8% supply",
+   "supplyPercent": 2.825947,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Syn4eafGm2RHCCMPUP76LSANYBpvbeXuFGwKBVpWsaFZ",
+   "walletType": "INSIDER",
+   "detail": "Syn4...saFZ bought (INSIDER) — 2.2% supply",
+   "supplyPercent": 2.149582,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Syno1AH6VVUUereQE8tRUFBz5faUfAfg5oZoyfQ1eaq9",
+   "walletType": "INSIDER",
+   "detail": "Syno...eaq9 bought (INSIDER) — 1.5% supply",
+   "supplyPercent": 1.473879,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynG2vnUCGKWYeoQD2dVaMD8nRMsBpZVzqox4oqmbj2h",
+   "walletType": "INSIDER",
+   "detail": "SynG...bj2h bought (INSIDER) — 1.0% supply",
+   "supplyPercent": 1.019799,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynVD93qAmoM3TJTbhz3RRLmFH1zSGYWpY1JVkcPse6k",
+   "walletType": "INSIDER",
+   "detail": "SynV...se6k bought (INSIDER) — 4.6% supply",
+   "supplyPercent": 4.613856,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynZXKEpfbBexdAofr4zsG3D9FCjRVvDv9u5E3zs54V1",
+   "walletType": "INSIDER",
+   "detail": "SynZ...54V1 bought (INSIDER) — 3.8% supply",
+   "supplyPercent": 3.797356,
+   "signature": "Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Synru4QYwshTt2o5qSPJF2gzAov5KuwZCWn243CMu4us",
+   "walletType": "INSIDER",
+   "detail": "Synr...u4us bought (INSIDER) — 8.6% supply",
+   "supplyPercent": 8.592245,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynKumddLJsLufrXfxwAP1iM8AR6k9arzE7MEdFYR8nG",
+   "walletType": "INSIDER",
+   "detail": "SynK...R8nG bought (INSIDER) — 8.1% supply",
+   "supplyPercent": 8.067868,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Synxuh7pkSsKQapRjKQy9VjhtbndTFpainQrMv2JUBdF",
+   "walletType": "INSIDER",
+   "detail": "Synx...UBdF bought (INSIDER) — 7.6% supply",
+   "supplyPercent": 7.608877,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynkuJMdrZDdMmx7r1eyGM31GBm3AJGE4mpAhybeREpk",
+   "walletType": "INSIDER",
+   "detail": "Synk...REpk bought (INSIDER) — 5.9% supply",
+   "supplyPercent": 5.937476,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynebPHEWh4uo5U6ygsoRkMhAwZ4YGGhSrmJ55ipYxGq",
+   "walletType": "INSIDER",
+   "detail": "Syne...YxGq bought (INSIDER) — 7.2% supply",
+   "supplyPercent": 7.206696,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynjWcynXCiQM4uFYE2LcLzQEDjzaqjhEXuBVogPBo97",
+   "walletType": "INSIDER",
+   "detail": "Synj...Bo97 bought (INSIDER) — 8.2% supply",
+   "supplyPercent": 8.203763,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Syng2VQDBMatvPANA64TE3M1rgCQFbjSncjyPZuz4ev5",
+   "walletType": "INSIDER",
+   "detail": "Syng...4ev5 bought (INSIDER) — 5.7% supply",
+   "supplyPercent": 5.644104,
+   "signature": "Syn3PXGAmRsyPJ89En2yk2zmZ5JKqHkq3wFGd48JjXfUBWs1iCQjnoSjhAF59LLGaKEywoRNPJEmRMATjBsuVS8H"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynyPAiwwCGXPadvL2d2A374kR6TqaRPpXRLczdR9CVq",
+   "walletType": "INSIDER",
+   "detail": "Syny...9CVq bought (INSIDER) — 3.4% supply",
+   "supplyPercent": 3.433264,
+   "signature": "SynPLFJA8ynNT1Kbjkas78Qz2GHKn7jUpuUyMpTzAtW6viRdsrwRBbRe68ER2hrRfQXAY2h3F4aWLHoTY1usT743"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynMAS6k5px6WLACSp41pW2VAgV7oCCXeTPWxjSe29do",
+   "walletType": "INSIDER",
+   "detail": "SynM...29do bought (INSIDER) — 2.2% supply",
+   "supplyPercent": 2.183615,
+   "signature": "SynQEoRSa4aiQKADr8SojcCQD9V9dtkrJSqhD2ouwwK5B9Hq3ZM3Gq5UENichn8FyeXKyvmX5dxcRF8TrVQp8Q1P"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynCokG6zJagtqWp8iEZ9ZHNTMxYjM1Q6V9LPBYkRTNw",
+   "walletType": "INSIDER",
+   "detail": "SynC...RTNw bought (INSIDER) — 1.7% supply",
+   "supplyPercent": 1.754358,
+   "signature": "SynQEoRSa4aiQKADr8SojcCQD9V9dtkrJSqhD2ouwwK5B9Hq3ZM3Gq5UENichn8FyeXKyvmX5dxcRF8TrVQp8Q1P"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "Syne4z7TH5i5ghQgu5rirg27DLyHRFoNx6fyVsZVUvKN",
+   "walletType": "INSIDER",
+   "detail": "Syne...UvKN bought (INSIDER) — 2.5% supply",
+   "supplyPercent": 2.490202,
+   "signature": "SynQEoRSa4aiQKADr8SojcCQD9V9dtkrJSqhD2ouwwK5B9Hq3ZM3Gq5UENichn8FyeXKyvmX5dxcRF8TrVQp8Q1P"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "INSIDER_BUY",
+   "wallet": "SynBxj7fNf1fAhHEj2KF7VV5UhNWQB4PnHGfDbo8V94h",
+   "walletType": "INSIDER",
+   "detail": "SynB...V94h bought (INSIDER) — 2.5% supply",
+   "supplyPercent": 2.530463,
+   "signature": "SynQEoRSa4aiQKADr8SojcCQD9V9dtkrJSqhD2ouwwK5B9Hq3ZM3Gq5UENichn8FyeXKyvmX5dxcRF8TrVQp8Q1P"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "SNIPER_ENTRY",
+   "wallet": "Synv8DUCwW6NoM97jec9dhQ3Dm44n3J8FEJEpiRsfkDm",
+   "walletType": "SNIPER",
+   "detail": "Synv...fkDm bought (SNIPER) — 0.0% supply",
+   "supplyPercent": 0.012135,
+   "signature": "SynzjEJc5W7GccF99SNxL9yawc1LZh8aeKnAKHsyGVtXH3omdogQyoUXZJaeMxFCFFJ41NyhCN736kUA4ZHUVfJd"
+  },
+  {
+   "timestamp": 1790532396,
+   "relativeTime": "+0s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "17 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532397,
+   "relativeTime": "+1s",
+   "type": "SNIPER_ENTRY",
+   "wallet": "SynMHXXeBoCBoHGv94NFicuPuwFxtQg64yy8TBCLSQhG",
+   "walletType": "SNIPER",
+   "detail": "SynM...SQhG bought (SNIPER) — 0.0% supply",
+   "supplyPercent": 0.0,
+   "signature": "SynxrPC6hhNxZqUgSb7U7N6e3gDD9ZqKe2PWC7JJgBTw4NRXAhFFDEk5qB9FgMWwcZxrJRNLXQYDMz2U7iaDWJoB"
+  },
+  {
+   "timestamp": 1790532397,
+   "relativeTime": "+1s",
+   "type": "SNIPER_ENTRY",
+   "wallet": "SynTmzQW8m4MemEKhq6e7aAEcKb9qTSPnRiNK5oAJw1S",
+   "walletType": "SNIPER",
+   "detail": "SynT...Jw1S bought (SNIPER) — 0.0% supply",
+   "supplyPercent": 1e-06,
+   "signature": "SynkSnHPKuaZrePsmXA3iC5gusWsko7uMEgxMZYHhUpwALdDK8Bmkm3D62jdvs2JpF4hrcmfX2ykxwht4F547A3a"
+  },
+  {
+   "timestamp": 1790532397,
+   "relativeTime": "+1s",
+   "type": "SNIPER_ENTRY",
+   "wallet": "SynC2BGTD7fMBXCxxQhyM5WfyBkHA58EeTrJoNmxRkay",
+   "walletType": "SNIPER",
+   "detail": "SynC...Rkay bought (SNIPER) — 0.0% supply",
+   "supplyPercent": 1e-06,
+   "signature": "SynXQUdfebcc6G7vZwYdeFC4VVWRc8tbNgLycUWqAAP9rCPZ12jXhEQZMAjCX9LUtsHQNZ7vWb19jBF6MDPsoBQR"
+  },
+  {
+   "timestamp": 1790532420,
+   "relativeTime": "+24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "25 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532480,
+   "relativeTime": "+1m 24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "93 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532540,
+   "relativeTime": "+2m 24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "4 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532660,
+   "relativeTime": "+4m 24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "4 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532720,
+   "relativeTime": "+5m 24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "3 organic buyers entered"
+  },
+  {
+   "timestamp": 1790532780,
+   "relativeTime": "+6m 24s",
+   "type": "ORGANIC_BUY",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "1 organic buyer entered"
+  },
+  {
+   "timestamp": 1790533389,
+   "relativeTime": "+16m 33s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account1 (100-500 followers): Warning post: claims the launch was bundled or risky (includes contract address)",
+   "impressions": 6
+  },
+  {
+   "timestamp": 1790533745,
+   "relativeTime": "+22m 29s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account2 (100-500 followers): Warning post: claims the launch was bundled or risky",
+   "impressions": 66
+  },
+  {
+   "timestamp": 1790534986,
+   "relativeTime": "+43m 10s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account3 (1k-5k followers): Wallet-activity commentary",
+   "impressions": 130
+  },
+  {
+   "timestamp": 1790535124,
+   "relativeTime": "+45m 28s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account4 (500-1k followers): Multiplier brag: early market cap versus current",
+   "impressions": 10
+  },
+  {
+   "timestamp": 1790535204,
+   "relativeTime": "+46m 48s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account5 (5k-10k followers): Paid-group call brag with an invite to join (includes contract address, a link (removed))",
+   "impressions": 113
+  },
+  {
+   "timestamp": 1790535426,
+   "relativeTime": "+50m 30s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account6 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 117
+  },
+  {
+   "timestamp": 1790535762,
+   "relativeTime": "+56m 6s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account7 (5k-10k followers): Early-entry hype at a low market cap (includes contract address, hashtags)",
+   "impressions": 894
+  },
+  {
+   "timestamp": 1790535809,
+   "relativeTime": "+56m 53s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account8 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 158
+  },
+  {
+   "timestamp": 1790535851,
+   "relativeTime": "+57m 35s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account9 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 203
+  },
+  {
+   "timestamp": 1790535929,
+   "relativeTime": "+58m 53s",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account10 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 321
+  },
+  {
+   "timestamp": 1790536260,
+   "relativeTime": "+1h 4m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account11 (500-1k followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 50
+  },
+  {
+   "timestamp": 1790536279,
+   "relativeTime": "+1h 4m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account12 (1k-5k followers): Early-entry hype at a low market cap",
+   "impressions": 91
+  },
+  {
+   "timestamp": 1790536411,
+   "relativeTime": "+1h 6m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account13 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 41
+  },
+  {
+   "timestamp": 1790536495,
+   "relativeTime": "+1h 8m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account14 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 40
+  },
+  {
+   "timestamp": 1790536753,
+   "relativeTime": "+1h 12m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account15 (<100 followers): Narrative or meme post about the token's theme (includes contract address)",
+   "impressions": 85
+  },
+  {
+   "timestamp": 1790536757,
+   "relativeTime": "+1h 12m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account16 (100-500 followers): Paid-group call brag with an invite to join (includes contract address, a link (removed))",
+   "impressions": 90
+  },
+  {
+   "timestamp": 1790536836,
+   "relativeTime": "+1h 14m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account17 (1k-5k followers): Early-entry hype at a low market cap (includes contract address, hashtags)",
+   "impressions": 67
+  },
+  {
+   "timestamp": 1790536864,
+   "relativeTime": "+1h 14m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account18 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 20
+  },
+  {
+   "timestamp": 1790536878,
+   "relativeTime": "+1h 14m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account19 (1k-5k followers): Early-entry hype at a low market cap (includes contract address, hashtags)",
+   "impressions": 109
+  },
+  {
+   "timestamp": 1790536901,
+   "relativeTime": "+1h 15m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account20 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 21
+  },
+  {
+   "timestamp": 1790536910,
+   "relativeTime": "+1h 15m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account21 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 50
+  },
+  {
+   "timestamp": 1790537042,
+   "relativeTime": "+1h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account22 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 13
+  },
+  {
+   "timestamp": 1790537623,
+   "relativeTime": "+1h 27m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account23 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 141
+  },
+  {
+   "timestamp": 1790537876,
+   "relativeTime": "+1h 31m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account24 (1k-5k followers): General promo mentioning the ticker (includes contract address, hashtags, a link (removed))",
+   "impressions": 63
+  },
+  {
+   "timestamp": 1790538842,
+   "relativeTime": "+1h 47m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account25 (5k-10k followers): Paid-group call brag with an invite to join",
+   "impressions": 124
+  },
+  {
+   "timestamp": 1790541105,
+   "relativeTime": "+2h 25m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account26 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 46
+  },
+  {
+   "timestamp": 1790542109,
+   "relativeTime": "+2h 41m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account27 (100-500 followers): Narrative or meme post about the token's theme (includes contract address, a link (removed))",
+   "impressions": 1202
+  },
+  {
+   "timestamp": 1790542781,
+   "relativeTime": "+2h 53m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account28 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 45
+  },
+  {
+   "timestamp": 1790543361,
+   "relativeTime": "+3h 2m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account29 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 247
+  },
+  {
+   "timestamp": 1790543886,
+   "relativeTime": "+3h 11m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account30 (1k-5k followers): General promo mentioning the ticker (includes contract address, hashtags, a link (removed))",
+   "impressions": 86
+  },
+  {
+   "timestamp": 1790543937,
+   "relativeTime": "+3h 12m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account31 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 48
+  },
+  {
+   "timestamp": 1790544918,
+   "relativeTime": "+3h 28m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account32 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 32
+  },
+  {
+   "timestamp": 1790545939,
+   "relativeTime": "+3h 45m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account33 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 33
+  },
+  {
+   "timestamp": 1790546832,
+   "relativeTime": "+4h",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account34 (<100 followers): Automated listing or boost notice (includes contract address, a link (removed))",
+   "impressions": 9
+  },
+  {
+   "timestamp": 1790547819,
+   "relativeTime": "+4h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account35 (5k-10k followers): General promo mentioning the ticker (includes contract address, hashtags)",
+   "impressions": 637
+  },
+  {
+   "timestamp": 1790547838,
+   "relativeTime": "+4h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account36 (50k+ followers): Narrative or meme post about the token's theme",
+   "impressions": 33443
+  },
+  {
+   "timestamp": 1790547843,
+   "relativeTime": "+4h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account37 (5k-10k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 367
+  },
+  {
+   "timestamp": 1790547874,
+   "relativeTime": "+4h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account38 (5k-10k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 354
+  },
+  {
+   "timestamp": 1790548002,
+   "relativeTime": "+4h 20m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account39 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 34
+  },
+  {
+   "timestamp": 1790548006,
+   "relativeTime": "+4h 20m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account40 (500-1k followers): Multiplier brag: early market cap versus current",
+   "impressions": 49
+  },
+  {
+   "timestamp": 1790548120,
+   "relativeTime": "+4h 22m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account41 (500-1k followers): Multiplier brag: early market cap versus current",
+   "impressions": 68
+  },
+  {
+   "timestamp": 1790548152,
+   "relativeTime": "+4h 22m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account42 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 101
+  },
+  {
+   "timestamp": 1790548384,
+   "relativeTime": "+4h 26m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account43 (10k-50k followers): FOMO post: missed-entry framing",
+   "impressions": 122
+  },
+  {
+   "timestamp": 1790548558,
+   "relativeTime": "+4h 29m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account44 (1k-5k followers): General promo mentioning the ticker (includes contract address, hashtags)",
+   "impressions": 65
+  },
+  {
+   "timestamp": 1790548591,
+   "relativeTime": "+4h 29m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account45 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 46
+  },
+  {
+   "timestamp": 1790549162,
+   "relativeTime": "+4h 39m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account46 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 99
+  },
+  {
+   "timestamp": 1790550543,
+   "relativeTime": "+5h 2m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account47 (100-500 followers): General promo mentioning the ticker (includes contract address, hashtags, a link (removed))",
+   "impressions": 82
+  },
+  {
+   "timestamp": 1790553230,
+   "relativeTime": "+5h 47m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account48 (100-500 followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 21
+  },
+  {
+   "timestamp": 1790556138,
+   "relativeTime": "+6h 35m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account49 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 82
+  },
+  {
+   "timestamp": 1790556139,
+   "relativeTime": "+6h 35m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account50 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 5
+  },
+  {
+   "timestamp": 1790556179,
+   "relativeTime": "+6h 36m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account51 (500-1k followers): Multiplier brag: early market cap versus current (includes contract address, a link (removed))",
+   "impressions": 12
+  },
+  {
+   "timestamp": 1790556415,
+   "relativeTime": "+6h 40m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account52 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 184
+  },
+  {
+   "timestamp": 1790557505,
+   "relativeTime": "+6h 58m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account53 (1k-5k followers): Early-entry hype at a low market cap (includes contract address, hashtags)",
+   "impressions": 210
+  },
+  {
+   "timestamp": 1790557538,
+   "relativeTime": "+6h 59m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account54 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 106
+  },
+  {
+   "timestamp": 1790557574,
+   "relativeTime": "+6h 59m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account55 (1k-5k followers): Paid-group call brag with an invite to join (includes contract address, a link (removed))",
+   "impressions": 34
+  },
+  {
+   "timestamp": 1790557682,
+   "relativeTime": "+7h 1m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account56 (1k-5k followers): Paid-group call brag with an invite to join (includes contract address, a link (removed))",
+   "impressions": 4
+  },
+  {
+   "timestamp": 1790557719,
+   "relativeTime": "+7h 2m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account57 (500-1k followers): Multiplier brag: early market cap versus current (includes contract address, a link (removed))",
+   "impressions": 6
+  },
+  {
+   "timestamp": 1790558173,
+   "relativeTime": "+7h 9m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account58 (500-1k followers): Multiplier brag: early market cap versus current (includes contract address, a link (removed))",
+   "impressions": 6
+  },
+  {
+   "timestamp": 1790558215,
+   "relativeTime": "+7h 10m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account59 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address, a link (removed))",
+   "impressions": 29
+  },
+  {
+   "timestamp": 1790558274,
+   "relativeTime": "+7h 11m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account60 (1k-5k followers): Paid-group call brag with an invite to join (includes contract address, a link (removed))",
+   "impressions": 3
+  },
+  {
+   "timestamp": 1790560525,
+   "relativeTime": "+7h 48m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account61 (5k-10k followers): General promo mentioning the ticker (includes contract address, hashtags, a link (removed))",
+   "impressions": 99
+  },
+  {
+   "timestamp": 1790560685,
+   "relativeTime": "+7h 51m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account62 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 56
+  },
+  {
+   "timestamp": 1790561257,
+   "relativeTime": "+8h 1m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account63 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 116
+  },
+  {
+   "timestamp": 1790562300,
+   "relativeTime": "+8h 18m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account64 (500-1k followers): Multiplier brag: early market cap versus current",
+   "impressions": 40
+  },
+  {
+   "timestamp": 1790562446,
+   "relativeTime": "+8h 20m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account65 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 26
+  },
+  {
+   "timestamp": 1790563085,
+   "relativeTime": "+8h 31m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account66 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 61
+  },
+  {
+   "timestamp": 1790563239,
+   "relativeTime": "+8h 34m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account67 (100-500 followers): Narrative or meme post about the token's theme (includes contract address, a link (removed))",
+   "impressions": 0
+  },
+  {
+   "timestamp": 1790563404,
+   "relativeTime": "+8h 36m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account68 (50k+ followers): Narrative or meme post about the token's theme (includes contract address, hashtags, a link (removed))",
+   "impressions": 5717
+  },
+  {
+   "timestamp": 1790563455,
+   "relativeTime": "+8h 37m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account69 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 233
+  },
+  {
+   "timestamp": 1790564402,
+   "relativeTime": "+8h 53m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account70 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 20
+  },
+  {
+   "timestamp": 1790564550,
+   "relativeTime": "+8h 55m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account71 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 52
+  },
+  {
+   "timestamp": 1790566448,
+   "relativeTime": "+9h 27m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account72 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address, a link (removed))",
+   "impressions": 49
+  },
+  {
+   "timestamp": 1790567664,
+   "relativeTime": "+9h 47m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account73 (1k-5k followers): General promo mentioning the ticker (includes contract address, a link (removed))",
+   "impressions": 17
+  },
+  {
+   "timestamp": 1790569422,
+   "relativeTime": "+10h 17m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account74 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 41
+  },
+  {
+   "timestamp": 1790569498,
+   "relativeTime": "+10h 18m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account75 (100-500 followers): Early-entry hype at a low market cap (includes hashtags)",
+   "impressions": 43
+  },
+  {
+   "timestamp": 1790569498,
+   "relativeTime": "+10h 18m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account76 (100-500 followers): Early-entry hype at a low market cap (includes hashtags)",
+   "impressions": 17
+  },
+  {
+   "timestamp": 1790569643,
+   "relativeTime": "+10h 20m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account77 (1k-5k followers): Paid-group call brag with an invite to join (includes contract address)",
+   "impressions": 18
+  },
+  {
+   "timestamp": 1790569688,
+   "relativeTime": "+10h 21m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account78 (1k-5k followers): Early-entry hype at a low market cap",
+   "impressions": 11
+  },
+  {
+   "timestamp": 1790569746,
+   "relativeTime": "+10h 22m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account79 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 2
+  },
+  {
+   "timestamp": 1790569888,
+   "relativeTime": "+10h 24m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account80 (1k-5k followers): Multiplier brag: early market cap versus current (includes contract address)",
+   "impressions": 9
+  },
+  {
+   "timestamp": 1790573743,
+   "relativeTime": "+11h 29m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account81 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 131
+  },
+  {
+   "timestamp": 1790573860,
+   "relativeTime": "+11h 31m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account82 (1k-5k followers): Early-entry hype at a low market cap",
+   "impressions": 84
+  },
+  {
+   "timestamp": 1790575573,
+   "relativeTime": "+11h 59m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account83 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 55
+  },
+  {
+   "timestamp": 1790575633,
+   "relativeTime": "+12h",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account84 (1k-5k followers): Paid-group call brag with an invite to join",
+   "impressions": 37
+  },
+  {
+   "timestamp": 1790577030,
+   "relativeTime": "+12h 23m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account85 (50k+ followers): Warning post: claims the launch was bundled or risky (includes contract address, a link (removed))",
+   "impressions": 2754
+  },
+  {
+   "timestamp": 1790577047,
+   "relativeTime": "+12h 24m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account86 (1k-5k followers): Warning post: claims the launch was bundled or risky (includes contract address)",
+   "impressions": 1
+  },
+  {
+   "timestamp": 1790577566,
+   "relativeTime": "+12h 32m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account87 (<100 followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 7
+  },
+  {
+   "timestamp": 1790577756,
+   "relativeTime": "+12h 36m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account88 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 69
+  },
+  {
+   "timestamp": 1790578564,
+   "relativeTime": "+12h 49m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account89 (1k-5k followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 7
+  },
+  {
+   "timestamp": 1790578616,
+   "relativeTime": "+12h 50m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account90 (1k-5k followers): Narrative or meme post about the token's theme (includes contract address, a link (removed))",
+   "impressions": 0
+  },
+  {
+   "timestamp": 1790578641,
+   "relativeTime": "+12h 50m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account91 (1k-5k followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 8
+  },
+  {
+   "timestamp": 1790578661,
+   "relativeTime": "+12h 51m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account92 (1k-5k followers): General promo mentioning the ticker (includes contract address)",
+   "impressions": 6
+  },
+  {
+   "timestamp": 1790578965,
+   "relativeTime": "+12h 56m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account93 (5k-10k followers): Multiplier brag: early market cap versus current",
+   "impressions": 28
+  },
+  {
+   "timestamp": 1790579180,
+   "relativeTime": "+12h 59m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account94 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 0
+  },
+  {
+   "timestamp": 1790579427,
+   "relativeTime": "+13h 3m",
+   "type": "X_POST",
+   "wallet": "",
+   "walletType": "ORGANIC",
+   "detail": "account95 (1k-5k followers): Multiplier brag: early market cap versus current",
+   "impressions": 11
+  }
+ ],
+ "summary": {
+  "lifespan": "6 minutes (of analyzed window)",
+  "peakHolders": 170,
+  "organicLossEstimateSol": 781.14951,
+  "insiderProfitEstimateSol": 635.55849,
+  "rugMethod": "UNKNOWN",
+  "xPostsMerged": 95
+ },
+ "walletBreakdown": {
+  "AGENT": 0,
+  "INSIDER": 18,
+  "COPY": 0,
+  "SNIPER": 5,
+  "ORGANIC": 147
+ },
+ "window": {
+  "transactionsAnalyzed": 1000,
+  "reachedLaunch": true,
+  "excludedProgramAccounts": [
+   "Syn6DyvJ1jyi3h6XLw15xzMCXrAL1ZHV79hb2pu7QYnv",
+   "SynB2PVzkAkGDwFFaHXjZawgj7ptBth4jKBT4YS71pqa"
+  ]
+ },
+ "notes": [
+  "Loss/profit are realized SOL flows in the analyzed window (the original summed token-unit 'pnl', which is always ~0).",
+  "LP_REMOVE = deployer/insider gains >= 1 SOL AND receives the token in the same AMM tx (both sides of the pool returned); heuristic.",
+  "organicLossEstimateSol = net SOL spent by ORGANIC wallets in the window, including positions still open.",
+  "Signals, not accusations."
+ ],
+ "assessment": {
+  "subject": {
+   "kind": "token",
+   "mint": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+   "symbol": "SYNTHING"
+  },
+  "severity": "HIGH",
+  "lead": {
+   "id": "early",
+   "severity": "HIGH",
+   "basis": "observed",
+   "text": "18 insider-class wallets bought 79.5% of supply, starting +0s after creation.",
+   "evidence": [
+    {
+     "label": "SynV...51Sh bought (INSIDER) — 2.8% supply",
+     "kind": "tx",
+     "address": "SynVxwAB5GvVQjEUi9V8JaHN8j5JmQ6WYCLYwneG51Sh",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    },
+    {
+     "label": "Syn4...saFZ bought (INSIDER) — 2.2% supply",
+     "kind": "tx",
+     "address": "Syn4eafGm2RHCCMPUP76LSANYBpvbeXuFGwKBVpWsaFZ",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    },
+    {
+     "label": "Syno...eaq9 bought (INSIDER) — 1.5% supply",
+     "kind": "tx",
+     "address": "Syno1AH6VVUUereQE8tRUFBz5faUfAfg5oZoyfQ1eaq9",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    },
+    {
+     "label": "SynG...bj2h bought (INSIDER) — 1.0% supply",
+     "kind": "tx",
+     "address": "SynG2vnUCGKWYeoQD2dVaMD8nRMsBpZVzqox4oqmbj2h",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    },
+    {
+     "label": "SynV...se6k bought (INSIDER) — 4.6% supply",
+     "kind": "tx",
+     "address": "SynVD93qAmoM3TJTbhz3RRLmFH1zSGYWpY1JVkcPse6k",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    },
+    {
+     "label": "SynZ...54V1 bought (INSIDER) — 3.8% supply",
+     "kind": "tx",
+     "address": "SynZXKEpfbBexdAofr4zsG3D9FCjRVvDv9u5E3zs54V1",
+     "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+    }
+   ]
+  },
+  "findings": [
+   {
+    "id": "early",
+    "severity": "HIGH",
+    "basis": "observed",
+    "text": "18 insider-class wallets bought 79.5% of supply, starting +0s after creation.",
+    "evidence": [
+     {
+      "label": "SynV...51Sh bought (INSIDER) — 2.8% supply",
+      "kind": "tx",
+      "address": "SynVxwAB5GvVQjEUi9V8JaHN8j5JmQ6WYCLYwneG51Sh",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     },
+     {
+      "label": "Syn4...saFZ bought (INSIDER) — 2.2% supply",
+      "kind": "tx",
+      "address": "Syn4eafGm2RHCCMPUP76LSANYBpvbeXuFGwKBVpWsaFZ",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     },
+     {
+      "label": "Syno...eaq9 bought (INSIDER) — 1.5% supply",
+      "kind": "tx",
+      "address": "Syno1AH6VVUUereQE8tRUFBz5faUfAfg5oZoyfQ1eaq9",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     },
+     {
+      "label": "SynG...bj2h bought (INSIDER) — 1.0% supply",
+      "kind": "tx",
+      "address": "SynG2vnUCGKWYeoQD2dVaMD8nRMsBpZVzqox4oqmbj2h",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     },
+     {
+      "label": "SynV...se6k bought (INSIDER) — 4.6% supply",
+      "kind": "tx",
+      "address": "SynVD93qAmoM3TJTbhz3RRLmFH1zSGYWpY1JVkcPse6k",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     },
+     {
+      "label": "SynZ...54V1 bought (INSIDER) — 3.8% supply",
+      "kind": "tx",
+      "address": "SynZXKEpfbBexdAofr4zsG3D9FCjRVvDv9u5E3zs54V1",
+      "url": "https://example.invalid/synthetic/solscan.io/tx/Synb2p6YH7QCTDZ9E9qU4U97qtVfzWHeRi33obWuaAMxspk88uAdVdXGJ3bVsJPxAEuZGc4VBEjFXt4C28xhkPtL"
+     }
+    ]
+   },
+   {
+    "id": "flows",
+    "severity": "INFO",
+    "basis": "observed",
+    "text": "In the analyzed window, insider and agent wallets realized about 635.5 SOL while organic wallets put in a net 781.2 SOL.",
+    "evidence": []
+   }
+  ],
+  "coverage": {
+   "reachedLaunch": true,
+   "transactionsAnalyzed": 1000,
+   "limits": [
+    {
+     "kind": "approximate",
+     "text": "SOL figures are realized flows in the analyzed window, including open positions."
+    },
+    {
+     "kind": "window",
+     "text": "Lifespan and events cover only the first 1000 transactions."
+    },
+    {
+     "kind": "sampled",
+     "text": "X posts are a sample of 95 search results, not every post."
+    }
+   ],
+   "providers": []
+  },
+  "nextActions": [
+   {
+    "id": "scan",
+    "label": "Scan $SYNTHING",
+    "why": "Wallet classes, bundle signal and LP status.",
+    "ask": "Scan token SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq.",
+    "cli": "python skills/token-scan/scripts/token_scan.py SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq",
+    "target": {
+     "kind": "scan",
+     "key": "SyndEgM54DeN9b1EW53uvu9uTxkHqz7WX6qVJfM7HxHq"
+    }
+   }
+  ]
+ },
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

@@ -23,7 +23,7 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
@@ -59,7 +59,7 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
@@ -95,7 +95,7 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
@@ -131,7 +131,7 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },

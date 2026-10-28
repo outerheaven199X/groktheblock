@@ -100,7 +100,7 @@ Ambiguous tickers: if more than one Solana mint uses the symbol (for example `$T
 Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py`, `python3 tests/test_watch_diff.py` and `python3 tests/test_no_leaks.py` to check the classifier port and the watch diff.
 
 Bundled X examples are sanitized (`tools/sanitize_examples.py`): post text is replaced by pattern summaries, handles and links are removed, and follower counts are bucketed.
-`examples/signals-EXAMPLE.json` and the `docs/signals-*.png` screenshots are **SYNTHETIC**: every number, title and link is invented (`tests/fixtures/contracts/make_example.py`, hashes in `docs/screenshots-provenance.json`) and each title starts with `[SYNTHETIC]`. They describe no real market. No provider data is committed; see `docs/PROVIDER-RIGHTS.md` → Public samples.
+All bundled examples are **SYNTHETIC** (R6-04): the on-chain reports in `examples/` were transformed by `tools/synthesize_onchain.py` (every address, signature, mint, token name and link invented; amounts scaled, times shifted; tokens are named `$SYNBOT`, `$SYNTHING`, `$SYNFART`), and every image in `docs/` is rendered from those synthetic examples; `docs/assets-manifest.json` lists each public asset with its SHA-256, source and status. `examples/signals-EXAMPLE.json` and the `docs/signals-*.png` screenshots are **SYNTHETIC**: every number, title and link is invented (`tests/fixtures/contracts/make_example.py`, hashes in `docs/screenshots-provenance.json`) and each title starts with `[SYNTHETIC]`. They describe no real market. No provider data is committed; see `docs/PROVIDER-RIGHTS.md` → Public samples.
 
 The shill detector reads saved X search results (the JSON from X's search API, with `expansions=author_id`). Inside Grok Bot, the bot fetches those with its built-in X tools. Standalone, bring your own export.
 
@@ -118,7 +118,7 @@ The shill detector reads saved X search results (the JSON from X's search API, w
 - **Conflict of interest:** the author receives creator royalties from a token associated with this project. The tool **never whitelists, skips, or special-cases any coin**, including that one. If it flags it, it flags it.
 
 ## Verification
-The journeys and failure cases (bundle vs organic, flagged wallet to evidence, watch to deduplicated alert; incomplete data, ambiguous ticker, empty network, provider failure) are recorded in [docs/verification/VERIFICATION.md](docs/verification/VERIFICATION.md).
+The journeys and failure cases (bundle vs organic, flagged wallet to evidence, watch to deduplicated alert; incomplete data, ambiguous ticker, empty network, provider failure) are recorded in [docs/verification/VERIFICATION.md](docs/verification/VERIFICATION.md) (a historical record; its evidence files were removed from the public tree in round 6).
 
 ## Credits
 Grok The Block is an evolution of [CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki (@varien). Data from Solana public RPC, [DexScreener](https://dexscreener.com), and [RugCheck](https://rugcheck.xyz). Content credentials via [c2patool](https://github.com/contentauth/c2pa-rs).

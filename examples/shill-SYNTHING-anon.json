@@ -1,0 +1,945 @@
+{
+ "ticker": "$SYNTHING",
+ "generatedAt": "2026-09-28T07:13:58.114716+00:00",
+ "sample": {
+  "posts": 92,
+  "accounts": 60,
+  "from": "2026-09-27T18:23:09.000Z",
+  "to": "2026-09-28T07:10:27.000Z"
+ },
+ "coordinationIndex": 28,
+ "coordinationIndexMeaning": "% of sampled posts that came from accounts inside a coordinated pattern cluster (>=3 linked accounts). Signal, not a verdict.",
+ "clusters": [
+  {
+   "size": 5,
+   "accounts": [
+    "account01",
+    "account03",
+    "account02",
+    "account04",
+    "account52"
+   ],
+   "posts": 17,
+   "textLinks": 10,
+   "burstAndCreationLinks": 0,
+   "medianFollowers": "1k-5k",
+   "youngAccounts": 0,
+   "exampleLinks": [],
+   "sampleTexts": [
+    "Early-entry hype at a low market cap (includes contract address, hashtags)",
+    "Early-entry hype at a low market cap",
+    "Early-entry hype at a low market cap (includes contract address, hashtags)",
+    "Early-entry hype at a low market cap (includes contract address, hashtags)"
+   ]
+  },
+  {
+   "size": 5,
+   "accounts": [
+    "account30",
+    "account36",
+    "account39",
+    "account06",
+    "account07"
+   ],
+   "posts": 9,
+   "textLinks": 10,
+   "burstAndCreationLinks": 0,
+   "medianFollowers": "1k-5k",
+   "youngAccounts": 0,
+   "exampleLinks": [],
+   "sampleTexts": [
+    "Paid-group call brag with an invite to join",
+    "Paid-group call brag with an invite to join",
+    "Paid-group call brag with an invite to join",
+    "Paid-group call brag with an invite to join"
+   ]
+  }
+ ],
+ "bursts": [
+  {
+   "start": "2026-09-27T19:19:13.000Z",
+   "end": "2026-09-27T19:24:02.000Z",
+   "accounts": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "posts": 8
+  },
+  {
+   "start": "2026-09-27T22:23:39.000Z",
+   "end": "2026-09-27T22:26:46.000Z",
+   "accounts": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "posts": 6
+  },
+  {
+   "start": "2026-09-28T00:42:18.000Z",
+   "end": "2026-09-28T00:46:55.000Z",
+   "accounts": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "posts": 4
+  },
+  {
+   "start": "2026-09-28T01:05:05.000Z",
+   "end": "2026-09-28T01:08:39.000Z",
+   "accounts": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "posts": 5
+  },
+  {
+   "start": "2026-09-28T04:23:42.000Z",
+   "end": "2026-09-28T04:28:08.000Z",
+   "accounts": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "posts": 5
+  }
+ ],
+ "exactDuplicateTexts": [
+  [
+   "Early-entry hype at a low market cap (includes contract address, hashtags)",
+   4
+  ],
+  [
+   "Paid-group call brag with an invite to join (includes contract address, hashtags)",
+   4
+  ],
+  [
+   "Early-entry hype at a low market cap (includes contract address, hashtags)",
+   3
+  ],
+  [
+   "General promo mentioning the ticker (includes contract address, hashtags)",
+   2
+  ],
+  [
+   "Multiplier brag: early market cap versus current (includes contract address, hashtags)",
+   2
+  ],
+  [
+   "General promo mentioning the ticker",
+   2
+  ],
+  [
+   "Paid-group call brag with an invite to join (includes contract address, hashtags)",
+   2
+  ],
+  [
+   "General promo mentioning the ticker (includes contract address, hashtags)",
+   2
+  ]
+ ],
+ "accountFlags": {
+  "young(<30d)": 5,
+  "lowFollowers(<25)": 2,
+  "highFollowingRatio(>=10x)": 0
+ },
+ "accounts": [
+  {
+   "id": "account01",
+   "username": "account01",
+   "followers": "5k-10k",
+   "following": "5k-10k",
+   "ageBucket": "5y+",
+   "posts": 6,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account02",
+   "username": "account02",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "5y+",
+   "posts": 4,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account03",
+   "username": "account03",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account04",
+   "username": "account04",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "1-5y",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account05",
+   "username": "account05",
+   "followers": "5k-10k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account06",
+   "username": "account06",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "1-5y",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account07",
+   "username": "account07",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account08",
+   "username": "account08",
+   "followers": "500-1k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account09",
+   "username": "account09",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account10",
+   "username": "account10",
+   "followers": "1k-5k",
+   "following": "100-500",
+   "ageBucket": "5y+",
+   "posts": 3,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account11",
+   "username": "account11",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account12",
+   "username": "account12",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account13",
+   "username": "account13",
+   "followers": "5k-10k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account14",
+   "username": "account14",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account15",
+   "username": "account15",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account16",
+   "username": "account16",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account17",
+   "username": "account17",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account18",
+   "username": "account18",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 2,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account19",
+   "username": "account19",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "<30d",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "account 3d old at first post"
+   ]
+  },
+  {
+   "id": "account20",
+   "username": "account20",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "<30d",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "account 23d old at first post"
+   ]
+  },
+  {
+   "id": "account21",
+   "username": "account21",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account22",
+   "username": "account22",
+   "followers": "500-1k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account23",
+   "username": "account23",
+   "followers": "5k-10k",
+   "following": "100-500",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account24",
+   "username": "account24",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account25",
+   "username": "account25",
+   "followers": "500-1k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account26",
+   "username": "account26",
+   "followers": "<100",
+   "following": "<100",
+   "ageBucket": "<30d",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "account 1d old at first post"
+   ]
+  },
+  {
+   "id": "account27",
+   "username": "account27",
+   "followers": "100-500",
+   "following": "100-500",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account28",
+   "username": "account28",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account29",
+   "username": "account29",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account30",
+   "username": "account30",
+   "followers": "5k-10k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account31",
+   "username": "account31",
+   "followers": "1k-5k",
+   "following": "100-500",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account32",
+   "username": "account32",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "<30d",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "account 2d old at first post"
+   ]
+  },
+  {
+   "id": "account33",
+   "username": "account33",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account34",
+   "username": "account34",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account35",
+   "username": "account35",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account36",
+   "username": "account36",
+   "followers": "1k-5k",
+   "following": "100-500",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account37",
+   "username": "account37",
+   "followers": "<100",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "4 followers"
+   ]
+  },
+  {
+   "id": "account38",
+   "username": "account38",
+   "followers": "50k+",
+   "following": "5k-10k",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account39",
+   "username": "account39",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "30d-1y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account40",
+   "username": "account40",
+   "followers": "500-1k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account41",
+   "username": "account41",
+   "followers": "500-1k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account42",
+   "username": "account42",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account43",
+   "username": "account43",
+   "followers": "10k-50k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account44",
+   "username": "account44",
+   "followers": "5k-10k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account45",
+   "username": "account45",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account46",
+   "username": "account46",
+   "followers": "100-500",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account47",
+   "username": "account47",
+   "followers": "500-1k",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account48",
+   "username": "account48",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account49",
+   "username": "account49",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account50",
+   "username": "account50",
+   "followers": "50k+",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account51",
+   "username": "account51",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account52",
+   "username": "account52",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account53",
+   "username": "account53",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account54",
+   "username": "account54",
+   "followers": "1k-5k",
+   "following": "500-1k",
+   "ageBucket": "<30d",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "account 29d old at first post"
+   ]
+  },
+  {
+   "id": "account55",
+   "username": "account55",
+   "followers": "50k+",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account56",
+   "username": "account56",
+   "followers": "<100",
+   "following": "<100",
+   "ageBucket": "1-5y",
+   "posts": 1,
+   "verified": false,
+   "flags": [
+    "15 followers"
+   ]
+  },
+  {
+   "id": "account57",
+   "username": "account57",
+   "followers": "5k-10k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account58",
+   "username": "account58",
+   "followers": "5k-10k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account59",
+   "username": "account59",
+   "followers": "1k-5k",
+   "following": "1k-5k",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  },
+  {
+   "id": "account60",
+   "username": "account60",
+   "followers": "1k-5k",
+   "following": "<100",
+   "ageBucket": "5y+",
+   "posts": 1,
+   "verified": false,
+   "flags": []
+  }
+ ],
+ "edges": [
+  {
+   "a": "account02",
+   "b": "account01",
+   "text": 16,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account04",
+   "b": "account01",
+   "text": 6,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account03",
+   "b": "account01",
+   "text": 5,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account01",
+   "b": "account52",
+   "text": 5,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account02",
+   "b": "account03",
+   "text": 3,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account04",
+   "b": "account03",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account03",
+   "b": "account52",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account02",
+   "b": "account04",
+   "text": 4,
+   "burst": 1,
+   "created": 0
+  },
+  {
+   "a": "account02",
+   "b": "account52",
+   "text": 3,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account04",
+   "b": "account52",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account30",
+   "b": "account36",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account30",
+   "b": "account39",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account30",
+   "b": "account06",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account30",
+   "b": "account07",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account39",
+   "b": "account36",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account06",
+   "b": "account36",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account36",
+   "b": "account07",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account12",
+   "b": "account05",
+   "text": 3,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account06",
+   "b": "account39",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account39",
+   "b": "account07",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account10",
+   "b": "account46",
+   "text": 3,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account06",
+   "b": "account07",
+   "text": 3,
+   "burst": 2,
+   "created": 0
+  },
+  {
+   "a": "account49",
+   "b": "account51",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  },
+  {
+   "a": "account58",
+   "b": "account60",
+   "text": 1,
+   "burst": 0,
+   "created": 0
+  }
+ ],
+ "disclaimer": "These are coordinated-pattern signals from a public sample, not accusations. Similar text can be a meme, a quote, or a giveaway template; check examples before saying anything.",
+ "anonymized": true,
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

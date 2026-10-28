@@ -1,0 +1,651 @@
+{
+ "wallet": {
+  "address": "SynHEeMKqgpPUFWoHdAHGYpaC9CzVAYUPJD4qgy1VdxX",
+  "totalPnlSol": 12.019659,
+  "totalPnlUsdApprox": 1236.2178,
+  "totalTokensTouched": 47,
+  "winRate": 90,
+  "firstActivity": "2026-09-26T04:21:01+00:00",
+  "walletAge": "561d",
+  "historyComplete": true,
+  "fundedBy": [],
+  "fundedAddresses": [
+   "SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK",
+   "Synfx9zePLcx2UaNEyPQah33s9D8EWzKo6KrrGjTRnyB",
+   "SynFTDbzZGn51xC93yBbjjVax8T6b8UsdDJgH2V53iA3"
+  ],
+  "priorHistory": [
+   {
+    "tokenSymbol": "SYN5CRG",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907474+00:00"
+   },
+   {
+    "tokenSymbol": "SYNDPZ8",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907547+00:00"
+   },
+   {
+    "tokenSymbol": "SYNFK8B",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907592+00:00"
+   },
+   {
+    "tokenSymbol": "SYNGPQP",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907630+00:00"
+   },
+   {
+    "tokenSymbol": "SYNUD3G",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907667+00:00"
+   },
+   {
+    "tokenSymbol": "SYNVDKJ",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907702+00:00"
+   },
+   {
+    "tokenSymbol": "SYNM4G1",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907737+00:00"
+   },
+   {
+    "tokenSymbol": "SYN9KJC",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907774+00:00"
+   },
+   {
+    "tokenSymbol": "SYNJ3UB",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:22:04.907812+00:00"
+   },
+   {
+    "tokenSymbol": "SYN19PE",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.127542+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.128404+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.128814+00:00"
+   },
+   {
+    "tokenSymbol": "SYNHB7R",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.129204+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.129592+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.129983+00:00"
+   },
+   {
+    "tokenSymbol": "SYNYTPK",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.130367+00:00"
+   },
+   {
+    "tokenSymbol": "SYN1TRN",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.130748+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.131131+00:00"
+   },
+   {
+    "tokenSymbol": "SYNMZ7L",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.131519+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.131916+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.132308+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.132723+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.133213+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.133682+00:00"
+   },
+   {
+    "tokenSymbol": "?",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.134084+00:00"
+   },
+   {
+    "tokenSymbol": "SYNUD3G",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.134480+00:00"
+   },
+   {
+    "tokenSymbol": "SYNJBNM",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.134877+00:00"
+   },
+   {
+    "tokenSymbol": "SYNPPDC",
+    "classification": "INSIDER",
+    "timestamp": "2026-09-28T07:35:27.135336+00:00"
+   }
+  ],
+  "reputation": {
+   "score": 100,
+   "grade": "EXTREME",
+   "factors": [
+    "INSIDER on 48 tokens",
+    "Avg entry block 0.0"
+   ]
+  }
+ },
+ "tokens": [
+  {
+   "mint": "SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg",
+   "symbol": "SYN1TRN",
+   "name": "SYN1TRN",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 2.991147,
+   "buyAmount": 72235602.993918,
+   "sellAmount": 72235602.993918,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T06:41:29+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynwK8A3G5VnDMt61KeaQCubT4xH3kdV6DKgdA1TbkXp",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.198773,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T07:52:27+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "Syn5PKpuhezFyUm6Cwy14riTVkuaaC966Qb3f4fHJpKn",
+   "symbol": "SYN5CRG",
+   "name": "SYNWNFQ",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.174239,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-28T06:35:01+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynxXtqjd8EREyE83kWCCDjkXCyFWTjPatbKavmxirK",
+   "symbol": "SYN19PE",
+   "name": "SYNE9JJ",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.141266,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T04:27:58+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynWM1MH92MVnZ4Xikj1eKTKStgtXGfGZQdsvvoozg3Y",
+   "symbol": "SYNHB7R",
+   "name": "SYNHB7R",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.134219,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T04:55:34+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynLSxmJyv3f2ZANMHBvDeARZ654DG1JuaMPECpnFPGP",
+   "symbol": "SYNJBNM",
+   "name": "SYNJCQP",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.122387,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-27T03:41:53+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynSZrk1hxz2E2X56Y34G48rLYGFyH1W69dFy7b67cNJ",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 1.109946,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T08:36:15+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynY84zA6ZH7Ed6ravp1RLmnW9KBhYgxFQVjRy61FDr5",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.922722,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T12:47:28+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynvemHT453Ao5FXJToyqP5iYhbLwh1r4vkYvhmwimAW",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.750462,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T04:37:30+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynNDdm4d2oy3at7xP6TwkHgFfUMBTSLwpcCsbv77qgy",
+   "symbol": "SYNUD3G",
+   "name": "SYNUD3G",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.668508,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-27T03:32:05+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "Synj3SXPB3dfHGJxkW3Ba9hs5ym9yCRKoi63fQDHNSa",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.659286,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T05:26:14+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "Syn1cvDwbv7AGMZfcgxEVd2KhiQPKtUjFn8AW4Emg71C",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.596907,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T06:56:15+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "Synand3gMFCKVeHRub3rEsex8qKh36GorQMqm1nPdHS",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.594297,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T04:48:22+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "Syn4jAqPFUEJKfWUWLJaNZV9x635ooReQb2YQKoCqPKw",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.593427,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T06:07:52+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynTv8dL5E4aKvo15hYk3vvPE3XWfghX8zBqHuQdKfBX",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.574548,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T12:20:03+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SyneHcKjCELuVtuhcdyQXrYw93pGW2wqy7ZuvkeEncSS",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.573939,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T07:25:16+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynH9GfvAwToZGLqKRuRK9RF3TpbAgJgLNtwSNpCG4LJ",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.537399,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T12:29:36+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynRhDqJHqSYN9MQMtfwdwKu5ticncuPGxB6M9sdpBJA",
+   "symbol": "?",
+   "name": "?",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": 0.535833,
+   "buyAmount": 83911011.185361,
+   "sellAmount": 83911011.185361,
+   "holdingAmount": 0.0,
+   "firstTx": "2026-09-26T12:09:42+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynkFGXhreU4wRvDrikKW8LbQQvFCXWp9JFE6ybYuSZ",
+   "symbol": "SYNYTPK",
+   "name": "SYNLNMB",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": -2.429388,
+   "buyAmount": 62217.888478,
+   "sellAmount": 62217.888478,
+   "holdingAmount": -0.0,
+   "firstTx": "2026-09-26T06:41:27+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  },
+  {
+   "mint": "SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+   "symbol": "SYNPPDC",
+   "name": "SYN2MMU",
+   "classification": "INSIDER",
+   "entryBlock": 0,
+   "pnlSol": -2.430258,
+   "buyAmount": 0.707959,
+   "sellAmount": 0.707959,
+   "holdingAmount": -0.0,
+   "firstTx": "2026-09-27T03:54:48+00:00",
+   "tag": "BLOCK 0 ENTRY"
+  }
+ ],
+ "associations": {
+  "fundingSources": [],
+  "fundedWallets": [
+   {
+    "address": "SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK",
+    "amountSol": 140.572947,
+    "timestamp": "2026-09-28T08:18:19+00:00"
+   },
+   {
+    "address": "Synfx9zePLcx2UaNEyPQah33s9D8EWzKo6KrrGjTRnyB",
+    "amountSol": 26.1,
+    "timestamp": "2026-09-27T08:24:32+00:00"
+   },
+   {
+    "address": "SynFTDbzZGn51xC93yBbjjVax8T6b8UsdDJgH2V53iA3",
+    "amountSol": 7.83,
+    "timestamp": "2026-09-28T04:41:02+00:00"
+   }
+  ]
+ },
+ "verdict": {
+  "severity": "CRITICAL",
+  "summary": "Wallet classified as INSIDER on 20 of 20 tokens. Consistent early-block entry pattern across multiple launches. High probability of coordinated activity."
+ },
+ "window": {
+  "transactionsAnalyzed": 300,
+  "from": "2026-09-26T04:21:01+00:00",
+  "to": "2026-09-28T08:18:19+00:00"
+ },
+ "notes": [
+  "PnL is approximate: realized SOL flow in the analyzed window only; open positions count as 0.",
+  "Per-token classification uses timing/cadence only (entry block is relative to this wallet's first tx on that token, as in the original).",
+  "Signals, not accusations."
+ ],
+ "assessment": {
+  "subject": {
+   "kind": "wallet",
+   "address": "SynHEeMKqgpPUFWoHdAHGYpaC9CzVAYUPJD4qgy1VdxX"
+  },
+  "severity": "CRITICAL",
+  "lead": {
+   "id": "pattern",
+   "severity": "CRITICAL",
+   "basis": "heuristic",
+   "text": "Flagged INSIDER, SNIPER or AGENT on 20 of 20 tokens, entering at block 0 on 20: a repeated launch-and-exit pattern.",
+   "evidence": [
+    {
+     "label": "SYN1TRN· INSIDER · +2.99 SOL",
+     "kind": "token",
+     "mint": "SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg"
+    },
+    {
+     "label": "SYNPPDC · INSIDER · -2.43 SOL",
+     "kind": "token",
+     "mint": "SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph"
+    },
+    {
+     "label": "SYNYTPK · INSIDER · -2.43 SOL",
+     "kind": "token",
+     "mint": "SynkFGXhreU4wRvDrikKW8LbQQvFCXWp9JFE6ybYuSZ",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynkFGXhreU4wRvDrikKW8LbQQvFCXWp9JFE6ybYuSZ"
+    },
+    {
+     "label": "? · INSIDER · +1.20 SOL",
+     "kind": "token",
+     "mint": "SynwK8A3G5VnDMt61KeaQCubT4xH3kdV6DKgdA1TbkXp",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynwK8A3G5VnDMt61KeaQCubT4xH3kdV6DKgdA1TbkXp"
+    },
+    {
+     "label": "SYN5CRG · INSIDER · +1.17 SOL",
+     "kind": "token",
+     "mint": "Syn5PKpuhezFyUm6Cwy14riTVkuaaC966Qb3f4fHJpKn",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/Syn5PKpuhezFyUm6Cwy14riTVkuaaC966Qb3f4fHJpKn"
+    },
+    {
+     "label": "SYN19PE · INSIDER · +1.14 SOL",
+     "kind": "token",
+     "mint": "SynxXtqjd8EREyE83kWCCDjkXCyFWTjPatbKavmxirK",
+     "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynxXtqjd8EREyE83kWCCDjkXCyFWTjPatbKavmxirK"
+    }
+   ]
+  },
+  "findings": [
+   {
+    "id": "pattern",
+    "severity": "CRITICAL",
+    "basis": "heuristic",
+    "text": "Flagged INSIDER, SNIPER or AGENT on 20 of 20 tokens, entering at block 0 on 20: a repeated launch-and-exit pattern.",
+    "evidence": [
+     {
+      "label": "SYN1TRN· INSIDER · +2.99 SOL",
+      "kind": "token",
+      "mint": "SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg"
+     },
+     {
+      "label": "SYNPPDC · INSIDER · -2.43 SOL",
+      "kind": "token",
+      "mint": "SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph"
+     },
+     {
+      "label": "SYNYTPK · INSIDER · -2.43 SOL",
+      "kind": "token",
+      "mint": "SynkFGXhreU4wRvDrikKW8LbQQvFCXWp9JFE6ybYuSZ",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynkFGXhreU4wRvDrikKW8LbQQvFCXWp9JFE6ybYuSZ"
+     },
+     {
+      "label": "? · INSIDER · +1.20 SOL",
+      "kind": "token",
+      "mint": "SynwK8A3G5VnDMt61KeaQCubT4xH3kdV6DKgdA1TbkXp",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynwK8A3G5VnDMt61KeaQCubT4xH3kdV6DKgdA1TbkXp"
+     },
+     {
+      "label": "SYN5CRG · INSIDER · +1.17 SOL",
+      "kind": "token",
+      "mint": "Syn5PKpuhezFyUm6Cwy14riTVkuaaC966Qb3f4fHJpKn",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/Syn5PKpuhezFyUm6Cwy14riTVkuaaC966Qb3f4fHJpKn"
+     },
+     {
+      "label": "SYN19PE · INSIDER · +1.14 SOL",
+      "kind": "token",
+      "mint": "SynxXtqjd8EREyE83kWCCDjkXCyFWTjPatbKavmxirK",
+      "url": "https://example.invalid/synthetic/dexscreener.com/solana/SynxXtqjd8EREyE83kWCCDjkXCyFWTjPatbKavmxirK"
+     }
+    ]
+   },
+   {
+    "id": "funded",
+    "severity": "MEDIUM",
+    "basis": "inferred",
+    "text": "Sent SOL to 3 other wallets in the window; they may be operated together.",
+    "evidence": [
+     {
+      "label": "SynK…kTpK · 140.57 SOL",
+      "kind": "wallet",
+      "address": "SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK"
+     },
+     {
+      "label": "Synf…RnyB · 26.10 SOL",
+      "kind": "wallet",
+      "address": "Synfx9zePLcx2UaNEyPQah33s9D8EWzKo6KrrGjTRnyB",
+      "url": "https://example.invalid/synthetic/solscan.io/account/Synfx9zePLcx2UaNEyPQah33s9D8EWzKo6KrrGjTRnyB"
+     },
+     {
+      "label": "SynF…3iA3 · 7.83 SOL",
+      "kind": "wallet",
+      "address": "SynFTDbzZGn51xC93yBbjjVax8T6b8UsdDJgH2V53iA3",
+      "url": "https://example.invalid/synthetic/solscan.io/account/SynFTDbzZGn51xC93yBbjjVax8T6b8UsdDJgH2V53iA3"
+     }
+    ]
+   },
+   {
+    "id": "pnl",
+    "severity": "INFO",
+    "basis": "observed",
+    "text": "Realized +12.02 SOL across 47 tokens, win rate 90%.",
+    "evidence": []
+   }
+  ],
+  "coverage": {
+   "transactionsAnalyzed": 300,
+   "window": {
+    "transactionsAnalyzed": 300,
+    "from": "2026-09-26T04:21:01+00:00",
+    "to": "2026-09-28T08:18:19+00:00"
+   },
+   "limits": [
+    {
+     "kind": "approximate",
+     "text": "PnL is realized SOL flow in the analyzed window; open positions count as zero."
+    },
+    {
+     "kind": "local-only",
+     "text": "Reputation uses only scans stored on this machine."
+    }
+   ],
+   "providers": []
+  },
+  "nextActions": [
+   {
+    "id": "token",
+    "label": "Scan Pumpkin, its biggest flagged trade",
+    "why": "See who else entered with it at launch.",
+    "ask": "Scan token SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg and check for a launch-slot bundle.",
+    "cli": "python skills/token-scan/scripts/token_scan.py SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg",
+    "target": {
+     "kind": "scan",
+     "key": "SynE7FZqFJW1vDFNkNdE2C7Pf67oVcJaXarwCSLh49qg"
+    }
+   },
+   {
+    "id": "funded",
+    "label": "Scan funded wallet SynK…kTpK",
+    "why": "Check whether funded wallets trade the same launches.",
+    "ask": "Scan wallet SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK.",
+    "cli": "python skills/wallet-scan/scripts/wallet_scan.py SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK",
+    "target": {
+     "kind": "wallet",
+     "key": "SynKaG56Em2Nxm7h2583CQRD18y5s1tVf1C3VCJDkTpK"
+    }
+   },
+   {
+    "id": "board",
+    "label": "See where it ranks among repeat offenders",
+    "why": "Leaderboard across all tokens scanned here.",
+    "ask": "Show the INSIDER leaderboard.",
+    "cli": "python skills/leaderboard/scripts/leaderboard.py --type INSIDER",
+    "target": {
+     "kind": "board",
+     "key": "INSIDER"
+    }
+   }
+  ]
+ },
+ "synthetic": true,
+ "_provenance": "synthetic",
+ "_syntheticNote": "SYNTHETIC EXAMPLE (R6-04): transformed from a public on-chain scan by tools/synthesize_onchain.py. Every address, signature, mint, token name/symbol and link is invented; amounts are scaled and times shifted by fixed amounts. It describes no real token or wallet. Not financial advice."
+}

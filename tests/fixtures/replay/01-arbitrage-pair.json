@@ -16,14 +16,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -44,14 +44,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -72,14 +72,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -100,14 +100,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -128,14 +128,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -156,14 +156,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -184,14 +184,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -212,14 +212,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -240,14 +240,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -268,14 +268,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -296,14 +296,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60
@@ -324,14 +324,14 @@
     {
      "source": "polymarket",
      "id": "0xfedcut",
-     "text": "Will the Fed cut rates in December?",
+     "text": "Will the Fed cut rates in December 2026?",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM"
     },
     {
      "source": "kalshi",
      "id": "KXFED-DEC",
-     "text": "Fed rate cut in December",
+     "text": "Fed rate cut in December 2026",
      "type": "ODDS_REPRICING",
      "severity": "MEDIUM",
      "lagS": 60

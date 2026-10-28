@@ -3,7 +3,7 @@ import re, subprocess, sys
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
-SUITES = ["test_no_leaks.py", "test_round5.py", "test_round4.py", "test_round3.py", "test_replay.py", "test_signals.py",
+SUITES = ["test_no_leaks.py", "test_round6.py", "test_round5.py", "test_round4.py", "test_round3.py", "test_replay.py", "test_signals.py",
           "test_classify.py", "test_watch_diff.py", "test_private_fixtures.py"]
 
 
@@ -25,12 +25,13 @@ def main():
             res = ("passed" if p.returncode == 0 else "FAILED") + " (no numeric count; last line: " + (out.strip().splitlines() or ["-"])[-1][:70] + ")"
         if sk:
             skipped += 1
+            res = "SKIPPED (not counted in TOTAL)"
         status = "PASS" if p.returncode == 0 else "FAIL"
         failed += p.returncode != 0
         print(f"{status:4} {s:28} {res}" + (f"  [{sk[0].strip()}]" if sk else ""))
         if p.returncode:
             print("\n".join("     " + l for l in out.splitlines() if "FAIL" in l)[:2000])
-    print(f"TOTAL: {total_p}/{total_n} counted tests passed; suites failed: {failed}; suites SKIPPED: {skipped}")
+    print(f"TOTAL: {total_p}/{total_n} counted tests passed; suites failed: {failed}; suites SKIPPED (not counted): {skipped}")
     return 1 if failed else 0
 
 

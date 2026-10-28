@@ -96,7 +96,7 @@ INST = {"treasury": "treasury:2Y", "equities": "equities:TLT"}
 def fake(src, ent, when, sev="MEDIUM", typ="T", cal=(), inst=None, gran="intraday", title=None):
     return {"key": f"{src}:{ent}{when}:{typ}", "source": src, "family": EN.family_of(src, inst or INST.get(src)), "type": typ, "severity": sev, "basis": "observed",
             "instrument": inst or INST.get(src), "relations": {},
-            "title": title or f"{src} {ent}", "what": "", "when": when, "subject": {"name": ent, "id": ent, "url": "https://example.org"},
+            "title": title or ("Will the Fed cut rates in December 2026?" if src in ("polymarket", "kalshi") and ent == "fed-policy" else f"{src} {ent}"), "what": "", "when": when, "subject": {"name": ent, "id": ent, "url": "https://example.org"},
             "evidence": [{"label": "e", "url": "https://example.org"}], "limits": [], "metrics": {}, "entities": [ent] if ent else [],
             "calendar": list(cal), "observation": {"eventTs": when, "granularity": gran, "temporalStatus": "OK", "fastEligible": gran in ("intraday", "delayed"), "sourceStatus": "HEALTHY"}}
 cv = X.convergence([fake("polymarket", "fed-policy", NOW - 3600), fake("kalshi", "fed-policy", NOW - 3000)], NOW)

@@ -170,7 +170,8 @@ def test_R4_02_integration_stale_scan_does_not_remind_or_refresh():
         assert s2["observation"]["sourceStatus"] == "STALE" and s2["severity"] == "HIGH"
         assert r2["watch"]["alerts"] == [], "stale data must not produce a REMINDER"
         st2 = json.loads(sp.read_text())["incidents"][K]
-        assert st2["lastConfirmedAt"] == st1["lastConfirmedAt"] and st2["history"][-1]["event"] == "HELD_STALE"
+        # R6-01 amendment: the hold now also ages it (5 days, past Tue's publication + grace) → UNCONFIRMED after HELD_STALE
+        assert st2["lastConfirmedAt"] == st1["lastConfirmedAt"] and [h["event"] for h in st2["history"][-2:]] == ["HELD_STALE", "UNCONFIRMED"]
         assert r2["watch"]["telemetry"]["heldStale"] >= 1
 
 

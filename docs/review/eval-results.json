@@ -420,7 +420,27 @@
   "minimumForAPrecisionFigure": 100,
   "precision": null,
   "recall": null,
-  "why": "No flagged move has been adjudicated under ADJUDICATION.md by blind reviewers; a precision figure would be invented. Reported as INSUFFICIENT_EVIDENCE, not 0 and not a percentage.",
-  "configVersion": "r5-2026-10-28"
+  "agreement": null,
+  "wilson95": null,
+  "rosterEpisodes": 196,
+  "matchedNegatives": 196,
+  "dataset": "docs/review/eval-treasury/manifest.json",
+  "configVersion": "r6-2026-10-28",
+  "baselines": {
+   "note": "alert burden only (flagged sessions); no accuracy without labels",
+   "development": {
+    "flag": 222,
+    "baseline10bp": 229,
+    "volNormalized": 49,
+    "sessions": 1441
+   },
+   "holdout": {
+    "flag": 34,
+    "baseline10bp": 41,
+    "volNormalized": 15,
+    "sessions": 455
+   }
+  },
+  "why": "The dataset, blind roster and empty label sheet exist; no reviewer has labelled anything. Reported as INSUFFICIENT_EVIDENCE, not a percentage. No lead time is claimed."
  }
 }

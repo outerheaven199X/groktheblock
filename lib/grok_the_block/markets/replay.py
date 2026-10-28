@@ -76,8 +76,8 @@ def run_fixture(fx: dict) -> dict:
         probes = {s["key"]: next(({"ratio": x.get("magnitude", 1.0), "valid": x.get("valid", True)} for x in tick["signals"] if X.key(x["source"], x.get("id") or x.get("instrument") or x.get("text"), x.get("type", "FIXTURE")) == s["key"]), 1.0)
                   for s in sigs if s["source"] != "cross"}
         for c in conv:  # a cross incident is observed through its members
-            ms = [probes.get(m) for m in c["metrics"]["memberKeys"]]
-            if all(m and m["valid"] for m in ms):
+            ms = [probes.get(m) for m in c["metrics"].get("memberKeys") or []]
+            if ms and all(m and m["valid"] for m in ms):
                 probes[c["key"]] = {"ratio": min(m["ratio"] for m in ms), "valid": True}
         probes.update({k: v for k, v in (tick.get("probes") or {}).items()})
         before = {k: i["state"] for k, i in st["incidents"].items()}

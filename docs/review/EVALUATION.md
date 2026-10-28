@@ -1,3 +1,8 @@
+# Evaluation (round 6)
+
+## Round 6 (R6-06)
+Objective A is still the release objective; thresholds and universe are unchanged. The Treasury dataset now exists: 1,896 sessions (2019-03-29 → 2026-10-27, from treasury.gov yearly CSVs whose SHA-256s are in `eval-treasury/manifest.json`), 196 detector episodes and 196 matched non-alert windows in a blind, shuffled roster, a frozen holdout from 2025-01-01, and an **empty** label sheet. Rules: `ADJUDICATION.md` (independent relevance + evidence + timestamp criteria, kappa, Wilson intervals). Alert burden (flagged sessions), development / holdout: detector 222 / 34, 10bp rule 229 / 41, vol-normalized single rule 49 / 15 (of 1,441 / 455 sessions). **No label has been collected, so Objective A remains INSUFFICIENT_EVIDENCE** (`eval-results.json` → `objectiveA`). Reproduce: `python skills/signals/scripts/eval_treasury.py --fetch`.
+
 # Evaluation (round 5)
 
 ## Round 5 decision (R5-06)

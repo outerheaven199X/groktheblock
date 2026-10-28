@@ -168,7 +168,7 @@ def test_TIME_02_future_or_missing_option_snapshot_is_degraded_and_not_fast():
 def test_TIME_03_divergence_needs_comparable_windows():
     X.reset()
     X.observe("equities:TLT", 0.2, "https://finance.yahoo.com/quote/TLT", NOW - 86400, "daily", (NOW - 2 * 86400, NOW - 86400))
-    mover = fake("polymarket", "fed-policy", NOW, sev="HIGH", gran="intraday", title="Fed cut December")
+    mover = fake("polymarket", "fed-policy", NOW, sev="HIGH", gran="intraday", title="Fed cut December 2026")
     assert X.divergence([mover], NOW) == [], "yesterday's daily bar can't show a live move was ignored"
     X.observe("equities:TLT", 0.2, "https://finance.yahoo.com/quote/TLT", NOW, "intraday", (NOW - 3600, NOW))
     assert len(X.divergence([mover], NOW)) == 1
@@ -187,7 +187,7 @@ CAL = {"events": [{"type": "FOMC", "label": "FOMC decision", "ts": NOW + 3 * 360
 def test_CAL_01_three_hours_before_fomc_is_pre_event_not_capped():
     e = EV.events_near(NOW, {"prediction"}, {"events": CAL["events"][:1]})
     assert [x["phase"] for x in e] == ["PRE_EVENT_POSITIONING"] and e[0]["eventId"] and "BEFORE" in e[0]["rationale"]
-    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December", cal=e, change=0.2)
+    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December 2026", cal=e, change=0.2)
     b = fake("treasury", "fed-policy", NOW - 600, inst="treasury:2Y", cal=e)
     cv = [c for c in X.convergence([a, b], NOW) if c["type"] == "CONVERGENCE"]
     assert cv and cv[0]["severity"] != "LOW" and not cv[0]["metrics"]["calendarExplained"]
@@ -216,7 +216,7 @@ def test_CAL_03_wrong_tenor_auction_is_no_blanket_rates_explanation():
 def test_CAL_02_post_cpi_reaction_only_the_same_event_explains_the_cluster():
     ra = {"eventId": "CPI-1", "label": "CPI", "phase": "RELEASE_REACTION", "availableAtObservation": True}
     rb = {"eventId": "NFP-1", "label": "NFP", "phase": "RELEASE_REACTION", "availableAtObservation": True}
-    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December", cal=[ra], change=0.2)
+    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December 2026", cal=[ra], change=0.2)
     b = fake("treasury", "fed-policy", NOW - 600, inst="treasury:2Y", cal=[rb])
     c = [x for x in X.convergence([a, b], NOW) if x["type"] == "CONVERGENCE"][0]
     assert c["severity"] != "LOW" and not c["metrics"]["calendarExplained"]
@@ -240,7 +240,7 @@ def test_CONV_01_mechanically_linked_instruments_count_once():
     assert not [c for c in X.convergence([k8, stock], NOW) if c["type"] == "CONVERGENCE"], "filing + its stock = one disclosure chain"
     coin = [fake("equities", "bitcoin", NOW - 900, inst="equities:COIN", title="COIN news"), fake("crypto", "bitcoin", NOW - 800, inst="crypto:BTC")]
     assert not [c for c in X.convergence(coin, NOW) if c["type"] == "CONVERGENCE"], "COIN news is exposure to BTC, not the same event"
-    tsy = [fake("treasury", "fed-policy", NOW - 900, inst="treasury:10Y"), fake("polymarket", "fed-policy", NOW - 800, title="Fed cut in December", change=0.2)]
+    tsy = [fake("treasury", "fed-policy", NOW - 900, inst="treasury:10Y"), fake("polymarket", "fed-policy", NOW - 800, title="Fed cut in December 2026", change=0.2)]
     assert not [c for c in X.convergence(tsy, NOW) if c["type"] == "CONVERGENCE"], "10Y is macro exposure to the Fed, not the same event"
 
 
@@ -259,7 +259,7 @@ def test_CONV_02_prediction_markets_with_different_settlement_or_outcome_do_not_
 
 
 def test_CONV_03_positive_control_and_stale_member_excluded():
-    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December?", change=0.2)
+    a = fake("polymarket", "fed-policy", NOW - 900, title="Fed cut in December 2026?", change=0.2)
     t = fake("treasury", "fed-policy", NOW - 600, inst="treasury:2Y")
     cv = [c for c in X.convergence([a, t], NOW) if c["type"] == "CONVERGENCE"]
     assert len(cv) == 1 and cv[0]["metrics"]["mode"] == "fast" and len(cv[0]["metrics"]["contributing"]) == 2

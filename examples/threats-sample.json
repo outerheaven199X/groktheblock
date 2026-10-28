@@ -1,0 +1,20 @@
+[
+ {
+  "id": "mintauth-SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+  "type": "HONEYPOT",
+  "severity": "HIGH",
+  "tokenSymbol": "SYNPPDC",
+  "tokenMint": "SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+  "detail": "Mint authority is still enabled (supply can be inflated).",
+  "_provenance": "synthetic"
+ },
+ {
+  "id": "freeze-SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+  "type": "HONEYPOT",
+  "severity": "HIGH",
+  "tokenSymbol": "SYNPPDC",
+  "tokenMint": "SynbASTh83yCy9WNQyLU6gp7KMw8xmabdMeizNpC3ph",
+  "detail": "Freeze authority is enabled (holders can be frozen).",
+  "_provenance": "synthetic"
+ }
+]
