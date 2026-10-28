@@ -97,28 +97,29 @@ td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}td.n{t
 const VIEWS=[["scan","Token"],["shill","Shill net"],["copy","Copy net"],["wallet","Wallet"],["replay","Replay"],["board","Leaderboard"],["threats","Threats"],["prov","Provenance"]];
 const COL={INSIDER:"#ff3b5c",AGENT:"#b06bff",SNIPER:"#ffb020",COPY:"#4fc3ff",ORGANIC:"#00e87b"};
 const ORDER=["INSIDER","AGENT","SNIPER","COPY","ORGANIC"];
-const S={withX:false,reports:[],view:"scan",idx:{},loading:true,scrub:null,playing:null,sort:{},filter:{}};
+const S={withX:false,reports:[],view:"scan",idx:{},loading:true,errors:[],scrub:null,playing:null,sort:{},filter:{}};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const sh=a=>a&&a.length>12?a.slice(0,4)+"…"+a.slice(-4):(a||"");
 const fmt=(n,d=0)=>n==null||isNaN(n)?"—":Number(n).toLocaleString("en-US",{maximumFractionDigits:d,minimumFractionDigits:0});
 const money=n=>n==null?"—":n>=1e9?"$"+(n/1e9).toFixed(2)+"B":n>=1e6?"$"+(n/1e6).toFixed(2)+"M":n>=1e3?"$"+(n/1e3).toFixed(1)+"K":"$"+fmt(n);
 const sol=n=>(n>0?"+":"")+fmt(n,3);
-function kind(j){if(!j||typeof j!=="object")return null;if(j.result&&j.tool)return kind(j.result);if(j.organicScore!=null)return"scan";if(j.coordinationIndex!=null)return"shill";if(j.wallet&&j.tokens)return"wallet";if(j.timeline)return"replay";if(j.entries)return"board";if(j.results)return"prov";if(Array.isArray(j))return"threats";return null}
+function kind(j){if(!j||typeof j!=="object")return null;if(j.result&&j.tool)return kind(j.result);if(Array.isArray(j))return"threats";if(j.organicScore!=null)return"scan";if(j.coordinationIndex!=null)return"shill";if(j.wallet&&j.tokens)return"wallet";if(j.timeline)return"replay";if(j.entries)return"board";if(j.results)return"prov";if(Array.isArray(j))return"threats";return null}
 function add(name,j){if(j&&j.tool&&j.result)j=j.result;const k=kind(j);if(!k)return 0;S.reports=S.reports.filter(r=>r.name!==name);S.reports.push({name,k,j});return 1}
 const list=k=>S.reports.filter(r=>r.k===k||(k==="copy"&&r.k==="scan"&&(r.j.copyNetwork||[]).length));
 const cur=()=>{const l=list(S.view);return l[Math.min(S.idx[S.view]||0,l.length-1)]};
 async function autoload(){for(const dir of["../out/","../examples/"]){try{const h=await(await fetch(dir)).text();const names=[...h.matchAll(/href="([^"]+\.json)"/g)].map(m=>decodeURIComponent(m[1]));
-await Promise.all(names.map(async n=>{if(S.reports.some(r=>r.name===n))return;try{add(n,await(await fetch(dir+n)).json())}catch(e){}}))}catch(e){}}
+await Promise.all(names.map(async n=>{if(S.reports.some(r=>r.name===n))return;try{add(n,await(await fetch(dir+n)).json())}catch(e){S.errors.push(n+": "+(e.message||e))}}))}catch(e){}}
 S.loading=false;const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))S.view=h;else if(!list(S.view).length&&S.reports[0])S.view=S.reports[0].k;render()}
 function tabs(){$("#tabs").innerHTML=VIEWS.map(([k,l],i)=>{const n=list(k).length;return`<button class="tab ${k===S.view?"on":""}" data-k="${k}" title="${i+1}">${l}${n?`<sup>${n}</sup>`:""}</button>`}).join("");
 $("#tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>go(b.dataset.k))}
 function go(k){S.view=k;history.replaceState(null,"","#"+k);stopPlay();S.scrub=null;render();scrollTo({top:0})}
 function render(){tabs();const app=$("#app");
 if(S.loading){app.innerHTML=`<div class="grid g4">${[1,2,3,4].map(()=>`<div class="card"><div class="skel" style="width:40%"></div><div class="skel" style="height:30px;margin-top:12px"></div></div>`).join("")}</div><div class="card" style="margin-top:16px">${[90,80,95,70,85].map(w=>`<div class="skel" style="width:${w}%;margin:10px 0"></div>`).join("")}</div>`;return}
-const r=cur();if(!r){app.innerHTML=empty(S.view);return}
+const eb=S.errors.length?`<div class="callout bad" style="margin:0 0 16px">Could not read ${S.errors.length} file${S.errors.length>1?"s":""}: ${S.errors.slice(0,3).map(esc).join("; ")}. Check that each is a CryptOSINT JSON report.</div>`:"";
+const r=cur();if(!r){app.innerHTML=eb+empty(S.view);return}
 const l=list(S.view);const pager=l.length>1?`<div class="filters" style="margin:0 0 16px">${l.map((x,i)=>`<button class="chip ${x===r?"on":""}" data-i="${i}" style="color:${x===r?"var(--org)":""}">${esc(label(x))}</button>`).join("")}</div>`:"";
-app.innerHTML=pager+V[S.view](r.j,r);app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{S.idx[S.view]=+b.dataset.i;S.scrub=null;render()});
+app.innerHTML=eb+pager+V[S.view](r.j,r);app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{S.idx[S.view]=+b.dataset.i;S.scrub=null;render()});
 (after[S.view]||(()=>{}))(r.j,r)}
 function label(r){const j=r.j;return j.token?("$"+j.token.symbol):j.ticker?j.ticker:j.wallet?sh(j.wallet.address):j.type?j.type:r.name}
 function empty(k){const cmd={scan:"skills/token-scan/scripts/token_scan.py <mint>",shill:"skills/shill-network/scripts/shill_network.py '$TICKER' out/x-TICKER",copy:"skills/copy-network/scripts/copy_network.py out/scan-….json",wallet:"skills/wallet-scan/scripts/wallet_scan.py <wallet>",replay:"skills/rug-replay/scripts/rug_replay.py <mint> --x-posts out/x-TICKER",board:"skills/leaderboard/scripts/leaderboard.py --type SNIPER",threats:"skills/threat-feed/scripts/threat_feed.py",prov:"skills/promo-provenance/scripts/provenance.py <files>"}[k];

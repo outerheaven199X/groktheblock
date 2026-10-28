@@ -1,0 +1,384 @@
+{
+ "results": [
+  {
+   "file": "promo-clip.mp4",
+   "sizeBytes": 39048,
+   "signals": [
+    "No audio track.",
+    "Short clip (5.0s), within typical AI video generation lengths (weak signal).",
+    "First and last sampled frames nearly identical (possible seamless loop).",
+    "Metadata mentions encoder/editor: lavf (re-encoded or edited)."
+   ],
+   "notes": [
+    "No C2PA credentials. Normal for most media and for anything re-encoded by X/Telegram; absence proves nothing."
+   ],
+   "sha256": "7117f5fff02fd6787798ff7e66b74f2fe938025b8aa9e58ea2d1a5a88aacb2c7",
+   "c2pa": {
+    "present": false,
+    "detail": "Error: No claim found"
+   },
+   "ffprobe": {
+    "streams": [
+     {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+      "profile": "High 4:4:4 Predictive",
+      "codec_type": "video",
+      "codec_tag_string": "avc1",
+      "codec_tag": "0x31637661",
+      "width": 1024,
+      "height": 576,
+      "coded_width": 1024,
+      "coded_height": 576,
+      "closed_captions": 0,
+      "film_grain": 0,
+      "has_b_frames": 2,
+      "sample_aspect_ratio": "1:1",
+      "display_aspect_ratio": "16:9",
+      "pix_fmt": "yuv444p",
+      "level": 31,
+      "chroma_location": "left",
+      "field_order": "progressive",
+      "refs": 1,
+      "is_avc": "true",
+      "nal_length_size": "4",
+      "id": "0x1",
+      "r_frame_rate": "24/1",
+      "avg_frame_rate": "24/1",
+      "time_base": "1/12288",
+      "start_pts": 0,
+      "start_time": "0.000000",
+      "duration_ts": 61440,
+      "duration": "5.000000",
+      "bit_rate": "58785",
+      "bits_per_raw_sample": "8",
+      "nb_frames": "120",
+      "extradata_size": 47,
+      "disposition": {
+       "default": 1,
+       "dub": 0,
+       "original": 0,
+       "comment": 0,
+       "lyrics": 0,
+       "karaoke": 0,
+       "forced": 0,
+       "hearing_impaired": 0,
+       "visual_impaired": 0,
+       "clean_effects": 0,
+       "attached_pic": 0,
+       "timed_thumbnails": 0,
+       "non_diegetic": 0,
+       "captions": 0,
+       "descriptions": 0,
+       "metadata": 0,
+       "dependent": 0,
+       "still_image": 0,
+       "multilayer": 0
+      },
+      "tags": {
+       "language": "und",
+       "handler_name": "VideoHandler",
+       "vendor_id": "[0][0][0][0]",
+       "encoder": "Lavc61.19.101 libx264"
+      }
+     }
+    ],
+    "format": {
+     "filename": "/tmp/media/test.mp4",
+     "nb_streams": 1,
+     "nb_programs": 0,
+     "nb_stream_groups": 0,
+     "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+     "format_long_name": "QuickTime / MOV",
+     "start_time": "0.000000",
+     "duration": "5.000000",
+     "size": "39048",
+     "bit_rate": "62476",
+     "probe_score": 100,
+     "tags": {
+      "major_brand": "isom",
+      "minor_version": "512",
+      "compatible_brands": "isomiso2avc1mp41",
+      "encoder": "Lavf61.7.103"
+     }
+    }
+   },
+   "video": {
+    "duration": 5.0,
+    "streams": 1,
+    "audio": false,
+    "codec": "h264",
+    "size": "1024x576",
+    "fps": "24/1",
+    "encoder": "Lavf61.7.103",
+    "creation_time": null
+   },
+   "perceptualHashes": [
+    {
+     "aHash": "f01fb2b2b2b2b2f0",
+     "dHash": "2436666666662424"
+    },
+    {
+     "aHash": "f00fb2b2b2b2b2f0",
+     "dHash": "243a666666662424"
+    },
+    {
+     "aHash": "f007b2b2b2b2b2f0",
+     "dHash": "241d666666662424"
+    },
+    {
+     "aHash": "f087b2b2b2b2b2f0",
+     "dHash": "246c666666662424"
+    },
+    {
+     "aHash": "f083b2b2b2b2b2f0",
+     "dHash": "2426666666662424"
+    },
+    {
+     "aHash": "f0c3b2b2b2b2b2f0",
+     "dHash": "2426666666662424"
+    },
+    {
+     "aHash": "f0e1b2b2b2b2b2f0",
+     "dHash": "2493666666662424"
+    },
+    {
+     "aHash": "f0e0b2b2b2b2b2f0",
+     "dHash": "24c9666666662424"
+    },
+    {
+     "aHash": "f0f0b2b2b2b2b2f0",
+     "dHash": "2464666666662424"
+    },
+    {
+     "aHash": "f0f0b2b2b2b2b2f0",
+     "dHash": "2464666666662424"
+    },
+    {
+     "aHash": "f0f8b2b2b2b2b2f0",
+     "dHash": "24b2666666662424"
+    },
+    {
+     "aHash": "f07cb2b2b2b2b2f0",
+     "dHash": "24f0666666662424"
+    }
+   ],
+   "reuseMatches": [],
+   "reverseSearchHint": "Have the bot run a reverse image search on 1-2 extracted frames (WebSearch / browser) to find earlier copies.",
+   "label": "test"
+  },
+  {
+   "file": "promo-clip.mp4",
+   "sizeBytes": 166864,
+   "signals": [
+    "C2PA content credentials present (read the manifest's claim generator / actions; they can name an AI tool)."
+   ],
+   "notes": [
+    "No EXIF. Common for screenshots, platform re-uploads and generated images alike."
+   ],
+   "sha256": "e71bff58fc57640803e6e65f7534e2fb0c2f99018c85276cc14b30f04427cc76",
+   "c2pa": {
+    "present": true,
+    "manifest": {
+     "active_manifest": "contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf",
+     "manifests": {
+      "contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf": {
+       "claim_generator": "make_test_images/0.33.1 c2pa-rs/0.33.1",
+       "claim_generator_info": [
+        {
+         "name": "make_test_images",
+         "version": "0.33.1"
+        },
+        {
+         "name": "c2pa-rs",
+         "version": "0.33.1"
+        }
+       ],
+       "title": "CA.jpg",
+       "format": "image/jpeg",
+       "instance_id": "xmp:iid:ba572347-db0e-4619-b6eb-d38e487da238",
+       "thumbnail": {
+        "format": "image/jpeg",
+        "identifier": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.thumbnail.claim.jpeg"
+       },
+       "ingredients": [
+        {
+         "title": "A.jpg",
+         "format": "image/jpeg",
+         "document_id": "xmp.did:813ee422-9736-4cdc-9be6-4e35ed8e41cb",
+         "instance_id": "xmp.iid:813ee422-9736-4cdc-9be6-4e35ed8e41cb",
+         "thumbnail": {
+          "format": "image/jpeg",
+          "identifier": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.thumbnail.ingredient.jpeg"
+         },
+         "relationship": "parentOf",
+         "label": "c2pa.ingredient"
+        }
+       ],
+       "assertions": [
+        {
+         "label": "stds.schema-org.CreativeWork",
+         "data": {
+          "@context": "http://schema.org/",
+          "@type": "CreativeWork",
+          "author": [
+           {
+            "name": "John Doe",
+            "@type": "Person"
+           }
+          ]
+         },
+         "kind": "Json"
+        },
+        {
+         "label": "c2pa.actions.v2",
+         "data": {
+          "actions": [
+           {
+            "action": "c2pa.opened",
+            "parameters": {
+             "ingredient": {
+              "url": "self#jumbf=c2pa.assertions/c2pa.ingredient",
+              "hash": "5dNlxTKe4afGAicpJa1hF1R3mBZKE+Bl0xmh0McXuO4="
+             }
+            }
+           },
+           {
+            "action": "c2pa.color_adjustments",
+            "parameters": {
+             "name": "brightnesscontrast"
+            }
+           }
+          ]
+         }
+        }
+       ],
+       "signature_info": {
+        "alg": "Ps256",
+        "issuer": "C2PA Test Signing Cert",
+        "common_name": "C2PA Signer",
+        "cert_serial_number": "720724073027128164015125666832722375746636448153",
+        "time": "2024-08-06T21:53:37+00:00"
+       },
+       "label": "contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf",
+       "claim_version": 1
+      }
+     },
+     "validation_status": [
+      {
+       "code": "signingCredential.untrusted",
+       "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+       "explanation": "signing certificate untrusted"
+      }
+     ],
+     "validation_results": {
+      "activeManifest": {
+       "success": [
+        {
+         "code": "timeStamp.validated",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+         "explanation": "timestamp message digest matched: DigiCert Timestamp 2023"
+        },
+        {
+         "code": "timeStamp.trusted",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+         "explanation": "timestamp cert trusted: DigiCert Timestamp 2023"
+        },
+        {
+         "code": "claimSignature.insideValidity",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+         "explanation": "claim signature valid"
+        },
+        {
+         "code": "claimSignature.validated",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+         "explanation": "claim signature valid"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.thumbnail.claim.jpeg",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.thumbnail.claim.jpeg"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.thumbnail.ingredient.jpeg",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.thumbnail.ingredient.jpeg"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.ingredient",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.ingredient"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/stds.schema-org.CreativeWork",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/stds.schema-org.CreativeWork"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.actions",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.actions"
+        },
+        {
+         "code": "assertion.hashedURI.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.hash.data",
+         "explanation": "hashed uri matched: self#jumbf=c2pa.assertions/c2pa.hash.data"
+        },
+        {
+         "code": "assertion.dataHash.match",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.hash.data",
+         "explanation": "data hash valid"
+        }
+       ],
+       "informational": [],
+       "failure": [
+        {
+         "code": "signingCredential.untrusted",
+         "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.signature",
+         "explanation": "signing certificate untrusted"
+        }
+       ]
+      },
+      "ingredientDeltas": [
+       {
+        "ingredientAssertionURI": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.ingredient",
+        "validationDeltas": {
+         "success": [],
+         "informational": [
+          {
+           "code": "ingredient.unknownProvenance",
+           "url": "self#jumbf=/c2pa/contentauth:urn:uuid:c2677d4b-0a93-4444-876f-ed2f2d40b8cf/c2pa.assertions/c2pa.ingredient",
+           "explanation": "A.jpg: ingredient does not have provenance"
+          }
+         ],
+         "failure": []
+        }
+       }
+      ]
+     },
+     "validation_state": "Valid"
+    }
+   },
+   "image": {
+    "format": "JPEG",
+    "size": [
+     1024,
+     683
+    ],
+    "mode": "RGB"
+   },
+   "exif": {},
+   "perceptualHashes": [
+    {
+     "aHash": "24242c3c3c3c3c7c",
+     "dHash": "cdcdc8e8e8e9e9e8"
+    }
+   ],
+   "reuseMatches": [],
+   "reverseSearchHint": "Have the bot run a reverse image search on 1-2 extracted frames (WebSearch / browser) to find earlier copies.",
+   "label": "test"
+  }
+ ],
+ "disclaimer": "Signals only, never a verdict. Missing metadata is normal; present metadata can be forged."
+}
