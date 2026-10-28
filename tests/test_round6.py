@@ -256,7 +256,8 @@ def test_R6_06_treasury_dataset_manifest_roster_and_blind_label_sheet_without_la
         assert set(e) == {"itemId", "date", "series", "window", "split"}, "reviewers are blind to detector output and to episode/negative membership"
     lab = json.loads((d / "labels.json").read_text())
     assert lab["labels"] == [] and lab["reviewers"] == []
-    res = json.loads((R / "docs/review/eval-results.json").read_text())["objectiveA"]
+    # R9-03 amendment: r6 numbers now live in the named historical section; the current record is r9
+    res = json.loads((R / "docs/review/eval-results.json").read_text())["historical"]["r6"]
     assert res["status"] == "INSUFFICIENT_EVIDENCE" and res["adjudicatedEvents"] == 0 and res["precision"] is None
     assert res["rosterEpisodes"] == ros["counts"]["episodes"] and res["matchedNegatives"] == ros["counts"]["negatives"]
     assert "baselines" in res and res["agreement"] is None

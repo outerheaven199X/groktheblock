@@ -128,7 +128,8 @@ def test_R8_03_weighted_estimator_uses_only_the_probability_sample():
     est = ES.population_share(lab, key, design, "ANOMALY_CONFIRMED", reps=400, seed=1)
     assert abs(est["estimate"] - 0.1) < 1e-12, est         # (100·1 + 900·0) / 1000, not the unweighted 5/7
     assert est["itemsUsed"] == 4 and est["excluded"] == {"EPISODE": 1, "QUIET_CONTROL": 1, "BOUNDARY_CHALLENGE": 1}
-    assert est["interval"]["method"].startswith("stratified bootstrap") and est["interval"]["low"] <= 0.1 <= est["interval"]["high"]
+    # R9-02 amendment: the bootstrap was replaced by a finite-population (SRSWOR) design variance
+    assert est["interval"]["method"].startswith("stratified SRSWOR") and est["interval"]["low"] <= 0.1 <= est["interval"]["high"]
     lab2 = dict(lab, e1="NOT_ANOMALOUS", q1="NOT_ANOMALOUS", b1="NOT_ANOMALOUS")
     assert ES.population_share(lab2, key, design, "ANOMALY_CONFIRMED", reps=400, seed=1)["estimate"] == est["estimate"]
     assert ES.population_share(lab, key, design, "ANOMALY_CONFIRMED", reps=400, seed=1) == est   # deterministic

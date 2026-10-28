@@ -1,462 +1,40 @@
 {
- "configVersion": "r4-2026-10-28",
- "generatedAt": "2026-10-28T17:04:14Z",
- "noHitRateOrLeadTime": true,
- "synthetic": {
-  "label": "SYNTHETIC fixtures; not market data",
-  "fixtures": [
-   {
-    "name": "01-arbitrage-pair",
-    "ticks": 12,
-    "alerts": 2,
-    "alertsByReason": {
-     "NEW": 2
-    },
-    "v1Alerts": 3,
-    "convergences": 0,
-    "convergenceMaxSeverity": null,
-    "relatedRepricing": 12,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 12,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
-     "kalshi:KXFED-DEC:ODDS_REPRICING#e1": "ACTIVE"
-    },
-    "telemetry": {
-     "alerts": 2,
-     "newEpisodes": 2,
-     "suppressedUnchanged": 22,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 1
-   },
-   {
-    "name": "02-keyword-false-match",
-    "ticks": 4,
-    "alerts": 4,
-    "alertsByReason": {
-     "NEW": 4
-    },
-    "v1Alerts": 5,
-    "convergences": 0,
-    "convergenceMaxSeverity": null,
-    "relatedRepricing": 0,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 4,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "polymarket:0xmusk:VOLUME_SPIKE#e1": "ACTIVE",
-     "equities:TSLA:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
-     "polymarket:0xecon:ODDS_REPRICING#e1": "ACTIVE",
-     "equities:SPY:VOLUME_ROBUST_Z#e1": "ACTIVE"
-    },
-    "telemetry": {
-     "alerts": 4,
-     "newEpisodes": 4,
-     "suppressedUnchanged": 12,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 1
-   },
-   {
-    "name": "03-outage",
-    "ticks": 12,
-    "alerts": 1,
-    "alertsByReason": {
-     "NEW": 1
-    },
-    "v1Alerts": 1,
-    "convergences": 0,
-    "convergenceMaxSeverity": null,
-    "relatedRepricing": 0,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 0,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "treasury:2Y:YIELD_MOVE#e1": "RESOLVED"
-    },
-    "telemetry": {
-     "alerts": 1,
-     "newEpisodes": 1,
-     "suppressedUnchanged": 2,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 6,
-     "heldUnobserved": 0,
-     "resolved": 1,
-     "cooling": 1,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 0
-   },
-   {
-    "name": "04-quiet-session",
-    "ticks": 13,
-    "alerts": 0,
-    "alertsByReason": {},
-    "v1Alerts": 0,
-    "convergences": 0,
-    "convergenceMaxSeverity": null,
-    "relatedRepricing": 0,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 0,
-    "resolvedDuringOutage": 0,
-    "finalStates": {},
-    "telemetry": {
-     "alerts": 0,
-     "newEpisodes": 0,
-     "suppressedUnchanged": 0,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 0
-   },
-   {
-    "name": "05-midnight-boundary",
-    "ticks": 9,
-    "alerts": 1,
-    "alertsByReason": {
-     "NEW": 1
-    },
-    "v1Alerts": 2,
-    "convergences": 0,
-    "convergenceMaxSeverity": null,
-    "relatedRepricing": 0,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 0,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "polymarket:0xlong:ODDS_REPRICING#e1": "ACTIVE"
-    },
-    "telemetry": {
-     "alerts": 1,
-     "newEpisodes": 1,
-     "suppressedUnchanged": 8,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 1
-   },
-   {
-    "name": "06-scheduled-cpi",
-    "ticks": 4,
-    "alerts": 4,
-    "alertsByReason": {
-     "NEW": 4
-    },
-    "v1Alerts": 4,
-    "convergences": 4,
-    "convergenceMaxSeverity": "LOW",
-    "relatedRepricing": 0,
-    "calendarTagged": 12,
-    "falseConvergencePrevented": 0,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
-     "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
-     "equities:SPY:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
-     "cross:fed-policy:CONVERGENCE#e1": "ACTIVE"
-    },
-    "telemetry": {
-     "alerts": 4,
-     "newEpisodes": 4,
-     "suppressedUnchanged": 12,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": 0
-   },
-   {
-    "name": "07-cross-family-control",
-    "ticks": 6,
-    "alerts": 5,
-    "alertsByReason": {
-     "NEW": 4,
-     "MAGNITUDE_RISE": 1
-    },
-    "v1Alerts": 4,
-    "convergences": 6,
-    "convergenceMaxSeverity": "MEDIUM",
-    "relatedRepricing": 0,
-    "calendarTagged": 0,
-    "falseConvergencePrevented": 0,
-    "resolvedDuringOutage": 0,
-    "finalStates": {
-     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
-     "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
-     "cross:fed-policy:CONVERGENCE#e1": "ACTIVE",
-     "crypto:BTC:FUNDING_EXTREME#e1": "ACTIVE"
-    },
-    "telemetry": {
-     "alerts": 5,
-     "newEpisodes": 4,
-     "suppressedUnchanged": 17,
-     "belowFloor": 0,
-     "muted": 0,
-     "deferred": 0,
-     "skippedUnavailable": 0,
-     "heldUnobserved": 0,
-     "resolved": 0,
-     "cooling": 0,
-     "reminders": 0,
-     "delivered": 0,
-     "deliveryFailed": 0,
-     "heldStale": 0,
-     "heldInvalid": 0,
-     "notAdmitted": 0
-    },
-    "duplicatesAvoidedVsV1": -1
-   }
-  ]
- },
- "unlabelledHistorical": {
-  "treasury": {
-   "source": "treasury.gov",
-   "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-   "sessions": 395,
-   "from": "2025-03-31",
-   "to": "2026-10-27",
-   "signals": 38,
-   "sessionsWithSignal": 30,
-   "byType": {
-    "YIELD_MOVE": 29,
-    "CURVE_SHIFT": 9
-   },
-   "bySeverity": {
-    "MEDIUM": 6,
-    "LOW": 32
-   },
-   "calendarPhases": {
-    "PRE_EVENT_POSITIONING": 7,
-    "POST_EVENT_CONTEXT": 10
-   },
-   "lifecycleAlerts": 35,
-   "alertsByReason": {
-    "NEW": 4,
-    "NEW_EPISODE": 31
-   },
-   "incidents": 4
-  },
-  "polymarket": {
-   "market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
-   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
-   "points": 2744,
-   "from": "2026-09-28T17:15:29Z",
-   "to": "2026-10-28T17:03:36Z",
-   "priceMovesPastThreshold": 1,
-   "eligibleFindings": 0,
-   "lifecycleAlerts": 0,
-   "note": "Volume is not point-in-time, so every price move is reported as UNVERIFIED and none is eligible as a finding. This is the intended REPLAY-01 behaviour, not a quiet market."
-  },
-  "label": "REAL public history, no outcome labels: alert volume and lifecycle behaviour only"
- },
- "objective": {
-  "chosen": "none of the three is validated yet; the current labelled track only measures scheduled-release-day association",
-  "candidates": [
-   "detect large moves (compare to absolute and vol-normalized baselines)",
-   "forecast scheduled-day volatility (calendar-only baseline is the bar)",
-   "identify information outside the public calendar (needs adjudicated non-calendar events and a news timeline; not available)"
-  ]
- },
- "baselinesNotRun": {
-  "newsTimeline": {
-   "status": "not run",
-   "why": "no free, point-in-time first-publication/news archive is available to this project; not substituted"
-  }
- },
- "labelled": {
-  "label": "Treasury sessions labelled by scheduled official release days. Association with known public news only; not informed-trading ground truth; no hit rate or lead time.",
-  "labelSource": "data/event-calendar.json (FOMC, CPI, NFP)",
-  "labelCaveat": "BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).",
-  "development": {
-   "detector": {
-    "flaggedOnLabelDays": 3,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 7,
-    "otherDays": 173,
-    "shareOfLabelDaysFlagged": 0.125,
-    "shareOfOtherDaysFlagged": 0.04
-   },
-   "baseline10bp": {
-    "flaggedOnLabelDays": 6,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 13,
-    "otherDays": 173,
-    "shareOfLabelDaysFlagged": 0.25,
-    "shareOfOtherDaysFlagged": 0.075
-   },
-   "volNormalizedSingle": {
-    "flaggedOnLabelDays": 2,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 3,
-    "otherDays": 173,
-    "shareOfLabelDaysFlagged": 0.083,
-    "shareOfOtherDaysFlagged": 0.017
-   },
-   "calendarOnly": {
-    "flaggedOnLabelDays": 24,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 0,
-    "otherDays": 173,
-    "shareOfLabelDaysFlagged": 1.0,
-    "shareOfOtherDaysFlagged": 0.0
-   },
-   "flagsPerSession": {
-    "flag": 0.051,
-    "baseline": 0.096,
-    "volNorm": 0.025,
-    "calendarOnly": 0.122
-   }
-  },
-  "holdout": {
-   "detector": {
-    "flaggedOnLabelDays": 3,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 17,
-    "otherDays": 174,
-    "shareOfLabelDaysFlagged": 0.125,
-    "shareOfOtherDaysFlagged": 0.098
-   },
-   "baseline10bp": {
-    "flaggedOnLabelDays": 3,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 11,
-    "otherDays": 174,
-    "shareOfLabelDaysFlagged": 0.125,
-    "shareOfOtherDaysFlagged": 0.063
-   },
-   "volNormalizedSingle": {
-    "flaggedOnLabelDays": 1,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 8,
-    "otherDays": 174,
-    "shareOfLabelDaysFlagged": 0.042,
-    "shareOfOtherDaysFlagged": 0.046
-   },
-   "calendarOnly": {
-    "flaggedOnLabelDays": 24,
-    "labelDays": 24,
-    "flaggedOnOtherDays": 0,
-    "otherDays": 174,
-    "shareOfLabelDaysFlagged": 1.0,
-    "shareOfOtherDaysFlagged": 0.0
-   },
-   "flagsPerSession": {
-    "flag": 0.101,
-    "baseline": 0.071,
-    "volNorm": 0.045,
-    "calendarOnly": 0.121
-   }
-  },
-  "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."
- },
+ "_note": "Current evaluation result = objectiveA (r9). 'historical' keeps earlier versions verbatim by name; nothing in it is current.",
+ "current": "objectiveA",
  "objectiveA": {
+  "evaluationVersion": "r9-2026-10-28",
+  "computedAt": "2026-10-28T20:37:02Z",
   "status": "INSUFFICIENT_EVIDENCE",
+  "objective": "A (descriptive accuracy of emitted Treasury anomalies; see EVALUATION.md)",
+  "datasetManifest": {
+   "file": "docs/review/eval-treasury/manifest-r9.json",
+   "sha256": "6f44690aa3b6f4f34a54013aea75c469547303c171d4e30a57220152bd9eaf2e"
+  },
+  "rubric": {
+   "file": "docs/review/adjudication-r8.json",
+   "sha256": "59f36579cc96fff5b8bd7334d367a71fa493ec2d7719d22163caa0e63ebb2720"
+  },
+  "rubricVersion": "r8-2026-10-28",
+  "roster": {
+   "file": "docs/review/eval-treasury/roster-r9.json",
+   "sha256": "a912a91d8548f2b7b7d621bba191e368bd8dc0a5778d7cba4e542bb9ac24adc9"
+  },
+  "sampleDesign": {
+   "file": "docs/review/eval-treasury/sample-design-r9.json",
+   "sha256": "0c009eb81e8618dbc22f118cb26fda91f402c7519fd9883568a3e737c58ff76f"
+  },
+  "releaseCalendar": {
+   "file": "docs/review/eval-treasury/release-calendar-r9.json",
+   "sha256": "e25039b7fa4b2a4a24e06392740e88fd547fff32a7aac9df9dd479554aa40b42"
+  },
+  "labelingGate": "BLOCKED",
+  "humanReviewedLabels": 0,
   "adjudicatedEvents": 0,
   "minimumForAPrecisionFigure": 100,
   "precision": null,
   "recall": null,
   "agreement": null,
-  "wilson95": null,
-  "rosterEpisodes": 196,
-  "matchedNegatives": 196,
-  "dataset": "docs/review/eval-treasury/manifest.json",
-  "configVersion": "r6-2026-10-28",
-  "baselines": {
-   "note": "alert burden only (flagged sessions); no accuracy without labels",
-   "development": {
-    "flag": 222,
-    "baseline10bp": 229,
-    "volNormalized": 49,
-    "sessions": 1441
-   },
-   "holdout": {
-    "flag": 34,
-    "baseline10bp": 41,
-    "volNormalized": 15,
-    "sessions": 455
-   }
-  },
-  "why": "r8 calendar, frame (250-session eligibility), tracks and estimators exist; reviewers not assigned; label gate BLOCKED; no labels.",
-  "rubricVersion": "r8-2026-10-28",
-  "vignetteReviewerCheck": {
-   "status": "NOT_RUN",
-   "why": "two independent reviewers have not returned the four vignette labels"
-  },
-  "rosterR7": {
-   "file": "docs/review/eval-treasury/roster-r7.json",
-   "counts": {
-    "EPISODE": 196,
-    "QUIET_CONTROL": 196,
-    "PROBABILITY_SAMPLE": 411
-   },
-   "items": 778
-  },
-  "labelingGate": "BLOCKED",
+  "intervals": null,
   "pooledEstimateAllowed": false,
   "neverFrom": {
    "QUIET_CONTROL": [
@@ -467,15 +45,506 @@
     "population estimates"
    ]
   },
-  "rosterR8": {
-   "file": "docs/review/eval-treasury/roster-r8.json",
-   "counts": {
-    "EPISODE": 196,
-    "QUIET_CONTROL": 196,
-    "PROBABILITY_SAMPLE": 422,
-    "BOUNDARY_CHALLENGE": 94
+  "vignetteReviewerCheck": {
+   "status": "NOT_RUN",
+   "set": "tests/fixtures/adjudication-vignettes-r8.json",
+   "vignettes": 12
+  },
+  "rosterCounts": {
+   "EPISODE": 196,
+   "QUIET_CONTROL": 196,
+   "PROBABILITY_SAMPLE": 482,
+   "BOUNDARY_CHALLENGE": 113
+  },
+  "rosterItems": 920,
+  "why": "No reviewer assigned; gate BLOCKED; no labels. Performance fields stay null until the gate passes and \u2265100 assessable episodes are adjudicated."
+ },
+ "historical": {
+  "r4": {
+   "configVersion": "r4-2026-10-28",
+   "generatedAt": "2026-10-28T17:04:14Z",
+   "noHitRateOrLeadTime": true,
+   "synthetic": {
+    "label": "SYNTHETIC fixtures; not market data",
+    "fixtures": [
+     {
+      "name": "01-arbitrage-pair",
+      "ticks": 12,
+      "alerts": 2,
+      "alertsByReason": {
+       "NEW": 2
+      },
+      "v1Alerts": 3,
+      "convergences": 0,
+      "convergenceMaxSeverity": null,
+      "relatedRepricing": 12,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 12,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+       "kalshi:KXFED-DEC:ODDS_REPRICING#e1": "ACTIVE"
+      },
+      "telemetry": {
+       "alerts": 2,
+       "newEpisodes": 2,
+       "suppressedUnchanged": 22,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 1
+     },
+     {
+      "name": "02-keyword-false-match",
+      "ticks": 4,
+      "alerts": 4,
+      "alertsByReason": {
+       "NEW": 4
+      },
+      "v1Alerts": 5,
+      "convergences": 0,
+      "convergenceMaxSeverity": null,
+      "relatedRepricing": 0,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 4,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "polymarket:0xmusk:VOLUME_SPIKE#e1": "ACTIVE",
+       "equities:TSLA:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
+       "polymarket:0xecon:ODDS_REPRICING#e1": "ACTIVE",
+       "equities:SPY:VOLUME_ROBUST_Z#e1": "ACTIVE"
+      },
+      "telemetry": {
+       "alerts": 4,
+       "newEpisodes": 4,
+       "suppressedUnchanged": 12,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 1
+     },
+     {
+      "name": "03-outage",
+      "ticks": 12,
+      "alerts": 1,
+      "alertsByReason": {
+       "NEW": 1
+      },
+      "v1Alerts": 1,
+      "convergences": 0,
+      "convergenceMaxSeverity": null,
+      "relatedRepricing": 0,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 0,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "treasury:2Y:YIELD_MOVE#e1": "RESOLVED"
+      },
+      "telemetry": {
+       "alerts": 1,
+       "newEpisodes": 1,
+       "suppressedUnchanged": 2,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 6,
+       "heldUnobserved": 0,
+       "resolved": 1,
+       "cooling": 1,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 0
+     },
+     {
+      "name": "04-quiet-session",
+      "ticks": 13,
+      "alerts": 0,
+      "alertsByReason": {},
+      "v1Alerts": 0,
+      "convergences": 0,
+      "convergenceMaxSeverity": null,
+      "relatedRepricing": 0,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 0,
+      "resolvedDuringOutage": 0,
+      "finalStates": {},
+      "telemetry": {
+       "alerts": 0,
+       "newEpisodes": 0,
+       "suppressedUnchanged": 0,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 0
+     },
+     {
+      "name": "05-midnight-boundary",
+      "ticks": 9,
+      "alerts": 1,
+      "alertsByReason": {
+       "NEW": 1
+      },
+      "v1Alerts": 2,
+      "convergences": 0,
+      "convergenceMaxSeverity": null,
+      "relatedRepricing": 0,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 0,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "polymarket:0xlong:ODDS_REPRICING#e1": "ACTIVE"
+      },
+      "telemetry": {
+       "alerts": 1,
+       "newEpisodes": 1,
+       "suppressedUnchanged": 8,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 1
+     },
+     {
+      "name": "06-scheduled-cpi",
+      "ticks": 4,
+      "alerts": 4,
+      "alertsByReason": {
+       "NEW": 4
+      },
+      "v1Alerts": 4,
+      "convergences": 4,
+      "convergenceMaxSeverity": "LOW",
+      "relatedRepricing": 0,
+      "calendarTagged": 12,
+      "falseConvergencePrevented": 0,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+       "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
+       "equities:SPY:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
+       "cross:fed-policy:CONVERGENCE#e1": "ACTIVE"
+      },
+      "telemetry": {
+       "alerts": 4,
+       "newEpisodes": 4,
+       "suppressedUnchanged": 12,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": 0
+     },
+     {
+      "name": "07-cross-family-control",
+      "ticks": 6,
+      "alerts": 5,
+      "alertsByReason": {
+       "NEW": 4,
+       "MAGNITUDE_RISE": 1
+      },
+      "v1Alerts": 4,
+      "convergences": 6,
+      "convergenceMaxSeverity": "MEDIUM",
+      "relatedRepricing": 0,
+      "calendarTagged": 0,
+      "falseConvergencePrevented": 0,
+      "resolvedDuringOutage": 0,
+      "finalStates": {
+       "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+       "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
+       "cross:fed-policy:CONVERGENCE#e1": "ACTIVE",
+       "crypto:BTC:FUNDING_EXTREME#e1": "ACTIVE"
+      },
+      "telemetry": {
+       "alerts": 5,
+       "newEpisodes": 4,
+       "suppressedUnchanged": 17,
+       "belowFloor": 0,
+       "muted": 0,
+       "deferred": 0,
+       "skippedUnavailable": 0,
+       "heldUnobserved": 0,
+       "resolved": 0,
+       "cooling": 0,
+       "reminders": 0,
+       "delivered": 0,
+       "deliveryFailed": 0,
+       "heldStale": 0,
+       "heldInvalid": 0,
+       "notAdmitted": 0
+      },
+      "duplicatesAvoidedVsV1": -1
+     }
+    ]
    },
-   "items": 865
+   "unlabelledHistorical": {
+    "treasury": {
+     "source": "treasury.gov",
+     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+     "sessions": 395,
+     "from": "2025-03-31",
+     "to": "2026-10-27",
+     "signals": 38,
+     "sessionsWithSignal": 30,
+     "byType": {
+      "YIELD_MOVE": 29,
+      "CURVE_SHIFT": 9
+     },
+     "bySeverity": {
+      "MEDIUM": 6,
+      "LOW": 32
+     },
+     "calendarPhases": {
+      "PRE_EVENT_POSITIONING": 7,
+      "POST_EVENT_CONTEXT": 10
+     },
+     "lifecycleAlerts": 35,
+     "alertsByReason": {
+      "NEW": 4,
+      "NEW_EPISODE": 31
+     },
+     "incidents": 4
+    },
+    "polymarket": {
+     "market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+     "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
+     "points": 2744,
+     "from": "2026-09-28T17:15:29Z",
+     "to": "2026-10-28T17:03:36Z",
+     "priceMovesPastThreshold": 1,
+     "eligibleFindings": 0,
+     "lifecycleAlerts": 0,
+     "note": "Volume is not point-in-time, so every price move is reported as UNVERIFIED and none is eligible as a finding. This is the intended REPLAY-01 behaviour, not a quiet market."
+    },
+    "label": "REAL public history, no outcome labels: alert volume and lifecycle behaviour only"
+   },
+   "objective": {
+    "chosen": "none of the three is validated yet; the current labelled track only measures scheduled-release-day association",
+    "candidates": [
+     "detect large moves (compare to absolute and vol-normalized baselines)",
+     "forecast scheduled-day volatility (calendar-only baseline is the bar)",
+     "identify information outside the public calendar (needs adjudicated non-calendar events and a news timeline; not available)"
+    ]
+   },
+   "baselinesNotRun": {
+    "newsTimeline": {
+     "status": "not run",
+     "why": "no free, point-in-time first-publication/news archive is available to this project; not substituted"
+    }
+   },
+   "labelled": {
+    "label": "Treasury sessions labelled by scheduled official release days. Association with known public news only; not informed-trading ground truth; no hit rate or lead time.",
+    "labelSource": "data/event-calendar.json (FOMC, CPI, NFP)",
+    "labelCaveat": "BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).",
+    "development": {
+     "detector": {
+      "flaggedOnLabelDays": 3,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 7,
+      "otherDays": 173,
+      "shareOfLabelDaysFlagged": 0.125,
+      "shareOfOtherDaysFlagged": 0.04
+     },
+     "baseline10bp": {
+      "flaggedOnLabelDays": 6,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 13,
+      "otherDays": 173,
+      "shareOfLabelDaysFlagged": 0.25,
+      "shareOfOtherDaysFlagged": 0.075
+     },
+     "volNormalizedSingle": {
+      "flaggedOnLabelDays": 2,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 3,
+      "otherDays": 173,
+      "shareOfLabelDaysFlagged": 0.083,
+      "shareOfOtherDaysFlagged": 0.017
+     },
+     "calendarOnly": {
+      "flaggedOnLabelDays": 24,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 0,
+      "otherDays": 173,
+      "shareOfLabelDaysFlagged": 1.0,
+      "shareOfOtherDaysFlagged": 0.0
+     },
+     "flagsPerSession": {
+      "flag": 0.051,
+      "baseline": 0.096,
+      "volNorm": 0.025,
+      "calendarOnly": 0.122
+     }
+    },
+    "holdout": {
+     "detector": {
+      "flaggedOnLabelDays": 3,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 17,
+      "otherDays": 174,
+      "shareOfLabelDaysFlagged": 0.125,
+      "shareOfOtherDaysFlagged": 0.098
+     },
+     "baseline10bp": {
+      "flaggedOnLabelDays": 3,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 11,
+      "otherDays": 174,
+      "shareOfLabelDaysFlagged": 0.125,
+      "shareOfOtherDaysFlagged": 0.063
+     },
+     "volNormalizedSingle": {
+      "flaggedOnLabelDays": 1,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 8,
+      "otherDays": 174,
+      "shareOfLabelDaysFlagged": 0.042,
+      "shareOfOtherDaysFlagged": 0.046
+     },
+     "calendarOnly": {
+      "flaggedOnLabelDays": 24,
+      "labelDays": 24,
+      "flaggedOnOtherDays": 0,
+      "otherDays": 174,
+      "shareOfLabelDaysFlagged": 1.0,
+      "shareOfOtherDaysFlagged": 0.0
+     },
+     "flagsPerSession": {
+      "flag": 0.101,
+      "baseline": 0.071,
+      "volNorm": 0.045,
+      "calendarOnly": 0.121
+     }
+    },
+    "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."
+   }
+  },
+  "r6": {
+   "status": "INSUFFICIENT_EVIDENCE",
+   "adjudicatedEvents": 0,
+   "minimumForAPrecisionFigure": 100,
+   "precision": null,
+   "recall": null,
+   "agreement": null,
+   "wilson95": null,
+   "rosterEpisodes": 196,
+   "matchedNegatives": 196,
+   "dataset": "docs/review/eval-treasury/manifest.json",
+   "configVersion": "r6-2026-10-28",
+   "baselines": {
+    "note": "alert burden only (flagged sessions); no accuracy without labels",
+    "development": {
+     "flag": 222,
+     "baseline10bp": 229,
+     "volNormalized": 49,
+     "sessions": 1441
+    },
+    "holdout": {
+     "flag": 34,
+     "baseline10bp": 41,
+     "volNormalized": 15,
+     "sessions": 455
+    }
+   }
+  },
+  "r7": {
+   "rubricVersion": "r7-2026-10-28",
+   "vignetteReviewerCheck": {
+    "status": "NOT_RUN",
+    "why": "two independent reviewers have not returned the four vignette labels"
+   },
+   "rosterR7": {
+    "file": "docs/review/eval-treasury/roster-r7.json",
+    "counts": {
+     "EPISODE": 196,
+     "QUIET_CONTROL": 196,
+     "PROBABILITY_SAMPLE": 411
+    },
+    "items": 778
+   }
+  },
+  "r8": {
+   "labelingGate": "BLOCKED",
+   "pooledEstimateAllowed": false,
+   "neverFrom": {
+    "QUIET_CONTROL": [
+     "recall",
+     "specificity"
+    ],
+    "BOUNDARY_CHALLENGE": [
+     "population estimates"
+    ]
+   },
+   "rosterR8": {
+    "file": "docs/review/eval-treasury/roster-r8.json",
+    "counts": {
+     "EPISODE": 196,
+     "QUIET_CONTROL": 196,
+     "PROBABILITY_SAMPLE": 422,
+     "BOUNDARY_CHALLENGE": 94
+    },
+    "items": 865
+   },
+   "why": "r8 calendar, frame (250-session eligibility), tracks and estimators exist; reviewers not assigned; label gate BLOCKED; no labels.",
+   "rubricVersion": "r8-2026-10-28"
   }
  }
 }

@@ -27,6 +27,7 @@ RULES = [  # (glob, status, source, renderedFrom)
     ("docs/review/replay-fixtures.jsonl", "project-generated", "output of the synthetic replay harness", None),
     ("docs/review/eval-treasury/release-calendar.json", "public-official", "release DATES (FOMC, CPI, NFP) from federalreserve.gov and bls.gov archive indexes; no data values (tools/build_release_calendar.py)", None),
     ("docs/review/eval-treasury/release-calendar-r8.json", "public-official", "R8 release announcements (FOMC statement dates/times from federalreserve.gov statement pages; BLS dates per blsStatus); no data values", None),
+    ("docs/review/eval-treasury/release-calendar-r9.json", "public-official", "R9 release announcements with verification state (FOMC VERIFIED from statement pages; BLS per blsStatus); no data values", None),
     ("docs/review/eval-treasury/*.json", "project-generated", "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values", None),
     ("docs/review/*.json", "project-generated", "evaluation config/results written by this project", None),
     ("docs/review/*.txt", "project-generated", "test logs written by this project (paths sanitized)", None),

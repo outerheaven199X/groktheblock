@@ -6,14 +6,17 @@
  "vignetteCheck": {
   "status": "NOT_RUN",
   "set": "tests/fixtures/adjudication-vignettes-r8.json",
-  "rule": "each reviewer labels integrity and context independently, blind to the intended answers; disagreements recorded with reasons"
+  "rule": "each reviewer labels integrity and context independently, blind to the intended answers; disagreements recorded with reasons",
+  "vignettes": 12
  },
  "pilot": {
   "status": "NOT_RUN",
   "size": 25,
   "purpose": "calibration, not validation",
-  "draw": "25 items from roster-r8 by seeded random order, all tracks",
+  "draw": "25 items from roster-r9 by seeded random order, all tracks",
   "rule": "rubric changes after seeing pilot labels are versioned and affected items relabelled"
  },
- "gatePasses": "vignette disagreements resolvable by the rubric itself, and pilot complete; only then may labels-r8.json receive labels"
+ "gatePasses": "vignette disagreements resolvable by the rubric itself, and pilot complete; only then may labels-r8.json receive labels",
+ "appliesTo": "roster-r9.json (r9 is the current frozen version)",
+ "validator": "skills/signals/scripts/reviewer_gate.py"
 }

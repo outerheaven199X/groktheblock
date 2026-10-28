@@ -112,5 +112,9 @@ out["labelled"] = {"label": "Treasury sessions labelled by scheduled official re
                    "labelSource": "data/event-calendar.json (FOMC, CPI, NFP)", "labelCaveat": "BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).",
                    "development": split(per_day[:half]), "holdout": split(per_day[half:]),
                    "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."}
-(ROOT / "docs/review/eval-results.json").write_text(json.dumps(out, indent=1, default=str))
+# R9-03: this replay is the r4 track; it is written under historical.r4 and never replaces the current r9 record
+_p = ROOT / "docs/review/eval-results.json"
+_res = json.loads(_p.read_text()) if _p.exists() else {}
+_res.setdefault("historical", {})["r4"] = out
+_p.write_text(json.dumps(_res, indent=1, default=str))
 print(json.dumps({k: v for k, v in out.items() if k != "synthetic"}, indent=1, default=str))

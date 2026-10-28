@@ -1,0 +1,1176 @@
+{
+ "version": "r9-2026-10-28",
+ "selectionUsesDetectorOutput": false,
+ "seed": 20261037,
+ "frame": {
+  "windows": 7816,
+  "ineligibleWindows": 8,
+  "minPriorValidChanges": 250,
+  "from": "2019-01-02",
+  "to": "2026-10-27",
+  "tenors": [
+   "2Y",
+   "10Y",
+   "30Y",
+   "2s10s"
+  ],
+  "history": "treasury.gov CSVs 2018-2026"
+ },
+ "calendarSource": "docs/review/eval-treasury/release-calendar-r9.json",
+ "calendarKey": "firstObservationSession",
+ "volRegimeCuts_bp": {
+  "2Y": [
+   3.391,
+   6.349
+  ],
+  "10Y": [
+   4.283,
+   6.26
+  ],
+  "30Y": [
+   4.261,
+   5.652
+  ],
+  "2s10s": [
+   3.009,
+   4.148
+  ]
+ },
+ "coverageLoss": {
+  "verifiedSessions": 64,
+  "provisionalSessions": 185,
+  "windowsByCalendar": {
+   "RELEASE_VERIFIED": 252,
+   "RELEASE_PROVISIONAL": 732,
+   "NO_VERIFIED_RELEASE": 6832
+  },
+  "note": "BLS CPI/NFP dates are PROVISIONAL (GTB_CONTACT not configured): their sessions form a separate stratum and can't act as verified releases or verified non-release days; verified-release analysis covers FOMC only"
+ },
+ "strata": [
+  {
+   "stratumKey": "10Y|development|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 439,
+   "n": 22,
+   "inclusionProbability": 0.05011389521640091
+  },
+  {
+   "stratumKey": "10Y|development|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 434,
+   "n": 22,
+   "inclusionProbability": 0.05069124423963134
+  },
+  {
+   "stratumKey": "10Y|development|NO_VERIFIED_RELEASE|MID",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 436,
+   "n": 22,
+   "inclusionProbability": 0.05045871559633028
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 47,
+   "n": 3,
+   "inclusionProbability": 0.06382978723404255
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_PROVISIONAL|LOW",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 47,
+   "n": 3,
+   "inclusionProbability": 0.06382978723404255
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_PROVISIONAL|MID",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 47,
+   "n": 3,
+   "inclusionProbability": 0.06382978723404255
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_VERIFIED|HIGH",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 14,
+   "n": 3,
+   "inclusionProbability": 0.21428571428571427
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_VERIFIED|LOW",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 18,
+   "n": 3,
+   "inclusionProbability": 0.16666666666666666
+  },
+  {
+   "stratumKey": "10Y|development|RELEASE_VERIFIED|MID",
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 17,
+   "n": 3,
+   "inclusionProbability": 0.17647058823529413
+  },
+  {
+   "stratumKey": "10Y|holdout|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 18,
+   "n": 3,
+   "inclusionProbability": 0.16666666666666666
+  },
+  {
+   "stratumKey": "10Y|holdout|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 181,
+   "n": 9,
+   "inclusionProbability": 0.049723756906077346
+  },
+  {
+   "stratumKey": "10Y|holdout|NO_VERIFIED_RELEASE|MID",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 200,
+   "n": 10,
+   "inclusionProbability": 0.05
+  },
+  {
+   "stratumKey": "10Y|holdout|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 3,
+   "n": 3,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "10Y|holdout|RELEASE_PROVISIONAL|LOW",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 19,
+   "n": 3,
+   "inclusionProbability": 0.15789473684210525
+  },
+  {
+   "stratumKey": "10Y|holdout|RELEASE_PROVISIONAL|MID",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 20,
+   "n": 3,
+   "inclusionProbability": 0.15
+  },
+  {
+   "stratumKey": "10Y|holdout|RELEASE_VERIFIED|LOW",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 9,
+   "n": 3,
+   "inclusionProbability": 0.3333333333333333
+  },
+  {
+   "stratumKey": "10Y|holdout|RELEASE_VERIFIED|MID",
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 5,
+   "n": 3,
+   "inclusionProbability": 0.6
+  },
+  {
+   "stratumKey": "2Y|development|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 442,
+   "n": 22,
+   "inclusionProbability": 0.049773755656108594
+  },
+  {
+   "stratumKey": "2Y|development|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 436,
+   "n": 22,
+   "inclusionProbability": 0.05045871559633028
+  },
+  {
+   "stratumKey": "2Y|development|NO_VERIFIED_RELEASE|MID",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 431,
+   "n": 22,
+   "inclusionProbability": 0.05104408352668213
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 44,
+   "n": 3,
+   "inclusionProbability": 0.06818181818181818
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_PROVISIONAL|LOW",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 46,
+   "n": 3,
+   "inclusionProbability": 0.06521739130434782
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_PROVISIONAL|MID",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 51,
+   "n": 3,
+   "inclusionProbability": 0.058823529411764705
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_VERIFIED|HIGH",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 14,
+   "n": 3,
+   "inclusionProbability": 0.21428571428571427
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_VERIFIED|LOW",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 17,
+   "n": 3,
+   "inclusionProbability": 0.17647058823529413
+  },
+  {
+   "stratumKey": "2Y|development|RELEASE_VERIFIED|MID",
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 18,
+   "n": 3,
+   "inclusionProbability": 0.16666666666666666
+  },
+  {
+   "stratumKey": "2Y|holdout|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 45,
+   "n": 3,
+   "inclusionProbability": 0.06666666666666667
+  },
+  {
+   "stratumKey": "2Y|holdout|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 33,
+   "n": 3,
+   "inclusionProbability": 0.09090909090909091
+  },
+  {
+   "stratumKey": "2Y|holdout|NO_VERIFIED_RELEASE|MID",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 321,
+   "n": 16,
+   "inclusionProbability": 0.04984423676012461
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 5,
+   "n": 3,
+   "inclusionProbability": 0.6
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_PROVISIONAL|LOW",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_PROVISIONAL|MID",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 35,
+   "n": 3,
+   "inclusionProbability": 0.08571428571428572
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_VERIFIED|HIGH",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 1,
+   "n": 1,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_VERIFIED|LOW",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "2Y|holdout|RELEASE_VERIFIED|MID",
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 11,
+   "n": 3,
+   "inclusionProbability": 0.2727272727272727
+  },
+  {
+   "stratumKey": "2s10s|development|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 442,
+   "n": 22,
+   "inclusionProbability": 0.049773755656108594
+  },
+  {
+   "stratumKey": "2s10s|development|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 434,
+   "n": 22,
+   "inclusionProbability": 0.05069124423963134
+  },
+  {
+   "stratumKey": "2s10s|development|NO_VERIFIED_RELEASE|MID",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 433,
+   "n": 22,
+   "inclusionProbability": 0.050808314087759814
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 44,
+   "n": 3,
+   "inclusionProbability": 0.06818181818181818
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_PROVISIONAL|LOW",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 47,
+   "n": 3,
+   "inclusionProbability": 0.06382978723404255
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_PROVISIONAL|MID",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 50,
+   "n": 3,
+   "inclusionProbability": 0.06
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_VERIFIED|HIGH",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 14,
+   "n": 3,
+   "inclusionProbability": 0.21428571428571427
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_VERIFIED|LOW",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 18,
+   "n": 3,
+   "inclusionProbability": 0.16666666666666666
+  },
+  {
+   "stratumKey": "2s10s|development|RELEASE_VERIFIED|MID",
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 17,
+   "n": 3,
+   "inclusionProbability": 0.17647058823529413
+  },
+  {
+   "stratumKey": "2s10s|holdout|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 23,
+   "n": 3,
+   "inclusionProbability": 0.13043478260869565
+  },
+  {
+   "stratumKey": "2s10s|holdout|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 229,
+   "n": 11,
+   "inclusionProbability": 0.048034934497816595
+  },
+  {
+   "stratumKey": "2s10s|holdout|NO_VERIFIED_RELEASE|MID",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 147,
+   "n": 7,
+   "inclusionProbability": 0.047619047619047616
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 3,
+   "n": 3,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_PROVISIONAL|LOW",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 21,
+   "n": 3,
+   "inclusionProbability": 0.14285714285714285
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_PROVISIONAL|MID",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 18,
+   "n": 3,
+   "inclusionProbability": 0.16666666666666666
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_VERIFIED|HIGH",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 1,
+   "n": 1,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_VERIFIED|LOW",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 11,
+   "n": 3,
+   "inclusionProbability": 0.2727272727272727
+  },
+  {
+   "stratumKey": "2s10s|holdout|RELEASE_VERIFIED|MID",
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "30Y|development|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 435,
+   "n": 22,
+   "inclusionProbability": 0.05057471264367816
+  },
+  {
+   "stratumKey": "30Y|development|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 435,
+   "n": 22,
+   "inclusionProbability": 0.05057471264367816
+  },
+  {
+   "stratumKey": "30Y|development|NO_VERIFIED_RELEASE|MID",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 439,
+   "n": 22,
+   "inclusionProbability": 0.05011389521640091
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 48,
+   "n": 3,
+   "inclusionProbability": 0.0625
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_PROVISIONAL|LOW",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 48,
+   "n": 3,
+   "inclusionProbability": 0.0625
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_PROVISIONAL|MID",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 45,
+   "n": 3,
+   "inclusionProbability": 0.06666666666666667
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_VERIFIED|HIGH",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 17,
+   "n": 3,
+   "inclusionProbability": 0.17647058823529413
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_VERIFIED|LOW",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 16,
+   "n": 3,
+   "inclusionProbability": 0.1875
+  },
+  {
+   "stratumKey": "30Y|development|RELEASE_VERIFIED|MID",
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 16,
+   "n": 3,
+   "inclusionProbability": 0.1875
+  },
+  {
+   "stratumKey": "30Y|holdout|NO_VERIFIED_RELEASE|HIGH",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "HIGH",
+   "N": 35,
+   "n": 3,
+   "inclusionProbability": 0.08571428571428572
+  },
+  {
+   "stratumKey": "30Y|holdout|NO_VERIFIED_RELEASE|LOW",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "LOW",
+   "N": 235,
+   "n": 12,
+   "inclusionProbability": 0.05106382978723404
+  },
+  {
+   "stratumKey": "30Y|holdout|NO_VERIFIED_RELEASE|MID",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_VERIFIED_RELEASE",
+   "volRegime": "MID",
+   "N": 129,
+   "n": 6,
+   "inclusionProbability": 0.046511627906976744
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_PROVISIONAL|HIGH",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "HIGH",
+   "N": 4,
+   "n": 3,
+   "inclusionProbability": 0.75
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_PROVISIONAL|LOW",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "LOW",
+   "N": 24,
+   "n": 3,
+   "inclusionProbability": 0.125
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_PROVISIONAL|MID",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_PROVISIONAL",
+   "volRegime": "MID",
+   "N": 14,
+   "n": 3,
+   "inclusionProbability": 0.21428571428571427
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_VERIFIED|HIGH",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "HIGH",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_VERIFIED|LOW",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "LOW",
+   "N": 10,
+   "n": 3,
+   "inclusionProbability": 0.3
+  },
+  {
+   "stratumKey": "30Y|holdout|RELEASE_VERIFIED|MID",
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE_VERIFIED",
+   "volRegime": "MID",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  }
+ ],
+ "sampleSize": 482,
+ "distributionTable": {
+  "NO_VERIFIED_RELEASE/HIGH": {
+   "N": 1879,
+   "n": 100
+  },
+  "NO_VERIFIED_RELEASE/LOW": {
+   "N": 2417,
+   "n": 123
+  },
+  "NO_VERIFIED_RELEASE/MID": {
+   "N": 2536,
+   "n": 127
+  },
+  "RELEASE_PROVISIONAL/HIGH": {
+   "N": 198,
+   "n": 24
+  },
+  "RELEASE_PROVISIONAL/LOW": {
+   "N": 254,
+   "n": 23
+  },
+  "RELEASE_PROVISIONAL/MID": {
+   "N": 280,
+   "n": 24
+  },
+  "RELEASE_VERIFIED/HIGH": {
+   "N": 63,
+   "n": 16
+  },
+  "RELEASE_VERIFIED/LOW": {
+   "N": 101,
+   "n": 23
+  },
+  "RELEASE_VERIFIED/MID": {
+   "N": 88,
+   "n": 22
+  }
+ },
+ "detectorStatusInSample": {
+  "flagged": 25,
+  "nearThreshold": 26,
+  "belowThreshold": 431,
+  "unmeasured": 0
+ },
+ "eligibility": {
+  "byYearTenor": {
+   "2019|2Y": {
+    "eligible": 248,
+    "ineligible": 2
+   },
+   "2019|10Y": {
+    "eligible": 248,
+    "ineligible": 2
+   },
+   "2019|30Y": {
+    "eligible": 248,
+    "ineligible": 2
+   },
+   "2019|2s10s": {
+    "eligible": 248,
+    "ineligible": 2
+   },
+   "2020|2Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2020|10Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2020|30Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2020|2s10s": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2021|2Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2021|10Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2021|30Y": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2021|2s10s": {
+    "eligible": 251,
+    "ineligible": 0
+   },
+   "2022|2Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2022|10Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2022|30Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2022|2s10s": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2023|2Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2023|10Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2023|30Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2023|2s10s": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2024|2Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2024|10Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2024|30Y": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2024|2s10s": {
+    "eligible": 250,
+    "ineligible": 0
+   },
+   "2025|2Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2025|10Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2025|30Y": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2025|2s10s": {
+    "eligible": 249,
+    "ineligible": 0
+   },
+   "2026|2Y": {
+    "eligible": 206,
+    "ineligible": 0
+   },
+   "2026|10Y": {
+    "eligible": 206,
+    "ineligible": 0
+   },
+   "2026|30Y": {
+    "eligible": 206,
+    "ineligible": 0
+   },
+   "2026|2s10s": {
+    "eligible": 206,
+    "ineligible": 0
+   }
+  },
+  "byComponent": {
+   "EPISODE": {
+    "eligible": 196,
+    "ineligible": 0
+   },
+   "QUIET_CONTROL": {
+    "eligible": 196,
+    "ineligible": 0
+   },
+   "PROBABILITY_SAMPLE": {
+    "eligible": 482,
+    "ineligible": 0
+   },
+   "BOUNDARY_CHALLENGE": {
+    "eligible": 113,
+    "ineligible": 0
+   }
+  }
+ },
+ "tracks": {
+  "population": {
+   "component": "PROBABILITY_SAMPLE",
+   "designWeights": true,
+   "estimator": "H\u00e1jek, weights 1/inclusionProbability; stratified bootstrap interval (estimators.py)",
+   "size": 482
+  },
+  "emittedEpisodes": {
+   "component": "EPISODE",
+   "controls": "QUIET_CONTROL (deliberately quiet; never used for recall or specificity)",
+   "designWeights": false,
+   "size": 196
+  },
+  "boundaryChallenge": {
+   "component": "BOUNDARY_CHALLENGE",
+   "diagnosticOnly": true,
+   "populationWeight": null,
+   "ratioRange": [
+    0.75,
+    1.25
+   ],
+   "perStratum": 4,
+   "strata": [
+    {
+     "stratumKey": "10Y|NO_VERIFIED_RELEASE|HIGH",
+     "N": 25,
+     "n": 4,
+     "selectionProbability": 0.16
+    },
+    {
+     "stratumKey": "10Y|NO_VERIFIED_RELEASE|LOW",
+     "N": 34,
+     "n": 4,
+     "selectionProbability": 0.11764705882352941
+    },
+    {
+     "stratumKey": "10Y|NO_VERIFIED_RELEASE|MID",
+     "N": 38,
+     "n": 4,
+     "selectionProbability": 0.10526315789473684
+    },
+    {
+     "stratumKey": "10Y|RELEASE_PROVISIONAL|HIGH",
+     "N": 7,
+     "n": 4,
+     "selectionProbability": 0.5714285714285714
+    },
+    {
+     "stratumKey": "10Y|RELEASE_PROVISIONAL|LOW",
+     "N": 10,
+     "n": 4,
+     "selectionProbability": 0.4
+    },
+    {
+     "stratumKey": "10Y|RELEASE_PROVISIONAL|MID",
+     "N": 6,
+     "n": 4,
+     "selectionProbability": 0.6666666666666666
+    },
+    {
+     "stratumKey": "10Y|RELEASE_VERIFIED|LOW",
+     "N": 1,
+     "n": 1,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "10Y|RELEASE_VERIFIED|MID",
+     "N": 2,
+     "n": 2,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "2Y|NO_VERIFIED_RELEASE|HIGH",
+     "N": 37,
+     "n": 4,
+     "selectionProbability": 0.10810810810810811
+    },
+    {
+     "stratumKey": "2Y|NO_VERIFIED_RELEASE|LOW",
+     "N": 10,
+     "n": 4,
+     "selectionProbability": 0.4
+    },
+    {
+     "stratumKey": "2Y|NO_VERIFIED_RELEASE|MID",
+     "N": 35,
+     "n": 4,
+     "selectionProbability": 0.11428571428571428
+    },
+    {
+     "stratumKey": "2Y|RELEASE_PROVISIONAL|HIGH",
+     "N": 8,
+     "n": 4,
+     "selectionProbability": 0.5
+    },
+    {
+     "stratumKey": "2Y|RELEASE_PROVISIONAL|LOW",
+     "N": 1,
+     "n": 1,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "2Y|RELEASE_PROVISIONAL|MID",
+     "N": 17,
+     "n": 4,
+     "selectionProbability": 0.23529411764705882
+    },
+    {
+     "stratumKey": "2Y|RELEASE_VERIFIED|HIGH",
+     "N": 2,
+     "n": 2,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "2Y|RELEASE_VERIFIED|LOW",
+     "N": 1,
+     "n": 1,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "2Y|RELEASE_VERIFIED|MID",
+     "N": 6,
+     "n": 4,
+     "selectionProbability": 0.6666666666666666
+    },
+    {
+     "stratumKey": "2s10s|NO_VERIFIED_RELEASE|HIGH",
+     "N": 98,
+     "n": 4,
+     "selectionProbability": 0.04081632653061224
+    },
+    {
+     "stratumKey": "2s10s|NO_VERIFIED_RELEASE|LOW",
+     "N": 30,
+     "n": 4,
+     "selectionProbability": 0.13333333333333333
+    },
+    {
+     "stratumKey": "2s10s|NO_VERIFIED_RELEASE|MID",
+     "N": 81,
+     "n": 4,
+     "selectionProbability": 0.04938271604938271
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_PROVISIONAL|HIGH",
+     "N": 14,
+     "n": 4,
+     "selectionProbability": 0.2857142857142857
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_PROVISIONAL|LOW",
+     "N": 4,
+     "n": 4,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_PROVISIONAL|MID",
+     "N": 13,
+     "n": 4,
+     "selectionProbability": 0.3076923076923077
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_VERIFIED|HIGH",
+     "N": 7,
+     "n": 4,
+     "selectionProbability": 0.5714285714285714
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_VERIFIED|LOW",
+     "N": 6,
+     "n": 4,
+     "selectionProbability": 0.6666666666666666
+    },
+    {
+     "stratumKey": "2s10s|RELEASE_VERIFIED|MID",
+     "N": 2,
+     "n": 2,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "30Y|NO_VERIFIED_RELEASE|HIGH",
+     "N": 23,
+     "n": 4,
+     "selectionProbability": 0.17391304347826086
+    },
+    {
+     "stratumKey": "30Y|NO_VERIFIED_RELEASE|LOW",
+     "N": 49,
+     "n": 4,
+     "selectionProbability": 0.08163265306122448
+    },
+    {
+     "stratumKey": "30Y|NO_VERIFIED_RELEASE|MID",
+     "N": 37,
+     "n": 4,
+     "selectionProbability": 0.10810810810810811
+    },
+    {
+     "stratumKey": "30Y|RELEASE_PROVISIONAL|HIGH",
+     "N": 4,
+     "n": 4,
+     "selectionProbability": 1.0
+    },
+    {
+     "stratumKey": "30Y|RELEASE_PROVISIONAL|LOW",
+     "N": 8,
+     "n": 4,
+     "selectionProbability": 0.5
+    },
+    {
+     "stratumKey": "30Y|RELEASE_PROVISIONAL|MID",
+     "N": 10,
+     "n": 4,
+     "selectionProbability": 0.4
+    }
+   ],
+   "size": 113,
+   "note": "selection uses detector output; selection probabilities are recorded but the set is never folded into population estimates under this design"
+  }
+ }
+}

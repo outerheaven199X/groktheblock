@@ -1,0 +1,13 @@
+{
+ "_note": "EMPTY until reviewer-gate-r8.json passes. Reviewers record integrity and context only; anomaly is computed.",
+ "rubric": "docs/review/adjudication-r8.json",
+ "reviewers": [],
+ "labels": [],
+ "fields": [
+  "itemId",
+  "reviewer",
+  "integrity",
+  "context",
+  "note"
+ ]
+}

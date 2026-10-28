@@ -1,0 +1,11 @@
+# test_round9.py (round-9 regressions as committed) run against the round-8 tree 75ae493 before any round-9 fix; command: python tests/test_round9.py; paths sanitized
+FAIL test_R9_CAL_01_calendar_distinguishes_provisional_fetched_verified -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/release-calendar-r9.json'
+FAIL test_R9_CAL_01_bls_fetch_without_parsed_release_time_is_fetched_not_verified -- KeyError '2019-01-11'
+FAIL test_R9_CAL_01_provisional_event_never_populates_a_verified_stratum -- ModuleNotFoundError No module named 'eval_treasury_r9'
+FAIL test_R9_EST_01_census_stratum_has_zero_design_variance_and_tracks_dont_move_the_estimate -- KeyError 'byStratum'
+FAIL test_R9_EST_02_unassessable_stratum_is_reported_not_silently_dropped -- KeyError 'coverage'
+FAIL test_R9_VERS_01_current_result_links_r9_hashes_and_history_is_named -- AssertionError 
+FAIL test_R9_TIME_01_observation_and_publication_fields_and_boundary_uncertainty -- AttributeError module 'build_release_calendar' has no attribute 'assign_session'
+FAIL test_R9_GATE_01_gate_cannot_pass_with_missing_records_or_adjudicator -- ModuleNotFoundError No module named 'reviewer_gate'
+FAIL test_R9_reporting_files -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/ROUND9-RESULTS.md'
+round9: 0/9 passed

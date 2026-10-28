@@ -131,3 +131,11 @@ Full table: `ROUND8-RESULTS.md`. Regressions: `tests/test_round8.py` (1/17 befor
 - **R8-01.** *Corrections to round 7:* the r7 calendar gave the 2020-03-02 meeting date instead of the 2020-03-03 statement date. It had no scheduled/unscheduled class and no first observation session, and it was scraped from page headings. It was also fetched with a placeholder contact (nick@example.com), which is now removed. The bond calendar was wrong for Good Friday 2021/2023/2026 and 2025-01-09; for 2018 to 2026-10-27 it now comes from the observed treasury.gov curve days. The FOMC audit is clean. The BLS audit is NOT_CONFIGURED (no GTB_CONTACT).
 - **R8-02.** *Correction to round 7:* the r7 frame needed only 60 prior sessions, but the reference rule needs 250. Treasury 2018 data was added, the frame now requires 250 valid prior changes, and 8 windows are ineligible.
 - **R8-03 to R8-07 fixed** as in the table. **R8-05** human reviewers (owner decision) and **R8-08** CI and devices remain outstanding.
+
+## Round 9 (ROUND9-REVIEW of 75ae493)
+Full table: `ROUND9-RESULTS.md`. Regressions: `tests/test_round9.py` (0/9 before, 9/9 after).
+- **R9-1 fixed.** *Correction to round 8:* unaudited BLS dates were treated as verified RELEASE strata, and a fetched BLS index would still have been labelled the same as unverified. Calendar events are now VERIFIED / FETCHED / PROVISIONAL, and strata are 3-level. Version r9.
+- **R9-2 fixed.** *Correction to round 8:* the with-replacement bootstrap gave census strata spurious variance. It is replaced by a finite-population SRSWOR variance with per-stratum coverage.
+- **R9-3 fixed.** *Correction:* `eval-results.json` mixed r4, r6 and r8 metadata at the top level. There is now one hash-linked current record plus named history.
+- **R9-4 fixed.** Observation time and publication time are separate fields, and the 15:30 boundary is treated as uncertain.
+- **R9-5:** a validator was added to the existing gate. Human review is NOT_RUN. CI and devices are still outstanding.

@@ -27,7 +27,9 @@ SRC = {"fomc": FED + "/monetarypolicy/fomccalendars.htm", "fomc2019": FED + "/mo
 BLS = {"CPI": "https://www.bls.gov/bls/news-release/cpi.htm", "NFP": "https://www.bls.gov/bls/news-release/empsit.htm"}
 YEARS = range(2019, 2027)
 CURVE_HM = (15, 30)  # Treasury par yields are based on ~3:30 PM ET closing indicative bids (treasury.gov methodology)
-OUT = ROOT / "docs/review/eval-treasury/release-calendar-r8.json"
+OUT = ROOT / "docs/review/eval-treasury/release-calendar-r9.json"  # r8 file kept frozen
+UNCERTAIN_HM = ((15, 0), (16, 0))  # announcements this close to the ~15:30 input time get UNCERTAIN session assignment
+STATES = ["VERIFIED", "FETCHED", "PROVISIONAL"]
 
 
 def user_agent(contact: str | None) -> str:
@@ -48,6 +50,27 @@ def first_observation_session(ts: int) -> str:
         while not T.is_session(d, "bond"):
             d += timedelta(days=1)
     return d.isoformat()
+
+
+def assign_session(ts: int) -> dict:
+    """R9-04: map an announcement to the first Treasury curve that could reflect it. Treasury collects indicative inputs at or
+    near 3:30 p.m. ET (approximate) and usually publishes by 6:00 p.m. ET; these are separate times. Announcements on a bond
+    session between 15:00 and 16:00 ET are UNCERTAIN: conservatively assigned to the next session, with the same-day session
+    kept as alternativeSession for a one-session sensitivity case. This is an observation-assignment convention, not a claim
+    that the curve moved because of the announcement, and it never implies lead time."""
+    t = datetime.fromtimestamp(ts, T.NY)
+    d = t.date()
+    clear = first_observation_session(ts)
+    out = {"firstObservationSession": clear, "sessionAssignment": "CLEAR", "alternativeSession": None}
+    if T.is_session(d, "bond") and UNCERTAIN_HM[0] <= (t.hour, t.minute) < UNCERTAIN_HM[1]:
+        nxt = d + timedelta(days=1)
+        while not T.is_session(nxt, "bond"):
+            nxt += timedelta(days=1)
+        out = {"firstObservationSession": nxt.isoformat(), "sessionAssignment": "UNCERTAIN", "alternativeSession": d.isoformat()}
+    s = out["firstObservationSession"]
+    out["marketObservationApproxAt"] = f"{s}T15:30 ET (approximate)"
+    out["publicationExpectedBy"] = f"{s}T18:00 ET"
+    return out
 
 
 def fomc_links(pages):
@@ -101,8 +124,9 @@ def build(contact=None, opener=None, log=print):
         if st["zoneLabel"] and st["zoneLabel"] != datetime.fromtimestamp(ts, T.NY).tzname():
             audit.append({"url": FED + path, "problem": f"page says {st['zoneLabel']} but New York time was {datetime.fromtimestamp(ts, T.NY).tzname()}"})
         events.append({"type": "FOMC", "class": cls, "meeting": head, "announcementDate": st["date"], "announcementTimeET": st["time"],
-                       "timeVerified": st["time"] is not None, "announcementTs": ts, "weekday": date.fromisoformat(st["date"]).strftime("%A"),
-                       "firstObservationSession": first_observation_session(ts), "source": FED + path})
+                       "timeVerified": st["time"] is not None, "verification": "VERIFIED" if st["time"] else "FETCHED",
+                       "evidence": {"url": FED + path, "text": f"{st['date']} · For release at {st['time']} {st['zoneLabel']}" if st["time"] else st["date"]},
+                       "announcementTs": ts, "weekday": date.fromisoformat(st["date"]).strftime("%A"), **assign_session(ts), "source": FED + path})
     sources = {k: {"url": u, "sha256": hashlib.sha256(pages[k]).hexdigest()} for k, u in SRC.items()}
     if contact:
         bls_status = "FETCHED"
@@ -111,29 +135,55 @@ def build(contact=None, opener=None, log=print):
             sources[f"bls-{typ}"] = {"url": u, "sha256": hashlib.sha256(b).hexdigest()}
             stem = "cpi" if typ == "CPI" else "empsit"
             for mm, dd, yy in sorted(set(re.findall(rf"archives/{stem}_(\d\d)(\d\d)(\d{{4}})\.htm", b.decode("utf-8", "ignore")))):
-                if int(yy) in YEARS:
-                    events.append(_bls(typ, f"{yy}-{mm}-{dd}", "BLS archive index (original release file)", False))
+                if int(yy) not in YEARS:
+                    continue
+                url = f"https://www.bls.gov/news.release/archives/{stem}_{mm}{dd}{yy}.htm"
+                fdate = f"{yy}-{mm}-{dd}"
+                try:
+                    page = get(url, contact, opener).decode("utf-8", "ignore")
+                except Exception as e:  # noqa: BLE001
+                    page = ""; audit.append({"url": url, "problem": f"fetch failed: {type(e).__name__}"})
+                m = EMBARGO.search(re.sub(r"\s+", " ", re.sub("<[^>]+>", " ", page)))
+                if m:
+                    hh = int(m.group(1)) % 12 + (12 if m.group(3) == "p" else 0)
+                    rdate = datetime.strptime(m.group(5), "%B %d, %Y").date().isoformat()
+                    if rdate != fdate:
+                        audit.append({"url": url, "problem": f"release record says {rdate}, archive file name says {fdate}"})
+                    events.append(_bls(typ, rdate, url, True, f"{hh:02d}:{m.group(2)}", "VERIFIED", {"url": url, "text": m.group(0)}))
+                else:
+                    events.append(_bls(typ, fdate, url, False, None, "FETCHED", {"url": url, "text": None}))
     else:
         bls_status = "NOT_CONFIGURED"
         log("BLS: NOT_CONFIGURED (set GTB_CONTACT to a contact you control); no request sent; using r7 archive-file dates, UNAUDITED")
         r7 = json.loads((ROOT / "docs/review/eval-treasury/release-calendar.json").read_text())
         for e in r7["events"]:
             if e["type"] in ("CPI", "NFP"):
-                events.append(_bls(e["type"], e["date"], "r7 calendar (BLS archive-file dates); not re-fetched", False))
+                events.append(_bls(e["type"], e["date"], "r7 calendar (BLS archive-file dates); not re-fetched", False, None, "PROVISIONAL", None))
     events.sort(key=lambda e: (e["announcementTs"], e["type"]))
-    return {"version": "r8-2026-10-28", "_provenance": "public-official",
+    return {"version": "r9-2026-10-28", "_provenance": "public-official", "verificationStates": STATES,
+            "marketObservationApproxAt": "15:30 ET, approximate (Treasury: inputs collected at or near 3:30 p.m.)",
+            "publicationExpectedBy": "18:00 ET (Treasury: usually available by 6:00 p.m.)",
             "_note": "Release announcements only (no data values). FOMC from the Fed's own statement pages; BLS see blsStatus.",
             "sources": sources, "blsStatus": bls_status, "curveObservationTimeET": "15:30",
             "audit": {"checked": sum(1 for e in events if e["type"] == "FOMC"), "mismatches": audit,
                       "rule": "statement page date vs URL date; page time-zone label vs New York DST"},
             "counts": {t: sum(1 for e in events if e["type"] == t) for t in ("FOMC", "CPI", "NFP")},
+            "byVerification": {v: sum(1 for e in events if e["verification"] == v) for v in STATES},
+            "uncertainAssignments": [e["announcementDate"] for e in events if e["sessionAssignment"] == "UNCERTAIN"],
             "unscheduled": [e["announcementDate"] for e in events if e.get("class") == "UNSCHEDULED"], "events": events}
 
 
-def _bls(typ, d, src, verified):
-    ts = T.ny_ts(date.fromisoformat(d), 8, 30)
-    return {"type": typ, "class": "SCHEDULED", "announcementDate": d, "announcementTimeET": "08:30", "timeVerified": verified,
-            "announcementTs": ts, "weekday": date.fromisoformat(d).strftime("%A"), "firstObservationSession": first_observation_session(ts), "source": src}
+EMBARGO = re.compile(r"embargoed until (\d{1,2}):(\d{2}) ([ap])\.m\. \(ET\) (\w+), ([A-Z][a-z]+ \d{1,2}, \d{4})")
+
+
+def _bls(typ, d, src, verified, hm, state, evidence):
+    """BLS event. PROVISIONAL: date from an archive file name, not re-fetched. FETCHED: page fetched but no release
+    time parsed (time assumed 08:30 for session assignment only). VERIFIED: the release's own embargo line was read."""
+    hh, mm = (int(x) for x in (hm or "08:30").split(":"))
+    ts = T.ny_ts(date.fromisoformat(d), hh, mm)
+    return {"type": typ, "class": "SCHEDULED", "announcementDate": d, "announcementTimeET": hm, "assumedTimeET": None if hm else "08:30",
+            "timeVerified": verified, "verification": state, "evidence": evidence, "announcementTs": ts,
+            "weekday": date.fromisoformat(d).strftime("%A"), **assign_session(ts), "source": src}
 
 
 def main():

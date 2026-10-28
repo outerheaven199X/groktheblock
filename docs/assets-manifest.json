@@ -160,7 +160,7 @@
   "docs/review/eval-results.json": {
    "status": "project-generated",
    "source": "evaluation config/results written by this project",
-   "sha256": "b8cdc2016d6faaf439a72b0e90023110f382f89aa219d5b713c2d675e2cc61c4"
+   "sha256": "e88c6e6a6de9e163792bcc79b9332c793612c16742c151fadcb855aa1f2d9841"
   },
   "docs/review/eval-treasury/labels-r7.json": {
    "status": "project-generated",
@@ -168,6 +168,11 @@
    "sha256": "3e5d0a4080173aa84e6156eb9e0b1b90e1a98421bed885add1b9a360bc6f0011"
   },
   "docs/review/eval-treasury/labels-r8.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "1e9837cd53ceb3e24504e3e54053b4267fa43b8854063f95d78f3de0bbb19bbb"
+  },
+  "docs/review/eval-treasury/labels-r9.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "1e9837cd53ceb3e24504e3e54053b4267fa43b8854063f95d78f3de0bbb19bbb"
@@ -187,6 +192,11 @@
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "ccb703fa0365a740bff25745e1473849d733d622bdf2ea15e5cee2e3d15739e9"
   },
+  "docs/review/eval-treasury/manifest-r9.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "6f44690aa3b6f4f34a54013aea75c469547303c171d4e30a57220152bd9eaf2e"
+  },
   "docs/review/eval-treasury/manifest.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
@@ -197,6 +207,11 @@
    "source": "R8 release announcements (FOMC statement dates/times from federalreserve.gov statement pages; BLS dates per blsStatus); no data values",
    "sha256": "6701aadd08173390a0f28b476972643dfdce5ae4c9547fa6a0f418a991037954"
   },
+  "docs/review/eval-treasury/release-calendar-r9.json": {
+   "status": "public-official",
+   "source": "R9 release announcements with verification state (FOMC VERIFIED from statement pages; BLS per blsStatus); no data values",
+   "sha256": "e25039b7fa4b2a4a24e06392740e88fd547fff32a7aac9df9dd479554aa40b42"
+  },
   "docs/review/eval-treasury/release-calendar.json": {
    "status": "public-official",
    "source": "release DATES (FOMC, CPI, NFP) from federalreserve.gov and bls.gov archive indexes; no data values (tools/build_release_calendar.py)",
@@ -205,7 +220,7 @@
   "docs/review/eval-treasury/reviewer-gate-r8.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
-   "sha256": "8e4a838ffc5c8cc923cf3bd77bfdc03bf2f60082ae486976eaf10fe0f63687b0"
+   "sha256": "dd199b9a544c5befa6f3f40bed94f393e68372fafb4b2ffc50b6298cd7d72626"
   },
   "docs/review/eval-treasury/roster-r7.json": {
    "status": "project-generated",
@@ -216,6 +231,11 @@
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "fedf184877d6a84fb7a598e3c5a4c5eb5ed7f916478d0589975929704b32cedf"
+  },
+  "docs/review/eval-treasury/roster-r9.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "a912a91d8548f2b7b7d621bba191e368bd8dc0a5778d7cba4e542bb9ac24adc9"
   },
   "docs/review/eval-treasury/roster.json": {
    "status": "project-generated",
@@ -231,6 +251,11 @@
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "b019cdb9b5e01a68440673a3d9340b93af6e596d7c2d2a8160ba0c0e5dec9d72"
+  },
+  "docs/review/eval-treasury/sample-design-r9.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "0c009eb81e8618dbc22f118cb26fda91f402c7519fd9883568a3e737c58ff76f"
   },
   "docs/review/history-purge-final.json": {
    "status": "project-generated",
@@ -276,6 +301,11 @@
    "status": "project-generated",
    "source": "test logs written by this project (paths sanitized)",
    "sha256": "0f2f51fc840b03450007b44b18d217346ffb1ff601d82baa0f498ad8fe110144"
+  },
+  "docs/review/round9-tests-before-fix.txt": {
+   "status": "project-generated",
+   "source": "test logs written by this project (paths sanitized)",
+   "sha256": "287267c185e1c7fd2de21b6b45365ed40b1c41f711c57adb0460b516e3b0ee9a"
   },
   "docs/screenshots-provenance.json": {
    "status": "project-generated",
