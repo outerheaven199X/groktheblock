@@ -413,5 +413,14 @@
    }
   },
   "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."
+ },
+ "objectiveA": {
+  "status": "INSUFFICIENT_EVIDENCE",
+  "adjudicatedEvents": 0,
+  "minimumForAPrecisionFigure": 100,
+  "precision": null,
+  "recall": null,
+  "why": "No flagged move has been adjudicated under ADJUDICATION.md by blind reviewers; a precision figure would be invented. Reported as INSUFFICIENT_EVIDENCE, not 0 and not a percentage.",
+  "configVersion": "r5-2026-10-28"
  }
 }

@@ -618,6 +618,7 @@ def edgar_events(form4: list[dict] | None, eightk: list[dict] | None, ob: dict, 
         n = fs[0]["name"]
         subj = {"name": n, "id": cik, "url": f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={cik}&type=4"}
         ev = [{"label": f"Form 4 · {n}", "url": f["url"]} for f in fs[:4]]
+        eids = [{"id": accession(f["url"]), "eventTs": f["ts"], "url": f["url"]} for f in fs if accession(f["url"])]
         o = env(ob, min(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs),
                 extra_limits=["Event time = earliest EDGAR acceptance time in the cluster; trades occurred up to two business days earlier."],
                 granularity="intraday", event_basis="provider", avail_basis="provider")
@@ -637,26 +638,42 @@ def edgar_events(form4: list[dict] | None, eightk: list[dict] | None, ob: dict, 
             out.append(_sig("sec", "REPORTED_OPEN_MARKET_PURCHASES", "MEDIUM" if usd(buys) >= 1e6 else "LOW", "observed",
                             f"{n}: {len(buys)} reported open-market purchase(s) by {owners(buys)} reporting person(s) (≈${usd(buys):,.0f}{' + ' + str(nop(buys)) + ' without a reported price' if nop(buys) else ''})",
                             "Transaction code P parsed from the filings. Grants, exercises and gifts excluded; amendments not double-counted.", subj,
-                            {"filings": len(fs), "purchases": len(buys), "purchaseUsd": round(usd(buys)), "unpriced": nop(buys), "reportingPersons": owners(buys), "sales": len(sells)}, ev,
+                            {"eventIds": eids, "filings": len(fs), "purchases": len(buys), "purchaseUsd": round(usd(buys)), "unpriced": nop(buys), "reportingPersons": owners(buys), "sales": len(sells)}, ev,
                             lim0 + ["Filings arrive up to two business days after the trade."], o, trig(len(buys), None, 1, "latest EDGAR feed", "purchases"), text=n, instrument=ticker))
         elif sells:
             out.append(_sig("sec", "REPORTED_SALES_CLUSTER", "LOW", "observed", f"{n}: {len(sells)} reported sale(s) by {owners(sells)} reporting person(s) (≈${usd(sells):,.0f})",
                             "Code S parsed. Sales are frequently scheduled (10b5-1); context only.", subj,
-                            {"filings": len(fs), "sales": len(sells), "salesUsd": round(usd(sells)), "unpriced": nop(sells), "reportingPersons": owners(sells)}, ev,
+                            {"eventIds": eids, "filings": len(fs), "sales": len(sells), "salesUsd": round(usd(sells)), "unpriced": nop(sells), "reportingPersons": owners(sells)}, ev,
                             lim0 + ["10b5-1 plan status isn't parsed."], o, trig(len(sells), None, 1, "latest EDGAR feed", "sales"), text=n, instrument=ticker))
-    seen = set()
+    # R5-01: every 8-K accession is its own event; several filings by one issuer stay separately inspectable
+    by8: dict[str, list[dict]] = {}
     for f in eightk or []:
-        items = [i for i in f["items"] if i in MATERIAL_8K]
-        if not items or f["cik"] in seen:
-            continue
-        seen.add(f["cik"])
+        if [i for i in f["items"] if i in MATERIAL_8K] and accession(f.get("url")):
+            by8.setdefault(f["cik"], []).append(f)
+    for cik, fs in by8.items():
+        fs = sorted(fs, key=lambda f: (f["ts"] or 0, accession(f["url"])))
+        items = sorted({i for f in fs for i in f["items"] if i in MATERIAL_8K})
         severe = [i for i in items if i in SEVERE_8K]
-        out.append(_sig("sec", "8K_EVENT", "HIGH" if severe else "LOW" if items == ["5.02"] else "MEDIUM", "observed",
-                        f"{f['name']} 8-K: " + ", ".join(MATERIAL_8K[i] for i in items), "Items " + ", ".join(items) + " filed with the SEC.",
-                        {"name": f["name"], "id": f["cik"], "url": f["url"]}, {"items": items}, [{"label": "8-K filing index", "url": f["url"]}],
-                        ["Item codes only, not the full text. Latest ~100 filings."], env(ob, f["ts"], f["ts"], f["ts"]),
-                        trig(len(items), None, 1, "latest EDGAR feed", "material items"), text=f["name"]))
+        n = fs[-1]["name"]
+        s = _sig("sec", "8K_EVENT", "HIGH" if severe else "LOW" if items == ["5.02"] else "MEDIUM", "observed",
+                 f"{n} 8-K: " + ", ".join(MATERIAL_8K[i] for i in items) + (f" ({len(fs)} filings)" if len(fs) > 1 else ""),
+                 "Items " + ", ".join(items) + " filed with the SEC" + (f" across {len(fs)} separate filings" if len(fs) > 1 else "") + ".",
+                 {"name": n, "id": cik, "url": fs[-1]["url"]}, {"items": items, "filings": len(fs),
+                  "eventIds": [{"id": accession(f["url"]), "eventTs": f["ts"], "url": f["url"], "items": [i for i in f["items"] if i in MATERIAL_8K]} for f in fs]},
+                 [{"label": f"8-K {accession(f['url'])}", "url": f["url"]} for f in fs],
+                 ["Item codes only, not the full text. Latest ~100 filings.", "A filing is a disclosure; it says nothing about what anyone knew or intended."],
+                 env(ob, fs[0]["ts"], fs[-1]["ts"], fs[-1]["ts"]), trig(len(items), None, 1, "latest EDGAR feed", "material items"), text=n)
+        out.append(s)
     return out
+
+
+def accession(url: str | None) -> str | None:
+    """SEC accession number (immutable filing id) from an EDGAR URL: 0000000042-26-000001."""
+    m = re.search(r"(\d{10}-\d{2}-\d{6})", url or "")
+    if m:
+        return m.group(1)
+    m = re.search(r"/(\d{18})(?:/|$)", url or "")
+    return f"{m.group(1)[:10]}-{m.group(1)[10:12]}-{m.group(1)[12:]}" if m else None
 
 
 def solana_from_reports(reports: list[dict], ob: dict, window_h: float = 72) -> list[dict]:
@@ -680,6 +697,9 @@ def solana_from_reports(reports: list[dict], ob: dict, window_h: float = 72) -> 
                      env(ob, ts, int(r.get("checkedAt") or ts), ts), trig(a.get("amountSol"), None, None, "watch-token rule", "SOL"), text=name)
             s["key"] = f"solana:{tok.get('mint')}:{a.get('type')}"
             s["metrics"]["distinctTx"] = [a.get("signature")] if a.get("signature") else []
+            # R5-01: immutable event id = transaction signature + event type + token mint, with its own time and link
+            s["metrics"]["eventIds"] = [{"id": f"{a['signature']}:{a.get('type')}:{tok.get('mint')}", "eventTs": ts, "url": a.get("url") or (ev[0]["url"] if ev else None),
+                                         "observedAt": int(r.get("checkedAt") or 0)}] if a.get("signature") else []
             out.append(s)
     return out
 
@@ -753,6 +773,22 @@ def _dep(s, ent, rel=None):
     return EN.dependency_group(s.get("instrument"), s["source"], s["subject"].get("id"))
 
 
+def _ref(s, rel):
+    if rel == "SETTLES_ON_UNDERLYING":
+        return EN.settlement_instrument(None, s.get("title", ""))
+    return s.get("instrument")
+
+
+def _dep_reason(x, r, s0, g):
+    """R5-04: say WHY two observations count once: the same reference price/rate, a correlated proxy, or a shared issuer chain."""
+    a, b = _ref(x, r), _ref(s0[0], s0[1])
+    if a and a == b:
+        return f"same reference ({a}) as {s0[0]['key']}: settles on / is the same price, not independent evidence; counted once"
+    if g.startswith("dep") and a and b:
+        return f"correlated proxy: {a} vs {b} (same dependency group {g}) are related exposures but not identical instruments; not counted separately"
+    return f"same dependency group ({g}) as {s0[0]['key']}: mechanically linked, counted once"
+
+
 def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[dict]:
     """CONVERGENCE needs ≥2 distinct counted evidence groups in different causal families, each with a counting typed
     relation to the entity (SAME_UNDERLYING / SAME_EVENT / DIRECT_PROXY / DISCLOSURE_REACTION), time-compatible
@@ -796,7 +832,7 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
             s0 = min(lst, key=lambda x: x[0]["when"])
             for x, r in lst:
                 if x is not s0[0]:
-                    excluded.append({"key": x["key"], "reason": f"same dependency group ({g}) as {s0[0]['key']}: mechanically linked, counted once", "relation": r})
+                    excluded.append({"key": x["key"], "reason": _dep_reason(x, r, s0, g), "relation": r})
             fam = s0[0]["family"]
             if fam not in reps or s0[0]["when"] < reps[fam]["s"]["when"]:
                 if fam in reps:

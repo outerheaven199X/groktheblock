@@ -51,7 +51,9 @@ def _pm_norm(m: dict) -> dict | None:
     try:
         prices = json.loads(m.get("outcomePrices") or "[]")
         outcomes = json.loads(m.get("outcomes") or "[]")
-    except ValueError:
+    except (ValueError, TypeError):
+        return None
+    if not isinstance(prices, list):
         return None
     if not prices:
         return None
@@ -83,9 +85,25 @@ def polymarket_markets(limit: int = 200) -> list[dict] | None:
         return [m for e in (j or []) for m in (e.get("markets") or []) if not m.get("closed")] or None
 
     raw, _ = first("polymarket", [("gamma /markets", gamma_markets), ("gamma /events", gamma_events)])
-    if raw is None:
+    return parse_gamma(raw)
+
+
+def parse_gamma(raw) -> list[dict] | None:
+    """Gamma /markets list → normalized markets. Rows with malformed JSON-encoded outcome prices or no price are dropped
+    individually (a bad market never hides its siblings); a non-list payload is a schema failure (None)."""
+    if not isinstance(raw, list):
         return None
-    return [n for n in (_pm_norm(m) for m in raw) if n and n["price"] is not None]
+    out = []
+    for m in raw:
+        if not isinstance(m, dict):
+            continue
+        try:
+            n = _pm_norm(m)
+        except (TypeError, AttributeError, IndexError):
+            n = None
+        if n and n["price"] is not None:
+            out.append(n)
+    return out or None
 
 
 def polymarket_trades(condition_id: str, min_usd: float = 2000, limit: int = 200) -> list[dict] | None:
@@ -126,6 +144,34 @@ def _kalshi_norm(m: dict, cat: str | None) -> dict:
             "openTs": _iso(m.get("open_time")), "closeTs": _iso(m.get("close_time"))}
 
 
+def _kalshi_ok(n):
+    return n["id"] and n["price"] is not None and 0 <= n["price"] <= 1
+
+
+def parse_kalshi_events(j) -> list[dict] | None:
+    """/events?with_nested_markets → normalized markets (sports skipped). A market with a missing/garbled price or
+    ticker is dropped on its own; prices are dollar strings ("0.4200")."""
+    if not isinstance(j, dict) or not isinstance(j.get("events"), list):
+        return None
+    rows = []
+    for e in j["events"]:
+        if not isinstance(e, dict) or e.get("category") in SKIP_KALSHI_CATEGORIES:
+            continue
+        for m in e.get("markets") or []:
+            if isinstance(m, dict):
+                n = _kalshi_norm(m, e.get("category"))
+                if _kalshi_ok(n):
+                    rows.append(n)
+    return rows or None
+
+
+def parse_kalshi_markets(j) -> list[dict] | None:
+    if not isinstance(j, dict) or not isinstance(j.get("markets"), list):
+        return None
+    rows = [n for n in (_kalshi_norm(m, None) for m in j["markets"] if isinstance(m, dict)) if _kalshi_ok(n)]
+    return rows or None
+
+
 def kalshi_markets(pages: int = 10) -> list[dict] | None:
     """Open Kalshi markets via /events (nested markets, with category); sports in-play props are skipped."""
     def events(host):
@@ -135,10 +181,7 @@ def kalshi_markets(pages: int = 10) -> list[dict] | None:
                 j = get(f"{host}/events?status=open&limit=200&with_nested_markets=true" + (f"&cursor={cur}" if cur else ""), "kalshi")
                 if not isinstance(j, dict):
                     return rows or None
-                for e in j.get("events") or []:
-                    if e.get("category") in SKIP_KALSHI_CATEGORIES:
-                        continue
-                    rows += [_kalshi_norm(m, e.get("category")) for m in e.get("markets") or []]
+                rows += parse_kalshi_events(j) or []
                 cur = j.get("cursor")
                 if not cur:
                     break
@@ -148,7 +191,7 @@ def kalshi_markets(pages: int = 10) -> list[dict] | None:
     def markets(host):  # failover: flat market list (no category)
         def go():
             j = get(f"{host}/markets?status=open&limit=1000&mve_filter=exclude", "kalshi-m")
-            return [_kalshi_norm(m, None) for m in (j or {}).get("markets") or []] or None
+            return parse_kalshi_markets(j)
         return go
 
     h0, h1 = KALSHI_HOSTS
@@ -158,32 +201,62 @@ def kalshi_markets(pages: int = 10) -> list[dict] | None:
 
 # ---------------- US equities & options ----------------
 
+def parse_yahoo_chart(j, need_volume=False) -> dict | None:
+    """Yahoo chart v8 → {"rows": [(ts, close, volume)], "tz": meta.exchangeTimezoneName}. The provider's own timezone
+    metadata is REQUIRED (it decides the session date, R4-04); without it the payload is rejected, not guessed.
+    Null closes (holidays, forming rows) are skipped; mismatched array lengths are a schema failure."""
+    try:
+        r = j["chart"]["result"][0]
+        ts, q = r["timestamp"], r["indicators"]["quote"][0]
+        tz = (r.get("meta") or {}).get("exchangeTimezoneName")
+        closes = q["close"]
+        vols = q.get("volume") or ([None] * len(closes) if need_volume else [0] * len(closes))
+    except (KeyError, IndexError, TypeError):
+        return None
+    if not tz or not isinstance(ts, list) or len(ts) != len(closes) or len(vols) != len(closes):
+        return None
+    rows = []
+    for t, c, v in zip(ts, closes, vols):
+        if not isinstance(t, int) or not isinstance(c, (int, float)):
+            continue
+        if need_volume and not isinstance(v, (int, float)):
+            continue
+        rows.append((t, float(c), float(v or 0)))
+    return {"rows": rows, "tz": tz} if rows else None
+
+
+def parse_nasdaq_hist(j) -> list[tuple] | None:
+    """Nasdaq historical: date-only rows ("10/27/2026", "$769.66", "28,631,660"), newest first → oldest-first rows
+    stamped 00:00 UTC of that date (timebase reads such stamps as the calendar date, R4-04). Bad rows are skipped."""
+    rows = ((((j or {}).get("data") or {}).get("tradesTable") or {}).get("rows")) if isinstance(j, dict) else None
+    if not isinstance(rows, list):
+        return None
+    out = []
+    for x in reversed(rows):
+        try:
+            t = int(datetime.strptime(x["date"], "%m/%d/%Y").replace(tzinfo=timezone.utc).timestamp())
+            out.append((t, float(x["close"].strip("$").replace(",", "")), float(x["volume"].replace(",", ""))))
+        except (KeyError, ValueError, TypeError, AttributeError):
+            continue
+    return out or None
+
+
 def equity_daily(symbol: str) -> dict | None:
     def yahoo(host):
         def go():
             j = get(f"https://{host}/v8/finance/chart/{symbol}?range=6mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
-            r = (((j or {}).get("chart") or {}).get("result") or [None])[0]
-            if not r:
+            p = parse_yahoo_chart(j, need_volume=True)
+            if not p:
                 return None
-            q = r["indicators"]["quote"][0]
-            rows = [(t, c, v) for t, c, v in zip(r["timestamp"], q["close"], q["volume"]) if c is not None and v is not None]
-            TZ[f"equities:{symbol}"] = (r.get("meta") or {}).get("exchangeTimezoneName")
-            return rows or None
+            TZ[f"equities:{symbol}"] = p["tz"]
+            return p["rows"]
         return go
 
     def nasdaq():
         asset = "etf" if symbol in ETFS else "stocks"
         frm = time.strftime("%Y-%m-%d", time.gmtime(time.time() - 200 * 86400))
         j = get(f"https://api.nasdaq.com/api/quote/{symbol}/historical?assetclass={asset}&fromdate={frm}&limit=150", "nasdaq")
-        rows = ((((j or {}).get("data") or {}).get("tradesTable") or {}).get("rows")) or []
-        out = []
-        for x in reversed(rows):
-            try:
-                t = int(datetime.strptime(x["date"], "%m/%d/%Y").replace(tzinfo=timezone.utc).timestamp())
-                out.append((t, float(x["close"].strip("$").replace(",", "")), float(x["volume"].replace(",", ""))))
-            except (KeyError, ValueError):
-                continue
-        return out or None
+        return parse_nasdaq_hist(j)
 
     rows, via = first(f"equities:{symbol}", [("yahoo q1", yahoo("query1.finance.yahoo.com")), ("yahoo q2", yahoo("query2.finance.yahoo.com")),
                                              ("nasdaq", nasdaq)])
@@ -299,6 +372,28 @@ TSY_URL = "https://home.treasury.gov/resource-center/data-chart-center/interest-
 TSY_PAGE = "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
 
 
+def parse_treasury_csv(txt) -> list[tuple[str, dict]] | None:
+    """treasury.gov daily par curve CSV → [(YYYY-MM-DD, {"2Y": 4.7, ...})]. Columns are percent. A file without the
+    Date/"2 Yr"/"10 Yr" header is a schema failure; a garbled cell drops only that tenor; an all-empty row is skipped."""
+    if not isinstance(txt, str) or not txt.strip():
+        return None
+    rd = csv.DictReader(io.StringIO(txt))
+    if not rd.fieldnames or not {"Date", "2 Yr", "10 Yr"} <= set(rd.fieldnames):
+        return None
+    rows = []
+    for r in rd:
+        try:
+            d = datetime.strptime(r["Date"], "%m/%d/%Y").strftime("%Y-%m-%d")
+        except (KeyError, ValueError, TypeError):
+            continue
+        pick = {"3M": r.get("3 Mo"), "2Y": r.get("2 Yr"), "5Y": r.get("5 Yr"), "10Y": r.get("10 Yr"), "30Y": r.get("30 Yr")}
+        y = {k: _f(v) for k, v in pick.items() if _f(v) is not None and 0 <= _f(v) < 30}
+        if y:
+            rows.append((d, y))
+    rows.sort()
+    return rows or None
+
+
 def treasury_curve() -> dict | None:
     """Daily par yields: {"rows": [(date, {"2Y": 4.7, "10Y": 4.99, ...}), ...] oldest first}."""
     def treasury():
@@ -306,15 +401,7 @@ def treasury_curve() -> dict | None:
         rows = []
         for yr in (y - 1, y):
             txt = get(TSY_URL.format(y=yr), "treasury", as_text=True, max_age=3600)
-            if not txt:
-                continue
-            for r in csv.DictReader(io.StringIO(txt)):
-                try:
-                    d = datetime.strptime(r["Date"], "%m/%d/%Y").strftime("%Y-%m-%d")
-                except (KeyError, ValueError):
-                    continue
-                pick = {"3M": r.get("3 Mo"), "2Y": r.get("2 Yr"), "5Y": r.get("5 Yr"), "10Y": r.get("10 Yr"), "30Y": r.get("30 Yr")}
-                rows.append((d, {k: _f(v) for k, v in pick.items() if _f(v) is not None}))
+            rows += parse_treasury_csv(txt) or []
         rows.sort()
         return rows if len(rows) >= 10 else None
 
@@ -341,17 +428,49 @@ OKX = "https://www.okx.com/api/v5"
 CB = "https://api.exchange.coinbase.com"
 
 
+def parse_okx_candles(j) -> list[tuple] | None:
+    """OKX 1Dutc candles [ts_ms, o, h, l, c, vol, volCcy, volCcyQuote, confirm] (newest first) → oldest-first
+    (ts_s, close, quote volume). Completion comes from the provider's own `confirm` flag ("0" = still forming), not a
+    clock assumption; a candle whose ts isn't a UTC midnight is rejected (wrong bar size)."""
+    d = j.get("data") if isinstance(j, dict) and j.get("code") in ("0", 0, None) else None
+    if not isinstance(d, list):
+        return None
+    out = []
+    for r in d:
+        try:
+            t = int(r[0]) // 1000
+            if t % 86400 or (len(r) > 8 and str(r[8]) == "0"):
+                continue
+            out.append((t, float(r[4]), float(r[7])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    return sorted(out) or None
+
+
+def parse_coinbase_candles(j) -> list[tuple] | None:
+    """Coinbase Exchange candles [time_s, low, high, open, close, volume(base)] newest first → (ts, close, quote volume).
+    Coinbase has no completion flag: the current UTC day's candle is dropped by timebase (crypto bars complete at 00:00 UTC)."""
+    if not isinstance(j, list):
+        return None
+    out = []
+    for r in j[:100]:
+        try:
+            t, c, v = int(r[0]), float(r[4]), float(r[5])
+            if t % 86400 or c <= 0 or v < 0:
+                continue
+            out.append((t, c, v * c))
+        except (TypeError, ValueError, IndexError):
+            continue
+    return sorted(out) or None
+
+
 def crypto_daily(ccy: str) -> dict | None:
     """Daily spot candles (OKX first, Coinbase second) as (ts, close, quote-volume) oldest first."""
     def okx():
-        j = get(f"{OKX}/market/history-candles?instId={ccy}-USDT&bar=1Dutc&limit=100", "okx")
-        rows = [(int(r[0]) // 1000, float(r[4]), float(r[7])) for r in (j or {}).get("data") or []]
-        return sorted(rows) or None
+        return parse_okx_candles(get(f"{OKX}/market/history-candles?instId={ccy}-USDT&bar=1Dutc&limit=100", "okx"))
 
     def coinbase():
-        j = get(f"{CB}/products/{ccy}-USD/candles?granularity=86400", "coinbase")
-        rows = [(int(r[0]), float(r[4]), float(r[5]) * float(r[4])) for r in (j or [])[:100]] if isinstance(j, list) else []
-        return sorted(rows) or None
+        return parse_coinbase_candles(get(f"{CB}/products/{ccy}-USD/candles?granularity=86400", "coinbase"))
 
     rows, via = first(f"crypto:{ccy}", [("okx spot", okx), ("coinbase spot", coinbase)])
     if rows is None:
@@ -410,24 +529,36 @@ def parse_okx_perps(oi, fr, cur) -> dict | None:
     return {"oi": o, "funding": fi, "intervalH": interval_h, "next": _f(c.get("fundingRate"))}
 
 
+def parse_llama(j) -> list[dict] | None:
+    """DefiLlama /stablecoins → assets with > $1B circulating (USD). An asset with a missing/garbled circulating value
+    or symbol is skipped on its own; a payload without `peggedAssets` is a schema failure."""
+    if not isinstance(j, dict) or not isinstance(j.get("peggedAssets"), list):
+        return None
+    out = []
+    for a in j["peggedAssets"]:
+        if not isinstance(a, dict) or not a.get("symbol"):
+            continue
+        c = lambda k: _f(((a.get(k) or {}).get("peggedUSD")) if isinstance(a.get(k), dict) else None)  # noqa: E731
+        if (c("circulating") or 0) < 1e9:
+            continue
+        chains = []
+        for ch, v in (a.get("chainCirculating") or {}).items():
+            if not isinstance(v, dict):
+                continue
+            cur_, prev_ = _f(((v.get("current") or {}).get("peggedUSD"))), _f(((v.get("circulatingPrevDay") or {}).get("peggedUSD")))
+            if cur_ is not None and prev_ is not None:
+                chains.append((ch, round(cur_ - prev_)))
+        chains.sort(key=lambda x: -abs(x[1]))
+        out.append({"symbol": a["symbol"], "name": a.get("name") or a["symbol"], "id": a.get("id"), "now": c("circulating"), "d1": c("circulatingPrevDay"),
+                    "w1": c("circulatingPrevWeek"), "chains": chains[:4],
+                    "url": f"https://defillama.com/stablecoin/{a.get('gecko_id') or a['symbol'].lower()}"})
+    return out or None
+
+
 def stablecoins() -> list[dict] | None:
     """Circulating supply now vs a day and a week ago (DefiLlama aggregate of on-chain supply)."""
     def llama():
-        j = get("https://stablecoins.llama.fi/stablecoins?includePrices=false", "llama", max_age=1800)
-        out = []
-        for a in (j or {}).get("peggedAssets") or []:
-            c = lambda k: _f(((a.get(k) or {}).get("peggedUSD")))  # noqa: E731
-            if (c("circulating") or 0) >= 1e9:
-                chains = []
-                for ch, v in (a.get("chainCirculating") or {}).items():
-                    cur_, prev_ = _f(((v.get("current") or {}).get("peggedUSD"))), _f(((v.get("circulatingPrevDay") or {}).get("peggedUSD")))
-                    if cur_ is not None and prev_ is not None:
-                        chains.append((ch, round(cur_ - prev_)))
-                chains.sort(key=lambda x: -abs(x[1]))
-                out.append({"symbol": a["symbol"], "name": a["name"], "id": a["id"], "now": c("circulating"), "d1": c("circulatingPrevDay"), "w1": c("circulatingPrevWeek"),
-                            "chains": chains[:4],
-                            "url": f"https://defillama.com/stablecoin/{a.get('gecko_id') or a['symbol'].lower()}"})
-        return out or None
+        return parse_llama(get("https://stablecoins.llama.fi/stablecoins?includePrices=false", "llama", max_age=1800))
 
     rows, _ = first("stablecoins", [("defillama", llama)])
     return rows
@@ -442,12 +573,11 @@ def macro_daily(sym: str) -> dict | None:
     def yahoo(host):
         def go():
             j = get(f"https://{host}/v8/finance/chart/{sym}?range=6mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
-            r = (((j or {}).get("chart") or {}).get("result") or [None])[0]
-            if not r:
+            p = parse_yahoo_chart(j)
+            if not p:
                 return None
-            q = r["indicators"]["quote"][0]
-            TZ[f"macro:{sym}"] = (r.get("meta") or {}).get("exchangeTimezoneName")
-            return [(t, c, v or 0) for t, c, v in zip(r["timestamp"], q["close"], q.get("volume") or [0] * len(q["close"])) if c is not None] or None
+            TZ[f"macro:{sym}"] = p["tz"]
+            return p["rows"]
         return go
 
     rows, via = first(f"macro:{sym}", [("yahoo q1", yahoo("query1.finance.yahoo.com")), ("yahoo q2", yahoo("query2.finance.yahoo.com"))])

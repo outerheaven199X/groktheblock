@@ -1,4 +1,5 @@
-# Proposed GitHub Actions workflow. Move to .github/workflows/tests.yml to enable (needs a token with workflow scope).
+# STAGED, NOT ACTIVE. This workflow is not running on GitHub: the push token lacks the `workflow` scope, so it lives
+# here. To activate, a maintainer copies it to .github/workflows/tests.yml. Until then CI status = "staged".
 name: tests
 on: [push, pull_request]
 jobs:
@@ -12,7 +13,12 @@ jobs:
       - name: UI integrity sidecar matches the file bytes (R4-07)
         run: cd ui && sha256sum -c index.html.sha256
       - run: python tests/test_no_leaks.py
+      - run: python tests/test_round5.py
       - run: python tests/test_round4.py
       - run: python tests/test_round3.py
       - run: python tests/test_replay.py
       - run: python tests/test_signals.py
+      - name: private fixtures (prints SKIPPED in CI; real payloads are never committed)
+        run: python tests/test_private_fixtures.py
+      - name: all suites with totals and skips
+        run: python tests/run_all.py

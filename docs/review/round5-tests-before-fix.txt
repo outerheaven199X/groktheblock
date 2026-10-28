@@ -1,0 +1,33 @@
+# tests/test_round5.py run against f100071 code (tests written first), 2026-10-28. Command: python tests/test_round5.py
+FAIL test_R5_01_same_solana_tx_in_five_scans_is_one_event_no_refresh_no_reminder -- AssertionError evidence time is the event's own time and is never refreshed by a repeat
+FAIL test_R5_01_second_distinct_tx_is_a_new_event_with_its_own_id -- AssertionError 
+FAIL test_R5_01_stale_watched_token_cannot_be_admitted_as_fresh -- AssertionError 
+FAIL test_R5_01_two_8k_accessions_same_issuer_both_preserved_no_intent_wording -- KeyError 'eventIds'
+FAIL test_R5_01_transient_failure_neither_completes_nor_clears_an_event_and_archive_is_not_resolve -- AssertionError 
+FAIL test_R5_01_event_without_immutable_id_is_not_admitted -- AssertionError 
+ok   test_R5_01_continuous_lifecycle_unchanged
+FAIL test_R5_02_static_scan_no_unapproved_raw_vendor_payloads_tracked -- AssertionError 
+FAIL test_R5_02_public_example_and_screenshots_are_synthetic -- AssertionError 
+FAIL test_R5_02_rights_register_names_the_basis_for_public_samples -- AssertionError 
+FAIL test_R5_03_member_vanishes_72h_is_not_resolved_nor_fresh_active -- AssertionError ['NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW', 'NEW']
+FAIL test_R5_03_disjoint_member_set_starts_a_new_episode_old_one_inspectable -- AssertionError 
+ok   test_R5_03_round4_mixed_member_rules_still_hold
+FAIL test_R5_04_fed_funds_level_is_not_the_2y_yield -- AttributeError module 'grok_the_block.markets.entities' has no attribute 'settlement_spec'
+FAIL test_R5_04_10y_yield_contract_maps_to_the_10y_metric_and_is_not_identical_to_tlt_options -- AttributeError module 'grok_the_block.markets.entities' has no attribute 'settlement_spec'
+FAIL test_R5_04_btc_price_level_and_btc_spot_share_a_reference_no_independent_evidence -- AttributeError module 'grok_the_block.markets.entities' has no attribute 'settlement_spec'
+FAIL test_R5_04_ambiguous_company_forecast_is_unresolved -- AttributeError module 'grok_the_block.markets.entities' has no attribute 'settlement_spec'
+FAIL test_R5_05_yahoo_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_yahoo_chart'
+FAIL test_R5_05_nasdaq_history_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_nasdaq_hist'
+FAIL test_R5_05_okx_candles_contract_uses_the_confirm_flag -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_okx_candles'
+FAIL test_R5_05_coinbase_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_coinbase_candles'
+FAIL test_R5_05_treasury_csv_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_treasury_csv'
+FAIL test_R5_05_kalshi_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_kalshi_events'
+FAIL test_R5_05_gamma_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_gamma'
+FAIL test_R5_05_defillama_contract -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_llama'
+ok   test_R5_05_options_and_perps_contracts
+FAIL test_R5_05_one_malformed_instrument_cannot_mask_a_sibling_or_clear_an_incident -- AttributeError module 'grok_the_block.markets.sources' has no attribute 'parse_yahoo_chart'
+FAIL test_R5_05_private_fixture_runner_skips_cleanly_offline -- AssertionError python: can't open file '<repo>/tests/test_private_fixtures.py': [Errno 2] No such file or directory
+
+FAIL test_R5_06_evaluation_commits_to_objective_a_and_reports_insufficient_evidence -- AssertionError 
+FAIL test_R5_07_ci_status_is_stated_honestly_and_runner_lists_totals -- AssertionError 
+round5: 3/30 passed

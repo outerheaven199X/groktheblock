@@ -30,6 +30,12 @@ EXIT_RATIO, EXIT_COUNT, RISE = 0.75, 2, 1.25
 REMIND_FIRST, REMIND_EVERY = 6 * 3600, 24 * 3600
 BAD = {"UNAVAILABLE", "STALE", "NOT_CONFIGURED"}
 DEAD_LETTER_MAX = 200
+EVENT_RETENTION_S = 72 * 3600      # R5-01: a discrete event stays OBSERVED this long after its last NEW event, then ARCHIVED
+UNCONFIRMED_AFTER_S = 24 * 3600    # R5-03: a held incident with no valid observation for this long is UNCONFIRMED …
+ARCHIVE_UNRESOLVED_AFTER_S = 72 * 3600  # … and after this long ARCHIVED_UNRESOLVED (never RESOLVED)
+DAILY_SOURCES = {"equities", "options", "treasury", "macro", "stablecoins"}  # one valid observation per trading session:
+DAILY_AGE_S = (96 * 3600, 168 * 3600)  # a weekend or holiday must not archive a daily incident (UNCONFIRMED, ARCHIVED_UNRESOLVED)
+CLOSED = {"RESOLVED", "ARCHIVED", "ARCHIVED_UNRESOLVED"}
 EVENT_SOURCES = {"sec", "solana"}  # event detectors: the transaction/filing itself is the measurement (no ratio probe)
 
 
@@ -45,7 +51,12 @@ def admit(s: dict, probes: dict) -> str | None:
         return f"source {o['sourceStatus']}: the provider returned no current data for this observation"
     if o.get("temporalStatus", "OK") != "OK":
         return f"time not valid ({o['temporalStatus']})"
-    if s["source"] in EVENT_SOURCES or (s.get("metrics") or {}).get("distinctTx"):
+    if s["source"] in EVENT_SOURCES:
+        ids = (s.get("metrics") or {}).get("eventIds") or []
+        if not ids or not all(e.get("id") and e.get("eventTs") and e.get("url") for e in ids):
+            return "event without an immutable id, event time and evidence link (provenance incomplete)"
+        return None
+    if (s.get("metrics") or {}).get("distinctTx"):
         return None
     p = probes.get(s["key"])
     if p is None:
@@ -111,6 +122,81 @@ def _members(inc, new, probes, now):
     inc["members"] = merged
 
 
+def _summary(inc):
+    return {"id": inc["id"], "episode": inc["episode"], "endedAs": inc.get("endedAs") or inc["state"], "members": list(inc.get("members") or []),
+            "openedAt": inc.get("openedAt"), "closedAt": inc.get("resolvedAt") or inc.get("archivedAt"), "lastConfirmedAt": inc.get("lastConfirmedAt"),
+            "events": sorted(inc.get("events") or {}), "history": inc["history"][-12:], "memberHistory": (inc.get("memberHistory") or [])[-6:]}
+
+
+def _close(inc, now, how, note):
+    inc["endedAs"] = how
+    inc["state"] = "ARCHIVED_UNRESOLVED"; inc["archivedAt"] = now
+    _hist(inc, now, how, note)
+
+
+def _age(inc, now, tel, missing=None):
+    """R5-03: an incident that can't be validly observed is not RESOLVED, but it also stops looking freshly ACTIVE:
+    UNCONFIRMED after 24h without a valid observation, ARCHIVED_UNRESOLVED after 72h (re-entry opens a new episode)."""
+    last = inc.get("lastConfirmedAt") or inc.get("openedAt") or now
+    if missing:
+        lv = inc.get("memberLastValid") or {}
+        last = min([lv.get(m) or inc.get("lastConfirmedAt") or inc.get("openedAt") or now for m in missing] + [last])
+    gap = now - last
+    unc, arc = DAILY_AGE_S if inc["source"] in DAILY_SOURCES else (UNCONFIRMED_AFTER_S, ARCHIVE_UNRESOLVED_AFTER_S)
+    if gap >= arc:
+        _close(inc, now, "ARCHIVED_UNRESOLVED", f"no valid observation of {', '.join((missing or ['this instrument'])[:3])} for {gap / 3600:.0f}h; not resolved, last confirmed {inc.get('lastConfirmedAt')}")
+        tel["archivedUnresolved"] = tel.get("archivedUnresolved", 0) + 1
+    elif gap >= unc and inc["state"] != "UNCONFIRMED":
+        inc["state"] = "UNCONFIRMED"; inc["unconfirmedSince"] = now
+        _hist(inc, now, "UNCONFIRMED", f"no valid observation for {gap / 3600:.0f}h; last observed {last}")
+        tel["unconfirmed"] = tel.get("unconfirmed", 0) + 1
+
+
+def _archive_event(inc, now, tel):
+    inc["state"] = "ARCHIVED"; inc["archivedAt"] = now; inc["endedAs"] = "ARCHIVED"
+    _hist(inc, now, "ARCHIVED", f"observation window ({EVENT_RETENTION_S // 3600}h after the last new event) ended; this is not a resolution of any market risk")
+    tel["archived"] = tel.get("archived", 0) + 1
+
+
+def _event_step(inc_all, s, now, tel):
+    """R5-01: event episodes. Novelty = immutable event ids. A repeat of a known id changes nothing (no refreshed
+    evidence time, no reminder); a new id is NEW_EVENT; evidence time is the event's own time."""
+    k = s["key"]
+    ids = {e["id"]: e for e in (s.get("metrics") or {}).get("eventIds") or []}
+    inc = inc_all.get(k)
+    known = set((inc or {}).get("events") or {}) | set((inc or {}).get("archivedEventIds") or [])
+    fresh = {i: e for i, e in ids.items() if i not in known}
+    if inc is not None and inc["state"] not in CLOSED:
+        if fresh:
+            inc["events"].update({i: {"eventTs": e["eventTs"], "url": e["url"], "firstObservedAt": now} for i, e in fresh.items()})
+            inc["lastNewEventAt"] = now; inc["lastSeenAt"] = now
+            inc["lastConfirmedAt"] = max(inc["lastConfirmedAt"] or 0, max(e["eventTs"] for e in fresh.values()))
+            inc["newEventIds"] = sorted(fresh)
+            _hist(inc, now, "NEW_EVENT", f"{len(fresh)} new event id(s)")
+            tel["eventsNew"] = tel.get("eventsNew", 0) + len(fresh)
+            return "NEW_EVENT"
+        if now - inc["lastNewEventAt"] >= EVENT_RETENTION_S:
+            _archive_event(inc, now, tel)
+        else:
+            tel["suppressedUnchanged"] += 1
+        return None
+    if not fresh:
+        tel["suppressedUnchanged"] += 1  # an archived event re-appearing in a later feed is not news
+        return None
+    ep = (inc["episode"] + 1) if inc else 1
+    archived = sorted(known)[-500:]
+    inc = {"id": f"{k}#e{ep}", "key": k, "kind": "event", "episode": ep, "state": "OBSERVED", "source": s["source"], "openedAt": now, "lastSeenAt": now,
+           "lastNewEventAt": now, "severity": s["severity"], "title": s["title"], "lastAlertAt": None, "remindedAt": None,
+           "events": {i: {"eventTs": e["eventTs"], "url": e["url"], "firstObservedAt": now} for i, e in fresh.items()},
+           "lastConfirmedAt": max(e["eventTs"] for e in fresh.values()), "newEventIds": sorted(fresh), "archivedEventIds": archived,
+           "lastMagnitude": None, "lastAlertMagnitude": None, "history": [], "distinctTx": [],
+           "previousEpisodes": (((inc or {}).get("previousEpisodes") or []) + ([_summary(inc)] if inc else []))[-10:]}
+    inc_all[k] = inc
+    _hist(inc, now, "OBSERVED", f"episode {ep}: {len(fresh)} event id(s)")
+    tel["newEpisodes"] += 1; tel["eventsNew"] = tel.get("eventsNew", 0) + len(fresh)
+    return "NEW_EPISODE" if ep > 1 else "NEW"
+
+
 def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, str], now: int, prefs: dict | None = None) -> dict:
     """Advance the lifecycle one run. Returns {"alerts": [...], "telemetry": {...}} and mutates st."""
     prefs = prefs or {}
@@ -142,24 +228,35 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
                 tel["heldStale" if stale else "heldInvalid"] += 1
                 _hist(inc, now, "HELD_STALE" if stale else "HELD_INVALID", f"{why}; last confirmed state retained ({inc.get('lastConfirmedAt')})")
             continue
+        if s["source"] in EVENT_SOURCES:
+            r = _event_step(inc_all, s, now, tel)
+            if r:
+                raw_alerts.append((s, inc_all[k], r, 1.0))
+            continue
         mag, _v = _probe(probes, k)
         if mag is None:
             mag = 1.0 + ((s.get("metrics") or {}).get("rank") or 0) / 100 if s["source"] == "cross" else 1.0
         tx = set((s.get("metrics") or {}).get("distinctTx") or [])
         inc = inc_all.get(k)
         reason = None
-        if inc is None or inc["state"] == "RESOLVED":
+        new_members = list((s.get("metrics") or {}).get("memberKeys") or [])
+        if inc is not None and inc["state"] not in CLOSED and new_members and inc.get("members") and not set(new_members) & set(inc["members"]):
+            _close(inc, now, "SUPERSEDED", "recomputed with a disjoint member set: a different event instance, new episode")  # R5-03
+        if inc is None or inc["state"] in CLOSED:
             ep = (inc["episode"] + 1) if inc else 1
+            prev_eps = ((inc.get("previousEpisodes") or []) + [_summary(inc)])[-10:] if inc else []
             inc = {"id": f"{k}#e{ep}", "key": k, "episode": ep, "state": "NEW", "source": s["source"], "openedAt": now, "lastSeenAt": now,
                    "severity": s["severity"], "entryMagnitude": mag, "lastMagnitude": mag, "lastAlertMagnitude": mag, "peakMagnitude": mag,
                    "belowCount": 0, "distinctTx": sorted(tx), "lastAlertAt": None, "lastConfirmedAt": now,
-                   "members": list((s.get("metrics") or {}).get("memberKeys") or []), "remindedAt": None, "history": [], "title": s["title"]}
+                   "members": list((s.get("metrics") or {}).get("memberKeys") or []), "remindedAt": None, "history": [], "title": s["title"],
+                   "memberLastValid": {}, "previousEpisodes": prev_eps}
             inc_all[k] = inc
             _hist(inc, now, "ENTERED", f"episode {ep}")
             reason = "NEW_EPISODE" if ep > 1 else "NEW"
             tel["newEpisodes"] += 1
         else:
             inc["state"] = "ACTIVE"; inc["belowCount"] = 0; inc["lastSeenAt"] = now; inc["lastMagnitude"] = mag; inc["lastConfirmedAt"] = now
+            inc.pop("unconfirmedSince", None)
             if (s.get("metrics") or {}).get("memberKeys"):
                 _members(inc, list(s["metrics"]["memberKeys"]), probes, now)
             inc["peakMagnitude"] = max(inc["peakMagnitude"], mag); inc["title"] = s["title"]
@@ -183,23 +280,36 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             tel["suppressedUnchanged"] += 1
     # incidents not signalled this run
     for k, inc in inc_all.items():
-        if k in seen_now or inc["state"] == "RESOLVED":
+        if k in seen_now or inc["state"] in CLOSED:
             continue
         src_state = source_state.get(inc["source"], "NOT_RUN")
+        if inc.get("kind") == "event":  # R5-01: discrete events are archived by time, never "resolved"; outages don't complete them
+            if src_state in BAD or src_state == "NOT_RUN":
+                tel["skippedUnavailable"] += 1
+                _hist(inc, now, "SOURCE_UNAVAILABLE", f"{inc['source']} {src_state}: event evidence retained, archive clock paused")
+            elif now - inc["lastNewEventAt"] >= EVENT_RETENTION_S:
+                _archive_event(inc, now, tel)
+            continue
         if inc["source"] != "cross" and (src_state in BAD or src_state == "NOT_RUN"):
             tel["skippedUnavailable"] += 1
             _hist(inc, now, "SOURCE_UNAVAILABLE", f"{inc['source']} {src_state}: last confirmed state retained")
+            _age(inc, now, tel)
             continue
         keys = inc.get("members") or [k]
         obs = [_probe(probes, m) for m in keys]
+        for m, (_, v) in zip(keys, obs):
+            if v:
+                inc.setdefault("memberLastValid", {})[m] = now
         if not all(v for _, v in obs):
             missing = [m for m, (_, v) in zip(keys, obs) if not v]
             tel["heldUnobserved"] += 1
             _hist(inc, now, "HELD_UNOBSERVED", f"not validly observed this run ({', '.join(missing[:3])}); last confirmed {inc.get('lastConfirmedAt')}")
+            _age(inc, now, tel, missing)
             continue
         # R4-01: a multi-member incident cools only when EVERY member is validly below exit: the hottest member decides
         r = max(x for x, _ in obs)
         inc["lastMagnitude"] = r
+        inc.pop("unconfirmedSince", None)
         if r < EXIT_RATIO:
             inc["belowCount"] += 1
             if inc["belowCount"] >= EXIT_COUNT:
@@ -219,6 +329,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             tel["belowFloor"] += 1; continue
         if s["source"] in mutes:
             tel["muted"] += 1; continue
+        if inc.get("kind") == "event":
+            s = dict(s, newEventIds=list(inc.get("newEventIds") or []))
         a = dict(s, alertReason=reason, incidentId=inc["id"], incidentState=inc["state"], episode=inc["episode"],
                  previousSuccessfulScanAt=st.get("lastSuccessAt"), magnitude=round(mag, 3), lifecycle=inc["history"][-6:])
         inc["lastAlertAt"] = now; inc["lastAlertMagnitude"] = mag
@@ -248,7 +360,7 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
         st["lastSuccessAt"] = now
     # keep the file bounded
     if len(inc_all) > 3000:
-        for k in sorted((k for k, v in inc_all.items() if v["state"] == "RESOLVED"), key=lambda k: inc_all[k].get("resolvedAt", 0))[:len(inc_all) - 3000]:
+        for k in sorted((k for k, v in inc_all.items() if v["state"] in CLOSED), key=lambda k: inc_all[k].get("resolvedAt") or inc_all[k].get("archivedAt") or 0)[:len(inc_all) - 3000]:
             del inc_all[k]
     return {"alerts": alerts, "telemetry": tel, "baseline": first_run}
 

@@ -1,3 +1,15 @@
+# Evaluation (round 5)
+
+## Round 5 decision (R5-06)
+
+**Release objective: A** — characterize unusual moves (what moved, how unusual against its own history, with evidence links and coverage limits). **C is future research** (information outside the public calendar; needs a point-in-time news timeline we don't have). **B is excluded** (forecasting scheduled-day volatility; a calendar already answers it).
+
+- Frozen: universe and thresholds (`eval-config.json` → `frozen`, version `r5-2026-10-28`; thresholds as of f100071, not tuned on any result).
+- Adjudication rules: `ADJUDICATION.md` (blind review; MEANINGFUL / CONTEXTUAL / FALSE / UNASSESSABLE).
+- Result for objective A: **INSUFFICIENT_EVIDENCE**. 0 flagged moves have been adjudicated (minimum 100 before any precision figure). No precision, recall or lead-time number is reported (`eval-results.json` → `objectiveA`).
+
+The round-4 text below is kept for the record.
+
 # Evaluation (round 4)
 
 **No historical hit rate, precision or lead time has been measured, and none is claimed.** Method, point-in-time rules and the unmet minimum standard: `METHODOLOGY.md`. Frozen config: `eval-config.json` (`r4-2026-10-28`; detector thresholds are **unchanged** from r3 and were not tuned on any result). Machine-readable output: `eval-results.json` (regenerated 2026-10-28, ~17:05 ET, by `python skills/signals/scripts/replay_real.py`). The three tracks are separate; don't add them up.

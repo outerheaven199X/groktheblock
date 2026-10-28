@@ -6,3 +6,6 @@ __pycache__/
 PLAN.md
 PROGRESS.log
 .progress-relayed
+
+# R5-02: real provider responses for local developer verification only; never commit
+tests/fixtures/private/

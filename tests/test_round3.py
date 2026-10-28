@@ -1,5 +1,5 @@
 """Round-3 regression matrix (RE-AUDIT §05). Each test name carries its matrix ID.
-Synthetic fixtures unless the name says provider-shaped (tests/fixtures/providers holds saved real responses)."""
+All fixtures are synthetic. Provider-shaped ones come from tests/fixtures/contracts/synth.py (invented values, provider shapes; R5-02)."""
 import copy, json, sys, tempfile
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -9,7 +9,8 @@ sys.path.insert(0, str(R / "lib"))
 from grok_the_block.markets import detectors as X, feed as F, lifecycle as LC, timebase as T, events as EV, entities as EN, sources as S
 
 NOW = 1_800_000_000
-PROV = R / "tests/fixtures/providers"
+sys.path.insert(0, str(R / "tests/fixtures/contracts"))
+import synth as SY  # noqa: E402
 FX = json.loads((R / "tests/fixtures/signals-fixtures.json").read_text())
 
 
@@ -138,7 +139,7 @@ def test_TIME_01b_incomplete_daily_bar_dropped_and_session_rules():
 
 
 def test_TIME_02_future_or_missing_option_snapshot_is_degraded_and_not_fast():
-    j = json.loads((PROV / "cboe-TLT-20261028.json").read_text())
+    j = SY.cboe_chain()
     now = 1793202974 - 3600
     p = S.parse_cboe(j, now)  # snapshot is an hour after "now": a future time, never clamped
     assert p["snapshotIssue"] and "future" in p["snapshotIssue"] and p["snapshotTs"] == 1793202974
@@ -277,9 +278,9 @@ def test_CONV_03_positive_control_and_stale_member_excluded():
 # ---------------- PROV: provider-shaped fixtures (P1.06) ----------------
 
 def test_PROV_01_options_providers_happy_and_failure_paths():
-    c = S.parse_cboe(json.loads((PROV / "cboe-TLT-20261028.json").read_text()), 1793202974)
+    c = S.parse_cboe(SY.cboe_chain(), 1793202974)
     assert len(c["rows"]) == 12 and all(r["expiry"] and r["priceBasis"] in ("mid", "last", None) for r in c["rows"])
-    n = S.parse_nasdaq(json.loads((PROV / "nasdaq-IWM-20261028.json").read_text()), "IWM", 1793202974)
+    n = S.parse_nasdaq(SY.nasdaq_chain(), "IWM", 1793202974)
     assert n["rows"] and n["snapshotTs"] == 1793202960 and n["rejected"] > 0, "missing OI rows rejected and counted"
     for bad in (None, {}, {"data": None}, {"data": {"options": [{"option": "garbage"}]}}, "<html>"):
         assert S.parse_cboe(bad, NOW) is None
@@ -289,7 +290,7 @@ def test_PROV_01_options_providers_happy_and_failure_paths():
 
 
 def test_PROV_02_okx_funding_normalized_per_settlement_period():
-    o = S.parse_okx_perps(*[json.loads((PROV / f"okx-{x}-BTC-20261028.json").read_text()) for x in ("oi", "funding", "funding-now")])
+    o = S.parse_okx_perps(*SY.okx_perps())
     assert o["oi"] and all(len(r) == 3 for r in o["oi"]) and all(len(r) == 3 for r in o["funding"])
     assert S.parse_okx_perps(None, None, None) is None and S.parse_okx_perps({"data": [["x"]]}, {"data": [{}]}, {}) is None
     t0 = NOW - 60 * 8 * 3600

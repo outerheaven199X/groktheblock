@@ -284,12 +284,18 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
         reps = local_reports if local_reports is not None else _local_watch_reports()
         cov = {"universe": "your local watch-token reports", "observed": len(reps), "sampleFraction": None, "exclusions": ["only tokens you watch"]}
         if reps:
+            # R5-01: freshness PER watch report; one fresh token can't make another token's old report look current
             last = max(int(r.get("checkedAt") or 0) for r in reps)
-            fresh = T.freshness("solana", last, now)
-            ob = base("solana", fresh[0], cov)
-            for s in X.solana_from_reports(reps, ob):
-                s["_event"] = s["subject"]["name"]; sigs.append(s)
-            put("solana", fresh[0], f"{len(reps)} local watch report(s); {fresh[1]}", cov, last)
+            stale = []
+            for r in reps:
+                fr = T.freshness("solana", int(r.get("checkedAt") or 0) or None, now)
+                if fr[0] != "HEALTHY":
+                    stale.append(f"${(r.get('token') or {}).get('symbol')} ({fr[1]})")
+                for s in X.solana_from_reports([r], base("solana", "STALE" if fr[0] != "HEALTHY" else "HEALTHY", cov)):
+                    s["_event"] = s["subject"]["name"]; sigs.append(s)
+            state = "STALE" if len(stale) == len(reps) else "DEGRADED" if stale else "HEALTHY"
+            cov["staleReports"] = stale
+            put("solana", state, f"{len(reps)} local watch report(s)" + (f"; stale: {', '.join(stale[:4])}" if stale else f"; {T.freshness('solana', last, now)[1]}"), cov, last)
         else:
             put("solana", "NOT_CONFIGURED", "no watch-token reports in out/; run watch-token to include on-chain alerts", cov)
 
@@ -345,6 +351,9 @@ def group_events(sigs: list[dict]) -> list[dict]:
             top["metrics"]["relatedMarkets"] = len(g) - 1
             top["what"] = top["what"].rstrip(".") + f". {len(g) - 1} more {noun}{'s' if len(g) > 2 else ''} in “{ev}” showed the same pattern."
             top["evidence"] += [{"label": f"Sibling: {s['subject']['name'][:70]}", "url": s["subject"]["url"]} for s in g[1:4]]
+            ids = {e["id"]: e for s in g for e in (s["metrics"].get("eventIds") or [])}
+            if ids:
+                top["metrics"]["eventIds"] = sorted(ids.values(), key=lambda e: (e.get("eventTs") or 0, e["id"]))
             tx = set(top["metrics"].get("distinctTx") or [])
             for s in g[1:]:
                 tx |= set(s["metrics"].get("distinctTx") or [])
@@ -452,17 +461,18 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None, ret
     prev_ok = st.get("lastSuccessAt")
     src_state = {k: v["state"] for k, v in rep["sourceStatus"].items()}
     if rep["status"] == "failed":
-        res = {"alerts": [], "telemetry": {"alerts": 0, "skippedUnavailable": sum(1 for i in st["incidents"].values() if i["state"] != "RESOLVED")}, "baseline": False}
+        res = {"alerts": [], "telemetry": {"alerts": 0, "skippedUnavailable": sum(1 for i in st["incidents"].values() if i["state"] not in LC.CLOSED)}, "baseline": False}
         for inc in st["incidents"].values():
-            if inc["state"] != "RESOLVED":
+            if inc["state"] not in LC.CLOSED:
                 inc["history"].append({"at": rep["generatedAt"], "event": "SOURCE_UNAVAILABLE", "state": inc["state"], "severity": inc["severity"], "note": "every source failed"})
     else:
         res = LC.step(st, rep["signals"], rep.get("probes") or {}, src_state, rep["generatedAt"], prefs)
     if send is not None:
         LC.deliver(st, res["alerts"], send, res["telemetry"])
     D.write_json(state_path, st)
-    active = [{k: i[k] for k in ("id", "key", "state", "severity", "openedAt", "lastSeenAt", "episode", "title")} | {"history": i["history"][-8:]}
-              for i in st["incidents"].values() if i["state"] != "RESOLVED"]
+    active = [{k: i.get(k) for k in ("id", "key", "state", "severity", "openedAt", "lastSeenAt", "lastConfirmedAt", "episode", "title", "kind")} | {"history": i["history"][-8:]}
+              for i in st["incidents"].values() if i["state"] not in LC.CLOSED]
+    archived = sorted([i for i in st["incidents"].values() if i["state"] in ("ARCHIVED", "ARCHIVED_UNRESOLVED")], key=lambda i: -(i.get("archivedAt") or 0))[:20]
     resolved = sorted([i for i in st["incidents"].values() if i["state"] == "RESOLVED"], key=lambda i: -(i.get("resolvedAt") or 0))[:20]
     by_key = {i["key"]: i for i in st["incidents"].values()}
     for s in rep["signals"]:
@@ -472,6 +482,7 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None, ret
     rep["watch"] = {"previousSuccessfulScanAt": prev_ok, "baseline": res["baseline"], "alerts": res["alerts"], "telemetry": res["telemetry"],
                     "suppressedDuplicates": res["telemetry"].get("suppressedUnchanged", 0), "activeIncidents": active,
                     "recentlyResolved": [{k: i.get(k) for k in ("id", "title", "resolvedAt", "severity")} for i in resolved],
+                    "archived": [{k: i.get(k) for k in ("id", "title", "state", "archivedAt", "lastConfirmedAt", "severity", "kind")} for i in archived],
                     "prefs": prefs or {}, "sourceLastValid": st.get("sourceLastValid", {}), "requeuedFromDeadLetter": requeued,
                     "deadLetter": [{"alertId": d["alert"]["alertId"], "title": d["alert"].get("title"), "attempts": d["attempts"],
                                     "lastError": d.get("lastError"), "deadAt": T.iso(d.get("deadAt"))} for d in st.get("deadLetter") or []],
@@ -479,5 +490,7 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None, ret
                               "Alerts: new episode, new distinct transaction, ≥25% magnitude rise, escalation, or a reminder for unresolved HIGH (6h, then daily).",
                               "Incidents resolve only after 2 consecutive valid observations below 75% of the entry threshold; a cross-market incident only when every member is validly below it. A missing or invalid observation holds the incident; it never counts as zero.",
                               "Stale, unavailable or invalid observations never open, reconfirm or re-alert an incident (HELD_STALE / HELD_INVALID, notAdmitted).",
-                              "Webhook delivery is at-least-once: receivers should dedupe by alertId."]}
+                              "Webhook delivery is at-least-once: receivers should dedupe by alertId.",
+                              "Discrete events (SEC filings, watched-token transactions) are keyed by immutable ids: a repeat changes nothing; they are ARCHIVED 72h after the last new event, which is not a resolution.",
+                              "An incident with no valid observation for 24h is UNCONFIRMED and after 72h ARCHIVED_UNRESOLVED, never RESOLVED."]}
     return rep

@@ -1,0 +1,2057 @@
+{
+ "kind": "signals",
+ "version": 2,
+ "generatedAt": 1793225100,
+ "sources": [
+  "polymarket",
+  "kalshi",
+  "equities",
+  "options",
+  "treasury",
+  "crypto",
+  "stablecoins",
+  "macro",
+  "sec",
+  "solana"
+ ],
+ "status": "partial",
+ "sourceStatus": {
+  "polymarket": {
+   "state": "HEALTHY",
+   "detail": "synthetic generator (no provider contacted)",
+   "coverage": {
+    "universe": "top 200 open markets by 24h volume",
+    "observed": 2,
+    "sampleFraction": null,
+    "exclusions": [
+     "0 live sports/esports markets skipped"
+    ],
+    "priceHistory": "0/2 most-active markets had CLOB 15-minute history",
+    "addressTracing": "1 market(s), \u22648 addresses each"
+   },
+   "lastValidAt": "2026-10-28T22:05:00Z",
+   "lastValidTs": 1793225100
+  },
+  "kalshi": {
+   "state": "HEALTHY",
+   "detail": "synthetic generator (no provider contacted)",
+   "coverage": {
+    "universe": "first 2,000 open events, Sports category and parlays excluded",
+    "observed": 2,
+    "active24h": 2,
+    "sampleFraction": null,
+    "exclusions": [
+     "Sports category",
+     "multivariate parlays"
+    ]
+   },
+   "lastValidAt": "2026-10-28T22:05:00Z",
+   "lastValidTs": 1793225100
+  },
+  "equities": {
+   "state": "HEALTHY",
+   "detail": "daily bar for 2026-10-28",
+   "coverage": {
+    "universe": "3 configured: SYNA, SYNB, SYNX",
+    "observed": 3,
+    "sampleFraction": 1.0,
+    "exclusions": [],
+    "failedInstruments": [],
+    "observedInstruments": [
+     "SYNA",
+     "SYNB",
+     "SYNX"
+    ],
+    "fetchedInstruments": [
+     "SYNA",
+     "SYNB",
+     "SYNX"
+    ],
+    "analyzedInstruments": [
+     "SYNA",
+     "SYNB",
+     "SYNX"
+    ],
+    "instrumentStatus": {
+     "SYNA": {
+      "lastCompleteSession": "2026-10-28",
+      "eventTs": 1793217600,
+      "freshness": "HEALTHY",
+      "detail": "daily bar for 2026-10-28",
+      "providerClock": "America/New_York",
+      "clockNotes": [],
+      "via": "synthetic",
+      "completedRows": 80
+     },
+     "SYNB": {
+      "lastCompleteSession": "2026-10-28",
+      "eventTs": 1793217600,
+      "freshness": "HEALTHY",
+      "detail": "daily bar for 2026-10-28",
+      "providerClock": "America/New_York",
+      "clockNotes": [],
+      "via": "synthetic",
+      "completedRows": 80
+     },
+     "SYNX": {
+      "lastCompleteSession": "2026-10-28",
+      "eventTs": 1793217600,
+      "freshness": "HEALTHY",
+      "detail": "daily bar for 2026-10-28",
+      "providerClock": "America/New_York",
+      "clockNotes": [],
+      "via": "synthetic",
+      "completedRows": 80
+     }
+    },
+    "clockNotes": []
+   },
+   "lastValidAt": "2026-10-28T20:00:00Z",
+   "lastValidTs": 1793217600
+  },
+  "options": {
+   "state": "HEALTHY",
+   "detail": "last session snapshot",
+   "coverage": {
+    "universe": "1 underlyings: SYNO",
+    "observed": 1,
+    "sampleFraction": 1.0,
+    "exclusions": [],
+    "failedInstruments": [],
+    "observedInstruments": [
+     "SYNO"
+    ],
+    "snapshotIssues": [],
+    "routing": "expiry \u2264 next session \u2192 SHORT_DATED_OPTIONS (conservative); later expiries \u2192 UNUSUAL_OPTIONS_VOLUME"
+   },
+   "lastValidAt": "2026-10-28T15:56:14Z",
+   "lastValidTs": 1793202974
+  },
+  "treasury": {
+   "state": "HEALTHY",
+   "detail": "curve for 2026-10-28",
+   "coverage": {
+    "universe": "2Y, 10Y, 30Y, 2s10s",
+    "observed": 4,
+    "sampleFraction": 1.0,
+    "exclusions": []
+   },
+   "lastValidAt": "2026-10-28T19:30:00Z",
+   "lastValidTs": 1793215800,
+   "asOf": "2026-10-28",
+   "curve": {
+    "3M": 4.15,
+    "2Y": 4.569999999999999,
+    "5Y": 4.45,
+    "10Y": 4.55,
+    "30Y": 4.65
+   }
+  },
+  "crypto": {
+   "state": "HEALTHY",
+   "detail": "22.1h old",
+   "coverage": {
+    "universe": "BTC, ETH, SOL (OKX spot + perps; Coinbase spot fallback)",
+    "observed": 3,
+    "sampleFraction": 1.0,
+    "exclusions": [
+     "single venue (OKX) for perps",
+     "intraday OI (1h/4h) not used"
+    ]
+   },
+   "lastValidAt": "2026-10-28T00:00:00Z",
+   "lastValidTs": 1793145600
+  },
+  "stablecoins": {
+   "state": "HEALTHY",
+   "detail": "DefiLlama aggregate supply",
+   "coverage": {
+    "universe": "stablecoins with > $1B circulating (DefiLlama aggregate)",
+    "observed": 1,
+    "sampleFraction": null,
+    "exclusions": [
+     "transaction-level mints/burns not read"
+    ]
+   },
+   "lastValidAt": "2026-10-28T22:05:00Z",
+   "lastValidTs": 1793225100
+  },
+  "macro": {
+   "state": "UNAVAILABLE",
+   "detail": "request failed or returned unusable data",
+   "coverage": {
+    "universe": "6 configured: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X",
+    "observed": 0,
+    "sampleFraction": 0.0,
+    "exclusions": [
+     "unavailable: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X"
+    ],
+    "failedInstruments": [
+     "^VIX",
+     "DX-Y.NYB",
+     "GC=F",
+     "CL=F",
+     "EURUSD=X",
+     "USDJPY=X"
+    ],
+    "observedInstruments": [],
+    "fetchedInstruments": [],
+    "analyzedInstruments": [],
+    "instrumentStatus": {},
+    "clockNotes": []
+   },
+   "lastValidAt": null,
+   "lastValidTs": null
+  },
+  "sec": {
+   "state": "NOT_CONFIGURED",
+   "detail": "set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K",
+   "coverage": {
+    "universe": "EDGAR latest filings",
+    "observed": 0
+   },
+   "lastValidAt": null,
+   "lastValidTs": null
+  },
+  "solana": {
+   "state": "NOT_CONFIGURED",
+   "detail": "no watch-token reports in out/; run watch-token to include on-chain alerts",
+   "coverage": {
+    "universe": "your local watch-token reports",
+    "observed": 0,
+    "sampleFraction": null,
+    "exclusions": [
+     "only tokens you watch"
+    ]
+   },
+   "lastValidAt": null,
+   "lastValidTs": null
+  }
+ },
+ "signals": [
+  {
+   "key": "cross:fed-policy:CONVERGENCE",
+   "source": "cross",
+   "family": null,
+   "relations": {
+    "fed-policy": "UNRESOLVED"
+   },
+   "type": "CONVERGENCE",
+   "severity": "LOW",
+   "basis": "inferred",
+   "title": "[SYNTHETIC] Related observations on fed-policy: 2 distinct counted evidence groups (timing comparison approximate)",
+   "what": "Within the same 48h window; timing comparison approximate (some availability times are estimates or ingest-time lower bounds). Earliest available per group: Rates [SAME_EVENT]: 2Y Treasury yield +21 bp on 2026-10-28 (14.2\u00d7 its robust daily scale); Prediction markets [SAME_EVENT]: Yes repriced down 15 pts in 1h: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d.",
+   "when": 1793225100,
+   "subject": {
+    "name": "fed-policy",
+    "id": "fed-policy",
+    "url": "https://example.invalid/synthetic/treasury"
+   },
+   "entities": [
+    "fed-policy"
+   ],
+   "instrument": null,
+   "metrics": {
+    "rank": 48,
+    "rankNote": "uncalibrated anomaly-convergence ranking (a sorting aid, not a probability or confidence)",
+    "families": [
+     "prediction",
+     "rates"
+    ],
+    "effectiveObservations": 2,
+    "mode": "timing-approximate",
+    "spanHours": null,
+    "timingComparable": false,
+    "timingNote": "Availability times include estimates or ingest-time lower bounds (daily, lower-bound); no co-occurrence interval is computed and no timing bonus is applied.",
+    "calendarExplained": false,
+    "explainedBy": [],
+    "calendarContext": [
+     "after [SYNTHETIC] FOMC decision"
+    ],
+    "contributing": [
+     {
+      "key": "treasury:2Y:YIELD_MOVE",
+      "family": "rates",
+      "relation": "SAME_EVENT",
+      "dependencyGroup": "treasury:2Y",
+      "dependentsCountedOnce": [],
+      "granularity": "daily",
+      "fastEligible": false,
+      "temporalCertainty": "daily",
+      "availableBasis": "estimated"
+     },
+     {
+      "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING",
+      "family": "prediction",
+      "relation": "SAME_EVENT",
+      "dependencyGroup": "prediction:fed-policy",
+      "dependentsCountedOnce": [
+       "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE"
+      ],
+      "granularity": "intraday",
+      "fastEligible": true,
+      "temporalCertainty": "lower-bound",
+      "availableBasis": "ingest-lower-bound"
+     }
+    ],
+    "excluded": [
+     {
+      "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE",
+      "reason": "same dependency group (prediction:fed-policy) as polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING: mechanically linked, counted once",
+      "relation": "SAME_EVENT"
+     }
+    ],
+    "memberKeys": [
+     "treasury:2Y:YIELD_MOVE",
+     "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING"
+    ],
+    "chain": [
+     {
+      "key": "treasury:2Y:YIELD_MOVE",
+      "source": "treasury",
+      "family": "rates",
+      "severity": "MEDIUM",
+      "basis": "observed",
+      "title": "[SYNTHETIC] 2Y Treasury yield +21 bp on 2026-10-28 (14.2\u00d7 its robust daily scale)",
+      "availableTime": "2026-10-28T22:00:00Z",
+      "when": 1793224800,
+      "url": "https://example.invalid/synthetic/treasury"
+     },
+     {
+      "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING",
+      "source": "polymarket",
+      "family": "prediction",
+      "severity": "LOW",
+      "basis": "observed",
+      "title": "[SYNTHETIC] Yes repriced down 15 pts in 1h: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d",
+      "availableTime": "2026-10-28T22:05:00Z",
+      "when": 1793225100,
+      "url": "https://example.invalid/synthetic/polymarket.com"
+     }
+    ]
+   },
+   "trigger": {
+    "observed": 2,
+    "baseline": null,
+    "threshold": 2,
+    "window": "timing-approximate \u226448h",
+    "unit": "distinct counted evidence groups",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T22:00:00Z",
+    "availableTime": "2026-10-28T22:05:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T22:05:00Z",
+    "eventTs": 1793224800,
+    "availableTs": 1793225100,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793225100,
+    "timesApproximate": false,
+    "sourceStatus": "HEALTHY",
+    "coverage": {},
+    "limitations": []
+   },
+   "evidence": [
+    {
+     "label": "US Treasury daily par yield curve",
+     "url": "https://example.invalid/synthetic/treasury"
+    },
+    {
+     "label": "Polymarket market",
+     "url": "https://example.invalid/synthetic/polymarket.com"
+    }
+   ],
+   "limits": [
+    "Linked through a canonical entity and typed relations, not a shared actor. Mechanically linked instruments and same-family venues count once.",
+    "Distinct counted groups come from a conservative manual relation table, not a proof that the information is independent; this is co-occurrence.",
+    "Ranking is uncalibrated; no hit rate or lead time has been measured.",
+    "Calendar context (not an explanation): after [SYNTHETIC] FOMC decision"
+   ],
+   "limited": false,
+   "calendar": [],
+   "incident": {
+    "id": "cross:fed-policy:CONVERGENCE#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 1.48,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "stablecoins:SUSD:SUPPLY_CHANGE",
+   "source": "stablecoins",
+   "family": "crypto",
+   "relations": {},
+   "type": "SUPPLY_CHANGE",
+   "severity": "HIGH",
+   "basis": "observed",
+   "title": "[SYNTHETIC] SUSD aggregate circulating supply +1,000M (+2.04%) in a day",
+   "what": "Now $50.00B; 7-day +2,000M. Largest chain changes: Ethereum +600M, Tron +400M.",
+   "when": 1793225100,
+   "subject": {
+    "name": "SUSD",
+    "id": "SUSD",
+    "url": "https://example.invalid/synthetic/defillama.com"
+   },
+   "entities": [],
+   "instrument": "stablecoins:SUSD",
+   "metrics": {
+    "change1d": 1000000000,
+    "pct1d": 0.02041,
+    "change7d": 2000000000,
+    "chains": [
+     [
+      "Ethereum",
+      600000000
+     ],
+     [
+      "Tron",
+      400000000
+     ]
+    ]
+   },
+   "trigger": {
+    "observed": 1000000000,
+    "baseline": null,
+    "threshold": 250000000.0,
+    "window": "1d",
+    "unit": "USD",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-27T22:05:00Z",
+    "availableTime": "2026-10-28T22:05:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T22:05:00Z",
+    "eventTs": 1793138700,
+    "availableTs": 1793225100,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793225100,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "stablecoins with > $1B circulating (DefiLlama aggregate)",
+     "observed": 1,
+     "sampleFraction": null,
+     "exclusions": [
+      "transaction-level mints/burns not read"
+     ]
+    },
+    "limitations": [],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "window-start",
+     "available": "ingest-lower-bound",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false
+   },
+   "evidence": [
+    {
+     "label": "Synthetic SUSD supply by chain (DefiLlama)",
+     "url": "https://example.invalid/synthetic/defillama.com"
+    }
+   ],
+   "limits": [
+    "Aggregate supply changes can reflect issuance, redemptions, cross-chain bridging, peg/price effects, tracking changes or data revisions. Not evidence of a mint or burn transaction."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "4.0h after the release; daily/approximate timing, context only",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "stablecoins:SUSD:SUPPLY_CHANGE#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 4.0,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "equities:SYNX:RETURN_VS_REALIZED_VOL",
+   "source": "equities",
+   "family": "equity",
+   "relations": {},
+   "type": "RETURN_VS_REALIZED_VOL",
+   "severity": "HIGH",
+   "basis": "observed",
+   "title": "[SYNTHETIC] SYNX rose 12.0%, 79.8\u00d7 its 20-day realized volatility",
+   "what": "Close 111.7 vs 99.76. Daily realized vol \u22480.14%.",
+   "when": 1793218500,
+   "subject": {
+    "name": "SYNX",
+    "id": "SYNX",
+    "url": "https://example.invalid/synthetic/SYNX"
+   },
+   "entities": [],
+   "instrument": "equities:SYNX",
+   "metrics": {
+    "close": 111.73635746035552,
+    "return": 0.11333,
+    "z": 79.81,
+    "realizedVol20": 0.00142
+   },
+   "trigger": {
+    "observed": 0.11333,
+    "baseline": 0.00142,
+    "threshold": 0.00426,
+    "window": "1 session vs 20-session realized vol",
+    "unit": "log return",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T20:00:00Z",
+    "availableTime": "2026-10-28T20:15:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T20:00:00Z",
+    "eventTs": 1793217600,
+    "availableTs": 1793218500,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793217600,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "3 configured: SYNA, SYNB, SYNX",
+     "observed": 3,
+     "sampleFraction": 1.0,
+     "exclusions": [],
+     "failedInstruments": [],
+     "observedInstruments": [
+      "SYNA",
+      "SYNB",
+      "SYNX"
+     ],
+     "fetchedInstruments": [
+      "SYNA",
+      "SYNB",
+      "SYNX"
+     ],
+     "analyzedInstruments": [
+      "SYNA",
+      "SYNB",
+      "SYNX"
+     ],
+     "instrumentStatus": {
+      "SYNA": {
+       "lastCompleteSession": "2026-10-28",
+       "eventTs": 1793217600,
+       "freshness": "HEALTHY",
+       "detail": "daily bar for 2026-10-28",
+       "providerClock": "America/New_York",
+       "clockNotes": [],
+       "via": "synthetic",
+       "completedRows": 80
+      },
+      "SYNB": {
+       "lastCompleteSession": "2026-10-28",
+       "eventTs": 1793217600,
+       "freshness": "HEALTHY",
+       "detail": "daily bar for 2026-10-28",
+       "providerClock": "America/New_York",
+       "clockNotes": [],
+       "via": "synthetic",
+       "completedRows": 80
+      },
+      "SYNX": {
+       "lastCompleteSession": "2026-10-28",
+       "eventTs": 1793217600,
+       "freshness": "HEALTHY",
+       "detail": "daily bar for 2026-10-28",
+       "providerClock": "America/New_York",
+       "clockNotes": [],
+       "via": "synthetic",
+       "completedRows": 80
+      }
+     },
+     "clockNotes": []
+    },
+    "limitations": [
+     "Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
+     "Bar close: NYSE close; availability is an estimate (close + 15 min)."
+    ],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "estimated",
+     "available": "estimated",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false,
+    "sessionDate": "2026-10-28",
+    "providerClock": "America/New_York",
+    "clockNote": null
+   },
+   "evidence": [
+    {
+     "label": "SYNX quote & history",
+     "url": "https://example.invalid/synthetic/SYNX"
+    }
+   ],
+   "limits": [
+    "Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
+    "Bar close: NYSE close; availability is an estimate (close + 15 min)."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "2.2h after the release; daily/approximate timing, context only",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "equities:SYNX:RETURN_VS_REALIZED_VOL#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 26.6042,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "crypto:SOL:RETURN_VS_REALIZED_VOL",
+   "source": "crypto",
+   "family": "crypto",
+   "relations": {
+    "solana": "SAME_UNDERLYING"
+   },
+   "type": "RETURN_VS_REALIZED_VOL",
+   "severity": "HIGH",
+   "basis": "observed",
+   "title": "[SYNTHETIC] SOL spot fell 14.0%, 31.8\u00d7 its 20-day realized volatility",
+   "what": "Close 2,605 vs 3,030. Daily realized vol \u22480.47%.",
+   "when": 1793146500,
+   "subject": {
+    "name": "SOL spot",
+    "id": "SOL",
+    "url": "https://example.invalid/synthetic/SOL"
+   },
+   "entities": [
+    "solana"
+   ],
+   "instrument": "crypto:SOL",
+   "metrics": {
+    "close": 2605.42461,
+    "return": -0.15082,
+    "z": -31.76,
+    "realizedVol20": 0.00475
+   },
+   "trigger": {
+    "observed": 0.15082,
+    "baseline": 0.00475,
+    "threshold": 0.01425,
+    "window": "1 session vs 20-session realized vol",
+    "unit": "log return",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T00:00:00Z",
+    "availableTime": "2026-10-28T00:15:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T00:00:00Z",
+    "eventTs": 1793145600,
+    "availableTs": 1793146500,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793145600,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "BTC, ETH, SOL (OKX spot + perps; Coinbase spot fallback)",
+     "observed": 3,
+     "sampleFraction": 1.0,
+     "exclusions": [
+      "single venue (OKX) for perps",
+      "intraday OI (1h/4h) not used"
+     ]
+    },
+    "limitations": [
+     "Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
+     "Bar close: UTC candle close; availability is an estimate (close + 15 min)."
+    ],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "estimated",
+     "available": "estimated",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false,
+    "sessionDate": "2026-10-27",
+    "providerClock": "UTC date-only",
+    "clockNote": null
+   },
+   "evidence": [
+    {
+     "label": "SOL spot quote & history",
+     "url": "https://example.invalid/synthetic/SOL"
+    }
+   ],
+   "limits": [
+    "Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
+    "Bar close: UTC candle close; availability is an estimate (close + 15 min).",
+    "Before a scheduled event ([SYNTHETIC] FOMC decision): pre-event activity, not explained by it."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "PRE_EVENT_POSITIONING",
+     "rationale": "observed 17.8h BEFORE the scheduled release; the release can't explain it",
+     "availableAtObservation": false,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "crypto:SOL:RETURN_VS_REALIZED_VOL#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 10.5868,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE",
+   "source": "polymarket",
+   "family": "prediction",
+   "relations": {
+    "fed-policy": "SAME_EVENT"
+   },
+   "type": "VOLUME_SPIKE",
+   "severity": "MEDIUM",
+   "basis": "heuristic",
+   "title": "[SYNTHETIC] 24h volume 9\u00d7 its prior-6-day average: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d",
+   "what": "$900,000 in 24h vs ~$100,000/day before. Event phase: open.",
+   "when": 1793225100,
+   "subject": {
+    "name": "Synthetic: Will the Fed cut rates in December 2026?",
+    "id": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "url": "https://example.invalid/synthetic/polymarket.com"
+   },
+   "entities": [
+    "fed-policy"
+   ],
+   "instrument": null,
+   "metrics": {
+    "vol24": 900000.0,
+    "baselinePerDay": 100000.0,
+    "ratio": 9.0,
+    "price": 0.31,
+    "eventPhase": "open"
+   },
+   "trigger": {
+    "observed": 900000.0,
+    "baseline": 100000.0,
+    "threshold": 400000.0,
+    "window": "24h vs prior 6d",
+    "unit": "USD",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-27T22:05:00Z",
+    "availableTime": "2026-10-28T22:05:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T22:05:00Z",
+    "eventTs": 1793138700,
+    "availableTs": 1793225100,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793225100,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "top 200 open markets by 24h volume",
+     "observed": 2,
+     "sampleFraction": null,
+     "exclusions": [
+      "0 live sports/esports markets skipped"
+     ],
+     "priceHistory": "0/2 most-active markets had CLOB 15-minute history",
+     "addressTracing": "1 market(s), \u22648 addresses each"
+    },
+    "limitations": [],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "window-start",
+     "available": "ingest-lower-bound",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false
+   },
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://example.invalid/synthetic/polymarket.com"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://example.invalid/synthetic/gamma-api.polymarket.com"
+    }
+   ],
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "4.0h after the release; daily/approximate timing, context only",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.25,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "treasury:2Y:YIELD_MOVE",
+   "source": "treasury",
+   "family": "rates",
+   "relations": {
+    "fed-policy": "SAME_EVENT",
+    "us-treasuries": "SAME_UNDERLYING"
+   },
+   "type": "YIELD_MOVE",
+   "severity": "MEDIUM",
+   "basis": "observed",
+   "title": "[SYNTHETIC] 2Y Treasury yield +21 bp on 2026-10-28 (14.2\u00d7 its robust daily scale)",
+   "what": "2Y 4.57% vs 4.36% on 2026-10-27. Context for rates-sensitive markets.",
+   "when": 1793224800,
+   "subject": {
+    "name": "2Y yield",
+    "id": "2Y",
+    "url": "https://example.invalid/synthetic/treasury"
+   },
+   "entities": [
+    "fed-policy",
+    "us-treasuries"
+   ],
+   "instrument": "treasury:2Y",
+   "metrics": {
+    "yield": 4.569999999999999,
+    "bp1d": 21.0,
+    "robustScaleBp": 1.48,
+    "thresholdBp": 8.0
+   },
+   "trigger": {
+    "observed": 21.0,
+    "baseline": 1.48,
+    "threshold": 8.0,
+    "window": "1 session vs 60-session robust scale",
+    "unit": "bp",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T19:30:00Z",
+    "availableTime": "2026-10-28T22:00:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T19:30:00Z",
+    "eventTs": 1793215800,
+    "availableTs": 1793224800,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793215800,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "2Y, 10Y, 30Y, 2s10s",
+     "observed": 4,
+     "sampleFraction": 1.0,
+     "exclusions": []
+    },
+    "limitations": [
+     "Daily indicative par yields; availability is an estimate (same business day, late afternoon ET) or the first time this scan saw the row, whichever is earlier."
+    ],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "estimated",
+     "available": "estimated",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false
+   },
+   "evidence": [
+    {
+     "label": "US Treasury daily par yield curve",
+     "url": "https://example.invalid/synthetic/treasury"
+    }
+   ],
+   "limits": [
+    "Daily publication seldom qualifies as early warning (review \u00a703).",
+    "Daily indicative par yields; availability is an estimate (same business day, late afternoon ET) or the first time this scan saw the row, whichever is earlier."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "3.9h after the release; daily/approximate timing, context only",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "treasury:2Y:YIELD_MOVE#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.625,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "treasury:2s10s:CURVE_SHIFT",
+   "source": "treasury",
+   "family": "rates",
+   "relations": {
+    "us-treasuries": "SAME_UNDERLYING"
+   },
+   "type": "CURVE_SHIFT",
+   "severity": "MEDIUM",
+   "basis": "observed",
+   "title": "[SYNTHETIC] 2s10s bear flattening: -22 bp in a day, -22 bp over 5 sessions (now -2 bp)",
+   "what": "2Y +21 bp, 10Y -1 bp on 2026-10-28.",
+   "when": 1793224800,
+   "subject": {
+    "name": "2s10s spread",
+    "id": "2s10s",
+    "url": "https://example.invalid/synthetic/treasury"
+   },
+   "entities": [
+    "us-treasuries"
+   ],
+   "instrument": "treasury:2s10s",
+   "metrics": {
+    "spreadBp": -2.0,
+    "shift1dBp": -22.0,
+    "shift5dBp": -22.0,
+    "regime": "bear flattening",
+    "d2Bp": 21.0,
+    "d10Bp": -1.0
+   },
+   "trigger": {
+    "observed": -22.0,
+    "baseline": null,
+    "threshold": "10 bp/1d or 15 bp/5d",
+    "window": "1 and 5 sessions",
+    "unit": "bp",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T19:30:00Z",
+    "availableTime": "2026-10-28T22:00:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T19:30:00Z",
+    "eventTs": 1793215800,
+    "availableTs": 1793224800,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793215800,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "2Y, 10Y, 30Y, 2s10s",
+     "observed": 4,
+     "sampleFraction": 1.0,
+     "exclusions": []
+    },
+    "limitations": [
+     "Daily indicative par yields; availability is an estimate (same business day, late afternoon ET) or the first time this scan saw the row, whichever is earlier."
+    ],
+    "granularity": "daily",
+    "timeBasis": {
+     "event": "estimated",
+     "available": "estimated",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": false
+   },
+   "evidence": [
+    {
+     "label": "US Treasury daily par yield curve",
+     "url": "https://example.invalid/synthetic/treasury"
+    }
+   ],
+   "limits": [
+    "A curve regime is context, not an anomaly by itself.",
+    "Daily indicative par yields; availability is an estimate (same business day, late afternoon ET) or the first time this scan saw the row, whichever is earlier."
+   ],
+   "limited": false,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "3.9h after the release; daily/approximate timing, context only",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "treasury:2s10s:CURVE_SHIFT#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.2,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING",
+   "source": "polymarket",
+   "family": "prediction",
+   "relations": {
+    "fed-policy": "SAME_EVENT"
+   },
+   "type": "ODDS_REPRICING",
+   "severity": "LOW",
+   "basis": "observed",
+   "title": "[SYNTHETIC] Yes repriced down 15 pts in 1h: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d",
+   "what": "Now 31% (\u224846% 1h earlier). 24h volume $900,000. Event phase: open.",
+   "when": 1793225100,
+   "subject": {
+    "name": "Synthetic: Will the Fed cut rates in December 2026?",
+    "id": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "url": "https://example.invalid/synthetic/polymarket.com"
+   },
+   "entities": [
+    "fed-policy"
+   ],
+   "instrument": null,
+   "metrics": {
+    "price": 0.31,
+    "change": -0.15,
+    "outcome": "Yes",
+    "window": "1h",
+    "vol24": 900000.0,
+    "liquidity": 80000.0,
+    "spread": 0.020000000000000018,
+    "eventPhase": "open",
+    "eventVol15m": null
+   },
+   "trigger": {
+    "observed": 0.15,
+    "baseline": null,
+    "threshold": 0.12,
+    "window": "1h",
+    "unit": "probability points",
+    "dataAgeSeconds": null
+   },
+   "observation": {
+    "eventTime": "2026-10-28T21:05:00Z",
+    "availableTime": "2026-10-28T22:05:00Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T22:05:00Z",
+    "eventTs": 1793221500,
+    "availableTs": 1793225100,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793225100,
+    "timesApproximate": true,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "top 200 open markets by 24h volume",
+     "observed": 2,
+     "sampleFraction": null,
+     "exclusions": [
+      "0 live sports/esports markets skipped"
+     ],
+     "priceHistory": "0/2 most-active markets had CLOB 15-minute history",
+     "addressTracing": "1 market(s), \u22648 addresses each"
+    },
+    "limitations": [
+     "Event time is the start of the measurement window; the exact moment of repricing isn't known."
+    ],
+    "granularity": "intraday",
+    "timeBasis": {
+     "event": "window-start",
+     "available": "ingest-lower-bound",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": true
+   },
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://example.invalid/synthetic/polymarket.com"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://example.invalid/synthetic/gamma-api.polymarket.com"
+    }
+   ],
+   "limits": [
+    "Real traded notional in the same window isn't available from Gamma; 24h volume is used as a floor.",
+    "No CLOB price history: the 15-minute and event-volatility checks were not applied; 1h change only.",
+    "Event time is the start of the measurement window; the exact moment of repricing isn't known."
+   ],
+   "limited": true,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "4.0h after the release",
+     "availableAtObservation": true,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 1.25,
+      "note": "episode 1"
+     }
+    ]
+   }
+  },
+  {
+   "key": "options:SYNO:UNUSUAL_OPTIONS_VOLUME",
+   "source": "options",
+   "family": "equity",
+   "relations": {},
+   "type": "UNUSUAL_OPTIONS_VOLUME",
+   "severity": "LOW",
+   "basis": "heuristic",
+   "title": "[SYNTHETIC] SYNO: 2 contracts with unusual observed volume vs open interest (\u2248$1.3M premium)",
+   "what": "Call share of flagged premium 100%. Aggressor and direction unknown; spreads, closes, rolls and hedges look the same.",
+   "when": 1793202974,
+   "subject": {
+    "name": "SYNO",
+    "id": "SYNO",
+    "url": "https://example.invalid/synthetic/options/SYNO"
+   },
+   "entities": [],
+   "instrument": "options:SYNO",
+   "metrics": {
+    "contracts": 2,
+    "estPremium": 1260000,
+    "callShare": 1.0,
+    "rejectedContracts": 0,
+    "top": [
+     {
+      "contract": "SYNT261231C00087000",
+      "expiry": "20261231",
+      "strike": 87.0,
+      "volume": 6000.0,
+      "oi": 900.0,
+      "estPremium": 750000,
+      "underlying": 90.0
+     },
+     {
+      "contract": "SYNT261231C00083000",
+      "expiry": "20261231",
+      "strike": 83.0,
+      "volume": 6000.0,
+      "oi": 900.0,
+      "estPremium": 510000,
+      "underlying": 90.0
+     }
+    ]
+   },
+   "trigger": {
+    "observed": 1260000,
+    "baseline": null,
+    "threshold": 250000,
+    "window": "session to snapshot",
+    "unit": "est. premium USD (vol \u00d7 mid \u00d7 100)",
+    "dataAgeSeconds": 22126
+   },
+   "observation": {
+    "eventTime": "2026-10-28T15:56:14Z",
+    "availableTime": "2026-10-28T15:56:14Z",
+    "ingestTime": "2026-10-28T22:05:00Z",
+    "validAsOf": "2026-10-28T15:56:14Z",
+    "eventTs": 1793202974,
+    "availableTs": 1793202974,
+    "ingestTs": 1793225100,
+    "validAsOfTs": 1793202974,
+    "timesApproximate": false,
+    "sourceStatus": "HEALTHY",
+    "coverage": {
+     "universe": "1 underlyings: SYNO",
+     "observed": 1,
+     "sampleFraction": 1.0,
+     "exclusions": [],
+     "failedInstruments": [],
+     "observedInstruments": [
+      "SYNO"
+     ],
+     "snapshotIssues": [],
+     "routing": "expiry \u2264 next session \u2192 SHORT_DATED_OPTIONS (conservative); later expiries \u2192 UNUSUAL_OPTIONS_VOLUME"
+    },
+    "limitations": [
+     "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+     "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+    ],
+    "granularity": "delayed",
+    "timeBasis": {
+     "event": "provider",
+     "available": "provider",
+     "ingest": "local clock"
+    },
+    "temporalStatus": "OK",
+    "fastEligible": true
+   },
+   "evidence": [
+    {
+     "label": "SYNO delayed option chain",
+     "url": "https://example.invalid/synthetic/options/SYNO"
+    }
+   ],
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (\u22653\u00d7 20\u201360 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed).",
+    "Before a scheduled event ([SYNTHETIC] FOMC decision): pre-event activity, not explained by it."
+   ],
+   "limited": true,
+   "calendar": [
+    {
+     "eventId": "FOMC:SYNTH:1",
+     "type": "FOMC",
+     "label": "[SYNTHETIC] FOMC decision",
+     "time": "2026-10-28T18:05:00Z",
+     "timeExact": true,
+     "tenor": null,
+     "phase": "PRE_EVENT_POSITIONING",
+     "rationale": "observed 2.1h BEFORE the scheduled release; the release can't explain it",
+     "availableAtObservation": false,
+     "source": "synthetic"
+    }
+   ],
+   "incident": {
+    "id": "options:SYNO:UNUSUAL_OPTIONS_VOLUME#e1",
+    "state": "NEW",
+    "episode": 1,
+    "openedAt": "2026-10-28T22:05:00Z",
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 2.2222,
+      "note": "episode 1"
+     }
+    ]
+   }
+  }
+ ],
+ "counts": {
+  "total": 9,
+  "bySource": {
+   "cross": 1,
+   "stablecoins": 1,
+   "equities": 1,
+   "crypto": 1,
+   "polymarket": 2,
+   "treasury": 2,
+   "options": 1
+  },
+  "bySeverity": {
+   "LOW": 3,
+   "HIGH": 3,
+   "MEDIUM": 3
+  },
+  "byBasis": {
+   "inferred": 1,
+   "observed": 6,
+   "heuristic": 2
+  }
+ },
+ "assessment": {
+  "severity": "LOW",
+  "lead": {
+   "text": "Related observations on fed-policy: 2 distinct counted evidence groups (timing comparison approximate). Within the same 48h window; timing comparison approximate (some availability times are estimates or ingest-time lower bounds). Earliest available per group: Rates [SAME_EVENT]: 2Y Treasury yield +21 bp on 2026-10-28 (14.2\u00d7 its robust daily scale); Prediction markets [SAME_EVENT]: Yes repriced down 15 pts in 1h: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d. macro was unavailable or stale, so its markets are unknown, not quiet. Not configured: sec, solana.",
+   "basis": "inferred",
+   "signal": "cross:fed-policy:CONVERGENCE",
+   "why": "2 distinct counted evidence groups in different families (timing comparison approximate). Co-occurrence through typed relations, not a shared actor; ordering is an uncalibrated sorting aid."
+  },
+  "nextActions": [
+   {
+    "label": "Open the evidence dossier",
+    "why": "check the availability-time order and whether a public event explains it (Related observations on fed-policy: 2 distinct counted evidence groups (timing c)",
+    "ask": "Show the dossier and timeline for fed-policy in Grok The Block",
+    "signal": "cross:fed-policy:CONVERGENCE"
+   },
+   {
+    "label": "Look at the per-chain supply view",
+    "why": "aggregate changes can be bridging or revisions (SUSD aggregate circulating supply +1,000M (+2.04%) in a day)",
+    "ask": "Which chains did SUSD supply change on today?",
+    "signal": "stablecoins:SUSD:SUPPLY_CHANGE"
+   },
+   {
+    "label": "Look for the news or filing behind the move",
+    "why": "daily outliers usually have a public catalyst (SYNX rose 12.0%, 79.8\u00d7 its 20-day realized volatility)",
+    "ask": "What news or filings hit SYNX on this session?",
+    "signal": "equities:SYNX:RETURN_VS_REALIZED_VOL"
+   },
+   {
+    "label": "Check spot vs perp positioning",
+    "why": "OI and funding show leverage, not direction (SOL spot fell 14.0%, 31.8\u00d7 its 20-day realized volatility)",
+    "ask": "Show the Grok The Block crypto signals for SOL",
+    "signal": "crypto:SOL:RETURN_VS_REALIZED_VOL"
+   },
+   {
+    "label": "Open the market and its recent trades",
+    "why": "check whether a public event explains the repricing (24h volume 9\u00d7 its prior-6-day average: \u201cSynthetic: Will the Fed cut rates in Dec)",
+    "ask": "Show the Polymarket trades behind \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d with Grok The Block",
+    "signal": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE"
+   }
+  ]
+ },
+ "coverage": {
+  "limits": [
+   {
+    "kind": "not_configured",
+    "text": "solana: NOT_CONFIGURED \u2014 no watch-token reports in out/; run watch-token to include on-chain alerts. Its markets are unknown this run, not quiet."
+   },
+   {
+    "kind": "not_configured",
+    "text": "sec: NOT_CONFIGURED \u2014 set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K. Its markets are unknown this run, not quiet."
+   },
+   {
+    "kind": "unavailable",
+    "text": "macro: UNAVAILABLE \u2014 request failed or returned unusable data. Its markets are unknown this run, not quiet."
+   },
+   {
+    "kind": "latency",
+    "text": "Signals appear at the next observation or scan, subject to each provider's latency (options ~15 min delayed; equities, FX and Treasuries are daily)."
+   },
+   {
+    "kind": "heuristic",
+    "text": "Thresholds are the review's proposed shadow-mode starting settings, not optimized or validated cutoffs."
+   },
+   {
+    "kind": "inferred",
+    "text": "Related observations are linked through canonical entities and typed relations; mechanically linked instruments count once and each causal family contributes one distinct counted evidence group (a conservative filter, not proof of independent information). It shows co-occurrence, not a shared actor, intent or causality."
+   },
+   {
+    "kind": "unvalidated",
+    "text": "No historical hit rate or lead time has been measured on real history. Rankings are uncalibrated."
+   }
+  ],
+  "providers": {
+   "polymarket": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "kalshi": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "equities": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "options": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "treasury": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "crypto": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "stablecoins": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "sec": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   "macro": {
+    "state": "HEALTHY",
+    "detail": "synthetic generator (no provider contacted)"
+   }
+  },
+  "notIncluded": [
+   {
+    "source": "Binance / Bybit public APIs",
+    "why": "geo-blocked (HTTP 451/403) from the build machine, so they could not be verified; OKX and Coinbase are used instead"
+   },
+   {
+    "source": "Transaction-level stablecoin mint/burn",
+    "why": "keyless Etherscan V1 is retired; aggregate supply changes (DefiLlama) are reported as SUPPLY_CHANGE instead"
+   },
+   {
+    "source": "Stooq",
+    "why": "serves a JavaScript challenge, so it is not machine-readable"
+   },
+   {
+    "source": "Options aggressor / trade-level prints, intraday equity bars",
+    "why": "not available from the free delayed sources; those detectors are marked limited"
+   },
+   {
+    "source": "Earnings calendar",
+    "why": "no free official schedule; listed tickers are not tagged for earnings"
+   }
+  ],
+  "matrix": [
+   {
+    "source": "polymarket",
+    "family": "prediction",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T22:05:00Z",
+    "universe": "top 200 open markets by 24h volume",
+    "observed": 2,
+    "sampleFraction": null,
+    "exclusions": [
+     "0 live sports/esports markets skipped"
+    ],
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   {
+    "source": "kalshi",
+    "family": "prediction",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T22:05:00Z",
+    "universe": "first 2,000 open events, Sports category and parlays excluded",
+    "observed": 2,
+    "sampleFraction": null,
+    "exclusions": [
+     "Sports category",
+     "multivariate parlays"
+    ],
+    "detail": "synthetic generator (no provider contacted)"
+   },
+   {
+    "source": "equities",
+    "family": "equity",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T20:00:00Z",
+    "universe": "3 configured: SYNA, SYNB, SYNX",
+    "observed": 3,
+    "sampleFraction": 1.0,
+    "exclusions": [],
+    "detail": "daily bar for 2026-10-28"
+   },
+   {
+    "source": "options",
+    "family": "equity",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T15:56:14Z",
+    "universe": "1 underlyings: SYNO",
+    "observed": 1,
+    "sampleFraction": 1.0,
+    "exclusions": [],
+    "detail": "last session snapshot"
+   },
+   {
+    "source": "treasury",
+    "family": "rates",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T19:30:00Z",
+    "universe": "2Y, 10Y, 30Y, 2s10s",
+    "observed": 4,
+    "sampleFraction": 1.0,
+    "exclusions": [],
+    "detail": "curve for 2026-10-28"
+   },
+   {
+    "source": "crypto",
+    "family": "crypto",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T00:00:00Z",
+    "universe": "BTC, ETH, SOL (OKX spot + perps; Coinbase spot fallback)",
+    "observed": 3,
+    "sampleFraction": 1.0,
+    "exclusions": [
+     "single venue (OKX) for perps",
+     "intraday OI (1h/4h) not used"
+    ],
+    "detail": "22.1h old"
+   },
+   {
+    "source": "stablecoins",
+    "family": "crypto",
+    "status": "HEALTHY",
+    "lastValidAt": "2026-10-28T22:05:00Z",
+    "universe": "stablecoins with > $1B circulating (DefiLlama aggregate)",
+    "observed": 1,
+    "sampleFraction": null,
+    "exclusions": [
+     "transaction-level mints/burns not read"
+    ],
+    "detail": "DefiLlama aggregate supply"
+   },
+   {
+    "source": "macro",
+    "family": "macro",
+    "status": "UNAVAILABLE",
+    "lastValidAt": null,
+    "universe": "6 configured: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X",
+    "observed": 0,
+    "sampleFraction": 0.0,
+    "exclusions": [
+     "unavailable: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X"
+    ],
+    "detail": "request failed or returned unusable data"
+   },
+   {
+    "source": "sec",
+    "family": "disclosure",
+    "status": "NOT_CONFIGURED",
+    "lastValidAt": null,
+    "universe": "EDGAR latest filings",
+    "observed": 0,
+    "sampleFraction": null,
+    "exclusions": [],
+    "detail": "set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K"
+   },
+   {
+    "source": "solana",
+    "family": "crypto",
+    "status": "NOT_CONFIGURED",
+    "lastValidAt": null,
+    "universe": "your local watch-token reports",
+    "observed": 0,
+    "sampleFraction": null,
+    "exclusions": [
+     "only tokens you watch"
+    ],
+    "detail": "no watch-token reports in out/; run watch-token to include on-chain alerts"
+   }
+  ]
+ },
+ "calendar": {
+  "builtAt": "2026-10-28T12:00:00Z",
+  "types": [
+   "AUCTION",
+   "CPI",
+   "FOMC"
+  ],
+  "notIncluded": [
+   "Synthetic calendar for the example only."
+  ],
+  "upcoming": [
+   {
+    "type": "CPI",
+    "label": "[SYNTHETIC] CPI release",
+    "ts": 1793397900,
+    "source": "synthetic",
+    "timeExact": true,
+    "eventId": "CPI:SYNTH:1",
+    "time": "2026-10-30T22:05:00Z"
+   },
+   {
+    "type": "AUCTION",
+    "label": "[SYNTHETIC] 10-Year Note auction",
+    "ts": 1793743500,
+    "source": "synthetic",
+    "timeExact": false,
+    "tenor": "10Y",
+    "eventId": "AUCTION:SYNTH:10Y",
+    "time": "2026-11-03T22:05:00Z"
+   }
+  ]
+ },
+ "probes": {
+  "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING": {
+   "ratio": 1.25,
+   "valid": true,
+   "reason": null
+  },
+  "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE": {
+   "ratio": 2.25,
+   "valid": true,
+   "reason": null
+  },
+  "polymarket:0x0000000000000000000000000000000000000000000000000000000000000001:ODDS_REPRICING": {
+   "ratio": 0.0833,
+   "valid": true,
+   "reason": null
+  },
+  "polymarket:0x0000000000000000000000000000000000000000000000000000000000000001:VOLUME_SPIKE": {
+   "ratio": 0.5,
+   "valid": true,
+   "reason": null
+  },
+  "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:NEWLY_OBSERVED_ADDRESS_ACTIVITY": {
+   "ratio": 0.0,
+   "valid": true,
+   "reason": null
+  },
+  "kalshi:SYNTH-FED-26DEC:ODDS_REPRICING": {
+   "ratio": 1.0,
+   "valid": true,
+   "reason": null
+  },
+  "kalshi:SYNTH-CPI-26NOV:ODDS_REPRICING": {
+   "ratio": 1.0,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNA:RETURN_VS_REALIZED_VOL": {
+   "ratio": 0.0328,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNA:VOLUME_ROBUST_Z": {
+   "ratio": -0.0997,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNB:RETURN_VS_REALIZED_VOL": {
+   "ratio": 0.0328,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNB:VOLUME_ROBUST_Z": {
+   "ratio": -0.0997,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNX:RETURN_VS_REALIZED_VOL": {
+   "ratio": 26.6042,
+   "valid": true,
+   "reason": null
+  },
+  "equities:SYNX:VOLUME_ROBUST_Z": {
+   "ratio": -0.0997,
+   "valid": true,
+   "reason": null
+  },
+  "options:SYNO:UNUSUAL_OPTIONS_VOLUME": {
+   "ratio": 2.2222,
+   "valid": true,
+   "reason": null
+  },
+  "options:SYNO:SHORT_DATED_OPTIONS": {
+   "ratio": 0.0,
+   "valid": true,
+   "reason": null
+  },
+  "treasury:2Y:YIELD_MOVE": {
+   "ratio": 2.625,
+   "valid": true,
+   "reason": null
+  },
+  "treasury:10Y:YIELD_MOVE": {
+   "ratio": 0.125,
+   "valid": true,
+   "reason": null
+  },
+  "treasury:30Y:YIELD_MOVE": {
+   "ratio": 0.125,
+   "valid": true,
+   "reason": null
+  },
+  "treasury:2s10s:CURVE_SHIFT": {
+   "ratio": 2.2,
+   "valid": true,
+   "reason": null
+  },
+  "crypto:BTC:RETURN_VS_REALIZED_VOL": {
+   "ratio": 0.2376,
+   "valid": true,
+   "reason": null
+  },
+  "crypto:BTC:VOLUME_ROBUST_Z": {
+   "ratio": null,
+   "valid": false,
+   "reason": "insufficient history"
+  },
+  "crypto:ETH:RETURN_VS_REALIZED_VOL": {
+   "ratio": 0.2376,
+   "valid": true,
+   "reason": null
+  },
+  "crypto:ETH:VOLUME_ROBUST_Z": {
+   "ratio": null,
+   "valid": false,
+   "reason": "insufficient history"
+  },
+  "crypto:SOL:RETURN_VS_REALIZED_VOL": {
+   "ratio": 10.5868,
+   "valid": true,
+   "reason": null
+  },
+  "crypto:SOL:VOLUME_ROBUST_Z": {
+   "ratio": null,
+   "valid": false,
+   "reason": "insufficient history"
+  },
+  "stablecoins:SUSD:SUPPLY_CHANGE": {
+   "ratio": 4.0,
+   "valid": true,
+   "reason": null
+  }
+ },
+ "disclaimer": "Not financial advice. Grok The Block flags unusual activity in selected public market data, with the evidence behind it, at the next observation or scan, subject to each provider's latency. A signal is not a prediction, a recommendation to buy or sell, or an accusation against anyone. Rankings are uncalibrated; no historical hit rate or lead time has been measured.",
+ "watch": {
+  "previousSuccessfulScanAt": null,
+  "baseline": true,
+  "alerts": [],
+  "telemetry": {
+   "alerts": 0,
+   "newEpisodes": 9,
+   "suppressedUnchanged": 0,
+   "belowFloor": 0,
+   "muted": 0,
+   "deferred": 0,
+   "skippedUnavailable": 0,
+   "heldUnobserved": 0,
+   "resolved": 0,
+   "cooling": 0,
+   "reminders": 0,
+   "delivered": 0,
+   "deliveryFailed": 0,
+   "heldStale": 0,
+   "heldInvalid": 0,
+   "notAdmitted": 0,
+   "notAdmittedDetail": []
+  },
+  "suppressedDuplicates": 0,
+  "activeIncidents": [
+   {
+    "id": "cross:fed-policy:CONVERGENCE#e1",
+    "key": "cross:fed-policy:CONVERGENCE",
+    "state": "NEW",
+    "severity": "LOW",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] Related observations on fed-policy: 2 distinct counted evidence groups (timing comparison approximate)",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 1.48,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "stablecoins:SUSD:SUPPLY_CHANGE#e1",
+    "key": "stablecoins:SUSD:SUPPLY_CHANGE",
+    "state": "NEW",
+    "severity": "HIGH",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] SUSD aggregate circulating supply +1,000M (+2.04%) in a day",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 4.0,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "equities:SYNX:RETURN_VS_REALIZED_VOL#e1",
+    "key": "equities:SYNX:RETURN_VS_REALIZED_VOL",
+    "state": "NEW",
+    "severity": "HIGH",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] SYNX rose 12.0%, 79.8\u00d7 its 20-day realized volatility",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 26.6042,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "crypto:SOL:RETURN_VS_REALIZED_VOL#e1",
+    "key": "crypto:SOL:RETURN_VS_REALIZED_VOL",
+    "state": "NEW",
+    "severity": "HIGH",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] SOL spot fell 14.0%, 31.8\u00d7 its 20-day realized volatility",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "HIGH",
+      "magnitude": 10.5868,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE#e1",
+    "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:VOLUME_SPIKE",
+    "state": "NEW",
+    "severity": "MEDIUM",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] 24h volume 9\u00d7 its prior-6-day average: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.25,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "treasury:2Y:YIELD_MOVE#e1",
+    "key": "treasury:2Y:YIELD_MOVE",
+    "state": "NEW",
+    "severity": "MEDIUM",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] 2Y Treasury yield +21 bp on 2026-10-28 (14.2\u00d7 its robust daily scale)",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.625,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "treasury:2s10s:CURVE_SHIFT#e1",
+    "key": "treasury:2s10s:CURVE_SHIFT",
+    "state": "NEW",
+    "severity": "MEDIUM",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] 2s10s bear flattening: -22 bp in a day, -22 bp over 5 sessions (now -2 bp)",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "MEDIUM",
+      "magnitude": 2.2,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING#e1",
+    "key": "polymarket:0x0000000000000000000000000000000000000000000000000000000000000000:ODDS_REPRICING",
+    "state": "NEW",
+    "severity": "LOW",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] Yes repriced down 15 pts in 1h: \u201cSynthetic: Will the Fed cut rates in December 2026?\u201d",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 1.25,
+      "note": "episode 1"
+     }
+    ]
+   },
+   {
+    "id": "options:SYNO:UNUSUAL_OPTIONS_VOLUME#e1",
+    "key": "options:SYNO:UNUSUAL_OPTIONS_VOLUME",
+    "state": "NEW",
+    "severity": "LOW",
+    "openedAt": 1793225100,
+    "lastSeenAt": 1793225100,
+    "lastConfirmedAt": 1793225100,
+    "episode": 1,
+    "title": "[SYNTHETIC] SYNO: 2 contracts with unusual observed volume vs open interest (\u2248$1.3M premium)",
+    "kind": null,
+    "history": [
+     {
+      "at": 1793225100,
+      "event": "ENTERED",
+      "state": "NEW",
+      "severity": "LOW",
+      "magnitude": 2.2222,
+      "note": "episode 1"
+     }
+    ]
+   }
+  ],
+  "recentlyResolved": [],
+  "archived": [],
+  "prefs": {
+   "minSeverity": "LOW"
+  },
+  "sourceLastValid": {
+   "polymarket": 1793225100,
+   "kalshi": 1793225100,
+   "equities": 1793225100,
+   "options": 1793225100,
+   "treasury": 1793225100,
+   "crypto": 1793225100,
+   "stablecoins": 1793225100
+  },
+  "requeuedFromDeadLetter": 0,
+  "deadLetter": [],
+  "notes": [
+   "First run sets the baseline and sends nothing.",
+   "Incidents resolve only after 2 consecutive valid observations below 75% of the entry threshold; a cross-market incident only when every member is validly below it. A missing or invalid observation holds the incident; it never counts as zero.",
+   "Stale, unavailable or invalid observations never open, reconfirm or re-alert an incident (HELD_STALE / HELD_INVALID, notAdmitted).",
+   "Webhook delivery is at-least-once: receivers should dedupe by alertId.",
+   "Discrete events (SEC filings, watched-token transactions) are keyed by immutable ids: a repeat changes nothing; they are ARCHIVED 72h after the last new event, which is not a resolution.",
+   "An incident with no valid observation for 24h is UNCONFIRMED and after 72h ARCHIVED_UNRESOLVED, never RESOLVED."
+  ]
+ },
+ "example": true,
+ "synthetic": true,
+ "_note": "SYNTHETIC EXAMPLE: every number, title and link in this file is invented by tests/fixtures/contracts/make_example.py from synthetic generators run through the production parsers. It contains no provider data and describes no real market. Not financial advice.",
+ "_provenance": "synthetic"
+}

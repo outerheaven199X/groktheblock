@@ -68,21 +68,62 @@ def relation(instrument: str | None, entity: str, source: str, text: str = "") -
         if source in ("equities", "options") and f"equities:{tick}" in ENTITIES.get(entity, {}).get("instruments", []):
             return "SAME_UNDERLYING"
     if source in ("polymarket", "kalshi"):
-        if _LEVEL.search(text or "") and ENTITIES.get(entity, {}).get("instruments"):
+        sp = settlement_spec(text)
+        if sp and sp["referenceInstrument"] and sp["referenceInstrument"] in ENTITIES.get(entity, {}).get("instruments", []):
             return "SETTLES_ON_UNDERLYING"
+        if sp and sp["settlementMetric"] == "FED_FUNDS_TARGET" and entity == "fed-policy":
+            return "SAME_EVENT"  # the policy decision itself; not the 2Y yield
+        if _LEVEL.search(text or ""):
+            return "UNRESOLVED"  # a level/threshold question without an identifiable settlement variable (R5-04)
         return "SAME_EVENT"  # candidate; prediction questions are further split by settlement/outcome in convergence
     if source == "sec":
         return "DISCLOSURE_REACTION"
     return "UNRESOLVED"
 
 
+_NUM = r"\$?\s*([\d][\d,]*(?:\.\d+)?)\s*(k|K|%|bps?)?"
+_DATE = re.compile(r"\b(?:on|by|at|before|after|end of)\s+((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}(?:,?\s+\d{4})?|20\d\d|q[1-4](?:\s+20\d\d)?|(?:the\s+)?(?:year|month))", re.I)
+_CCY = {"bitcoin": "BTC", "btc": "BTC", "ethereum": "ETH", "eth": "ETH", "ether": "ETH", "solana": "SOL", "sol": "SOL"}
+
+
+def settlement_spec(text: str) -> dict | None:
+    """R5-04: an EXPLICIT normalized settlement spec for a price/level prediction question, or None when the text doesn't
+    identify one specific instrument or economic variable. Fields: settlementMetric, referenceInstrument (None for a
+    variable with no listed instrument, e.g. the Fed funds target), unit, threshold, polarity, date. Generic
+    "above $X" phrasing about a company forecast is NOT a share-price settlement."""
+    t = (text or "").lower()
+    pol = re.search(r"\b(above|over|at least|at or above|higher than|exceed|below|under|lower than|at or below)\b\s*" + _NUM, t)
+    if not pol:
+        return None
+    polarity = "above" if pol.group(1) in ("above", "over", "at least", "at or above", "higher than", "exceed") else "below"
+    num = float(pol.group(2).replace(",", "")) * (1000 if pol.group(3) in ("k", "K") else 1)
+    dm = _DATE.search(text or "")
+    base = {"threshold": num, "polarity": polarity, "date": dm.group(1) if dm else None}
+    if re.search(r"\b(fed(?:eral)?[- ]funds|policy rate|fed(?:'s)? (?:target )?rate|interest rate target)\b", t):
+        return dict(base, settlementMetric="FED_FUNDS_TARGET", referenceInstrument=None, unit="percent")
+    m = re.search(r"\b(2|10|30)[- ]?(?:year|yr|y)\b[^?]*\byield\b|\byield\b[^?]*\b(2|10|30)[- ]?(?:year|yr|y)\b", t)
+    if m:
+        ten = m.group(1) or m.group(2)
+        return dict(base, settlementMetric=f"UST_{ten}Y_YIELD", referenceInstrument=f"treasury:{ten}Y", unit="percent")
+    m = re.search(r"\b(bitcoin|btc|ethereum|ether|eth|solana|sol)\b(?:'s)?\s*(?:price\s*)?(?:be|close|trade|hit|reach|is)?\b", t)
+    if m and re.search(r"\$|\bprice\b|\busd\b|\b\d+k\b", t) and pol.group(2):
+        c = _CCY[m.group(1)]
+        return dict(base, settlementMetric=f"{c}_USD_PRICE", referenceInstrument=f"crypto:{c}", unit="USD")
+    m = re.search(r"\b([a-z][a-z .&]+?)\s+(?:stock|share price|shares)\b|\$([a-z]{1,5})\b\s+(?:close|price)", t)
+    if m and re.search(r"\b(stock|share price|shares|close above|close below)\b", t):
+        who = (m.group(1) or m.group(2) or "").strip()
+        for ent, v in ENTITIES.items():
+            if who and (who in v["aliases"] or who == ent):
+                eq = [i for i in v["instruments"] if i.startswith("equities:")]
+                if eq:
+                    return dict(base, settlementMetric=f"{eq[0].split(':')[1]}_SHARE_PRICE", referenceInstrument=eq[0], unit="USD")
+    return None
+
+
 def settlement_instrument(entity: str, text: str) -> str | None:
-    """The listed instrument a price-level contract settles on (tenor words for Treasuries, else the entity's first)."""
-    m = re.search(r"\b(2|10|30)[- ]?(?:year|yr|y)\b", (text or "").lower())
-    if m and f"treasury:{m.group(1)}Y" in ENTITIES.get(entity, {}).get("instruments", []):
-        return f"treasury:{m.group(1)}Y"
-    ins = ENTITIES.get(entity, {}).get("instruments") or []
-    return ins[0] if ins else None
+    """The listed instrument a price-level contract settles on, ONLY from an explicit settlement spec (no guessing)."""
+    sp = settlement_spec(text)
+    return sp["referenceInstrument"] if sp else None
 
 
 def dependency_group(instrument: str | None, source: str, subject_id: str | None = None) -> str:

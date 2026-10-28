@@ -1,0 +1,77 @@
+{
+ "_note": "R5-02 provenance of documentation screenshots. 'files' lists screenshots regenerated in round 5 from the SYNTHETIC example only (Chromium emulation; served from a directory containing ui/ and examples/ only). tests/test_round5.py checks each sha256. 'notSynthetic' lists remaining tracked images that show on-chain/public-API-derived content (Solana token scans etc.); they were not regenerated in round 5 and are open under R5-02 (see ROUND5-RESULTS.md).",
+ "files": {
+  "docs/signals-desktop-feed.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "d027484c53adcb22364e1b08c47a0ce8e8f2c68fbb9b0b7945613de74c530924"
+  },
+  "docs/signals-desktop-hero.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "845e632dce541a03329557cc577c03f38abb336e242c05cf90b692de1da8cc6c"
+  },
+  "docs/signals-iphone-feed.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "f64f387778726b2e7f5fadb294db5469741e47caf98ba9488b878fc5ab39cc7f"
+  },
+  "docs/signals-iphone-hero.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "00fe3c7c0f46f2bfc420b839c57fa843651720934718a24278a498e8d28ca130"
+  },
+  "docs/signals-mobile-feed.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "7c64cb54120221bd1f79a2976f1604cf65a798f90163b1dec6271f0c86ec9cfe"
+  },
+  "docs/signals-mobile-hero.png": {
+   "source": "synthetic: examples/signals-EXAMPLE.json from tests/fixtures/contracts/make_example.py",
+   "renderer": "Chromium emulation (Playwright script shots_r5.py, kept outside the repo)",
+   "generated": "2026-10-28",
+   "sha256": "fa8f4c5d94f233068723ccac9985aa3a42b5361bec8474cc043a30a2278df1b3"
+  }
+ },
+ "notSynthetic": {
+  "docs/graph-copy-desktop-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-copy-iphone-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-copy-mobile-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-copy-reduced-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-shill-desktop-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-shill-iphone-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-shill-mobile-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/graph-shill-reduced-panel.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-copy-network.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-mobile.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-rug-replay.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-shill-network.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-token-scan.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/ui-watch.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f1-incomplete-launch.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f2-ambiguous-ticker-palette.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f2b-ambiguous-ticker-view.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f3-empty-x-network.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f3b-empty-copy-network.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f4-provider-failure-scan.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/f4b-provider-failure-watch.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/in-01-command-bar-wallet.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j1-01-openbot-lead.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j1-02-openbot-full.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-01-flagged-wallet-evidence.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-02-copy-network-node-evidence.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-03-something-insider-evidence.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-04-replay-wallet-highlighted.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-05-timeline-event-evidence.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j2-06-not-run-handoff.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j3-01-watch-alerts.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/j3-02-snapshot-diff-fixture.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "docs/verification/screens/m-01-mobile-lead.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5",
+  "examples/copy-network-OpenBot.png": "derived from public on-chain data / provider responses during earlier rounds; not regenerated in r5"
+ }
+}
