@@ -13,6 +13,7 @@ jobs:
       - name: UI integrity sidecar matches the file bytes (R4-07)
         run: cd ui && sha256sum -c index.html.sha256
       - run: python tests/test_no_leaks.py
+      - run: python tests/test_round8.py
       - run: python tests/test_round7.py
       - run: python tests/test_round6.py
       - name: asset manifest (docs/assets-manifest.json) matches every tracked public asset

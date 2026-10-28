@@ -51,8 +51,8 @@ def test_R7_01_four_vignettes_get_the_intended_labels_and_cause_is_not_validity(
 
 def test_R7_01_objective_a_uses_r7_rubric_and_reports_no_precision():
     a = _j(R / "docs/review/eval-results.json")["objectiveA"]
-    assert a["rubricVersion"].startswith("r7") and a["precision"] is None and a["adjudicatedEvents"] == 0
-    assert a["vignetteReviewerCheck"]["status"] == "NOT_RUN"   # two independent reviewers have not done it
+    assert a["rubricVersion"][:2] in ("r7", "r8") and a["precision"] is None and a["adjudicatedEvents"] == 0
+    assert a["vignetteReviewerCheck"]["status"] == "NOT_RUN"   # R8 amendment: rubricVersion may now be r8 (supersedes r7)   # two independent reviewers have not done it
     assert _j(EV / "labels.json")["labels"] == [] and _j(EV / "labels-r7.json")["labels"] == []
 
 

@@ -1,0 +1,19 @@
+# test_round8.py (round-8 regressions as committed) run against the round-7 tree fa56b4e before any round-8 fix; command: python tests/test_round8.py; paths sanitized
+FAIL test_R8_01_emergency_fomc_dates_and_sunday_release -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/release-calendar-r8.json'
+FAIL test_R8_01_first_observation_session_dst_weekend_holiday_and_curve_time -- AttributeError module 'build_release_calendar' has no attribute 'first_observation_session'
+FAIL test_R8_01_sampling_uses_the_corrected_calendar -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r8.json'
+FAIL test_R8_02_frame_requires_250_prior_changes_and_reports_eligibility -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r8.json'
+FAIL test_R8_02_every_sampled_item_has_250_valid_prior_changes_when_data_present -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r8.json'
+FAIL test_R8_03_weights_recomputed_from_frozen_frame_match_sealed_key -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r8.json'
+FAIL test_R8_03_weighted_estimator_uses_only_the_probability_sample -- ModuleNotFoundError No module named 'estimators'
+FAIL test_R8_04_reference_edge_cases -- ModuleNotFoundError No module named 'reference'
+FAIL test_R8_04_rubric_describes_a_statistical_tail_not_relevance -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/adjudication-r8.json'
+FAIL test_R8_05_label_sheet_stays_empty_until_the_gate_passes -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/reviewer-gate-r8.json'
+FAIL test_R8_05_more_vignettes_cover_the_confusing_cases -- TypeError decide() got an unexpected keyword argument 'table'
+FAIL test_R8_06_tracks_are_separate_and_boundary_set_is_diagnostic -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r8.json'
+FAIL test_R8_06_prior_versions_preserved -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/manifest-r8.json'
+FAIL test_R8_07_calendar_fetch_without_contact_sends_no_placeholder_and_skips_bls -- AttributeError module 'build_release_calendar' has no attribute 'build'
+FAIL test_R8_07_clocks_are_labelled_provisional_and_unknown_cadence_is_unknown -- AssertionError options
+ok   test_R8_07_missed_option_session_holiday_reopening_slow_provider
+FAIL test_R8_08_ci_and_devices_stated -- AssertionError 
+round8: 1/17 passed

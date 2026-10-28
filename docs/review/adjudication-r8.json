@@ -1,0 +1,88 @@
+{
+ "version": "r8-2026-10-28",
+ "frozenBeforeLabels": true,
+ "supersedes": "adjudication-r7.json (kept unchanged as history)",
+ "axes": {
+  "anomaly": {
+   "values": [
+    "YES",
+    "NO",
+    "UNASSESSABLE"
+   ],
+   "computedBy": "skills/signals/scripts/reference.py",
+   "reviewersAssess": false,
+   "rule": "|\u0394| (bp) \u2265 0.975 quantile (linear interpolation, type 7) of |\u0394| over the 250 most recent valid prior daily changes of the same official series; equal to the cutoff = YES; fewer than 250 valid prior changes = UNASSESSABLE (excluded from that estimator's denominator, never FALSE).",
+   "measures": "membership in a statistical tail of the series' own recent history; it is not market relevance, not a hit rate and not predictive accuracy",
+   "notTheDetectorRule": "This is an empirical 250-session percentile, not the detector's 60-session robust-scale / 8bp cutoff, and reviewers do not see detector output."
+  },
+  "integrity": {
+   "values": [
+    "OK",
+    "VALUE_ERROR",
+    "TIMESTAMP_ERROR",
+    "AVAILABILITY_ERROR",
+    "UNASSESSABLE"
+   ],
+   "question": "Do the tool's evidence values, session date and availability time match the official record?",
+   "rule": "VALUE_ERROR: shown value differs from the official CSV by >0.5bp. TIMESTAMP_ERROR: wrong session date or a time earlier than publication (~18:00 ET). AVAILABILITY_ERROR: claimed available before it could be known. OK otherwise."
+  },
+  "context": {
+   "values": [
+    "SCHEDULED",
+    "DOCUMENTED_UNSCHEDULED",
+    "UNEXPLAINED",
+    "UNAVAILABLE"
+   ],
+   "question": "Is there an explanation? Recorded separately; it never changes the primary label.",
+   "rule": "SCHEDULED: a release in release-calendar.json on the session (FOMC, CPI, NFP) or a scheduled auction. DOCUMENTED_UNSCHEDULED: contemporaneous official or major-wire record of an unscheduled event. UNEXPLAINED: searched, none found. UNAVAILABLE: could not search."
+  }
+ },
+ "reviewerAxes": [
+  "integrity",
+  "context"
+ ],
+ "decisionTable": [
+  {
+   "integrity": "VALUE_ERROR|TIMESTAMP_ERROR|AVAILABILITY_ERROR",
+   "anomaly": "*",
+   "primary": "FALSE"
+  },
+  {
+   "integrity": "UNASSESSABLE",
+   "anomaly": "*",
+   "primary": "UNASSESSABLE"
+  },
+  {
+   "integrity": "OK",
+   "anomaly": "UNASSESSABLE",
+   "primary": "UNASSESSABLE"
+  },
+  {
+   "integrity": "OK",
+   "anomaly": "YES",
+   "primary": "ANOMALY_CONFIRMED"
+  },
+  {
+   "integrity": "OK",
+   "anomaly": "NO",
+   "primary": "NOT_ANOMALOUS"
+  }
+ ],
+ "sensitivityAnalyses": {
+  "preregistered": true,
+  "quantiles": [
+   0.95,
+   0.99
+  ],
+  "rule": "reported beside the primary 0.975 result; never chosen or tuned after labels"
+ },
+ "reporting": "Population track: H\u00e1jek estimates weighted by 1/inclusionProbability with stratified-bootstrap intervals (skills/signals/scripts/estimators.py). Emitted-episode track: share of ANOMALY_CONFIRMED among assessable detector episodes (statistical-tail agreement) and, separately, integrity error rate. Boundary track: diagnostic only. Agreement: Cohen's kappa on integrity and on context.",
+ "doNotClaim": [
+  "market relevance",
+  "hit rate",
+  "predictive accuracy",
+  "lead time",
+  "recall from QUIET_CONTROL",
+  "a pooled estimate over all roster items"
+ ]
+}

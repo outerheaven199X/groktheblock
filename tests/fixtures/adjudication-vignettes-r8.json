@@ -1,0 +1,174 @@
+{
+ "_provenance": "synthetic",
+ "_note": "R8-05 vignettes (synthetic descriptions; anomaly is computed by code, reviewers judge integrity and context). The blind two-reviewer check has NOT been run.",
+ "vignettes": [
+  {
+   "id": "genuine-anomaly-no-cause",
+   "category": "unexplained-volatility",
+   "description": "10Y +19bp, above the reference cutoff; values and timing match; no release and no documented cause.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "OK",
+    "context": "UNEXPLAINED"
+   },
+   "intended": {
+    "primary": "ANOMALY_CONFIRMED",
+    "context": "UNEXPLAINED"
+   }
+  },
+  {
+   "id": "scheduled-cpi-move",
+   "category": "scheduled",
+   "description": "2Y +16bp on a CPI day; above cutoff; evidence correct.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "OK",
+    "context": "SCHEDULED"
+   },
+   "intended": {
+    "primary": "ANOMALY_CONFIRMED",
+    "context": "SCHEDULED"
+   }
+  },
+  {
+   "id": "ordinary-move-public-story",
+   "category": "ordinary",
+   "description": "30Y +4bp around a widely reported headline; below cutoff; evidence correct.",
+   "axes": {
+    "anomaly": "NO",
+    "integrity": "OK",
+    "context": "DOCUMENTED_UNSCHEDULED"
+   },
+   "intended": {
+    "primary": "NOT_ANOMALOUS",
+    "context": "DOCUMENTED_UNSCHEDULED"
+   }
+  },
+  {
+   "id": "wrong-timestamp-real-event",
+   "category": "false-availability",
+   "description": "Real FOMC-day move shown as available 14:05 ET, before the curve is published.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "TIMESTAMP_ERROR",
+    "context": "SCHEDULED"
+   },
+   "intended": {
+    "primary": "FALSE",
+    "context": "SCHEDULED"
+   }
+  },
+  {
+   "id": "holiday-shifted-session",
+   "category": "holiday",
+   "description": "Sunday emergency decision; the move is assigned to Monday's curve (first observation session), correctly.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "OK",
+    "context": "SCHEDULED"
+   },
+   "intended": {
+    "primary": "ANOMALY_CONFIRMED",
+    "context": "SCHEDULED"
+   }
+  },
+  {
+   "id": "holiday-wrong-session",
+   "category": "holiday",
+   "description": "Move assigned to a bond-market holiday that had no curve.",
+   "axes": {
+    "anomaly": "NO",
+    "integrity": "TIMESTAMP_ERROR",
+    "context": "UNEXPLAINED"
+   },
+   "intended": {
+    "primary": "FALSE",
+    "context": "UNEXPLAINED"
+   }
+  },
+  {
+   "id": "available-before-publication",
+   "category": "false-availability",
+   "description": "Alert claims the curve value at 11:00 ET on the session it describes.",
+   "axes": {
+    "anomaly": "NO",
+    "integrity": "AVAILABILITY_ERROR",
+    "context": "UNEXPLAINED"
+   },
+   "intended": {
+    "primary": "FALSE",
+    "context": "UNEXPLAINED"
+   }
+  },
+  {
+   "id": "exactly-on-cutoff",
+   "category": "borderline",
+   "description": "|\u0394| equals the computed cutoff exactly.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "OK",
+    "context": "UNEXPLAINED"
+   },
+   "intended": {
+    "primary": "ANOMALY_CONFIRMED",
+    "context": "UNEXPLAINED"
+   }
+  },
+  {
+   "id": "just-below-cutoff",
+   "category": "borderline",
+   "description": "|\u0394| 0.1bp below the cutoff on an NFP day.",
+   "axes": {
+    "anomaly": "NO",
+    "integrity": "OK",
+    "context": "SCHEDULED"
+   },
+   "intended": {
+    "primary": "NOT_ANOMALOUS",
+    "context": "SCHEDULED"
+   }
+  },
+  {
+   "id": "short-history",
+   "category": "borderline",
+   "description": "Fewer than 250 valid prior changes; reviewer cannot search context.",
+   "axes": {
+    "anomaly": "UNASSESSABLE",
+    "integrity": "OK",
+    "context": "UNAVAILABLE"
+   },
+   "intended": {
+    "primary": "UNASSESSABLE",
+    "context": "UNAVAILABLE"
+   }
+  },
+  {
+   "id": "value-error-on-fomc-day",
+   "category": "mixed-integrity-context",
+   "description": "Large FOMC-day move but the shown 2Y value differs from treasury.gov by 3bp.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "VALUE_ERROR",
+    "context": "SCHEDULED"
+   },
+   "intended": {
+    "primary": "FALSE",
+    "context": "SCHEDULED"
+   }
+  },
+  {
+   "id": "integrity-unclear-unexplained",
+   "category": "mixed-integrity-context",
+   "description": "Large move; the archived evidence link is dead so values can't be checked.",
+   "axes": {
+    "anomaly": "YES",
+    "integrity": "UNASSESSABLE",
+    "context": "UNEXPLAINED"
+   },
+   "intended": {
+    "primary": "UNASSESSABLE",
+    "context": "UNEXPLAINED"
+   }
+  }
+ ]
+}

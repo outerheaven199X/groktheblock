@@ -22,6 +22,19 @@ NYSE_HOLIDAYS = {  # source: NYSE "Holidays & Trading Hours" (curated, verify an
     "2027-01-01", "2027-01-18", "2027-02-15", "2027-03-26", "2027-05-31", "2027-06-18", "2027-07-05", "2027-09-06", "2027-11-25",
     "2027-12-24",
 }
+NYSE_HOLIDAYS |= {  # R8: 2018-2024 NYSE full closures (curated from NYSE notices, incl. 2018-12-05 national day of mourning)
+    "2018-01-01", "2018-01-15", "2018-02-19", "2018-03-30", "2018-05-28", "2018-07-04", "2018-09-03", "2018-11-22", "2018-12-05", "2018-12-25",
+    "2019-01-01", "2019-01-21", "2019-02-18", "2019-04-19", "2019-05-27", "2019-07-04", "2019-09-02", "2019-11-28", "2019-12-25",
+    "2020-01-01", "2020-01-20", "2020-02-17", "2020-04-10", "2020-05-25", "2020-07-03", "2020-09-07", "2020-11-26", "2020-12-25",
+    "2021-01-01", "2021-01-18", "2021-02-15", "2021-04-02", "2021-05-31", "2021-07-05", "2021-09-06", "2021-11-25", "2021-12-24",
+    "2022-01-17", "2022-02-21", "2022-04-15", "2022-05-30", "2022-06-20", "2022-07-04", "2022-09-05", "2022-11-24", "2022-12-26",
+    "2023-01-02", "2023-01-16", "2023-02-20", "2023-04-07", "2023-05-29", "2023-06-19", "2023-07-04", "2023-09-04", "2023-11-23", "2023-12-25",
+    "2024-01-01", "2024-01-15", "2024-02-19", "2024-03-29", "2024-05-27", "2024-06-19", "2024-07-04", "2024-09-02", "2024-11-28", "2024-12-25",
+}
+# R8: weekdays with no treasury.gov daily par-yield curve 2018-01-01 … 2026-10-27, read from the official CSVs. Within that
+# span this observed list IS the bond calendar (it differs from NYSE: e.g. Good Friday 2021/2023/2026 and 2025-01-09 had curves).
+BOND_OBSERVED_SPAN = ("2018-01-01", "2026-10-27")
+BOND_CLOSED_OBSERVED = {"2018-01-01", "2018-01-15", "2018-02-19", "2018-03-30", "2018-05-28", "2018-07-04", "2018-09-03", "2018-10-08", "2018-11-12", "2018-11-22", "2018-12-05", "2018-12-25", "2019-01-01", "2019-01-21", "2019-02-18", "2019-04-19", "2019-05-27", "2019-07-04", "2019-09-02", "2019-10-14", "2019-11-11", "2019-11-28", "2019-12-25", "2020-01-01", "2020-01-20", "2020-02-17", "2020-04-10", "2020-05-25", "2020-07-03", "2020-09-07", "2020-10-12", "2020-11-11", "2020-11-26", "2020-12-25", "2021-01-01", "2021-01-18", "2021-02-15", "2021-05-31", "2021-07-05", "2021-09-06", "2021-10-11", "2021-11-11", "2021-11-25", "2021-12-24", "2022-01-17", "2022-02-21", "2022-04-15", "2022-05-30", "2022-06-20", "2022-07-04", "2022-09-05", "2022-10-10", "2022-11-11", "2022-11-24", "2022-12-26", "2023-01-02", "2023-01-16", "2023-02-20", "2023-05-29", "2023-06-19", "2023-07-04", "2023-09-04", "2023-10-09", "2023-11-23", "2023-12-25", "2024-01-01", "2024-01-15", "2024-02-19", "2024-03-29", "2024-05-27", "2024-06-19", "2024-07-04", "2024-09-02", "2024-10-14", "2024-11-11", "2024-11-28", "2024-12-25", "2025-01-01", "2025-01-20", "2025-02-17", "2025-04-18", "2025-05-26", "2025-06-19", "2025-07-04", "2025-09-01", "2025-10-13", "2025-11-11", "2025-11-27", "2025-12-25", "2026-01-01", "2026-01-19", "2026-02-16", "2026-05-25", "2026-06-19", "2026-07-03", "2026-09-07", "2026-10-12"}
 BOND_EXTRA = {"2025-10-13", "2025-11-11", "2026-10-12", "2026-11-11", "2027-10-11", "2027-11-11"}  # SIFMA (curated)
 
 # NYSE early closes at 13:00 ET (curated from NYSE holiday notices, verify annually)
@@ -41,6 +54,8 @@ def iso(ts: int | None) -> str | None:
 
 def is_session(d: date, market: str = "equity") -> bool:
     s = d.isoformat()
+    if market == "bond" and d.weekday() < 5 and BOND_OBSERVED_SPAN[0] <= s <= BOND_OBSERVED_SPAN[1]:
+        return s not in BOND_CLOSED_OBSERVED
     if d.weekday() >= 5 or s in NYSE_HOLIDAYS:
         return False
     return not (market == "bond" and s in BOND_EXTRA)
@@ -102,23 +117,27 @@ OPTION_SLOTS = [(h, 0) for h in range(10, 17)]  # delayed option snapshots expec
 
 
 def cadence(source: str, instrument: str | None = None) -> str:
-    """R7-03: the expected-update clock for a source/instrument, in words (used in lifecycle explanations)."""
+    """R7-03/R8-07: the expected-update clock for a source/instrument, in words (used in lifecycle explanations).
+    Every clock is PROVISIONAL: an experimental incident-aging default, not a provider SLA, and an expected slot is never
+    evidence that the source actually covered it. Unknown sources say so."""
     i = instrument or ""
     if source == "treasury":
-        return "Treasury par curve, ~18:00 ET each bond-market session (SIFMA holidays)"
-    if source == "equities":
-        return "NYSE daily bar, session close (13:00 on early-close days) + 15 min"
-    if source == "options":
-        return "delayed option snapshot, hourly while the exchange is open"
-    if source == "stablecoins":
-        return "stablecoin aggregate, every 24h on a 7-day calendar"
-    if source == "macro":
-        if i == "^VIX":
-            return "Cboe VIX close, 16:15 ET each NYSE session"
-        if i.endswith("=X"):
-            return "FX daily bar, end of the London calendar day (Mon-Fri, London DST)"
-        return "futures/index daily bar, 17:00 ET each session"
-    return "polled source"
+        c = "Treasury par curve, ~18:00 ET each bond-market session"
+    elif source == "equities":
+        c = "NYSE daily bar, session close (13:00 on early-close days) + 15 min"
+    elif source == "options":
+        c = "delayed option snapshot, hourly while the exchange is open"
+    elif source == "stablecoins":
+        c = "stablecoin aggregate, every 24h on a 7-day calendar"
+    elif source == "macro":
+        c = ("Cboe VIX close, 16:15 ET each NYSE session" if i == "^VIX" else
+             "FX daily bar, end of the London calendar day (Mon-Fri, London DST)" if i.endswith("=X") else
+             "futures/index daily bar, 17:00 ET each session")
+    elif source in ("polymarket", "kalshi", "crypto", "sec", "solana"):
+        c = "polled source, freshness limit per timebase.freshness"
+    else:
+        return "unknown cadence: no schedule known, treated as stale/unknown with polled-source aging (provisional)"
+    return f"provisional (not an SLA): {c}"
 
 
 def expected_update(source: str, instrument: str | None, last: int, n: int = 1) -> int | None:

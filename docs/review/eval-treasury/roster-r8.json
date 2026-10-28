@@ -1,0 +1,6069 @@
+{
+ "version": "r8-2026-10-28",
+ "_note": "Blind roster r8: reviewers see itemId, date, series, window and split only; they judge integrity and context. Anomaly is computed by reference.py. Track membership, design weights and detector status are in the sealed key (local; SHA-256 below). Items appear once even if in several tracks; deduplication doesn't change any inclusion probability.",
+ "seed": 20261036,
+ "counts": {
+  "EPISODE": 196,
+  "QUIET_CONTROL": 196,
+  "PROBABILITY_SAMPLE": 422,
+  "BOUNDARY_CHALLENGE": 94
+ },
+ "items": [
+  {
+   "itemId": "R8-0001",
+   "date": "2021-10-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0002",
+   "date": "2021-10-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0003",
+   "date": "2026-03-30",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0004",
+   "date": "2025-05-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0005",
+   "date": "2024-08-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0006",
+   "date": "2022-10-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0007",
+   "date": "2019-05-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0008",
+   "date": "2024-08-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0009",
+   "date": "2021-03-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0010",
+   "date": "2024-08-08",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0011",
+   "date": "2020-02-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0012",
+   "date": "2024-11-25",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0013",
+   "date": "2022-08-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0014",
+   "date": "2019-08-12",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0015",
+   "date": "2023-04-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0016",
+   "date": "2023-08-17",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0017",
+   "date": "2023-12-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0018",
+   "date": "2025-06-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0019",
+   "date": "2022-03-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0020",
+   "date": "2022-07-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0021",
+   "date": "2025-07-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0022",
+   "date": "2026-02-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0023",
+   "date": "2022-03-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0024",
+   "date": "2025-06-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0025",
+   "date": "2020-12-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0026",
+   "date": "2025-08-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0027",
+   "date": "2021-08-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0028",
+   "date": "2020-06-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0029",
+   "date": "2024-07-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0030",
+   "date": "2023-09-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0031",
+   "date": "2019-05-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0032",
+   "date": "2026-10-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0033",
+   "date": "2020-09-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0034",
+   "date": "2023-09-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0035",
+   "date": "2021-03-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0036",
+   "date": "2020-11-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0037",
+   "date": "2026-01-30",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0038",
+   "date": "2025-02-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0039",
+   "date": "2026-07-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0040",
+   "date": "2024-08-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0041",
+   "date": "2022-09-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0042",
+   "date": "2024-04-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0043",
+   "date": "2019-06-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0044",
+   "date": "2022-05-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0045",
+   "date": "2022-11-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0046",
+   "date": "2022-05-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0047",
+   "date": "2026-07-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0048",
+   "date": "2020-03-16",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0049",
+   "date": "2025-08-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0050",
+   "date": "2020-11-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0051",
+   "date": "2024-02-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0052",
+   "date": "2022-05-24",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0053",
+   "date": "2026-08-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0054",
+   "date": "2020-04-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0055",
+   "date": "2023-01-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0056",
+   "date": "2025-05-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0057",
+   "date": "2020-10-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0058",
+   "date": "2025-03-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0059",
+   "date": "2020-04-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0060",
+   "date": "2019-09-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0061",
+   "date": "2024-11-12",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0062",
+   "date": "2020-02-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0063",
+   "date": "2025-07-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0064",
+   "date": "2019-05-16",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0065",
+   "date": "2022-02-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0066",
+   "date": "2022-09-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0067",
+   "date": "2026-01-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0068",
+   "date": "2021-03-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0069",
+   "date": "2024-12-23",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0070",
+   "date": "2024-06-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0071",
+   "date": "2021-12-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0072",
+   "date": "2022-03-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0073",
+   "date": "2023-08-14",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0074",
+   "date": "2021-01-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0075",
+   "date": "2022-09-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0076",
+   "date": "2024-11-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0077",
+   "date": "2022-10-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0078",
+   "date": "2019-05-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0079",
+   "date": "2022-11-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0080",
+   "date": "2019-05-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0081",
+   "date": "2025-03-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0082",
+   "date": "2026-08-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0083",
+   "date": "2020-10-30",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0084",
+   "date": "2019-07-30",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0085",
+   "date": "2024-08-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0086",
+   "date": "2020-10-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0087",
+   "date": "2022-02-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0088",
+   "date": "2021-11-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0089",
+   "date": "2020-01-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0090",
+   "date": "2021-10-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0091",
+   "date": "2022-09-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0092",
+   "date": "2023-02-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0093",
+   "date": "2024-03-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0094",
+   "date": "2023-01-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0095",
+   "date": "2023-10-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0096",
+   "date": "2022-03-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0097",
+   "date": "2026-05-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0098",
+   "date": "2019-04-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0099",
+   "date": "2019-07-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0100",
+   "date": "2019-03-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0101",
+   "date": "2021-06-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0102",
+   "date": "2026-03-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0103",
+   "date": "2019-09-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0104",
+   "date": "2021-07-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0105",
+   "date": "2024-03-04",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0106",
+   "date": "2026-03-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0107",
+   "date": "2025-06-16",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0108",
+   "date": "2024-12-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0109",
+   "date": "2025-09-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0110",
+   "date": "2024-08-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0111",
+   "date": "2025-06-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0112",
+   "date": "2024-10-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0113",
+   "date": "2025-12-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0114",
+   "date": "2021-07-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0115",
+   "date": "2019-10-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0116",
+   "date": "2021-08-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0117",
+   "date": "2019-08-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0118",
+   "date": "2021-04-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0119",
+   "date": "2021-07-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0120",
+   "date": "2022-06-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0121",
+   "date": "2026-05-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0122",
+   "date": "2023-08-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0123",
+   "date": "2024-12-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0124",
+   "date": "2020-01-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0125",
+   "date": "2019-07-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0126",
+   "date": "2019-04-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0127",
+   "date": "2019-03-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0128",
+   "date": "2020-04-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0129",
+   "date": "2026-01-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0130",
+   "date": "2021-02-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0131",
+   "date": "2022-11-16",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0132",
+   "date": "2026-07-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0133",
+   "date": "2020-10-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0134",
+   "date": "2023-03-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0135",
+   "date": "2021-07-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0136",
+   "date": "2021-12-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0137",
+   "date": "2022-02-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0138",
+   "date": "2021-03-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0139",
+   "date": "2019-09-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0140",
+   "date": "2020-05-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0141",
+   "date": "2024-06-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0142",
+   "date": "2020-02-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0143",
+   "date": "2022-08-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0144",
+   "date": "2024-04-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0145",
+   "date": "2026-01-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0146",
+   "date": "2022-03-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0147",
+   "date": "2024-02-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0148",
+   "date": "2022-11-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0149",
+   "date": "2026-10-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0150",
+   "date": "2025-01-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0151",
+   "date": "2019-07-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0152",
+   "date": "2022-02-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0153",
+   "date": "2021-01-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0154",
+   "date": "2023-09-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0155",
+   "date": "2021-08-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0156",
+   "date": "2025-09-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0157",
+   "date": "2026-07-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0158",
+   "date": "2025-02-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0159",
+   "date": "2026-03-12",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0160",
+   "date": "2026-01-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0161",
+   "date": "2023-10-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0162",
+   "date": "2023-06-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0163",
+   "date": "2022-07-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0164",
+   "date": "2021-03-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0165",
+   "date": "2023-04-12",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0166",
+   "date": "2026-10-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0167",
+   "date": "2022-02-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0168",
+   "date": "2023-08-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0169",
+   "date": "2019-06-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0170",
+   "date": "2020-02-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0171",
+   "date": "2024-06-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0172",
+   "date": "2020-11-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0173",
+   "date": "2022-10-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0174",
+   "date": "2026-03-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0175",
+   "date": "2024-12-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0176",
+   "date": "2024-10-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0177",
+   "date": "2023-04-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0178",
+   "date": "2026-08-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0179",
+   "date": "2024-03-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0180",
+   "date": "2023-12-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0181",
+   "date": "2026-02-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0182",
+   "date": "2023-04-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0183",
+   "date": "2023-11-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0184",
+   "date": "2021-01-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0185",
+   "date": "2026-06-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0186",
+   "date": "2024-05-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0187",
+   "date": "2024-04-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0188",
+   "date": "2022-10-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0189",
+   "date": "2022-03-14",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0190",
+   "date": "2024-04-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0191",
+   "date": "2020-05-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0192",
+   "date": "2023-05-01",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0193",
+   "date": "2021-04-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0194",
+   "date": "2023-12-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0195",
+   "date": "2024-02-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0196",
+   "date": "2020-07-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0197",
+   "date": "2026-10-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0198",
+   "date": "2020-10-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0199",
+   "date": "2021-04-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0200",
+   "date": "2020-02-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0201",
+   "date": "2023-07-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0202",
+   "date": "2019-01-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0203",
+   "date": "2020-10-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0204",
+   "date": "2020-12-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0205",
+   "date": "2026-04-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0206",
+   "date": "2024-09-16",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0207",
+   "date": "2020-12-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0208",
+   "date": "2019-08-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0209",
+   "date": "2024-06-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0210",
+   "date": "2021-01-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0211",
+   "date": "2025-03-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0212",
+   "date": "2022-02-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0213",
+   "date": "2026-06-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0214",
+   "date": "2022-06-16",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0215",
+   "date": "2024-07-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0216",
+   "date": "2026-08-19",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0217",
+   "date": "2024-04-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0218",
+   "date": "2021-07-01",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0219",
+   "date": "2026-09-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0220",
+   "date": "2020-04-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0221",
+   "date": "2022-08-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0222",
+   "date": "2019-08-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0223",
+   "date": "2026-08-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0224",
+   "date": "2026-05-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0225",
+   "date": "2024-04-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0226",
+   "date": "2021-07-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0227",
+   "date": "2026-09-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0228",
+   "date": "2021-01-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0229",
+   "date": "2021-03-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0230",
+   "date": "2025-03-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0231",
+   "date": "2019-03-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0232",
+   "date": "2025-05-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0233",
+   "date": "2024-12-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0234",
+   "date": "2019-06-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0235",
+   "date": "2019-05-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0236",
+   "date": "2026-07-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0237",
+   "date": "2022-11-28",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0238",
+   "date": "2019-08-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0239",
+   "date": "2021-03-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0240",
+   "date": "2023-09-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0241",
+   "date": "2020-11-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0242",
+   "date": "2023-06-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0243",
+   "date": "2022-12-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0244",
+   "date": "2026-03-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0245",
+   "date": "2020-02-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0246",
+   "date": "2021-02-16",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0247",
+   "date": "2021-11-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0248",
+   "date": "2025-02-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0249",
+   "date": "2020-08-17",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0250",
+   "date": "2021-04-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0251",
+   "date": "2019-07-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0252",
+   "date": "2025-02-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0253",
+   "date": "2023-01-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0254",
+   "date": "2022-01-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0255",
+   "date": "2023-08-04",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0256",
+   "date": "2024-04-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0257",
+   "date": "2024-01-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0258",
+   "date": "2025-01-27",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0259",
+   "date": "2020-09-04",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0260",
+   "date": "2023-12-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0261",
+   "date": "2024-10-08",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0262",
+   "date": "2025-01-15",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0263",
+   "date": "2025-05-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0264",
+   "date": "2019-07-05",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0265",
+   "date": "2025-03-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0266",
+   "date": "2022-07-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0267",
+   "date": "2026-10-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0268",
+   "date": "2022-01-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0269",
+   "date": "2019-03-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0270",
+   "date": "2021-09-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0271",
+   "date": "2019-05-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0272",
+   "date": "2024-12-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0273",
+   "date": "2019-07-12",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0274",
+   "date": "2023-08-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0275",
+   "date": "2025-01-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0276",
+   "date": "2023-07-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0277",
+   "date": "2025-04-03",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0278",
+   "date": "2023-02-03",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0279",
+   "date": "2020-11-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0280",
+   "date": "2021-04-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0281",
+   "date": "2024-03-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0282",
+   "date": "2022-10-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0283",
+   "date": "2022-10-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0284",
+   "date": "2022-08-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0285",
+   "date": "2024-12-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0286",
+   "date": "2025-05-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0287",
+   "date": "2025-04-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0288",
+   "date": "2022-11-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0289",
+   "date": "2022-06-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0290",
+   "date": "2021-12-14",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0291",
+   "date": "2020-01-30",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0292",
+   "date": "2024-01-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0293",
+   "date": "2019-07-03",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0294",
+   "date": "2021-06-30",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0295",
+   "date": "2025-10-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0296",
+   "date": "2019-04-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0297",
+   "date": "2023-11-14",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0298",
+   "date": "2020-09-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0299",
+   "date": "2025-04-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0300",
+   "date": "2025-12-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0301",
+   "date": "2019-08-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0302",
+   "date": "2021-08-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0303",
+   "date": "2021-05-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0304",
+   "date": "2020-01-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0305",
+   "date": "2023-11-22",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0306",
+   "date": "2026-09-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0307",
+   "date": "2019-09-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0308",
+   "date": "2022-11-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0309",
+   "date": "2022-07-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0310",
+   "date": "2024-11-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0311",
+   "date": "2026-09-16",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0312",
+   "date": "2022-11-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0313",
+   "date": "2023-08-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0314",
+   "date": "2020-06-04",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0315",
+   "date": "2021-07-23",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0316",
+   "date": "2020-09-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0317",
+   "date": "2023-11-08",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0318",
+   "date": "2024-07-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0319",
+   "date": "2025-08-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0320",
+   "date": "2025-02-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0321",
+   "date": "2019-11-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0322",
+   "date": "2026-09-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0323",
+   "date": "2022-06-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0324",
+   "date": "2025-09-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0325",
+   "date": "2025-05-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0326",
+   "date": "2023-04-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0327",
+   "date": "2019-01-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0328",
+   "date": "2025-01-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0329",
+   "date": "2024-08-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0330",
+   "date": "2020-07-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0331",
+   "date": "2025-09-03",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0332",
+   "date": "2021-06-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0333",
+   "date": "2023-01-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0334",
+   "date": "2024-04-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0335",
+   "date": "2019-01-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0336",
+   "date": "2025-06-02",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0337",
+   "date": "2023-02-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0338",
+   "date": "2026-04-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0339",
+   "date": "2025-08-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0340",
+   "date": "2023-06-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0341",
+   "date": "2022-06-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0342",
+   "date": "2020-06-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0343",
+   "date": "2023-12-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0344",
+   "date": "2022-06-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0345",
+   "date": "2020-05-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0346",
+   "date": "2023-06-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0347",
+   "date": "2023-11-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0348",
+   "date": "2026-07-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0349",
+   "date": "2023-11-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0350",
+   "date": "2023-12-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0351",
+   "date": "2026-02-12",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0352",
+   "date": "2022-06-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0353",
+   "date": "2023-04-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0354",
+   "date": "2026-03-02",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0355",
+   "date": "2024-12-31",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0356",
+   "date": "2021-02-25",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0357",
+   "date": "2024-09-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0358",
+   "date": "2022-03-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0359",
+   "date": "2026-03-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0360",
+   "date": "2022-08-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0361",
+   "date": "2022-06-16",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0362",
+   "date": "2025-05-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0363",
+   "date": "2020-09-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0364",
+   "date": "2021-06-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0365",
+   "date": "2025-02-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0366",
+   "date": "2023-01-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0367",
+   "date": "2023-10-31",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0368",
+   "date": "2023-01-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0369",
+   "date": "2023-05-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0370",
+   "date": "2023-08-23",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0371",
+   "date": "2025-02-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0372",
+   "date": "2026-10-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0373",
+   "date": "2024-08-15",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0374",
+   "date": "2020-03-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0375",
+   "date": "2019-07-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0376",
+   "date": "2023-08-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0377",
+   "date": "2022-04-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0378",
+   "date": "2021-06-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0379",
+   "date": "2023-11-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0380",
+   "date": "2021-06-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0381",
+   "date": "2020-03-16",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0382",
+   "date": "2024-07-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0383",
+   "date": "2026-06-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0384",
+   "date": "2025-08-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0385",
+   "date": "2025-08-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0386",
+   "date": "2024-04-23",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0387",
+   "date": "2021-12-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0388",
+   "date": "2021-06-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0389",
+   "date": "2020-04-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0390",
+   "date": "2022-05-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0391",
+   "date": "2023-03-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0392",
+   "date": "2022-10-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0393",
+   "date": "2024-08-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0394",
+   "date": "2019-01-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0395",
+   "date": "2022-10-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0396",
+   "date": "2025-01-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0397",
+   "date": "2021-11-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0398",
+   "date": "2025-04-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0399",
+   "date": "2020-11-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0400",
+   "date": "2021-02-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0401",
+   "date": "2020-10-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0402",
+   "date": "2022-07-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0403",
+   "date": "2020-04-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0404",
+   "date": "2023-03-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0405",
+   "date": "2019-09-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0406",
+   "date": "2019-07-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0407",
+   "date": "2021-07-19",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0408",
+   "date": "2024-10-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0409",
+   "date": "2024-07-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0410",
+   "date": "2019-02-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0411",
+   "date": "2021-09-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0412",
+   "date": "2023-03-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0413",
+   "date": "2025-07-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0414",
+   "date": "2022-09-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0415",
+   "date": "2026-05-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0416",
+   "date": "2021-01-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0417",
+   "date": "2023-10-12",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0418",
+   "date": "2024-06-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0419",
+   "date": "2022-11-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0420",
+   "date": "2019-01-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0421",
+   "date": "2024-10-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0422",
+   "date": "2026-06-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0423",
+   "date": "2026-02-05",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0424",
+   "date": "2025-06-18",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0425",
+   "date": "2026-01-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0426",
+   "date": "2020-09-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0427",
+   "date": "2021-12-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0428",
+   "date": "2025-07-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0429",
+   "date": "2025-04-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0430",
+   "date": "2022-01-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0431",
+   "date": "2024-08-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0432",
+   "date": "2022-06-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0433",
+   "date": "2026-03-11",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0434",
+   "date": "2019-04-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0435",
+   "date": "2024-05-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0436",
+   "date": "2020-12-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0437",
+   "date": "2019-02-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0438",
+   "date": "2020-02-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0439",
+   "date": "2022-05-20",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0440",
+   "date": "2021-10-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0441",
+   "date": "2021-06-17",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0442",
+   "date": "2026-03-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0443",
+   "date": "2025-04-30",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0444",
+   "date": "2025-07-17",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0445",
+   "date": "2024-09-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0446",
+   "date": "2026-09-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0447",
+   "date": "2020-11-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0448",
+   "date": "2024-07-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0449",
+   "date": "2025-04-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0450",
+   "date": "2020-02-18",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0451",
+   "date": "2026-03-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0452",
+   "date": "2024-10-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0453",
+   "date": "2023-04-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0454",
+   "date": "2024-07-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0455",
+   "date": "2025-03-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0456",
+   "date": "2025-06-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0457",
+   "date": "2022-03-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0458",
+   "date": "2022-05-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0459",
+   "date": "2024-04-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0460",
+   "date": "2022-08-30",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0461",
+   "date": "2025-01-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0462",
+   "date": "2025-11-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0463",
+   "date": "2023-10-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0464",
+   "date": "2022-09-20",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0465",
+   "date": "2024-02-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0466",
+   "date": "2026-02-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0467",
+   "date": "2019-03-08",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0468",
+   "date": "2021-07-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0469",
+   "date": "2021-04-02",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0470",
+   "date": "2023-12-08",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0471",
+   "date": "2021-09-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0472",
+   "date": "2020-05-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0473",
+   "date": "2023-02-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0474",
+   "date": "2026-05-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0475",
+   "date": "2019-11-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0476",
+   "date": "2022-03-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0477",
+   "date": "2025-07-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0478",
+   "date": "2024-11-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0479",
+   "date": "2023-04-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0480",
+   "date": "2024-10-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0481",
+   "date": "2024-04-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0482",
+   "date": "2023-12-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0483",
+   "date": "2024-12-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0484",
+   "date": "2019-09-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0485",
+   "date": "2020-10-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0486",
+   "date": "2026-02-24",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0487",
+   "date": "2023-09-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0488",
+   "date": "2022-05-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0489",
+   "date": "2025-05-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0490",
+   "date": "2024-02-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0491",
+   "date": "2024-08-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0492",
+   "date": "2021-03-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0493",
+   "date": "2021-08-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0494",
+   "date": "2024-10-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0495",
+   "date": "2025-02-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0496",
+   "date": "2025-05-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0497",
+   "date": "2023-03-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0498",
+   "date": "2024-06-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0499",
+   "date": "2019-03-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0500",
+   "date": "2019-02-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0501",
+   "date": "2024-08-15",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0502",
+   "date": "2022-09-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0503",
+   "date": "2025-01-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0504",
+   "date": "2020-06-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0505",
+   "date": "2020-11-04",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0506",
+   "date": "2022-09-22",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0507",
+   "date": "2023-05-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0508",
+   "date": "2026-03-04",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0509",
+   "date": "2025-10-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0510",
+   "date": "2026-09-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0511",
+   "date": "2023-09-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0512",
+   "date": "2021-04-21",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0513",
+   "date": "2020-09-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0514",
+   "date": "2022-06-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0515",
+   "date": "2023-01-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0516",
+   "date": "2023-03-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0517",
+   "date": "2026-08-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0518",
+   "date": "2025-05-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0519",
+   "date": "2023-09-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0520",
+   "date": "2025-05-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0521",
+   "date": "2026-06-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0522",
+   "date": "2025-08-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0523",
+   "date": "2023-11-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0524",
+   "date": "2024-04-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0525",
+   "date": "2026-03-25",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0526",
+   "date": "2023-04-14",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0527",
+   "date": "2025-12-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0528",
+   "date": "2023-12-11",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0529",
+   "date": "2019-12-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0530",
+   "date": "2021-11-30",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0531",
+   "date": "2020-02-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0532",
+   "date": "2022-03-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0533",
+   "date": "2020-03-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0534",
+   "date": "2020-02-24",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0535",
+   "date": "2021-02-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0536",
+   "date": "2026-04-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0537",
+   "date": "2025-09-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0538",
+   "date": "2021-05-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0539",
+   "date": "2025-04-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0540",
+   "date": "2020-03-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0541",
+   "date": "2025-01-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0542",
+   "date": "2020-04-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0543",
+   "date": "2022-12-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0544",
+   "date": "2022-09-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0545",
+   "date": "2020-04-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0546",
+   "date": "2024-05-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0547",
+   "date": "2022-12-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0548",
+   "date": "2026-09-14",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0549",
+   "date": "2021-06-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0550",
+   "date": "2022-02-23",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0551",
+   "date": "2019-04-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0552",
+   "date": "2024-10-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0553",
+   "date": "2024-12-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0554",
+   "date": "2023-01-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0555",
+   "date": "2023-04-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0556",
+   "date": "2021-05-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0557",
+   "date": "2019-05-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0558",
+   "date": "2021-01-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0559",
+   "date": "2020-03-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0560",
+   "date": "2020-07-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0561",
+   "date": "2020-12-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0562",
+   "date": "2022-11-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0563",
+   "date": "2023-05-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0564",
+   "date": "2022-03-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0565",
+   "date": "2022-03-15",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0566",
+   "date": "2026-03-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0567",
+   "date": "2024-09-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0568",
+   "date": "2023-05-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0569",
+   "date": "2022-05-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0570",
+   "date": "2025-09-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0571",
+   "date": "2025-02-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0572",
+   "date": "2021-11-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0573",
+   "date": "2022-06-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0574",
+   "date": "2023-08-04",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0575",
+   "date": "2022-01-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0576",
+   "date": "2026-03-11",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0577",
+   "date": "2019-10-17",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0578",
+   "date": "2026-10-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0579",
+   "date": "2020-12-18",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0580",
+   "date": "2023-05-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0581",
+   "date": "2020-11-19",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0582",
+   "date": "2023-02-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0583",
+   "date": "2021-11-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0584",
+   "date": "2022-04-22",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0585",
+   "date": "2025-11-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0586",
+   "date": "2023-05-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0587",
+   "date": "2024-11-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0588",
+   "date": "2022-03-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0589",
+   "date": "2019-12-12",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0590",
+   "date": "2024-08-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0591",
+   "date": "2021-08-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0592",
+   "date": "2026-07-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0593",
+   "date": "2020-09-11",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0594",
+   "date": "2022-12-05",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0595",
+   "date": "2022-08-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0596",
+   "date": "2024-01-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0597",
+   "date": "2026-08-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0598",
+   "date": "2023-03-30",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0599",
+   "date": "2020-03-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0600",
+   "date": "2021-11-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0601",
+   "date": "2021-03-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0602",
+   "date": "2022-01-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0603",
+   "date": "2025-07-02",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0604",
+   "date": "2024-09-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0605",
+   "date": "2021-03-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0606",
+   "date": "2021-10-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0607",
+   "date": "2019-08-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0608",
+   "date": "2022-03-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0609",
+   "date": "2022-05-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0610",
+   "date": "2026-10-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0611",
+   "date": "2022-11-30",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0612",
+   "date": "2025-04-08",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0613",
+   "date": "2023-07-14",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0614",
+   "date": "2020-02-28",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0615",
+   "date": "2021-01-08",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0616",
+   "date": "2024-11-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0617",
+   "date": "2019-03-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0618",
+   "date": "2022-08-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0619",
+   "date": "2025-05-02",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0620",
+   "date": "2021-02-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0621",
+   "date": "2019-06-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0622",
+   "date": "2019-02-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0623",
+   "date": "2021-06-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0624",
+   "date": "2024-06-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0625",
+   "date": "2021-01-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0626",
+   "date": "2026-04-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0627",
+   "date": "2020-02-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0628",
+   "date": "2022-06-08",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0629",
+   "date": "2022-08-23",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0630",
+   "date": "2024-03-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0631",
+   "date": "2024-03-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0632",
+   "date": "2022-09-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0633",
+   "date": "2021-05-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0634",
+   "date": "2024-04-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0635",
+   "date": "2022-04-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0636",
+   "date": "2025-10-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0637",
+   "date": "2024-09-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0638",
+   "date": "2022-08-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0639",
+   "date": "2024-06-27",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0640",
+   "date": "2025-05-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0641",
+   "date": "2024-12-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0642",
+   "date": "2024-04-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0643",
+   "date": "2020-04-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0644",
+   "date": "2020-11-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0645",
+   "date": "2024-10-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0646",
+   "date": "2024-08-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0647",
+   "date": "2024-08-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0648",
+   "date": "2022-10-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0649",
+   "date": "2020-09-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0650",
+   "date": "2026-04-03",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0651",
+   "date": "2023-07-20",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0652",
+   "date": "2024-03-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0653",
+   "date": "2023-04-11",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0654",
+   "date": "2020-04-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0655",
+   "date": "2025-03-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0656",
+   "date": "2019-07-25",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0657",
+   "date": "2022-10-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0658",
+   "date": "2023-10-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0659",
+   "date": "2026-04-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0660",
+   "date": "2026-01-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0661",
+   "date": "2020-03-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0662",
+   "date": "2022-07-06",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0663",
+   "date": "2022-10-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0664",
+   "date": "2026-01-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0665",
+   "date": "2026-06-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0666",
+   "date": "2026-09-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0667",
+   "date": "2022-02-10",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0668",
+   "date": "2024-11-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0669",
+   "date": "2020-09-04",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0670",
+   "date": "2024-04-01",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0671",
+   "date": "2022-02-23",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0672",
+   "date": "2025-10-29",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0673",
+   "date": "2021-02-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0674",
+   "date": "2022-10-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0675",
+   "date": "2023-02-09",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0676",
+   "date": "2021-02-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0677",
+   "date": "2024-02-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0678",
+   "date": "2026-06-01",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0679",
+   "date": "2020-05-14",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0680",
+   "date": "2022-10-11",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0681",
+   "date": "2020-02-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0682",
+   "date": "2020-02-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0683",
+   "date": "2021-11-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0684",
+   "date": "2025-04-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0685",
+   "date": "2025-04-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0686",
+   "date": "2024-04-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0687",
+   "date": "2020-10-22",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0688",
+   "date": "2026-02-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0689",
+   "date": "2026-09-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0690",
+   "date": "2026-09-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0691",
+   "date": "2024-12-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0692",
+   "date": "2022-04-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0693",
+   "date": "2025-05-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0694",
+   "date": "2023-09-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0695",
+   "date": "2020-04-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0696",
+   "date": "2025-06-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0697",
+   "date": "2021-07-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0698",
+   "date": "2022-03-28",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0699",
+   "date": "2019-02-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0700",
+   "date": "2019-05-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0701",
+   "date": "2023-04-25",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0702",
+   "date": "2022-06-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0703",
+   "date": "2023-04-25",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0704",
+   "date": "2025-05-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0705",
+   "date": "2022-08-31",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0706",
+   "date": "2025-03-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0707",
+   "date": "2025-02-24",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0708",
+   "date": "2022-06-28",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0709",
+   "date": "2022-03-17",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0710",
+   "date": "2022-02-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0711",
+   "date": "2023-06-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0712",
+   "date": "2023-07-07",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0713",
+   "date": "2021-05-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0714",
+   "date": "2026-10-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0715",
+   "date": "2024-04-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0716",
+   "date": "2023-08-16",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0717",
+   "date": "2023-12-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0718",
+   "date": "2020-03-04",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0719",
+   "date": "2021-07-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0720",
+   "date": "2019-04-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0721",
+   "date": "2019-08-27",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0722",
+   "date": "2023-05-09",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0723",
+   "date": "2022-07-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0724",
+   "date": "2022-04-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0725",
+   "date": "2023-02-22",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0726",
+   "date": "2023-11-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0727",
+   "date": "2024-01-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0728",
+   "date": "2020-03-03",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0729",
+   "date": "2021-03-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0730",
+   "date": "2026-06-02",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0731",
+   "date": "2024-10-15",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0732",
+   "date": "2020-05-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0733",
+   "date": "2019-01-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0734",
+   "date": "2026-01-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0735",
+   "date": "2020-03-06",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0736",
+   "date": "2024-02-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0737",
+   "date": "2020-09-11",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0738",
+   "date": "2026-03-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0739",
+   "date": "2026-06-17",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0740",
+   "date": "2025-08-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0741",
+   "date": "2020-04-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0742",
+   "date": "2020-02-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0743",
+   "date": "2022-05-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0744",
+   "date": "2020-04-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0745",
+   "date": "2019-10-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0746",
+   "date": "2022-11-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0747",
+   "date": "2023-10-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0748",
+   "date": "2022-04-13",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0749",
+   "date": "2023-11-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0750",
+   "date": "2023-06-26",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0751",
+   "date": "2024-04-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0752",
+   "date": "2022-08-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0753",
+   "date": "2026-02-26",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0754",
+   "date": "2022-12-01",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0755",
+   "date": "2025-04-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0756",
+   "date": "2022-10-19",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0757",
+   "date": "2024-04-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0758",
+   "date": "2019-05-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0759",
+   "date": "2022-11-02",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0760",
+   "date": "2023-12-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0761",
+   "date": "2024-11-12",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0762",
+   "date": "2021-01-19",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0763",
+   "date": "2022-12-02",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0764",
+   "date": "2026-09-10",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0765",
+   "date": "2025-07-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0766",
+   "date": "2025-08-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0767",
+   "date": "2020-09-14",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0768",
+   "date": "2024-10-23",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0769",
+   "date": "2020-12-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0770",
+   "date": "2022-04-19",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0771",
+   "date": "2026-05-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0772",
+   "date": "2019-07-18",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0773",
+   "date": "2026-10-07",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0774",
+   "date": "2020-01-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0775",
+   "date": "2022-02-23",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0776",
+   "date": "2021-03-24",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0777",
+   "date": "2022-01-20",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0778",
+   "date": "2025-04-10",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0779",
+   "date": "2019-03-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0780",
+   "date": "2022-06-30",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0781",
+   "date": "2020-04-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0782",
+   "date": "2026-05-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0783",
+   "date": "2019-08-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0784",
+   "date": "2026-07-29",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0785",
+   "date": "2021-06-28",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0786",
+   "date": "2026-10-13",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0787",
+   "date": "2022-02-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0788",
+   "date": "2026-05-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0789",
+   "date": "2021-07-19",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0790",
+   "date": "2023-01-24",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0791",
+   "date": "2023-11-20",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0792",
+   "date": "2026-04-15",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0793",
+   "date": "2022-05-06",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0794",
+   "date": "2023-02-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0795",
+   "date": "2024-06-27",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0796",
+   "date": "2023-02-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0797",
+   "date": "2026-06-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0798",
+   "date": "2023-01-25",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0799",
+   "date": "2024-09-10",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0800",
+   "date": "2023-12-01",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0801",
+   "date": "2020-09-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0802",
+   "date": "2022-09-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0803",
+   "date": "2020-02-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0804",
+   "date": "2023-08-31",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0805",
+   "date": "2026-10-22",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0806",
+   "date": "2023-11-03",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0807",
+   "date": "2024-07-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0808",
+   "date": "2020-06-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0809",
+   "date": "2023-06-27",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0810",
+   "date": "2020-05-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0811",
+   "date": "2026-01-27",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0812",
+   "date": "2023-05-26",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0813",
+   "date": "2019-03-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0814",
+   "date": "2026-06-03",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0815",
+   "date": "2025-06-26",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0816",
+   "date": "2020-01-23",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0817",
+   "date": "2019-08-21",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0818",
+   "date": "2020-10-05",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0819",
+   "date": "2026-06-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0820",
+   "date": "2019-08-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0821",
+   "date": "2025-10-21",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0822",
+   "date": "2019-12-31",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0823",
+   "date": "2023-12-13",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0824",
+   "date": "2025-02-13",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0825",
+   "date": "2023-05-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0826",
+   "date": "2023-07-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0827",
+   "date": "2019-08-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0828",
+   "date": "2022-03-25",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0829",
+   "date": "2021-11-22",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0830",
+   "date": "2026-05-08",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0831",
+   "date": "2021-05-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0832",
+   "date": "2023-06-22",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0833",
+   "date": "2026-09-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0834",
+   "date": "2021-10-12",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0835",
+   "date": "2024-04-24",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0836",
+   "date": "2023-12-08",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0837",
+   "date": "2024-06-20",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0838",
+   "date": "2022-06-07",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0839",
+   "date": "2019-07-18",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0840",
+   "date": "2020-11-17",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0841",
+   "date": "2024-10-23",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0842",
+   "date": "2020-06-05",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0843",
+   "date": "2025-08-12",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0844",
+   "date": "2024-11-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0845",
+   "date": "2025-04-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0846",
+   "date": "2022-02-16",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0847",
+   "date": "2021-02-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0848",
+   "date": "2026-04-03",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0849",
+   "date": "2025-04-15",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0850",
+   "date": "2025-05-22",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0851",
+   "date": "2025-08-12",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0852",
+   "date": "2021-04-07",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0853",
+   "date": "2023-09-01",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0854",
+   "date": "2021-09-29",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0855",
+   "date": "2022-07-27",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0856",
+   "date": "2025-06-09",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0857",
+   "date": "2025-03-24",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "holdout"
+  },
+  {
+   "itemId": "R8-0858",
+   "date": "2020-11-04",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0859",
+   "date": "2022-02-22",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0860",
+   "date": "2019-08-29",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0861",
+   "date": "2019-02-04",
+   "series": "treasury:2Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0862",
+   "date": "2020-03-06",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0863",
+   "date": "2020-04-21",
+   "series": "treasury:2s10s",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0864",
+   "date": "2021-02-09",
+   "series": "treasury:10Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  },
+  {
+   "itemId": "R8-0865",
+   "date": "2023-11-28",
+   "series": "treasury:30Y",
+   "window": "the session and the 5 sessions before it",
+   "split": "development"
+  }
+ ],
+ "sealedKeySha256": "d4fc5b3eb2ac5330ff869917066f7d85f4258fd4242a77d9fe4979158fe6212f"
+}

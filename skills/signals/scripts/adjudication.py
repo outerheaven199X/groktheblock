@@ -5,14 +5,17 @@ whatever the news. This module labels nothing by itself; it only maps a reviewer
 import json
 from pathlib import Path
 
-TABLE = json.loads((Path(__file__).resolve().parents[3] / "docs/review/adjudication-r7.json").read_text())
+_DOCS = Path(__file__).resolve().parents[3] / "docs/review"
+TABLES = {v: json.loads((_DOCS / f"adjudication-{v}.json").read_text()) for v in ("r7", "r8")}
+TABLE = TABLES["r7"]
 
 
 def _match(pat, v):
     return pat == "*" or v in pat.split("|")
 
 
-def decide(axes: dict) -> dict:
+def decide(axes: dict, table: str = "r7") -> dict:
+    TABLE = TABLES[table]
     for k in ("anomaly", "integrity", "context"):
         if axes.get(k) not in TABLE["axes"][k]["values"]:
             raise ValueError(f"{k}={axes.get(k)!r} not in the frozen table")

@@ -125,3 +125,9 @@ Full table: `ROUND7-RESULTS.md`. Regressions: `tests/test_round7.py` (0/14 befor
 - **R7-03 fixed.** *Correction to round 6:* options, stablecoins and macro were aged on an NYSE 18:00 ET daily clock. Each source and instrument now has its own clock in timebase.
 - **R7-04 fixed.** Rehearsal and final receipts are separate. The R6-04 test was amended to read the renamed rehearsal receipt.
 - **R7-05 / R7-06 outstanding.** CI is not active (token lacks `workflow` scope). No physical-device QA.
+
+## Round 8 (ROUND8-REVIEW of fa56b4e)
+Full table: `ROUND8-RESULTS.md`. Regressions: `tests/test_round8.py` (1/17 before, 17/17 after; the one already passing is a guard on round-7 behaviour).
+- **R8-01.** *Corrections to round 7:* the r7 calendar gave the 2020-03-02 meeting date instead of the 2020-03-03 statement date. It had no scheduled/unscheduled class and no first observation session, and it was scraped from page headings. It was also fetched with a placeholder contact (nick@example.com), which is now removed. The bond calendar was wrong for Good Friday 2021/2023/2026 and 2025-01-09; for 2018 to 2026-10-27 it now comes from the observed treasury.gov curve days. The FOMC audit is clean. The BLS audit is NOT_CONFIGURED (no GTB_CONTACT).
+- **R8-02.** *Correction to round 7:* the r7 frame needed only 60 prior sessions, but the reference rule needs 250. Treasury 2018 data was added, the frame now requires 250 valid prior changes, and 8 windows are ineligible.
+- **R8-03 to R8-07 fixed** as in the table. **R8-05** human reviewers (owner decision) and **R8-08** CI and devices remain outstanding.

@@ -1,4 +1,13 @@
-# Adjudication rules for objective A (round 7 table supersedes the round-6 amendment; frozen before any label)
+# Adjudication rules for objective A (round 8 table `adjudication-r8.json` supersedes r7; frozen before any label)
+
+## Round 8
+- **Anomaly is computed, not judged.** `skills/signals/scripts/reference.py` applies the 0.975 quantile (type-7 interpolation) of |Δ| over the 250 valid prior changes; equal to the cutoff counts as YES; fewer than 250 changes is UNASSESSABLE. This is a statistical tail of recent history, not market relevance, a hit rate or predictive accuracy.
+- **Reviewers judge integrity and context only.**
+- **Preregistered sensitivity analyses:** 0.95 and 0.99, never tuned.
+- **Tracks:** population (design-weighted, `estimators.py`), emitted episodes, and the boundary challenge set (diagnostic). They are never pooled.
+- **Gate:** `eval-treasury/reviewer-gate-r8.json` is BLOCKED until two independent reviewers and an adjudicator, chosen by the owner, complete the 12 r8 vignettes and a 25-item calibration pilot.
+
+# (r7) Adjudication rules
 
 ## Round 7 (R7-01): three orthogonal axes, one frozen decision table
 Machine-readable and frozen: `adjudication-r7.json` (version r7-2026-10-28, SHA-256 `f3b072c93c6b48bd7f1855352af2cad67ca62c9be0e7767ab673e4ce40961254`); applied in code by `skills/signals/scripts/adjudication.py`.

@@ -441,8 +441,8 @@
     "sessions": 455
    }
   },
-  "why": "r7 rubric, blind r7 roster and probability sample exist; no reviewer has labelled anything. INSUFFICIENT_EVIDENCE; no precision on the r6 rubric; no lead time.",
-  "rubricVersion": "r7-2026-10-28",
+  "why": "r8 calendar, frame (250-session eligibility), tracks and estimators exist; reviewers not assigned; label gate BLOCKED; no labels.",
+  "rubricVersion": "r8-2026-10-28",
   "vignetteReviewerCheck": {
    "status": "NOT_RUN",
    "why": "two independent reviewers have not returned the four vignette labels"
@@ -455,6 +455,27 @@
     "PROBABILITY_SAMPLE": 411
    },
    "items": 778
+  },
+  "labelingGate": "BLOCKED",
+  "pooledEstimateAllowed": false,
+  "neverFrom": {
+   "QUIET_CONTROL": [
+    "recall",
+    "specificity"
+   ],
+   "BOUNDARY_CHALLENGE": [
+    "population estimates"
+   ]
+  },
+  "rosterR8": {
+   "file": "docs/review/eval-treasury/roster-r8.json",
+   "counts": {
+    "EPISODE": 196,
+    "QUIET_CONTROL": 196,
+    "PROBABILITY_SAMPLE": 422,
+    "BOUNDARY_CHALLENGE": 94
+   },
+   "items": 865
   }
  }
 }
