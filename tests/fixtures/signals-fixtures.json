@@ -1,0 +1,419 @@
+{
+ "_note": "SYNTHETIC test fixtures, not market data",
+ "polymarket": {
+  "jump": {
+   "source": "polymarket",
+   "id": "0xfixture1",
+   "title": "Will the Fed cut rates in December?",
+   "event": "Fed decision in December?",
+   "url": "https://polymarket.com/event/fixture-fed",
+   "api": "https://gamma-api.polymarket.com/markets?slug=fixture",
+   "outcome": "Yes",
+   "price": 0.62,
+   "change1h": 0.25,
+   "change1d": 0.3,
+   "vol24": 900000,
+   "vol1wk": 2000000,
+   "liquidity": 50000,
+   "startTs": 1792224000,
+   "endTs": 1803456000,
+   "category": null
+  },
+  "quiet": {
+   "source": "polymarket",
+   "id": "0xfixture2",
+   "title": "Quiet market",
+   "event": null,
+   "url": "https://polymarket.com/event/q",
+   "api": null,
+   "outcome": "Yes",
+   "price": 0.5,
+   "change1h": 0.01,
+   "change1d": 0.02,
+   "vol24": 500000,
+   "vol1wk": 3500000,
+   "startTs": 1792224000,
+   "endTs": 1807776000
+  },
+  "spike": {
+   "source": "polymarket",
+   "id": "0xfixture3",
+   "title": "Will gold close above $3000?",
+   "event": null,
+   "url": "https://polymarket.com/event/g",
+   "api": null,
+   "outcome": "Yes",
+   "price": 0.4,
+   "change1h": 0,
+   "change1d": 0.01,
+   "vol24": 1000000,
+   "vol1wk": 1300000,
+   "startTs": 1797408000,
+   "endTs": 1802592000
+  }
+ },
+ "trades": [
+  {
+   "wallet": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "side": "BUY",
+   "outcome": "Yes",
+   "price": 0.4,
+   "usd": 40000,
+   "ts": 1799997000,
+   "tx": "0x1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  {
+   "wallet": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+   "side": "BUY",
+   "outcome": "Yes",
+   "price": 0.41,
+   "usd": 20000,
+   "ts": 1799998000,
+   "tx": "0x2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  {
+   "wallet": "0xcccccccccccccccccccccccccccccccccccccccc",
+   "side": "BUY",
+   "outcome": "Yes",
+   "price": 0.42,
+   "usd": 90000,
+   "ts": 1799999000,
+   "tx": "0x3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  {
+   "wallet": "0xdddddddddddddddddddddddddddddddddddddddd",
+   "side": "SELL",
+   "outcome": "Yes",
+   "price": 0.42,
+   "usd": 1000,
+   "ts": 1799999100,
+   "tx": "0x4444444444444444444444444444444444444444444444444444444444444444"
+  }
+ ],
+ "firstSeenAgo": {
+  "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa": 86400,
+  "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb": 172800,
+  "0xcccccccccccccccccccccccccccccccccccccccc": 34560000,
+  "0xdddddddddddddddddddddddddddddddddddddddd": 3600
+ },
+ "kalshi": {
+  "shock": {
+   "source": "kalshi",
+   "id": "KXFEDFIX-27DEC-C25",
+   "title": "Fed cuts rates in December? Cut 25bp",
+   "event": "KXFEDFIX-27DEC",
+   "category": "Economics",
+   "url": "https://kalshi.com/markets/kxfedfix",
+   "api": "https://api.elections.kalshi.com/trade-api/v2/markets/KXFEDFIX-27DEC-C25",
+   "price": 0.7,
+   "prev": 0.4,
+   "vol24": 150000,
+   "volume": 200000,
+   "oi": 90000,
+   "openTs": 1794816000,
+   "closeTs": 1803456000
+  }
+ },
+ "equity": [
+  [
+   1797408000,
+   99.27,
+   1069486.7473874465
+  ],
+  [
+   1797494400,
+   99.79,
+   951013.8051478844
+  ],
+  [
+   1797580800,
+   99.78,
+   989898.2129577477
+  ],
+  [
+   1797667200,
+   100.09,
+   1057744.6702271027
+  ],
+  [
+   1797753600,
+   99.27,
+   905669.4953044014
+  ],
+  [
+   1797840000,
+   99.94,
+   986553.4135810108
+  ],
+  [
+   1797926400,
+   100.46,
+   900421.2106702222
+  ],
+  [
+   1798012800,
+   100.35,
+   1044308.0064681567
+  ],
+  [
+   1798099200,
+   99.81,
+   1089054.1391107847
+  ],
+  [
+   1798185600,
+   100.61,
+   906117.9966067107
+  ],
+  [
+   1798272000,
+   99.66,
+   1008282.4945586994
+  ],
+  [
+   1798358400,
+   100.53,
+   976240.8475376425
+  ],
+  [
+   1798444800,
+   99.96,
+   984423.3151165436
+  ],
+  [
+   1798531200,
+   99.02,
+   944338.333254607
+  ],
+  [
+   1798617600,
+   98.9,
+   999162.4482763702
+  ],
+  [
+   1798704000,
+   98.37,
+   946173.308308197
+  ],
+  [
+   1798790400,
+   97.82,
+   991920.6931475468
+  ],
+  [
+   1798876800,
+   97.4,
+   904297.9410531819
+  ],
+  [
+   1798963200,
+   98.06,
+   1011290.8645304868
+  ],
+  [
+   1799049600,
+   98.34,
+   937181.2531789436
+  ],
+  [
+   1799136000,
+   99.31,
+   1071989.3057590579
+  ],
+  [
+   1799222400,
+   98.56,
+   966539.0370720258
+  ],
+  [
+   1799308800,
+   98.99,
+   1042238.353939056
+  ],
+  [
+   1799395200,
+   99.86,
+   984421.3999922831
+  ],
+  [
+   1799481600,
+   100.52,
+   1034061.1132828144
+  ],
+  [
+   1799568000,
+   100.12,
+   1017516.121228712
+  ],
+  [
+   1799654400,
+   100.89,
+   1069239.4836856627
+  ],
+  [
+   1799740800,
+   100.9,
+   1017800.4515965105
+  ],
+  [
+   1799827200,
+   99.96,
+   948547.9947086136
+  ],
+  [
+   1799913600,
+   100.55,
+   982862.7998601549
+  ],
+  [
+   1800000000,
+   109.6,
+   6000000
+  ]
+ ],
+ "options": [
+  {
+   "contract": "TEST270219C00100000",
+   "volume": 6000,
+   "oi": 100,
+   "type": "call",
+   "expiry": "20270219"
+  },
+  {
+   "contract": "TEST270219C00110000",
+   "volume": 3000,
+   "oi": 1000,
+   "type": "call",
+   "expiry": "20270219"
+  },
+  {
+   "contract": "TEST270219P00090000",
+   "volume": 500,
+   "oi": 10,
+   "type": "put",
+   "expiry": "20270219"
+  },
+  {
+   "contract": "TEST200101C00100000",
+   "volume": 90000,
+   "oi": 1,
+   "type": "call",
+   "expiry": "20200101"
+  }
+ ],
+ "treasury": [
+  [
+   "2027-01-01",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-02",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-03",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-04",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-05",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-06",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-07",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-08",
+   {
+    "3M": 4.2,
+    "2Y": 4.5,
+    "5Y": 4.55,
+    "10Y": 4.6,
+    "30Y": 4.8
+   }
+  ],
+  [
+   "2027-01-09",
+   {
+    "3M": 4.2,
+    "2Y": 4.75,
+    "5Y": 4.6,
+    "10Y": 4.62,
+    "30Y": 4.8
+   }
+  ]
+ ],
+ "watch": {
+  "kind": "watch",
+  "token": {
+   "symbol": "FIX",
+   "mint": "FixtureMint111"
+  },
+  "recentAlerts": [
+   {
+    "type": "WHALE_SELL",
+    "severity": "HIGH",
+    "timestamp": 1799999400,
+    "key": "k1",
+    "wallet": "FixtureWallet1111",
+    "amountSol": 50,
+    "url": "https://solscan.io/tx/fixture"
+   },
+   {
+    "type": "LARGE_BUY",
+    "timestamp": 1792224000,
+    "key": "old"
+   }
+  ]
+ }
+}

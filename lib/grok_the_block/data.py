@@ -92,7 +92,7 @@ PROVIDERS: dict[str, dict] = {}
 
 def _fail_sim(name: str) -> bool:
     """GTB_SIMULATE_FAIL (or CRYPTOSINT_SIMULATE_FAIL)=dexscreener,rugcheck,rpc simulates a provider outage (testing only)."""
-    return name in {x.strip() for x in os.environ.get("GTB_SIMULATE_FAIL") or os.environ.get("CRYPTOSINT_SIMULATE_FAIL", "").split(",") if x.strip()}
+    return name in {x.strip() for x in (os.environ.get("GTB_SIMULATE_FAIL") or os.environ.get("CRYPTOSINT_SIMULATE_FAIL", "")).split(",") if x.strip()}
 
 
 def mark(name: str, ok: bool, detail: str = "") -> None:

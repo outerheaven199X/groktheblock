@@ -1,8 +1,37 @@
 # Grok The Block
 
-**Understand what actually happened in a token's transactions.** Give Grok Bot a Solana token, a wallet, a ticker, or a promo clip, and it explains the transactions in plain English: who bought at launch, whether supply was bundled into a few wallets, who sold into whom, which wallets copy each other, whether promo accounts on X moved together, and what changed since you last looked. Each answer leads with the main finding, then its coverage and limits, the linked evidence, and what to check next. Results appear as a Page and in a local dashboard.
+**The everything app for unusual activity.** Grok The Block watches public markets from every direction — Polymarket (down to the on-chain wallets), Kalshi, US stocks and options, Treasury yields, crypto exchanges and perps, stablecoin supply, the dollar, gold, oil and VIX, SEC filings, and Solana tokens — and tells you, in plain English, the moment something looks like it's about to happen. When several independent markets move on the same story at once, it ranks that **anomaly convergence** at the top with the full evidence chain. Run it on a schedule from your own Grok Bot and it DMs you only what's new.
 
-Grok The Block is an evolution of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki ([@varien](https://x.com/varien))**. The original runs on Vite/React, Cloudflare Functions, KV, and paid Helius. This version runs on free public data (Helius optional). It adds plain-English assessments, X coordination checks, promo provenance, and watch diffs.
+> **Not financial advice.** Grok The Block flags unusual activity in public data and shows the evidence behind it. A signal is not a prediction, a recommendation to buy or sell, or an accusation against anyone. It never trades.
+
+It started as a forensic tool for Solana tokens, and that's still here: give Grok Bot a token, a wallet, a ticker, or a promo clip, and it explains the transactions — who bought at launch, whether supply was bundled, who sold into whom, which wallets copy each other, whether promo accounts on X moved together, and what changed since you last looked. Each answer leads with the main finding, then its coverage and limits, the linked evidence, and what to check next. Results appear as a Page and in a local dashboard.
+
+Grok The Block is an evolution of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki ([@varien](https://x.com/varien))**. The original runs on Vite/React, Cloudflare Functions, KV, and paid Helius. This version runs on free public data (Helius optional). It adds plain-English assessments, the cross-market signal feed, X coordination checks, promo provenance, and watch diffs.
+
+## Cross-market signals
+
+`skills/signals` (`signals.py scan | watch`) → `out/signals-*.json` → the **Signals** tab (key `9`).
+
+| Source | Keyless data used | Signals |
+|---|---|---|
+| Polymarket | Gamma API (markets), data-api (trades, wallet activity); trades settle on Polygon, so each links to Polygonscan | odds jumps, volume vs 6-day baseline, large bets from wallets new to Polymarket while odds move |
+| Kalshi | public trade API v2 (events + markets) | price shocks vs previous day, volume vs lifetime daily average |
+| US stocks | Yahoo chart API (Nasdaq fallback) | volume and return z-scores vs 20 sessions |
+| US options | Cboe delayed chains (Nasdaq fallback) | volume ≥2× open interest, put/call, 0DTE excluded |
+| Treasuries | Treasury.gov daily par curve (FRED fallback) | sudden 2Y/10Y/30Y moves, 2s10s inversion and shifts |
+| Crypto CEX | OKX spot + perps (Coinbase spot fallback) | BTC/ETH/SOL volume/return z, open-interest shocks, extreme funding |
+| Stablecoins | DefiLlama on-chain supply | large daily mints and burns |
+| FX · commodities · vol | Yahoo (VIX, DXY, gold, WTI, EUR/USD, USD/JPY) | outsized daily moves, VIX spikes |
+| SEC EDGAR | public atom feed (opt-in: set `GTB_SEC_USER_AGENT="Name email"` per SEC rules) | insider Form 4 clusters, material 8-K items |
+| Solana | your local `watch-token` reports | whale sells, insider moves, LP changes |
+| **Convergence** | all of the above | 0–100 score when independent sources move on the same topic/name/ticker within 48h |
+
+Every signal has a severity, a basis (*observed*, *heuristic*, *inferred*), what/when, evidence links and its limits. A provider that fails shows as **unknown**, never as quiet. Not included because they couldn't be verified keylessly from the build machine: Binance/Bybit (geo-blocked there), per-transaction stablecoin mints (Etherscan keyless API retired), Stooq (JS challenge).
+
+**Alerts:** `signals.py watch` diffs against the last successful run and only reports new or escalated signals (deduplicated by key). `skills/signals/SKILL.md` has a copy-paste Grok Bot routine so anyone's own Grok Bot can DM them on new material signals, plus an optional `--webhook` JSON output. Nothing uses the author's accounts.
+
+![Signals tab](docs/signals-desktop-hero.png)
+![Signal feed with evidence](docs/signals-desktop-feed.png)
 
 ## What it does
 
@@ -18,6 +47,7 @@ Grok The Block is an evolution of **[CryptOSINT](https://github.com/outerheaven1
 | `watch-token` | What changed since the last successful scan (liquidity, authorities, LP lock, verdict, new risks) plus whale and insider-move alerts, deduplicated, with evidence links |
 | `threat-feed` | Digest of LP pulls, insider dumps, rugged flags, mint/freeze authority |
 | `promo-provenance` | Hashes and reuse, EXIF and generator tags, ffprobe, C2PA, frame and loop checks. Signals, never verdicts |
+| `signals` | Cross-market early-warning feed (see above), watch mode with deduped alerts, routine recipe, webhook |
 | `solana-data` | Shared data layer: public RPC with failover, DexScreener, RugCheck, optional Helius, local cache |
 
 Plus `ui/`, a zero-build static dashboard in the original's dark palette that reads the JSON the scripts write.
@@ -33,7 +63,7 @@ In the dashboard, the command bar (`/`) keeps two things separate: **1 · Search
 
 ## Screenshots
 
-Open `ui/index.html` (serve the repo root, e.g. `python3 -m http.server`, then visit `/ui/`). Press `/` for the command bar, `1`–`8` for tabs, `?` for shortcuts.
+Open `ui/index.html` (serve the repo root, e.g. `python3 -m http.server`, then visit `/ui/`). Press `/` for the command bar, `1`–`9` for tabs, `?` for shortcuts.
 
 ![Token scan](docs/ui-token-scan.png)
 ![Shill network (anonymized)](docs/ui-shill-network.png)
@@ -63,6 +93,7 @@ Ambiguous tickers: if more than one Solana mint uses the symbol (for example `$T
 Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py`, `python3 tests/test_watch_diff.py` and `python3 tests/test_no_leaks.py` to check the classifier port and the watch diff.
 
 Bundled X examples are sanitized (`tools/sanitize_examples.py`): post text is replaced by pattern summaries, handles and links are removed, and follower counts are bucketed.
+`examples/signals-EXAMPLE.json` is a real keyless run of the signals feed, labeled EXAMPLE (not live); Polymarket wallets are shortened and no names, handles or profiles are stored.
 
 The shill detector reads saved X search results (the JSON from X's search API, with `expansions=author_id`). Inside Grok Bot, the bot fetches those with its built-in X tools. Standalone, bring your own export.
 
