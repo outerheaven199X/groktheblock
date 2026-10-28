@@ -2,7 +2,11 @@
 
 Identity: signal key (provider + canonical entity + detector) + episode number. No calendar date, so a
 condition that continues across UTC midnight stays one incident.
-- Exit hysteresis: the measured magnitude (observed / entry threshold) falls below 0.75 for 2 valid observations.
+- Exit hysteresis: the measured magnitude (observed / entry threshold) falls below 0.75 for 2 consecutive valid
+  observations. For a multi-member (cross-market) incident the magnitude is the HOTTEST member's: it cools only when
+  every member is validly below exit, and any missing member holds it.
+- Admission (R4-02): a present signal opens, escalates, reconfirms or re-alerts only with a current source observation
+  (not STALE/UNAVAILABLE/NOT_CONFIGURED), a valid time, and a valid detector probe; otherwise HELD_STALE/HELD_INVALID.
 - Re-alert: a new episode (re-entry after RESOLVED), a new distinct transaction, a ≥25% rise in magnitude, or
   a severity escalation. Unresolved HIGH/CRITICAL: reminder at 6h, then at most daily.
 - Observation validity (P0.01): resolution needs a VALID probe for the incident's own instrument+detector key.
@@ -17,6 +21,7 @@ condition that continues across UTC midnight stays one incident.
 from __future__ import annotations
 
 import json
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -24,6 +29,30 @@ SEV = ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
 EXIT_RATIO, EXIT_COUNT, RISE = 0.75, 2, 1.25
 REMIND_FIRST, REMIND_EVERY = 6 * 3600, 24 * 3600
 BAD = {"UNAVAILABLE", "STALE", "NOT_CONFIGURED"}
+DEAD_LETTER_MAX = 200
+EVENT_SOURCES = {"sec", "solana"}  # event detectors: the transaction/filing itself is the measurement (no ratio probe)
+
+
+def admit(s: dict, probes: dict) -> str | None:
+    """R4-02: may this present signal open, escalate, reconfirm or re-alert an incident? None = yes, else the reason.
+    A source that returned data is not the same as a detector that produced a valid measurement: both are required."""
+    if s["source"] == "cross":
+        return None  # cross signals are built only from eligible members (detectors._eligible); members are checked on exit
+    o = s.get("observation")
+    if o is None:
+        return None  # legacy/unit-level signal without an envelope (v1 adapter always adds one)
+    if o.get("sourceStatus") in BAD:
+        return f"source {o['sourceStatus']}: the provider returned no current data for this observation"
+    if o.get("temporalStatus", "OK") != "OK":
+        return f"time not valid ({o['temporalStatus']})"
+    if s["source"] in EVENT_SOURCES or (s.get("metrics") or {}).get("distinctTx"):
+        return None
+    p = probes.get(s["key"])
+    if p is None:
+        return "detector produced no valid measurement (no probe recorded)"
+    if isinstance(p, dict) and not (p.get("valid") and p.get("ratio") is not None):
+        return f"detector produced no valid measurement ({p.get('reason') or 'invalid'})"
+    return None
 
 
 def load(path: Path) -> dict:
@@ -63,6 +92,25 @@ def _probe(probes, k):
     return float(p), True
 
 
+def _members(inc, new, probes, now):
+    """R4-01: a recomputed convergence may list different members. Members dropped from the new list stay while their
+    last valid observation is still at/above exit (or unobserved); the change is recorded, never silent."""
+    old = list(inc.get("members") or [])
+    keep = []
+    for m in old:
+        if m in new:
+            continue
+        r, v = _probe(probes, m)
+        if not v or r >= EXIT_RATIO:
+            keep.append(m)
+    merged = list(dict.fromkeys(new + keep))
+    if set(merged) != set(old):
+        inc.setdefault("memberHistory", []).append({"at": now, "event": "MEMBERS_CHANGED", "from": old, "to": merged,
+                                                    "retainedActive": keep, "note": "dropped members kept while still anomalous or unobserved"})
+        inc["memberHistory"] = inc["memberHistory"][-20:]
+    inc["members"] = merged
+
+
 def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, str], now: int, prefs: dict | None = None) -> dict:
     """Advance the lifecycle one run. Returns {"alerts": [...], "telemetry": {...}} and mutates st."""
     prefs = prefs or {}
@@ -71,7 +119,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
     quiet = prefs.get("quietHours")
     digest_mode = prefs.get("digest", False)
     tel = {"alerts": 0, "newEpisodes": 0, "suppressedUnchanged": 0, "belowFloor": 0, "muted": 0, "deferred": 0,
-           "skippedUnavailable": 0, "heldUnobserved": 0, "resolved": 0, "cooling": 0, "reminders": 0, "delivered": 0, "deliveryFailed": 0}
+           "skippedUnavailable": 0, "heldUnobserved": 0, "resolved": 0, "cooling": 0, "reminders": 0, "delivered": 0, "deliveryFailed": 0,
+           "heldStale": 0, "heldInvalid": 0, "notAdmitted": 0, "notAdmittedDetail": []}
     qargs = (quiet, prefs.get("tzOffsetH", 0), prefs.get("quietTz"))
     inc_all = st.setdefault("incidents", {})
     first_run = not st.get("lastSuccessAt")
@@ -82,6 +131,17 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             continue
         k = s["key"]
         seen_now.add(k)
+        why = admit(s, probes)
+        if why:
+            inc = inc_all.get(k)
+            if inc is None or inc["state"] == "RESOLVED":
+                tel["notAdmitted"] += 1
+                tel["notAdmittedDetail"].append({"key": k, "reason": why})
+            else:
+                stale = why.startswith("source ")
+                tel["heldStale" if stale else "heldInvalid"] += 1
+                _hist(inc, now, "HELD_STALE" if stale else "HELD_INVALID", f"{why}; last confirmed state retained ({inc.get('lastConfirmedAt')})")
+            continue
         mag, _v = _probe(probes, k)
         if mag is None:
             mag = 1.0 + ((s.get("metrics") or {}).get("rank") or 0) / 100 if s["source"] == "cross" else 1.0
@@ -101,7 +161,7 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
         else:
             inc["state"] = "ACTIVE"; inc["belowCount"] = 0; inc["lastSeenAt"] = now; inc["lastMagnitude"] = mag; inc["lastConfirmedAt"] = now
             if (s.get("metrics") or {}).get("memberKeys"):
-                inc["members"] = list(s["metrics"]["memberKeys"])
+                _members(inc, list(s["metrics"]["memberKeys"]), probes, now)
             inc["peakMagnitude"] = max(inc["peakMagnitude"], mag); inc["title"] = s["title"]
             new_tx = tx - set(inc["distinctTx"])
             if SEV.index(s["severity"]) > SEV.index(inc["severity"]):
@@ -137,7 +197,8 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
             tel["heldUnobserved"] += 1
             _hist(inc, now, "HELD_UNOBSERVED", f"not validly observed this run ({', '.join(missing[:3])}); last confirmed {inc.get('lastConfirmedAt')}")
             continue
-        r = min(x for x, _ in obs)
+        # R4-01: a multi-member incident cools only when EVERY member is validly below exit: the hottest member decides
+        r = max(x for x, _ in obs)
         inc["lastMagnitude"] = r
         if r < EXIT_RATIO:
             inc["belowCount"] += 1
@@ -193,7 +254,9 @@ def step(st: dict, signals: list[dict], probes: dict, source_state: dict[str, st
 
 
 def deliver(st: dict, alerts: list[dict], send, tel: dict | None = None, max_attempts: int = 5) -> dict:
-    """Webhook outbox: queue alerts, try every pending item via send(alert) -> bool, count delivered only on success,
+    """Webhook outbox (AT-LEAST-ONCE: a crash between a successful POST and saving state re-sends the same alertId;
+    receivers must dedupe by alertId). Retry exhaustion moves the item to a bounded dead-letter list (retry_dead_letter).
+    Queue alerts, try every pending item via send(alert) -> bool, count delivered only on success,
     keep failures for the next run (bounded attempts). Restart-safe: the outbox and sent ids live in the state."""
     tel = tel if tel is not None else {}
     box = st.setdefault("outbox", [])
@@ -203,20 +266,36 @@ def deliver(st: dict, alerts: list[dict], send, tel: dict | None = None, max_att
         if a["alertId"] not in known:
             box.append({"alert": a, "attempts": 0}); known.add(a["alertId"])
     keep = []
+    dead = list(st.get("deadLetter") or [])
     for item in box:
-        ok = False
+        ok, err = False, None
         try:
             ok = bool(send(item["alert"]))
-        except Exception:  # noqa: BLE001 - a failed webhook must not stop the scan
-            ok = False
+        except Exception as e:  # noqa: BLE001 - a failed webhook must not stop the scan
+            ok, err = False, type(e).__name__
         item["attempts"] += 1
         if ok:
             sent.append(item["alert"]["alertId"]); tel["delivered"] = tel.get("delivered", 0) + 1
         else:
             tel["deliveryFailed"] = tel.get("deliveryFailed", 0) + 1
+            item["lastError"] = err or "non-2xx response"
             if item["attempts"] < max_attempts:
                 keep.append(item)
+            else:  # R4-06: retry exhaustion is a durable, user-visible terminal state, not a silent drop
+                dead.append({"alert": item["alert"], "attempts": item["attempts"], "lastError": item["lastError"], "deadAt": int(time.time())})
     st["outbox"] = keep
     st["sentIds"] = sent[-2000:]
+    st["deadLetter"] = dead[-DEAD_LETTER_MAX:]
     tel["pendingDelivery"] = len(keep)
+    tel["deadLetter"] = len(st["deadLetter"])
     return tel
+
+
+def retry_dead_letter(st: dict) -> int:
+    """Explicit user action: move dead-lettered alerts back into the outbox with a fresh attempt budget."""
+    dead = st.get("deadLetter") or []
+    box = st.setdefault("outbox", [])
+    for d in dead:
+        box.append({"alert": d["alert"], "attempts": 0, "retriedFromDeadLetter": True})
+    st["deadLetter"] = []
+    return len(dead)

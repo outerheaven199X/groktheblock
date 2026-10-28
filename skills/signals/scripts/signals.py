@@ -32,6 +32,8 @@ ap.add_argument("--tz-offset", type=float, default=0, help="hours from UTC for -
 ap.add_argument("--quiet-tz", default=os.environ.get("GTB_QUIET_TZ", ""), help="IANA zone for --quiet-hours, DST-aware (e.g. America/New_York); overrides --tz-offset")
 ap.add_argument("--digest", action="store_true", help="watch mode: hold alerts in a digest; release with --release-digest")
 ap.add_argument("--release-digest", action="store_true")
+ap.add_argument("--retry-dead-letter", action="store_true",
+                help="watch mode: move webhook alerts that exhausted their retries back into the outbox for another 5 attempts")
 a = ap.parse_args()
 split = lambda s: [x.strip().upper() for x in s.split(",") if x.strip()]  # noqa: E731
 rep = F.run([x.strip().lower() for x in a.sources.split(",") if x.strip()], split(a.tickers) or None, split(a.options) or None, a.pm_limit, a.trace)
@@ -47,14 +49,16 @@ if a.cmd == "watch":
             body = {"tool": "grok-the-block", "kind": "signals-alert", "disclaimer": F.DISCLAIMER, "alertId": x["alertId"],
                     "alert": {k: x.get(k) for k in ("key", "incidentId", "alertReason", "severity", "basis", "source", "title", "what", "when", "evidence", "limits")}}
             try:
-                return requests.post(a.webhook, json=body, timeout=15).ok
+                # at-least-once delivery: the receiver should dedupe by alertId (also sent as Idempotency-Key)
+                return requests.post(a.webhook, json=body, timeout=15, headers={"Idempotency-Key": x["alertId"]}).ok
             except requests.RequestException:
                 return False
-    rep = F.watch(rep, D.CACHE_DIR / "signals-watch.json", prefs, send)
+    rep = F.watch(rep, D.CACHE_DIR / "signals-watch.json", prefs, send, retry_dead_letter=a.retry_dead_letter)
     rep["watch"]["minSeverity"] = a.min_severity
     if a.webhook:
         t = rep["watch"]["telemetry"]
-        rep["watch"]["webhook"] = {"delivered": t.get("delivered", 0), "failed": t.get("deliveryFailed", 0), "pending": t.get("pendingDelivery", 0)}
+        rep["watch"]["webhook"] = {"delivered": t.get("delivered", 0), "failed": t.get("deliveryFailed", 0), "pending": t.get("pendingDelivery", 0),
+                                  "deadLetter": rep["watch"].get("deadLetter", []), "semantics": "at-least-once; dedupe by alertId"}
 OUT.mkdir(parents=True, exist_ok=True)
 stamp = time.strftime("%Y%m%d-%H%M", time.gmtime(rep["generatedAt"]))
 D.write_json(OUT / f"signals-{stamp}.json", rep)
@@ -67,7 +71,7 @@ if not a.quiet:
     if a.cmd == "watch":
         w = rep["watch"]
         if w.get("webhook"):
-            print(f"  webhook: {w['webhook']['delivered']} delivered, {w['webhook']['failed']} failed, {w['webhook']['pending']} queued for retry")
+            print(f"  webhook: {w['webhook']['delivered']} delivered, {w['webhook']['failed']} failed, {w['webhook']['pending']} queued for retry, {len(w['webhook']['deadLetter'])} in dead letter (retry with --retry-dead-letter)")
         print("  baseline set; no alerts on the first run" if w["baseline"] else f"  {len(w['alerts'])} alerts · telemetry {w['telemetry']}")
     print(f"  → out/signals-{stamp}.json")
     print("Not financial advice: unusual activity with evidence, not a prediction or a recommendation.")

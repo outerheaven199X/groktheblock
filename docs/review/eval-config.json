@@ -1,20 +1,58 @@
 {
- "_note": "Frozen evaluation config (RE-AUDIT §04). Change it only with a new version and a note in METHODOLOGY.md. Thresholds are the shadow-mode starting settings in detectors.py at this version; they are not tuned on these results.",
- "version": "r3-2026-10-28",
+ "_note": "Frozen evaluation config (RE-AUDIT \u00a704). Change it only with a new version and a note in METHODOLOGY.md. Thresholds are the shadow-mode starting settings in detectors.py at this version; they are not tuned on these results. r4: thresholds unchanged (not tuned); two baselines added; objective stated in EVALUATION.md.",
+ "version": "r4-2026-10-28",
  "universe": {
-  "treasury": ["2Y", "10Y", "30Y", "2s10s"],
+  "treasury": [
+   "2Y",
+   "10Y",
+   "30Y",
+   "2s10s"
+  ],
   "polymarket": "highest-volume open non-sports market with CLOB history at run time (recorded in the output)"
  },
- "history": {"treasuryLookbackSessions": 60, "polymarketInterval": "1m", "polymarketFidelityMin": 15, "polymarketWindowPoints": 96},
+ "history": {
+  "treasuryLookbackSessions": 60,
+  "polymarketInterval": "1m",
+  "polymarketFidelityMin": 15,
+  "polymarketWindowPoints": 96
+ },
  "labels": {
   "kind": "scheduled official release days (FOMC decision, CPI, Employment Situation) from data/event-calendar.json",
   "meaning": "a day with a known public information release; NOT a label for informed or unusual trading",
-  "split": {"development": "first half of sessions", "holdout": "second half of sessions (reported separately, never used to choose thresholds)"}
+  "split": {
+   "development": "first half of sessions",
+   "holdout": "second half of sessions (reported separately, never used to choose thresholds)"
+  }
  },
- "baseline": {"name": "fixed 10bp", "rule": "|daily change| >= 10bp on 2Y, 10Y or 30Y"},
  "pointInTime": {
   "treasury": "each session uses rows[0..i] only; availability estimated 18:00 ET",
   "polymarket": "price history sliced to each point; 24h volume is NOT point-in-time (vol24 None, vol24AsOf = fetch time), so volume-gated findings are rejected (REPLAY-01)"
  },
- "outputs": "docs/review/eval-results.json"
+ "outputs": "docs/review/eval-results.json",
+ "baselines": {
+  "absolute10bp": {
+   "name": "fixed 10bp",
+   "rule": "|daily change| >= 10bp on 2Y, 10Y or 30Y"
+  },
+  "volNormalizedSingle": {
+   "rule": "|daily change| / stdev of the prior 20 daily changes >= 3 on 2Y, 10Y or 30Y (one series at a time, no cross-tenor or curve logic)",
+   "fixedBeforeResults": true
+  },
+  "calendarOnly": {
+   "rule": "flag every session that is a scheduled FOMC/CPI/NFP release day, with no market data",
+   "note": "identical to the label by construction: it shows the current label measures calendar association, not information outside the calendar"
+  },
+  "newsTimeline": {
+   "status": "not run",
+   "why": "no free, point-in-time first-publication/news archive is available to this project; not substituted"
+  }
+ },
+ "objective": {
+  "chosen": "none of the three is validated yet; the current labelled track only measures scheduled-release-day association",
+  "candidates": [
+   "detect large moves (compare to absolute and vol-normalized baselines)",
+   "forecast scheduled-day volatility (calendar-only baseline is the bar)",
+   "identify information outside the public calendar (needs adjudicated non-calendar events and a news timeline; not available)"
+  ]
+ }
 }

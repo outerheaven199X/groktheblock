@@ -89,7 +89,8 @@ def run_fixture(fx: dict) -> dict:
         for a in res["alerts"]:
             out["alertsByReason"][a["alertReason"]] = out["alertsByReason"].get(a["alertReason"], 0) + 1
         for k, v in res["telemetry"].items():
-            out["telemetry"][k] = out["telemetry"].get(k, 0) + v
+            if isinstance(v, (int, float)):
+                out["telemetry"][k] = out["telemetry"].get(k, 0) + v
         # v1 behaviour: key + UTC date, alert when unseen or severity rose
         day = datetime.fromtimestamp(at, timezone.utc).strftime("%Y%m%d")
         for s in sigs + rel:

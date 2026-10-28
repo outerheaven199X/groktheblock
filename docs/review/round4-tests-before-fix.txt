@@ -1,0 +1,29 @@
+# tests/test_round4.py run against e29040e code (tests written first), 2026-10-28. Command: python tests/test_round4.py
+FAIL test_R4_01_mixed_members_one_hot_one_cool_stays_active_then_both_cool_resolves -- AssertionError ['COOLING', 'RESOLVED', 'RESOLVED']
+ok   test_R4_01_missing_member_holds_at_either_cooling_step
+FAIL test_R4_01_composition_change_keeps_still_active_members -- AssertionError ['treasury:2Y:A', 'polymarket:FED:C']
+FAIL test_R4_02_stale_present_signal_does_not_realert_or_reconfirm -- AssertionError ['REMINDER']
+FAIL test_R4_02_new_high_signal_from_stale_provider_opens_nothing -- AssertionError 
+FAIL test_R4_02_invalid_probe_or_incomplete_time_is_not_a_measurement -- AssertionError 
+FAIL test_R4_02_integration_stale_scan_does_not_remind_or_refresh -- AssertionError stale data must not produce a REMINDER
+FAIL test_R4_02_integration_new_signal_from_stale_provider_opens_no_incident -- AssertionError 
+FAIL test_R4_02_integration_degraded_provider_spy_advances_nvda_holds -- KeyError 'fetchedInstruments'
+FAIL test_R4_03_mixed_clocks_never_show_exact_span -- KeyError 'timingComparable'
+FAIL test_R4_03_example_report_and_ui_do_not_render_exact_span_for_lower_bounds -- AssertionError Related observations on us-treasuries: 2 independent evidence groups (cross session, 0.0h)
+FAIL test_R4_04_provider_yahoo_fx_bar_stamped_london_midnight_is_not_complete_on_its_session_evening -- TypeError daily_bar_status() got an unexpected keyword argument 'tz'
+FAIL test_R4_04_provider_nasdaq_date_only_rows_keep_their_calendar_date -- KeyError 'sessionDate'
+FAIL test_R4_04_provider_early_close_dst_and_equity_clock -- TypeError daily_bar_status() got an unexpected keyword argument 'tz'
+FAIL test_R4_04_provider_crypto_utc_candles_cross_new_york_date_boundary -- KeyError 'sessionDate'
+FAIL test_R4_04_per_symbol_staleness_is_not_masked_by_a_fresh_symbol -- AssertionError {'state': 'HEALTHY', 'detail': 'daily bar for 2026-10-28', 'coverage': {'universe': '2 configured: SPY, NVDA', 'observed': 2, 'sampleFraction': 1.0, 'exclusions
+FAIL test_R4_04_saved_payloads_present_and_labelled -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/tests/fixtures/providers/MANIFEST.json'
+FAIL test_R4_05_exact_outcome_matching_cut_vs_hike_do_not_merge -- AssertionError 
+ok   test_R4_05_company_crypto_exposure_is_related_activity_only
+FAIL test_R4_05_common_mechanism_tlt_options_and_yield_contract_count_once -- AssertionError 
+ok   test_R4_05_alias_negatives
+FAIL test_R4_05_wording_distinct_counted_groups_not_independent_evidence -- AssertionError 
+FAIL test_R4_06_retry_exhaustion_goes_to_dead_letter_and_explicit_retry_redelivers -- KeyError 'deadLetter'
+ok   test_R4_06_crash_after_post_before_persist_redelivers_same_alert_id
+FAIL test_R4_06_signals_cli_and_docs_state_at_least_once -- AssertionError 
+FAIL test_R4_07_index_html_sha256_sidecar_matches_file_bytes -- AssertionError 
+FAIL test_R4_07_readme_first_release_claim -- AssertionError 
+round4: 4/27 passed

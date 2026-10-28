@@ -66,6 +66,6 @@ with sync_playwright() as p:
     pg = b.new_page(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
     pg.goto(U); pg.wait_for_function("!S.loading"); pg.evaluate("go('signals')"); pick(pg, "empty"); pg.wait_for_timeout(400)
     z = pg.evaluate("""(()=>{const h=[...VIEW_EL.querySelectorAll('h2')].find(h=>h.textContent==='Related observations');const b=h&&h.closest('section').querySelector('.body');return b?b.textContent.trim():null})()""")
-    res("zero related observations collapse to one sentence", z == "No related observations across independent evidence groups this run.", z)
+    res("zero related observations collapse to one sentence", z == "No related observations across distinct counted evidence groups this run.", z)
     pg.close()
 print("ALL PASS" if all(R) else "SOME FAIL", f"{sum(R)}/{len(R)}")

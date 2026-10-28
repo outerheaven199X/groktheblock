@@ -1,6 +1,6 @@
-# Evaluation methodology (round 3)
+# Evaluation methodology (rounds 3–4)
 
-Config: `docs/review/eval-config.json` (frozen, version `r3-2026-10-28`). Output: `docs/review/eval-results.json` (machine-readable).
+Config: `docs/review/eval-config.json` (frozen, version `r4-2026-10-28`; r3 differed only in baselines). Output: `docs/review/eval-results.json` (machine-readable).
 Reproduce: `PYTHONPATH=lib python3 skills/signals/scripts/replay_real.py` (needs network for treasury.gov and Polymarket; numbers change as new sessions are published).
 
 **No hit rate, precision or lead time is claimed or computed.** The three tracks below are kept separate and must not be combined.
@@ -27,3 +27,9 @@ Point-in-time Polymarket/Kalshi volume; historical option chains and snapshot ti
 
 ## Minimum standard still unmet (RE-AUDIT §04)
 ≥90 consecutive days per market-specific claim, ≥100 adjudicated events with 100 matched non-event windows, ≥100 consecutive unfiltered alerts, provider availability clocks, best-single-detector and news-availability baselines, robustness with and without calendar/alias/independence rules. None of these are met, so no performance claim is authorized.
+
+
+## Round 4 changes (config r4-2026-10-28)
+- Detector thresholds unchanged (not tuned). Added two fixed baselines (volatility-normalized single detector, calendar-only) and per-session alert burden. The news/first-publication baseline is recorded as not run.
+- The objective question (large moves vs scheduled-day volatility vs information outside the public calendar) is stated in EVALUATION.md §0 before the results.
+- Daily bars are dated in the provider's own clock (Yahoo exchangeTimezoneName; date-only rows keep their UTC date). This affects live scans, not the Treasury replay (treasury.gov rows are date strings).

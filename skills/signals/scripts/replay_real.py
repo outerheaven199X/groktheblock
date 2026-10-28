@@ -10,7 +10,7 @@ Three tracks, kept separate in docs/review/eval-results.json:
   It is NOT a hit rate for informed trading and no lead time is computed.
 Polymarket 24h volume is not available point-in-time, so it is passed as vol24=None with vol24AsOf=fetch time;
 the detector then refuses volume-gated findings (REPLAY-01)."""
-import json, sys, time
+import json, statistics, sys, time
 from collections import Counter
 from datetime import date, datetime
 from pathlib import Path
@@ -46,7 +46,16 @@ for i in range(L + 1, len(rows) + 1):
             phases[e["phase"]] += 1
     prev = rows[i - 2][1]
     base = any(abs((rows[i - 1][1].get(t) or 0) - (prev.get(t) or 0)) >= 0.10 for t in ("2Y", "10Y", "30Y") if rows[i - 1][1].get(t) and prev.get(t))
-    per_day.append({"date": d, "flag": bool(sigs), "baseline": base, "label": d in label_days})
+    vn = False  # volatility-normalized single detector: |Δ| / stdev(prior 20 Δ) >= 3 on any one tenor (fixed rule, not tuned)
+    for t in ("2Y", "10Y", "30Y"):
+        ys = [r[1].get(t) for r in rows[max(0, i - 22):i]]
+        if None in ys or len(ys) < 22:
+            continue
+        dd = [b - a for a, b in zip(ys, ys[1:])]
+        sd = statistics.pstdev(dd[:-1])
+        if sd and abs(dd[-1]) / sd >= 3:
+            vn = True
+    per_day.append({"date": d, "flag": bool(sigs), "baseline": base, "volNorm": vn, "calendarOnly": d in label_days, "label": d in label_days})
     r = LC.step(st, sigs, dict(X.PROBES), {"treasury": "HEALTHY"}, at)
     alerts += len(r["alerts"]); reasons.update(a["alertReason"] for a in r["alerts"])
 uh = {"treasury": {"source": c["via"] if c else None, "url": c["url"] if c else None, "sessions": len(per_day),
@@ -86,9 +95,22 @@ def rates(ps, key):
 
 
 half = len(per_day) // 2
+
+
+def burden(ps):
+    return {k: round(sum(p[k] for p in ps) / len(ps), 3) if ps else None for k in ("flag", "baseline", "volNorm", "calendarOnly")}
+
+
+def split(ps):
+    return {"detector": rates(ps, "flag"), "baseline10bp": rates(ps, "baseline"), "volNormalizedSingle": rates(ps, "volNorm"),
+            "calendarOnly": rates(ps, "calendarOnly"), "flagsPerSession": burden(ps)}
+
+
+out["objective"] = CFG["objective"]
+out["baselinesNotRun"] = {"newsTimeline": CFG["baselines"]["newsTimeline"]}
 out["labelled"] = {"label": "Treasury sessions labelled by scheduled official release days. Association with known public news only; not informed-trading ground truth; no hit rate or lead time.",
                    "labelSource": "data/event-calendar.json (FOMC, CPI, NFP)", "labelCaveat": "BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).",
-                   "development": {"detector": rates(per_day[:half], "flag"), "baseline10bp": rates(per_day[:half], "baseline")},
-                   "holdout": {"detector": rates(per_day[half:], "flag"), "baseline10bp": rates(per_day[half:], "baseline")}}
+                   "development": split(per_day[:half]), "holdout": split(per_day[half:]),
+                   "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."}
 (ROOT / "docs/review/eval-results.json").write_text(json.dumps(out, indent=1, default=str))
 print(json.dumps({k: v for k, v in out.items() if k != "synthetic"}, indent=1, default=str))

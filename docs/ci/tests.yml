@@ -1,0 +1,18 @@
+# Proposed GitHub Actions workflow. Move to .github/workflows/tests.yml to enable (needs a token with workflow scope).
+name: tests
+on: [push, pull_request]
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r requirements.txt
+      - name: UI integrity sidecar matches the file bytes (R4-07)
+        run: cd ui && sha256sum -c index.html.sha256
+      - run: python tests/test_no_leaks.py
+      - run: python tests/test_round4.py
+      - run: python tests/test_round3.py
+      - run: python tests/test_replay.py
+      - run: python tests/test_signals.py

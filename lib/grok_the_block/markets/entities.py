@@ -26,7 +26,10 @@ def family_of(source: str, instrument: str | None = None) -> str | None:
 
 # Typed relations between an observation and an entity (P1.04). Only SAME_UNDERLYING, SAME_EVENT and the listed
 # event-linked instruments count toward CONVERGENCE; MACRO_EXPOSURE / UNRESOLVED produce RELATED_ACTIVITY only.
-REL = ("SAME_UNDERLYING", "DIRECT_PROXY", "SAME_EVENT", "DISCLOSURE_REACTION", "MACRO_EXPOSURE", "UNRESOLVED")
+REL = ("SAME_UNDERLYING", "DIRECT_PROXY", "SAME_EVENT", "SETTLES_ON_UNDERLYING", "DISCLOSURE_REACTION", "MACRO_EXPOSURE", "UNRESOLVED")
+# R4-05: a prediction contract that settles on the level of a listed instrument ("10-year yield above 4.5%", "BTC above
+# $100k") carries the same public price information as that instrument: it joins the instrument's dependency group.
+_LEVEL = re.compile(r"\b(above|below|over|under|at least|at or above|higher than|lower than|between)\b\s*\$?\d|\b(yield|price|close)\b[^?]*\b(above|below|over|under)\b", re.I)
 # instrument -> (entity, relation). Anything not listed but matched by alias is UNRESOLVED (non-prediction) or
 # SAME_EVENT-candidate (prediction market whose text names the entity's event).
 LINKS = {
@@ -50,7 +53,7 @@ LINKS = {
 DEPENDENT_GROUPS = [{"macro:CL=F", "equities:USO"}, {"macro:GC=F", "equities:GLD"}, {"macro:DX-Y.NYB", "equities:UUP"},
                     {"treasury:10Y", "treasury:30Y", "equities:TLT", "options:TLT", "treasury:2s10s"},
                     {"crypto:BTC", "equities:MSTR"}, {"equities:SPY", "options:SPY"}, {"equities:QQQ", "options:QQQ"}]
-COUNTING = {"SAME_UNDERLYING", "SAME_EVENT", "DIRECT_PROXY"}
+COUNTING = {"SAME_UNDERLYING", "SAME_EVENT", "DIRECT_PROXY", "SETTLES_ON_UNDERLYING"}  # SETTLES_ON_UNDERLYING counts only inside its instrument's group
 
 
 def relation(instrument: str | None, entity: str, source: str, text: str = "") -> str:
@@ -65,10 +68,21 @@ def relation(instrument: str | None, entity: str, source: str, text: str = "") -
         if source in ("equities", "options") and f"equities:{tick}" in ENTITIES.get(entity, {}).get("instruments", []):
             return "SAME_UNDERLYING"
     if source in ("polymarket", "kalshi"):
+        if _LEVEL.search(text or "") and ENTITIES.get(entity, {}).get("instruments"):
+            return "SETTLES_ON_UNDERLYING"
         return "SAME_EVENT"  # candidate; prediction questions are further split by settlement/outcome in convergence
     if source == "sec":
         return "DISCLOSURE_REACTION"
     return "UNRESOLVED"
+
+
+def settlement_instrument(entity: str, text: str) -> str | None:
+    """The listed instrument a price-level contract settles on (tenor words for Treasuries, else the entity's first)."""
+    m = re.search(r"\b(2|10|30)[- ]?(?:year|yr|y)\b", (text or "").lower())
+    if m and f"treasury:{m.group(1)}Y" in ENTITIES.get(entity, {}).get("instruments", []):
+        return f"treasury:{m.group(1)}Y"
+    ins = ENTITIES.get(entity, {}).get("instruments") or []
+    return ins[0] if ins else None
 
 
 def dependency_group(instrument: str | None, source: str, subject_id: str | None = None) -> str:

@@ -167,6 +167,7 @@ def equity_daily(symbol: str) -> dict | None:
                 return None
             q = r["indicators"]["quote"][0]
             rows = [(t, c, v) for t, c, v in zip(r["timestamp"], q["close"], q["volume"]) if c is not None and v is not None]
+            TZ[f"equities:{symbol}"] = (r.get("meta") or {}).get("exchangeTimezoneName")
             return rows or None
         return go
 
@@ -188,7 +189,11 @@ def equity_daily(symbol: str) -> dict | None:
                                              ("nasdaq", nasdaq)])
     if rows is None:
         return None
-    return {"symbol": symbol, "rows": rows, "via": via, "url": f"https://finance.yahoo.com/quote/{symbol}"}
+    return {"symbol": symbol, "rows": rows, "via": via, "url": f"https://finance.yahoo.com/quote/{symbol}",
+            "tz": TZ.get(f"equities:{symbol}") if via.startswith("yahoo") else None}  # Nasdaq rows are date-only (00:00 UTC)
+
+
+TZ: dict[str, str | None] = {}  # provider exchange timezone per instrument (Yahoo meta.exchangeTimezoneName)
 
 
 ETFS = {"SPY", "QQQ", "IWM", "TLT", "HYG", "GLD", "USO", "UUP", "XLE", "IEF", "SHY", "SLV", "XLF", "SMH"}
@@ -441,13 +446,14 @@ def macro_daily(sym: str) -> dict | None:
             if not r:
                 return None
             q = r["indicators"]["quote"][0]
+            TZ[f"macro:{sym}"] = (r.get("meta") or {}).get("exchangeTimezoneName")
             return [(t, c, v or 0) for t, c, v in zip(r["timestamp"], q["close"], q.get("volume") or [0] * len(q["close"])) if c is not None] or None
         return go
 
     rows, via = first(f"macro:{sym}", [("yahoo q1", yahoo("query1.finance.yahoo.com")), ("yahoo q2", yahoo("query2.finance.yahoo.com"))])
     if rows is None:
         return None
-    return {"symbol": sym, "name": MACRO.get(sym, sym), "rows": rows, "via": via, "url": f"https://finance.yahoo.com/quote/{sym}"}
+    return {"symbol": sym, "name": MACRO.get(sym, sym), "rows": rows, "via": via, "url": f"https://finance.yahoo.com/quote/{sym}", "tz": TZ.get(f"macro:{sym}")}
 
 
 # ---------------- SEC EDGAR (event triggers) ----------------

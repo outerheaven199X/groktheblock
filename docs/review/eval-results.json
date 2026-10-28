@@ -1,6 +1,6 @@
 {
- "configVersion": "r3-2026-10-28",
- "generatedAt": "2026-10-28T16:07:45Z",
+ "configVersion": "r4-2026-10-28",
+ "generatedAt": "2026-10-28T17:04:14Z",
  "noHitRateOrLeadTime": true,
  "synthetic": {
   "label": "SYNTHETIC fixtures; not market data",
@@ -36,7 +36,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 1
    },
@@ -73,7 +76,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 1
    },
@@ -107,7 +113,10 @@
      "cooling": 1,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 0
    },
@@ -137,7 +146,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 0
    },
@@ -171,7 +183,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 1
    },
@@ -208,7 +223,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": 0
    },
@@ -246,7 +264,10 @@
      "cooling": 0,
      "reminders": 0,
      "delivered": 0,
-     "deliveryFailed": 0
+     "deliveryFailed": 0,
+     "heldStale": 0,
+     "heldInvalid": 0,
+     "notAdmitted": 0
     },
     "duplicatesAvoidedVsV1": -1
    }
@@ -284,14 +305,28 @@
    "market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
    "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
    "points": 2744,
-   "from": "2026-09-28T16:15:18Z",
-   "to": "2026-10-28T16:07:39Z",
+   "from": "2026-09-28T17:15:29Z",
+   "to": "2026-10-28T17:03:36Z",
    "priceMovesPastThreshold": 1,
    "eligibleFindings": 0,
    "lifecycleAlerts": 0,
    "note": "Volume is not point-in-time, so every price move is reported as UNVERIFIED and none is eligible as a finding. This is the intended REPLAY-01 behaviour, not a quiet market."
   },
   "label": "REAL public history, no outcome labels: alert volume and lifecycle behaviour only"
+ },
+ "objective": {
+  "chosen": "none of the three is validated yet; the current labelled track only measures scheduled-release-day association",
+  "candidates": [
+   "detect large moves (compare to absolute and vol-normalized baselines)",
+   "forecast scheduled-day volatility (calendar-only baseline is the bar)",
+   "identify information outside the public calendar (needs adjudicated non-calendar events and a news timeline; not available)"
+  ]
+ },
+ "baselinesNotRun": {
+  "newsTimeline": {
+   "status": "not run",
+   "why": "no free, point-in-time first-publication/news archive is available to this project; not substituted"
+  }
  },
  "labelled": {
   "label": "Treasury sessions labelled by scheduled official release days. Association with known public news only; not informed-trading ground truth; no hit rate or lead time.",
@@ -313,6 +348,28 @@
     "otherDays": 173,
     "shareOfLabelDaysFlagged": 0.25,
     "shareOfOtherDaysFlagged": 0.075
+   },
+   "volNormalizedSingle": {
+    "flaggedOnLabelDays": 2,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 3,
+    "otherDays": 173,
+    "shareOfLabelDaysFlagged": 0.083,
+    "shareOfOtherDaysFlagged": 0.017
+   },
+   "calendarOnly": {
+    "flaggedOnLabelDays": 24,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 0,
+    "otherDays": 173,
+    "shareOfLabelDaysFlagged": 1.0,
+    "shareOfOtherDaysFlagged": 0.0
+   },
+   "flagsPerSession": {
+    "flag": 0.051,
+    "baseline": 0.096,
+    "volNorm": 0.025,
+    "calendarOnly": 0.122
    }
   },
   "holdout": {
@@ -331,7 +388,30 @@
     "otherDays": 174,
     "shareOfLabelDaysFlagged": 0.125,
     "shareOfOtherDaysFlagged": 0.063
+   },
+   "volNormalizedSingle": {
+    "flaggedOnLabelDays": 1,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 8,
+    "otherDays": 174,
+    "shareOfLabelDaysFlagged": 0.042,
+    "shareOfOtherDaysFlagged": 0.046
+   },
+   "calendarOnly": {
+    "flaggedOnLabelDays": 24,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 0,
+    "otherDays": 174,
+    "shareOfLabelDaysFlagged": 1.0,
+    "shareOfOtherDaysFlagged": 0.0
+   },
+   "flagsPerSession": {
+    "flag": 0.101,
+    "baseline": 0.071,
+    "volNorm": 0.045,
+    "calendarOnly": 0.121
    }
-  }
+  },
+  "note": "calendarOnly equals the label by construction (share 1.0 / 0.0); it is reported to show what this label can and cannot measure."
  }
 }

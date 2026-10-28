@@ -65,7 +65,7 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
     status: dict[str, dict] = {}
     limits = [{"kind": "latency", "text": "Signals appear at the next observation or scan, subject to each provider's latency (options ~15 min delayed; equities, FX and Treasuries are daily)."},
               {"kind": "heuristic", "text": "Thresholds are the review's proposed shadow-mode starting settings, not optimized or validated cutoffs."},
-              {"kind": "inferred", "text": "Related observations are linked through canonical entities and typed relations; mechanically linked instruments count once and each causal family contributes one independent evidence group. It shows co-occurrence, not a shared actor, intent or causality."},
+              {"kind": "inferred", "text": "Related observations are linked through canonical entities and typed relations; mechanically linked instruments count once and each causal family contributes one distinct counted evidence group (a conservative filter, not proof of independent information). It shows co-occurrence, not a shared actor, intent or causality."},
               {"kind": "unvalidated", "text": "No historical hit rate or lead time has been measured on real history. Rankings are uncalibrated."}]
 
     def base(src, st, cov, lim=()):
@@ -129,33 +129,59 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
             put("kalshi", "HEALTHY", D.PROVIDERS["kalshi"]["detail"], cov, now)
 
     def daily_source(src, items, fetch, name_of=lambda s: None):
-        bad, latest, fb = [], [], []
-        pend = []
+        """R4-04: completed-bar status and freshness are tracked PER INSTRUMENT. A fresh symbol can't mask a stale one;
+        fetched (the provider answered) is distinct from analyzed (a completed bar + enough history for a valid probe)."""
+        bad, fb, pend, per = [], [], [], {}
         for sym in items:
             d = fetch(sym)
             if d is None:
                 bad.append(sym); continue
             if d.get("via", "").startswith("nasdaq") or d.get("via", "").startswith("coinbase"):
                 fb.append(sym)
-            done = [r for r in d["rows"] if T.daily_bar_status(src, sym, r[0], now)["complete"]]  # forming bars don't count as fresh data
-            if done:
-                latest.append((done[-1][0], sym))
+            tz = d.get("tz")
+            stats = [T.daily_bar_status(src, sym, r[0], now, tz=tz) for r in d["rows"][-3:]]
+            done = [x for x in stats if x["complete"]]  # forming bars don't count as fresh data
+            last = done[-1] if done else None
+            fr = T.freshness(src, last["eventTs"], now) if last else ("STALE", "no completed bar")
+            notes = sorted({x["clockNote"] for x in stats if x.get("clockNote")})
+            per[sym] = {"lastCompleteSession": last["sessionDate"] if last else None, "eventTs": last["eventTs"] if last else None,
+                        "freshness": fr[0], "detail": fr[1], "providerClock": stats[-1]["providerClock"] if stats else tz,
+                        "clockNotes": notes, "via": d.get("via"), "completedRows": sum(1 for r in d["rows"] if T.daily_bar_status(src, sym, r[0], now, tz=tz)["complete"])}
             pend.append((sym, d))
-        last = max(latest) if latest else None
-        evt = T.daily_bar_status(src, last[1], last[0], now)["eventTs"] if last else None
+        evts = [v["eventTs"] for v in per.values() if v["eventTs"]]
+        evt = max(evts) if evts else None
+        stale = [k for k, v in per.items() if v["freshness"] != "HEALTHY"]
         fresh = T.freshness(src, evt, now) if evt else None
+        if pend and len(stale) == len(pend):
+            fresh = ("STALE", "every instrument stale: " + "; ".join(f"{k} {per[k]['detail']}" for k in stale[:4]))
         cov = {"universe": f"{len(items)} configured: {', '.join(items)}", "observed": len(pend), "sampleFraction": round(len(pend) / len(items), 3) if items else 0,
-               "exclusions": [f"unavailable: {', '.join(bad)}"] if bad else [],
-               "failedInstruments": bad, "observedInstruments": [p[0] for p in pend]}
-        st, note = _src_status(bool(pend), bool(bad), f"fallback provider for {', '.join(fb)}" if fb else None, fresh)
+               "exclusions": ([f"unavailable: {', '.join(bad)}"] if bad else []) + ([f"stale: {', '.join(stale)}"] if stale else []),
+               "failedInstruments": bad, "observedInstruments": [p[0] for p in pend], "fetchedInstruments": [p[0] for p in pend],
+               "analyzedInstruments": [], "instrumentStatus": per,
+               "clockNotes": sorted({n for v in per.values() for n in v["clockNotes"]})[:6]}
+        dn = []
+        if fb: dn.append(f"fallback provider for {', '.join(fb)}")
+        if stale and len(stale) < len(pend): dn.append(f"stale instrument(s): {', '.join(stale)}")
+        st, note = _src_status(bool(pend), bool(bad) or bool(stale), "; ".join(dn) or None, fresh)
         ob = base(src, st, cov)
         return pend, ob, st, note, cov, evt
+
+    def analyze_daily(src, pend, ob, cov, **kw):
+        """Run daily_anomaly per instrument with ITS OWN freshness in the observation envelope; record which were analyzed."""
+        out = []
+        per = cov["instrumentStatus"]
+        for sym, d in pend:
+            o = dict(ob, status="STALE") if per[sym]["freshness"] != "HEALTHY" else ob
+            out += X.daily_anomaly(src, sym, d["rows"], d["url"], o, tz=d.get("tz"), **({"name": kw["names"](sym)} if kw.get("names") else {}))
+            if any(k.startswith(f"{src}:{sym}:") and v["valid"] for k, v in X.PROBES.items()):
+                cov["analyzedInstruments"].append(sym)
+        cov["observed"] = len(cov["analyzedInstruments"])
+        return out
 
     if "equities" in sources:
         tick = tickers or DEFAULT_TICKERS
         pend, ob, st, note, cov, evt = daily_source("equities", tick, S.equity_daily)
-        for sym, d in pend:
-            sigs += X.daily_anomaly("equities", sym, d["rows"], d["url"], ob)
+        sigs += analyze_daily("equities", pend, ob, cov)
         put("equities", st, note, cov, evt)
 
     if "options" in sources:
@@ -228,8 +254,7 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
     if "macro" in sources:
         items = list(S.MACRO)
         pend, ob, st, note, cov, evt = daily_source("macro", items, S.macro_daily)
-        for sym, d in pend:
-            sigs += X.daily_anomaly("macro", sym, d["rows"], d["url"], ob, name=S.MACRO[sym])
+        sigs += analyze_daily("macro", pend, ob, cov, names=lambda sym: S.MACRO[sym])
         put("macro", st, note, cov, evt)
 
     if "sec" in sources:
@@ -359,7 +384,7 @@ def _assess(sigs, status):
         seen.add(s["source"])
         lab, why, ask = NEXT.get(s["source"], NEXT["cross"])
         na.append({"label": lab, "why": f"{why} ({s['title'][:80]})", "ask": ask.format(t=s["subject"]["name"][:60], id=s["subject"]["id"]), "signal": s["key"]})
-    why = (f"{top['metrics']['effectiveObservations']} independent evidence groups in different families, {top['metrics']['mode']} mode. Co-occurrence through typed relations, not a shared actor; ordering is an uncalibrated sorting aid."
+    why = (f"{top['metrics']['effectiveObservations']} distinct counted evidence groups in different families ({'timing comparison approximate' if top['metrics'].get('timingComparable') is False else top['metrics']['mode'] + ' mode'}). Co-occurrence through typed relations, not a shared actor; ordering is an uncalibrated sorting aid."
            if top in conv else f"Highest-severity of {len(real)} signals; basis {top['basis']}.")
     return {"severity": top["severity"], "lead": {"text": top["title"] + ". " + top["what"] + tail, "basis": top["basis"], "signal": top["key"], "why": why}, "nextActions": na}
 
@@ -419,9 +444,11 @@ def adapt(rep: dict) -> dict:
 
 # ---------------- watch mode ----------------
 
-def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None) -> dict:
-    """send(alert) -> bool, optional: webhook delivery through the restart-safe outbox (delivered counted on success only)."""
+def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None, retry_dead_letter: bool = False) -> dict:
+    """send(alert) -> bool, optional: webhook delivery through the restart-safe outbox (delivered counted on success only;
+    at-least-once, receivers dedupe by alertId). retry_dead_letter re-queues alerts that exhausted their retries."""
     st = LC.load(state_path)
+    requeued = LC.retry_dead_letter(st) if retry_dead_letter else 0
     prev_ok = st.get("lastSuccessAt")
     src_state = {k: v["state"] for k, v in rep["sourceStatus"].items()}
     if rep["status"] == "failed":
@@ -445,8 +472,12 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None) -> 
     rep["watch"] = {"previousSuccessfulScanAt": prev_ok, "baseline": res["baseline"], "alerts": res["alerts"], "telemetry": res["telemetry"],
                     "suppressedDuplicates": res["telemetry"].get("suppressedUnchanged", 0), "activeIncidents": active,
                     "recentlyResolved": [{k: i.get(k) for k in ("id", "title", "resolvedAt", "severity")} for i in resolved],
-                    "prefs": prefs or {}, "sourceLastValid": st.get("sourceLastValid", {}),
+                    "prefs": prefs or {}, "sourceLastValid": st.get("sourceLastValid", {}), "requeuedFromDeadLetter": requeued,
+                    "deadLetter": [{"alertId": d["alert"]["alertId"], "title": d["alert"].get("title"), "attempts": d["attempts"],
+                                    "lastError": d.get("lastError"), "deadAt": T.iso(d.get("deadAt"))} for d in st.get("deadLetter") or []],
                     "notes": ["First run sets the baseline and sends nothing." if res["baseline"] else
                               "Alerts: new episode, new distinct transaction, ≥25% magnitude rise, escalation, or a reminder for unresolved HIGH (6h, then daily).",
-                              "Incidents resolve only after 2 valid observations of their own instrument below 75% of the entry threshold. A missing or invalid observation holds the incident; it never counts as zero."]}
+                              "Incidents resolve only after 2 consecutive valid observations below 75% of the entry threshold; a cross-market incident only when every member is validly below it. A missing or invalid observation holds the incident; it never counts as zero.",
+                              "Stale, unavailable or invalid observations never open, reconfirm or re-alert an incident (HELD_STALE / HELD_INVALID, notAdmitted).",
+                              "Webhook delivery is at-least-once: receivers should dedupe by alertId."]}
     return rep

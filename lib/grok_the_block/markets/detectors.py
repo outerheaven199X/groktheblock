@@ -328,7 +328,7 @@ def _close_ts(t: int) -> int:
 
 
 def daily_anomaly(source: str, sym: str, rows: list[tuple[int, float, float]], url: str, ob: dict, name: str | None = None,
-                  vol_window: int = 60, ret_window: int = 20, close_hm=(16, 0)) -> list[dict]:
+                  vol_window: int = 60, ret_window: int = 20, close_hm=(16, 0), tz: str | None = None) -> list[dict]:
     """Volume: robust z (median + 1.4826·MAD of 60 sessions of log volume) ≥3 AND ≥1.8× median volume.
     Return: daily log return / prior 20-day realized vol, |z| ≥3. Intraday variants are not supported (daily bars only)."""
     name = name or sym
@@ -336,7 +336,7 @@ def daily_anomaly(source: str, sym: str, rows: list[tuple[int, float, float]], u
     now = ob["ingestTs"]
     dropped = None
     if rows:
-        st = T.daily_bar_status(source, sym, rows[-1][0], now)
+        st = T.daily_bar_status(source, sym, rows[-1][0], now, tz=tz)
         if not st["complete"]:  # never score an in-progress session as a completed daily bar (TIME-01)
             dropped = rows[-1]
             rows = rows[:-1]
@@ -346,13 +346,16 @@ def daily_anomaly(source: str, sym: str, rows: list[tuple[int, float, float]], u
         return []
     t, c, v = rows[-1]
     prev_c = rows[-2][1]
-    st = T.daily_bar_status(source, sym, t, now)
+    st = T.daily_bar_status(source, sym, t, now, tz=tz)
     ev_ts, avail = st["eventTs"], st["availableTs"]
     extra = ["Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
              f"Bar close: {st['basis']}; availability is an estimate (close + {T.PUBLISH_LAG_S // 60} min)."]
     if dropped:
         extra.append("Today's bar is still forming and was excluded; this is the last completed session.")
+    if st.get("clockNote"):
+        extra.append("Provider clock: " + st["clockNote"] + ".")
     o = env(ob, ev_ts, avail, ev_ts, approx=True, extra_limits=extra, granularity="daily", event_basis="estimated", avail_basis="estimated", final=False)
+    o.update(sessionDate=st["sessionDate"], providerClock=st["providerClock"], clockNote=st.get("clockNote"))
     evid = [{"label": f"{name} quote & history", "url": url}]
     rets = [math.log(b[1] / a[1]) for a, b in zip(rows[-ret_window - 2:-2], rows[-ret_window - 1:-1]) if a[1] and b[1]]
     r = math.log(c / prev_c) if prev_c and c else 0.0
@@ -714,7 +717,33 @@ def _eligible(s, now, window_s):
     return None
 
 
-def _dep(s, ent):
+_ACT = {"cut": "cut", "cuts": "cut", "lower": "cut", "hike": "hike", "hikes": "hike", "raise": "hike", "increase": "hike",
+        "hold": "hold", "pause": "hold", "unchanged": "hold", "above": "above", "over": "above", "below": "below", "under": "below"}
+
+
+def outcome_terms(text: str) -> frozenset:
+    """R4-05: the outcome a prediction question settles on (cut / hike / hold / above / below)."""
+    return frozenset(_ACT[w] for w in re.findall(r"[a-z]+", (text or "").lower()) if w in _ACT)
+
+
+def certainty(s) -> str:
+    """R4-03: temporal certainty of one contributor's availability time: exact | estimated | lower-bound | daily."""
+    o = s.get("observation") or {}
+    basis = (o.get("timeBasis") or {}).get("available")
+    if o.get("temporalStatus", "OK") != "OK":
+        return "invalid"
+    if basis == "ingest-lower-bound":
+        return "lower-bound"
+    if basis in ("estimated", "window-start") or o.get("granularity") == "daily":
+        return "estimated" if o.get("granularity") != "daily" else "daily"
+    return "exact" if o.get("granularity") in ("intraday", "delayed", None) else "estimated"
+
+
+def _dep(s, ent, rel=None):
+    if rel == "SETTLES_ON_UNDERLYING":
+        i = EN.settlement_instrument(ent, s.get("title", ""))
+        if i:
+            return EN.dependency_group(i, i.split(":")[0])
     if s["family"] == "prediction":
         return f"prediction:{ent}"
     if s["source"] == "sec":
@@ -725,7 +754,7 @@ def _dep(s, ent):
 
 
 def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[dict]:
-    """CONVERGENCE needs ≥2 independent evidence groups in different causal families, each with a counting typed
+    """CONVERGENCE needs ≥2 distinct counted evidence groups in different causal families, each with a counting typed
     relation to the entity (SAME_UNDERLYING / SAME_EVENT / DIRECT_PROXY / DISCLOSURE_REACTION), time-compatible
     observations, and non-conflicting prediction questions. Mechanically linked instruments (oil + USO, BTC + MSTR,
     a filing + its stock) are one group. Otherwise a plausible link is reported as RELATED_ACTIVITY (hypothesis).
@@ -746,20 +775,28 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
                 if s["source"] != "cross":
                     excluded.append({"key": s["key"], "reason": why, "relation": rel})
                 continue
-            units.setdefault(_dep(s, ent), []).append((s, rel))
+            units.setdefault(_dep(s, ent, rel), []).append((s, rel))
         # prediction questions must agree on settlement and direction to count as one SAME_EVENT observation
         pk = f"prediction:{ent}"
         if pk in units:
             ps = [x for x, _ in units[pk]]
             terms = {settlement_terms(x["title"]) for x in ps}
+            outs = {outcome_terms(x["title"]) for x in ps}
             dirs = {_direction(x) for x in ps} - {0}
-            if len(terms) > 1 or len(dirs) > 1:
+            if len(outs) > 1:
+                for x in ps:
+                    excluded.append({"key": x["key"], "reason": "prediction questions settle on different outcomes (" + " vs ".join(sorted("/".join(sorted(o)) or "unstated" for o in outs)) + "); not one event instance", "relation": "UNRESOLVED"})
+                del units[pk]
+            elif len(terms) > 1 or len(dirs) > 1:
                 for x in ps:
                     excluded.append({"key": x["key"], "reason": "prediction questions differ in settlement or direction; not one event", "relation": "UNRESOLVED"})
                 del units[pk]
         reps = {}
         for g, lst in units.items():
             s0 = min(lst, key=lambda x: x[0]["when"])
+            for x, r in lst:
+                if x is not s0[0]:
+                    excluded.append({"key": x["key"], "reason": f"same dependency group ({g}) as {s0[0]['key']}: mechanically linked, counted once", "relation": r})
             fam = s0[0]["family"]
             if fam not in reps or s0[0]["when"] < reps[fam]["s"]["when"]:
                 if fam in reps:
@@ -775,14 +812,19 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
         R = list(reps.values())
         times = sorted(r["s"]["when"] for r in R)
         span = times[-1] - times[0]
+        cert = {r["s"]["key"]: certainty(r["s"]) for r in R}
+        comparable = all(c == "exact" for c in cert.values())
         fast_ok = all((r["s"].get("observation") or {}).get("fastEligible") for r in R)
-        mode = next((m for m in MODES if span <= m[1] and (m[0] != "fast" or fast_ok)), None)
+        if comparable:
+            mode = next((m for m in MODES if span <= m[1] and (m[0] != "fast" or fast_ok)), None)
+        else:  # R4-03: lower-bound / estimated / daily times can't give a co-occurrence interval or a timing bonus
+            mode = ("timing-approximate", window_s, "Within the same 48h window; timing comparison approximate (some availability times are estimates or ingest-time lower bounds)")
         if not mode:
             continue
         w = {"observed": 1.0, "heuristic": 0.7, "inferred": 0.5}
         sev_mean = sum(SEV.index(r["s"]["severity"]) * w.get(r["s"]["basis"], 0.5) for r in R) / len(R)
-        rank = min(100, round(30 * (len(R) - 1) + 12 * sev_mean + {"fast": 15, "cross-session": 8, "forensic": 0}[mode[0]]))
-        sev = "HIGH" if mode[0] == "fast" and len(R) >= 3 else "MEDIUM" if mode[0] != "forensic" else "LOW"
+        rank = min(100, round(30 * (len(R) - 1) + 12 * sev_mean + {"fast": 15, "cross-session": 8}.get(mode[0], 0)))
+        sev = "HIGH" if mode[0] == "fast" and len(R) >= 3 else "MEDIUM" if mode[0] == "cross-session" or mode[0] == "fast" else "LOW"
         # calendar (P0.03): only the SAME specific event, already released, as a RELEASE_REACTION for EVERY member explains it
         rr = [{c["eventId"] for c in (r["s"].get("calendar") or []) if c.get("phase") == "RELEASE_REACTION" and c.get("availableAtObservation")} for r in R]
         common = set.intersection(*rr) if rr else set()
@@ -793,16 +835,20 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
             sev = cap(sev, "LOW")
         chain = sorted([r["s"] for r in R], key=lambda s: s["when"])
         label = mode[0].replace("-", " ")
+        tlabel = f"{label}, {span / 3600:.1f}h" if comparable else "timing comparison approximate"
         s = _sig("cross", "CONVERGENCE", sev, "inferred",
-                 f"Related observations on {ent}: {len(R)} independent evidence groups ({label}, {span / 3600:.1f}h)",
+                 f"Related observations on {ent}: {len(R)} distinct counted evidence groups ({tlabel})",
                  f"{mode[2]}. Earliest available per group: " + "; ".join(f"{EN.FAMILY_LABEL.get(r['s']['family'], r['s']['family'])} [{r['rel']}]: {r['s']['title']}"
                                                                     for r in sorted(R, key=lambda r: r['s']['when'])) + ".",
                  {"name": ent, "id": ent, "url": chain[0]["subject"]["url"]},
                  {"rank": rank, "rankNote": "uncalibrated anomaly-convergence ranking (a sorting aid, not a probability or confidence)",
-                  "families": sorted(reps), "effectiveObservations": len(R), "mode": mode[0], "spanHours": round(span / 3600, 2),
+                  "families": sorted(reps), "effectiveObservations": len(R), "mode": mode[0], "spanHours": round(span / 3600, 2) if comparable else None,
+                  "timingComparable": comparable, "timingNote": None if comparable else "Availability times include estimates or ingest-time lower bounds ("
+                  + ", ".join(sorted(set(cert.values()) - {"exact"})) + "); no co-occurrence interval is computed and no timing bonus is applied.",
                   "calendarExplained": explained, "explainedBy": sorted(common), "calendarContext": ctx,
                   "contributing": [{"key": r["s"]["key"], "family": f, "relation": r["rel"], "dependencyGroup": r["group"], "dependentsCountedOnce": r["dependents"],
-                                    "granularity": (r["s"].get("observation") or {}).get("granularity"), "fastEligible": (r["s"].get("observation") or {}).get("fastEligible")}
+                                    "granularity": (r["s"].get("observation") or {}).get("granularity"), "fastEligible": (r["s"].get("observation") or {}).get("fastEligible"),
+                                    "temporalCertainty": cert[r["s"]["key"]], "availableBasis": ((r["s"].get("observation") or {}).get("timeBasis") or {}).get("available")}
                                    for f, r in reps.items()],
                   "excluded": excluded, "memberKeys": [r["s"]["key"] for r in R],
                   "chain": [{"key": c["key"], "source": c["source"], "family": c["family"], "severity": c["severity"], "basis": c["basis"],
@@ -810,12 +856,12 @@ def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[d
                              "url": (c["evidence"] or [{"url": c["subject"]["url"]}])[0]["url"]} for c in chain[:10]]},
                  [e for r in R for e in r["s"]["evidence"][:1]],
                  ["Linked through a canonical entity and typed relations, not a shared actor. Mechanically linked instruments and same-family venues count once.",
-                  "Independence of the underlying information is not established; this is co-occurrence.",
+                  "Distinct counted groups come from a conservative manual relation table, not a proof that the information is independent; this is co-occurrence.",
                   "Ranking is uncalibrated; no hit rate or lead time has been measured."]
                  + (["Every group's move was a release reaction to the same event (" + ", ".join(sorted(common)) + "); capped at LOW."] if explained else [])
                  + (["Calendar context (not an explanation): " + "; ".join(ctx[:4])] if ctx and not explained else []),
                  T.obs(times[0], times[-1], now, times[-1], "HEALTHY", {}, [], False),
-                 trig(len(R), None, 2, f"{mode[0]} ≤{mode[1] // 3600}h", "independent evidence groups"))
+                 trig(len(R), None, 2, f"{mode[0]} ≤{mode[1] // 3600}h", "distinct counted evidence groups"))
         s["key"] = f"cross:{ent}:CONVERGENCE"
         s["entities"] = [ent]
         out.append(s)

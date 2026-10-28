@@ -101,26 +101,44 @@ def session_close(d: date) -> tuple[int, int]:
     return (13, 0) if d.isoformat() in EARLY_CLOSE else (16, 0)
 
 
-def daily_bar_status(source: str, symbol: str, bar_ts: int, now_ts: int) -> dict:
-    """When is a daily bar complete, and when could it first be known?
+def daily_bar_status(source: str, symbol: str, bar_ts: int, now_ts: int, tz: str | None = None) -> dict:
+    """When is a daily bar complete, and when could it first be known? (R4-04: provider clocks are explicit.)
 
+    The bar's SESSION DATE is read in the provider's own clock: `tz` = the provider's exchange timezone (Yahoo
+    meta.exchangeTimezoneName). Without one, a stamp at exactly 00:00 UTC is a date-only row (Nasdaq, OKX 1Dutc) and
+    keeps its UTC calendar date; anything else is read in New York time.
     equities (NYSE): complete at the session close (13:00 on early-close days), available ≈ close + PUBLISH_LAG_S.
-    macro: VIX at 16:15 ET; FX/DXY and CME futures (GC=F, CL=F) at 17:00 ET (their trading day ends then).
+    macro: VIX at 16:15 ET; CME futures and DXY at 17:00 ET. Yahoo FX pairs are stamped at London midnight and cover the
+    London calendar day, so they complete at the END of that day (not 17:00 ET); the difference is flagged in clockNote.
     crypto: UTC candle, complete at 00:00 UTC of the next day.
-    Returns {"complete": bool, "eventTs": close, "availableTs": estimate, "basis": ...}. Never clamps a future
-    availability to now: an incomplete bar is reported as incomplete, not as available."""
+    PUBLISH_LAG_S is a conservative hold, NOT evidence the provider published a final bar: availability stays "estimated".
+    Never clamps a future availability to now: an incomplete bar is reported as incomplete, not as available."""
+    note = None
     if source == "crypto":
-        close = bar_ts + 86400
+        close = bar_ts + 86400 if bar_ts % 86400 == 0 else int(datetime.fromtimestamp(bar_ts, timezone.utc).replace(hour=0, minute=0, second=0).timestamp()) + 86400
+        d = datetime.fromtimestamp(close - 86400, timezone.utc).date()
         basis = "UTC candle close"
+        if bar_ts % 86400:
+            note = f"provider stamped {datetime.fromtimestamp(bar_ts, timezone.utc):%H:%M} UTC; read as the UTC candle of {d}"
     else:
-        d = datetime.fromtimestamp(bar_ts, NY).date() if source != "crypto" else None
-        # Yahoo/Nasdaq daily rows are stamped at the session open or midnight; take the NY calendar date
+        clock = ZoneInfo(tz) if tz else (timezone.utc if bar_ts % 86400 == 0 else NY)
+        local = datetime.fromtimestamp(bar_ts, clock)
+        d = local.date()
+        ny_local = datetime.fromtimestamp(bar_ts, NY)
         if source == "equities":
             hh, mm = session_close(d); basis = "NYSE close" + (" (early close)" if (hh, mm) == (13, 0) else "")
+            if (ny_local.hour, ny_local.minute) not in ((9, 30), (0, 0)) and bar_ts % 86400:
+                note = f"provider stamp {ny_local:%H:%M} ET is neither the 09:30 open nor a date-only row"
+            close = ny_ts(d, hh, mm)
         elif symbol == "^VIX":
-            hh, mm = 16, 15; basis = "Cboe VIX close"
+            basis = "Cboe VIX close"; close = ny_ts(d, 16, 15)
+        elif tz and tz not in ("America/New_York", "America/Chicago") and symbol.endswith("=X"):
+            nxt = datetime(d.year, d.month, d.day, tzinfo=clock) + timedelta(days=1)
+            close = int(nxt.timestamp())
+            basis = f"{tz} calendar day end (provider clock)"
+            note = f"provider stamps this FX bar at {tz} midnight ({ny_local:%Y-%m-%d %H:%M} ET); it covers the {tz} day {d}, which ends after the 17:00 ET convention"
         else:
-            hh, mm = 17, 0; basis = "17:00 ET trading-day end (FX / CME futures)"
-        close = ny_ts(d, hh, mm)
+            basis = "17:00 ET trading-day end (FX / CME futures)"; close = ny_ts(d, 17, 0)
     avail = close + PUBLISH_LAG_S
-    return {"complete": now_ts >= avail, "eventTs": close, "availableTs": avail, "basis": basis, "estimated": True}
+    return {"complete": now_ts >= avail, "eventTs": close, "availableTs": avail, "basis": basis, "estimated": True,
+            "sessionDate": d.isoformat(), "providerClock": tz or ("UTC date-only" if bar_ts % 86400 == 0 else "America/New_York"), "clockNote": note}
