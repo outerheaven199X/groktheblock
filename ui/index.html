@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CryptOSINT · Grok Bot</title>
+<style>
+:root{--bg:#07080a;--panel:#0e1013;--line:#1c2026;--text:#e8e8e8;--dim:#8a9099;--org:#00e87b;--ins:#ff3b5c;--agent:#b06bff;--snip:#ffb020;--copy:#4fc3ff;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
+h1{font-size:16px;margin:0;letter-spacing:.08em}h1 b{color:var(--org)}
+nav{display:flex;flex-wrap:wrap;gap:6px}nav button{background:none;border:1px solid var(--line);color:var(--dim);padding:6px 10px;border-radius:6px;cursor:pointer;font:inherit}
+nav button.on{color:var(--text);border-color:var(--org)}
+select,input{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit}
+main{padding:20px;max-width:1280px;margin:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+.k{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}.v{font-size:26px;font-weight:600;margin-top:4px;overflow-wrap:anywhere}
+.mono{font-family:var(--mono);font-size:12px}table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--dim);font-weight:500;font-size:12px}td.n{text-align:right;font-family:var(--mono)}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:600;border:1px solid}
+.INSIDER{color:var(--ins)}.AGENT{color:var(--agent)}.SNIPER{color:var(--snip)}.COPY{color:var(--copy)}.ORGANIC{color:var(--org)}
+.sev-CRITICAL,.sev-HIGH{color:var(--ins)}.sev-MEDIUM{color:var(--snip)}.sev-LOW{color:var(--org)}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}.bar span{display:block}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:14px}.tl div{position:relative;padding:5px 0}.tl div:before{content:"";position:absolute;left:-20px;top:11px;width:9px;height:9px;border-radius:50%;background:var(--c,var(--dim))}
+.empty{color:var(--dim);padding:40px;text-align:center;border:1px dashed var(--line);border-radius:10px}
+img.graph{width:100%;border-radius:10px;border:1px solid var(--line)}a{color:var(--copy)}small{color:var(--dim)}
+.drop{outline:2px dashed var(--org)}
+</style></head><body>
+<header><h1>CRYPT<b>OSINT</b> · GROK BOT</h1>
+<nav id="tabs"></nav><select id="file"></select><label class="mono"><input type="file" id="pick" accept=".json" multiple style="display:none"><span style="cursor:pointer;color:var(--dim)">open json…</span></label></header>
+<main id="app"></main>
+<script>
+const TYPES={scan:"Token Scan",shill:"Shill Network",wallet:"Wallet Scan",replay:"Rug Replay",leaderboard:"Leaderboard",threats:"Threats",provenance:"Provenance"};
+const COL={INSIDER:"var(--ins)",AGENT:"var(--agent)",SNIPER:"var(--snip)",COPY:"var(--copy)",ORGANIC:"var(--org)"};
+let reports=[],tab="scan";const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sh=a=>a&&a.length>10?a.slice(0,4)+"…"+a.slice(-4):(a||"");const fmt=(n,d=0)=>n==null?"–":Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+function kind(name,j){if(j.organicScore!=null)return"scan";if(j.coordinationIndex!=null)return"shill";if(j.wallet&&j.tokens)return"wallet";if(j.timeline)return"replay";if(j.entries)return"leaderboard";if(j.results)return"provenance";if(Array.isArray(j))return"threats";return null}
+function add(name,j){const k=kind(name,j);if(!k)return;reports=reports.filter(r=>r.name!==name);reports.push({name,k,j});}
+async function autoload(){for(const dir of ["../out/","../examples/"]){try{const h=await (await fetch(dir)).text();const names=[...h.matchAll(/href="([^"]+\.json)"/g)].map(m=>decodeURIComponent(m[1]));
+await Promise.all(names.map(async n=>{try{if(!reports.some(r=>r.name===n))add(n,await (await fetch(dir+n)).json())}catch(e){}}));}catch(e){}}const has=reports.some(r=>r.k===tab);if(!has&&reports[0])tab=reports[0].k;render()}
+function tabs(){$("#tabs").innerHTML=Object.entries(TYPES).map(([k,l])=>{const c=reports.filter(r=>r.k===k).length;return`<button class="${k===tab?"on":""}" data-k="${k}">${l}${c?` <small>${c}</small>`:""}</button>`}).join("");
+$("#tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
+const list=reports.filter(r=>r.k===tab);$("#file").innerHTML=list.map((r,i)=>`<option value="${i}">${esc(r.name)}</option>`).join("");$("#file").style.display=list.length>1?"":"none"}
+function render(){tabs();const list=reports.filter(r=>r.k===tab);const r=list[+$("#file").value||0];
+if(!r){$("#app").innerHTML=`<div class="empty">No ${TYPES[tab]} reports yet. Run the matching script (outputs land in <span class="mono">out/</span>), serve the repo with <span class="mono">python3 -m http.server</span> and open <span class="mono">/ui/</span>, or drop JSON files here.</div>`;return}
+$("#app").innerHTML=V[tab](r.j,r.name)}
+const metric=(k,v,cls="")=>`<div class="card"><div class="k">${k}</div><div class="v ${cls}">${v}</div></div>`;
+const V={
+scan(j){const c=j.counts,tot=Object.values(c).reduce((a,b)=>a+b,0)||1,lp=j.lpMonitor||{},rc=lp.rugcheck||{};
+return`<div class="grid">${metric("Token",`$${esc(j.token.symbol)}<br><small class="mono">${esc(j.token.mint)}</small>`)}${metric("Organic score",j.organicScore,j.organicScore<40?"INSIDER":j.organicScore<65?"SNIPER":"ORGANIC")}${metric("Verdict",`<span class="sev-${j.verdict.severity}">${j.verdict.severity}</span>`)}${metric("Market cap",`$${fmt(j.token.mcap)}`)}</div>
+<div class="card"><div class="k">Wallet classes · ${tot} wallets in window</div><div class="bar" style="margin:10px 0">${Object.entries(c).map(([t,n])=>`<span style="width:${100*n/tot}%;background:${COL[t]}" title="${t} ${n}"></span>`).join("")}</div>${Object.entries(c).map(([t,n])=>`<span class="${t}" style="margin-right:14px">● ${t} ${n}</span>`).join("")}<p>${esc(j.verdict.summary)}</p>
+${j.scanWindow&&!j.scanWindow.reachedLaunch?`<p class="sev-MEDIUM">Launch not reached: analyzed the oldest ${j.scanWindow.transactionsAnalyzed} txs we could reach. Early-block labels are unreliable.</p>`:""}</div>
+<div class="card"><div class="k">LP monitor</div><div class="grid" style="margin-top:8px">${metric("Liquidity",`$${fmt(lp.totalLiquidityUsd)}`)}${metric("Pools",(lp.pools||[]).length)}${metric("Mint authority",rc.mintAuthority?'<span class="INSIDER">ENABLED</span>':'<span class="ORGANIC">none</span>')}${metric("LP locked",(rc.markets||[]).length?fmt(rc.markets[0].lpLockedPct,1)+"%":"–")}</div>
+${(rc.risks||[]).length?`<p>${rc.risks.map(x=>`<span class="pill sev-${x.level==="danger"?"HIGH":"MEDIUM"}">${esc(x.name)}</span>`).join(" ")}</p>`:""}</div>
+<div class="card"><div class="k">Wallets</div><table><tr><th>Class</th><th>Wallet</th><th>Block</th><th>Txs</th><th>Supply</th><th>SOL flow</th><th>Tag</th></tr>${j.wallets.map(w=>`<tr><td class="${w.type}">${w.type}</td><td class="mono"><a href="https://solscan.io/account/${w.address}" target="_blank">${sh(w.address)}</a></td><td class="n">${w.entryBlock}</td><td class="n">${w.txCount}</td><td class="n">${fmt(w.supplyPercent,1)}%</td><td class="n">${fmt(w.solFlowEstimate,3)}</td><td><small>${esc(w.tag||"")}</small></td></tr>`).join("")}</table></div>
+${(j.copyNetwork||[]).length?`<div class="card"><div class="k">Copy network</div><table>${j.copyNetwork.map(x=>`<tr><td class="mono">${sh(x.leader)}</td><td>→</td><td class="mono">${sh(x.follower)}</td><td class="n">${x.avgDelaySeconds}s</td></tr>`).join("")}</table></div>`:""}
+<small>${esc(j.disclaimer)}</small>`},
+shill(j,name){const png="../out/"+name.replace(/\.json$/,".png");return`<div class="grid">${metric("Ticker",esc(j.ticker))}${metric("Coordination index",j.coordinationIndex+"%",j.coordinationIndex>=40?"INSIDER":j.coordinationIndex>=20?"SNIPER":"ORGANIC")}${metric("Posts / accounts",`${j.sample.posts} / ${j.sample.accounts}`)}${metric("Clusters",j.clusters.length)}</div>
+<img class="graph" src="${png}" onerror="this.remove()">
+${j.clusters.map((c,i)=>`<div class="card"><div class="k">Cluster ${i+1} · ${c.size} accounts · ${c.posts} posts · median ${fmt(c.medianFollowers)} followers</div><p>${c.accounts.map(a=>`<a href="https://x.com/${a}" target="_blank">@${esc(a)}</a>`).join(" ")}</p>${c.sampleTexts.slice(0,2).map(t=>`<p class="mono" style="white-space:pre-wrap;color:var(--dim)">${esc(t)}</p>`).join("")}</div>`).join("")}
+${j.exactDuplicateTexts.length?`<div class="card"><div class="k">Same text, multiple accounts</div><table>${j.exactDuplicateTexts.map(([t,n])=>`<tr><td class="n">${n}</td><td class="mono">${esc(t)}</td></tr>`).join("")}</table></div>`:""}<small>${esc(j.disclaimer)}</small>`},
+wallet(j){const w=j.wallet;return`<div class="grid">${metric("Wallet",`<span class="mono">${sh(w.address)}</span>`)}${metric("Approx PnL",`${fmt(w.totalPnlSol,2)} SOL`,w.totalPnlSol>=0?"ORGANIC":"INSIDER")}${metric("Win rate",w.winRate+"%")}${metric("Reputation",`${w.reputation.score} · ${w.reputation.grade}`)}</div>
+<div class="card"><span class="sev-${j.verdict.severity}">${j.verdict.severity}</span> ${esc(j.verdict.summary)}<br><small>Age ${esc(w.walletAge||"unknown")} · ${j.window.transactionsAnalyzed} txs analyzed · ${esc((w.reputation.factors||[]).join("; "))}</small></div>
+<div class="card"><div class="k">Tokens</div><table><tr><th>Token</th><th>Class</th><th>PnL (SOL)</th><th>First tx</th></tr>${j.tokens.map(t=>`<tr><td>${esc(t.symbol)}</td><td class="${t.classification}">${t.classification}</td><td class="n">${fmt(t.pnlSol,3)}</td><td><small>${esc(t.firstTx.slice(0,16))}</small></td></tr>`).join("")}</table></div>
+<div class="grid"><div class="card"><div class="k">Funded by</div>${j.associations.fundingSources.map(f=>`<div class="mono">${sh(f.address)} · ${fmt(f.amountSol,2)} SOL</div>`).join("")}</div><div class="card"><div class="k">Funded</div>${j.associations.fundedWallets.map(f=>`<div class="mono">${sh(f.address)} · ${fmt(f.amountSol,2)} SOL</div>`).join("")}</div></div>`},
+replay(j){const s=j.summary,C2={CREATION:"var(--text)",INSIDER_BUY:"var(--ins)",BOT_ENTRY:"var(--agent)",SNIPER_ENTRY:"var(--snip)",ORGANIC_BUY:"var(--org)",LARGE_SELL:"var(--ins)",LP_REMOVE:"var(--ins)",MASS_DUMP:"var(--ins)",X_POST:"var(--copy)"};
+return`<div class="grid">${metric("Token","$"+esc(j.token.symbol))}${metric("Method",s.rugMethod)}${metric("Organic loss",fmt(s.organicLossEstimateSol,2)+" SOL","INSIDER")}${metric("Insider profit",fmt(s.insiderProfitEstimateSol,2)+" SOL")}</div>
+<div class="card"><div class="k">Timeline · ${j.timeline.length} events · ${s.xPostsMerged} X posts</div><div class="tl">${j.timeline.map(e=>`<div style="--c:${C2[e.type]||"var(--dim)"}"><span class="mono" style="color:var(--dim)">${esc(e.relativeTime)}</span> <b style="color:${C2[e.type]}">${e.type}</b> ${e.url?`<a href="${e.url}" target="_blank">${esc(e.detail)}</a>`:esc(e.detail)}</div>`).join("")}</div></div>`},
+leaderboard(j){return`<div class="card"><div class="k">${j.type} leaderboard · ${j.totalWalletsTracked} wallets · ${esc(j.dataSpan)}</div><table><tr><th>#</th><th>Wallet</th><th>Seen</th><th>Avg block</th><th>Win</th><th>PnL</th><th>Tokens</th></tr>${j.entries.map((e,i)=>`<tr><td>${i+1}</td><td class="mono">${sh(e.address)}</td><td class="n">${e.appearances}</td><td class="n">${e.avgEntryBlock}</td><td class="n">${e.winRate}%</td><td class="n">${fmt(e.totalEstimatedPnlSol,2)}</td><td><small>${esc(e.tokens.join(", "))}</small></td></tr>`).join("")}</table></div>`},
+threats(j){return j.length?j.map(t=>`<div class="card"><span class="sev-${t.severity}">${t.severity}</span> <b>${t.type}</b> $${esc(t.tokenSymbol)} — ${esc(t.detail)}</div>`).join(""):`<div class="empty">No threats in this feed.</div>`},
+provenance(j){return j.results.map(r=>`<div class="card"><div class="k">${esc(r.file)}</div><p>C2PA: ${r.c2pa&&r.c2pa.present?'<span class="ORGANIC">present</span>':"none"}</p>${r.signals.map(s=>`<div>• ${esc(s)}</div>`).join("")}${r.notes.map(s=>`<div><small>${esc(s)}</small></div>`).join("")}</div>`).join("")+`<small>${esc(j.disclaimer)}</small>`}};
+$("#file").onchange=render;
+async function readFiles(fs){for(const f of fs){try{add(f.name,JSON.parse(await f.text()))}catch(e){}}const last=reports[reports.length-1];if(last)tab=last.k;render()}
+$("#pick").onchange=e=>readFiles(e.target.files);
+document.addEventListener("dragover",e=>{e.preventDefault();document.body.classList.add("drop")});document.addEventListener("dragleave",()=>document.body.classList.remove("drop"));
+document.addEventListener("drop",e=>{e.preventDefault();document.body.classList.remove("drop");readFiles(e.dataTransfer.files)});
+autoload();
+</script></body></html>
