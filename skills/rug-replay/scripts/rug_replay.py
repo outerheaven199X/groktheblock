@@ -10,10 +10,10 @@ import argparse, json, sys
 from datetime import datetime
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import classify as C, data as D
-from cryptosint.cli import OUT, resolve_mint
-from cryptosint.threats import is_lp_tx, fee_payer_sol_gain
-from cryptosint.timefmt import rel, lifespan
+from grok_the_block import classify as C, data as D
+from grok_the_block.cli import OUT, resolve_mint
+from grok_the_block.threats import is_lp_tx, fee_payer_sol_gain
+from grok_the_block.timefmt import rel, lifespan
 
 LARGE_SELL_PCT, DUMP_WINDOW, DUMP_MIN = 5, 60, 3
 BUY_TYPE = {"INSIDER": "INSIDER_BUY", "AGENT": "BOT_ENTRY", "SNIPER": "SNIPER_ENTRY", "ORGANIC": "ORGANIC_BUY", "COPY": "ORGANIC_BUY"}
@@ -105,12 +105,12 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("token"); ap.add_argument("--x-posts", nargs="*")
+    ap = argparse.ArgumentParser(description="Grok The Block · rug replay: rebuild a token's launch as a timeline of what actually happened.", epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("token"); ap.add_argument("--x-posts", nargs="*")
     ap.add_argument("--max-tx", type=int, default=500); ap.add_argument("--sig-pages", type=int, default=20); ap.add_argument("--out")
     a = ap.parse_args()
     mint = resolve_mint(a.token)
     r = replay(mint, a.max_tx, a.sig_pages, a.x_posts)
-    from cryptosint.assess import assess_replay
+    from grok_the_block.assess import assess_replay
     r["assessment"] = assess_replay(r)
     out = Path(a.out) if a.out else OUT / f"replay-{r['token']['symbol']}-{mint[:6]}.json"
     D.write_json(out, r)

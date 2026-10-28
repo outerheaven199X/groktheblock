@@ -1,6 +1,6 @@
 ---
 name: solana-data
-description: Shared read-only Solana data layer for every CryptOSINT skill: public Solana RPC with failover, DexScreener, RugCheck, an optional HELIUS_API_KEY, and a local JSON cache. Use it when another CryptOSINT skill needs setup or when Solana RPC calls fail.
+description: Grok The Block (understand what actually happened on-chain, in plain English). Shared read-only Solana data layer for every Grok The Block skill: public Solana RPC with failover, DexScreener, RugCheck, an optional HELIUS_API_KEY, and a local JSON cache. Use it when another CryptOSINT skill needs setup or when Solana RPC calls fail.
 ---
 # Solana data layer
 

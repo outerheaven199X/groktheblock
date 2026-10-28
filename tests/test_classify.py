@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lib"))
-from cryptosint import classify as C
+from grok_the_block import classify as C
 
 M, DEP = "MINT", "DEPLOYER"
 

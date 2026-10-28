@@ -238,7 +238,7 @@ def markdown(r):
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description='Grok The Block · X coordination: find clusters of accounts promoting a token together.', epilog="An evolution of CryptOSINT by @varien. Read-only.")
     ap.add_argument("ticker"); ap.add_argument("inputs", nargs="+")
     ap.add_argument("--out-dir", default=str(Path(__file__).resolve().parents[3] / "out"))
     ap.add_argument("--sim", type=float, default=0.6)

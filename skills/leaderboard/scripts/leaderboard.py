@@ -5,9 +5,9 @@ import argparse, json, sys
 from collections import defaultdict
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import history
-from cryptosint.cli import OUT
-from cryptosint.data import write_json, short, is_program_account
+from grok_the_block import history
+from grok_the_block.cli import OUT
+from grok_the_block.data import write_json, short, is_program_account
 
 
 def build(kind="SNIPER", top=25):
@@ -32,7 +32,7 @@ def build(kind="SNIPER", top=25):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--type", default="SNIPER"); ap.add_argument("--top", type=int, default=25); ap.add_argument("--out")
+    ap = argparse.ArgumentParser(description='Grok The Block · leaderboard: wallets that keep appearing early across scanned launches (local data only).', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("--type", default="SNIPER"); ap.add_argument("--top", type=int, default=25); ap.add_argument("--out")
     a = ap.parse_args()
     r = build(a.type.upper(), a.top)
     out = Path(a.out) if a.out else OUT / f"leaderboard-{r['type']}.json"

@@ -8,9 +8,9 @@ usage: token_scan.py <mint|$TICKER> [--max-tx 200] [--sig-pages 20] [--origins 1
 import argparse, json, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import classify as C, data as D, history, lp
-from cryptosint.cli import OUT, resolve_mint
-from cryptosint.assess import assess_scan
+from grok_the_block import classify as C, data as D, history, lp
+from grok_the_block.cli import OUT, resolve_mint
+from grok_the_block.assess import assess_scan
 
 ORDER = {"INSIDER": 0, "AGENT": 1, "SNIPER": 2, "COPY": 3, "ORGANIC": 4}
 
@@ -156,7 +156,7 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description='Grok The Block · token scan: explain in plain English who bought a token at launch, how concentrated supply is, and what to look at next.', epilog="An evolution of CryptOSINT by @varien. Read-only.")
     ap.add_argument("token"); ap.add_argument("--max-tx", type=int, default=200)
     ap.add_argument("--sig-pages", type=int, default=20); ap.add_argument("--origins", type=int, default=10)
     ap.add_argument("--out"); ap.add_argument("--no-record", action="store_true")

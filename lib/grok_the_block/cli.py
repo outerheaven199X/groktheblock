@@ -36,7 +36,7 @@ def resolve_mint(q: str, pick: int | None = None) -> str:
     cands = ticker_candidates(q)
     if not cands:
         sys.exit(f"Could not resolve '${q}' on DexScreener (no exact symbol match, or DexScreener unavailable); pass the mint address.")
-    pick = pick or (int(os.environ["CRYPTOSINT_PICK"]) if os.environ.get("CRYPTOSINT_PICK") else None)
+    pick = pick or (int(os.environ.get("GTB_PICK") or os.environ["CRYPTOSINT_PICK"]) if (os.environ.get("GTB_PICK") or os.environ.get("CRYPTOSINT_PICK")) else None)
     total = sum(c["liquidityUsd"] for c in cands) or 1
     if pick is None and len(cands) > 1:
         OUT.mkdir(parents=True, exist_ok=True)

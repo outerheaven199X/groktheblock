@@ -12,9 +12,9 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import classify as C, data as D, history
-from cryptosint.cli import OUT
-from cryptosint.timefmt import age
+from grok_the_block import classify as C, data as D, history
+from grok_the_block.cli import OUT
+from grok_the_block.timefmt import age
 
 MIN_FUND_SOL = 0.01
 
@@ -85,10 +85,10 @@ def scan_wallet(w: str, max_tx=200) -> dict:
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("wallet"); ap.add_argument("--max-tx", type=int, default=200); ap.add_argument("--out")
+    ap = argparse.ArgumentParser(description='Grok The Block · wallet scan: explain what a wallet did across the launches it touched.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("wallet"); ap.add_argument("--max-tx", type=int, default=200); ap.add_argument("--out")
     a = ap.parse_args()
     r = scan_wallet(a.wallet, a.max_tx)
-    from cryptosint.assess import assess_wallet
+    from grok_the_block.assess import assess_wallet
     r["assessment"] = assess_wallet(r)
     out = Path(a.out) if a.out else OUT / f"wallet-{a.wallet[:8]}.json"
     D.write_json(out, r)

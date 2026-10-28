@@ -11,7 +11,7 @@ usage: provenance.py <file> [<file> ...] [--index cache/media_index.jsonl] [--ou
 import argparse, hashlib, json, os, shutil, subprocess, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint.data import CACHE_DIR, write_json
+from grok_the_block.data import CACHE_DIR, write_json
 
 IMG = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff", ".heic"}
 AI_HINTS = ["stable diffusion", "midjourney", "dall", "openai", "firefly", "comfyui", "automatic1111", "novelai", "flux",
@@ -130,7 +130,7 @@ def analyze(path: Path, index: list):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("files", nargs="+"); ap.add_argument("--label", default="")
+    ap = argparse.ArgumentParser(description='Grok The Block · promo provenance: check promo media for reuse, edits and generation signals.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("files", nargs="+"); ap.add_argument("--label", default="")
     ap.add_argument("--index", default=str(CACHE_DIR / "media_index.jsonl")); ap.add_argument("--out")
     a = ap.parse_args()
     ip = Path(a.index); index = [json.loads(l) for l in ip.read_text().splitlines()] if ip.exists() else []

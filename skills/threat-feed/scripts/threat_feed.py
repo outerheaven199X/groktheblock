@@ -9,15 +9,15 @@ Prints nothing when there are no threats (routine-friendly)."""
 import argparse, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import data as D, history
-from cryptosint.lp import lp_status
-from cryptosint.threats import detect_lp_removals, detect_coordinated_dumps
+from grok_the_block import data as D, history
+from grok_the_block.lp import lp_status
+from grok_the_block.threats import detect_lp_removals, detect_coordinated_dumps
 
 STATE = D.CACHE_DIR / "threat_state.json"
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--max-tokens", type=int, default=10); ap.add_argument("--json", action="store_true"); ap.add_argument("--out")
+    ap = argparse.ArgumentParser(description='Grok The Block · threat feed: sweep scanned tokens for LP pulls, dumps and risky authorities.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("--max-tokens", type=int, default=10); ap.add_argument("--json", action="store_true"); ap.add_argument("--out")
     a = ap.parse_args()
     rows = history.load_all()
     tokens = {}

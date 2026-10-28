@@ -1,8 +1,8 @@
-# CryptOSINT for Grok Bot
+# Grok The Block
 
-Read-only Solana and X forensics for Grok Bot. Give your bot a token, a wallet, a ticker, or a promo clip, and it tells you who's actually behind the chart: insiders, snipers, bot-like wallets, copy traders, coordinated promo accounts on X, and recycled or generated promo media. It presents the result as a Page.
+**Understand what actually happened in a token's transactions.** Give Grok Bot a Solana token, a wallet, a ticker, or a promo clip, and it explains the transactions in plain English: who bought at launch, whether supply was bundled into a few wallets, who sold into whom, which wallets copy each other, whether promo accounts on X moved together, and what changed since you last looked. Each answer leads with the main finding, then its coverage and limits, the linked evidence, and what to check next. Results appear as a Page and in a local dashboard.
 
-This is a port of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT)** by Nikki ([@varien](https://x.com/varien)). The original runs on Vite/React, Cloudflare Functions, KV, and paid Helius. This port runs on free public data, and it adds the X shill-network detector and promo provenance checks.
+Grok The Block is an evolution of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki ([@varien](https://x.com/varien))**. The original runs on Vite/React, Cloudflare Functions, KV, and paid Helius. This version runs on free public data (Helius optional). It adds plain-English assessments, X coordination checks, promo provenance, and watch diffs.
 
 ## What it does
 
@@ -15,12 +15,21 @@ This is a port of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT)*
 | `rug-replay` | Forensic timeline of a token's life (entries, large sells, LP pulls, mass dumps) merged with X posts |
 | `leaderboard` | Repeat snipers and insiders across everything you've scanned |
 | `wallet-reputation` | 0–100 suspicion score (original weights) |
-| `watch-token` | Whale and insider-move alerts, polled from a Grok Bot routine |
+| `watch-token` | What changed since the last successful scan (liquidity, authorities, LP lock, verdict, new risks) plus whale and insider-move alerts, deduplicated, with evidence links |
 | `threat-feed` | Digest of LP pulls, insider dumps, rugged flags, mint/freeze authority |
 | `promo-provenance` | Hashes and reuse, EXIF and generator tags, ffprobe, C2PA, frame and loop checks. Signals, never verdicts |
 | `solana-data` | Shared data layer: public RPC with failover, DexScreener, RugCheck, optional Helius, local cache |
 
 Plus `ui/`, a zero-build static dashboard in the original's dark palette that reads the JSON the scripts write.
+
+### How results read
+Every token scan, wallet scan and replay carries an `assessment`:
+- **Lead finding** in one plain sentence, with why it matters.
+- **Severity**, then **coverage and limits**: whether the launch was reached, how many transactions, which providers answered, and the standing limits (sampled X data, local-only reputation, approximate SOL figures). If a provider is down, its values show as unknown, never as clean.
+- **Findings**, each tagged by basis: *observed* (on-chain fact), *heuristic* (rule-based classification), or *inferred* (a relationship such as a shared funder or copy timing). Each links to its evidence.
+- **Next actions**: a Grok Bot request and a local command to copy. Copying runs nothing.
+
+In the dashboard, the command bar (`/`) keeps two things separate: **1 · Search loaded reports** and **2 · Start a new analysis**, which hands you text to copy into Grok Bot or a terminal. Clicking a wallet row, graph node or timeline event opens its evidence, with links to investigate that wallet or token next. The subject bar keeps the token in view as you move between scan, wallets, copy network, X coordination and replay. A first visit opens a guided demo built from bundled examples, all badged **EXAMPLE: not live**.
 
 ## Screenshots
 
@@ -49,7 +58,9 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python skills/shill-network/scripts/shill_network.py '$TICKER' path/to/x-search-json/
 python3 -m http.server 8000   # then open http://localhost:8000/ui/
 ```
-Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py` to check the classifier port.
+Ambiguous tickers: if more than one Solana mint uses the symbol (for example `$TRUMP`), the scan stops, lists the candidates, exits with code 3 and writes `out/ambiguous-<T>.json`. Re-run with the mint or `--pick N`. To test failure handling, set `GTB_SIMULATE_FAIL=dexscreener|rugcheck|rpc` (comma-separated). `CRYPTOSINT_*` env names and `import cryptosint` still work.
+
+Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py` and `python3 tests/test_watch_diff.py` to check the classifier port and the watch diff.
 
 The shill detector reads saved X search results (the JSON from X's search API, with `expansions=author_id`). Inside Grok Bot, the bot fetches those with its built-in X tools. Standalone, bring your own export.
 
@@ -66,8 +77,11 @@ The shill detector reads saved X search results (the JSON from X's search API, w
 - **No API keys required, none stored.** Optional keys come from your environment only. `cache/` and `out/` are git-ignored.
 - **Conflict of interest:** the author receives creator royalties from a token associated with this project. The tool **never whitelists, skips, or special-cases any coin**, including that one. If it flags it, it flags it.
 
+## Verification
+The journeys and failure cases (bundle vs organic, flagged wallet to evidence, watch to deduplicated alert; incomplete data, ambiguous ticker, empty network, provider failure) are recorded in [docs/verification/VERIFICATION.md](docs/verification/VERIFICATION.md).
+
 ## Credits
-Port of [CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki (@varien). Data from Solana public RPC, [DexScreener](https://dexscreener.com), and [RugCheck](https://rugcheck.xyz). Content credentials via [c2patool](https://github.com/contentauth/c2pa-rs).
+Grok The Block is an evolution of [CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki (@varien). Data from Solana public RPC, [DexScreener](https://dexscreener.com), and [RugCheck](https://rugcheck.xyz). Content credentials via [c2patool](https://github.com/contentauth/c2pa-rs).
 
 MIT License © Nikki (@varien)
 

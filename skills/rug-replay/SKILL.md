@@ -1,6 +1,6 @@
 ---
 name: rug-replay
-description: Reconstruct a Solana token's lifecycle as a forensic timeline (creation, insider, bot, and sniper entries, organic buy waves, large sells, LP removals, mass dumps) and merge in X posts about it. Use for a post-mortem on a rug or crash.
+description: Grok The Block (understand what actually happened on-chain, in plain English). Reconstruct a Solana token's lifecycle as a forensic timeline (creation, insider, bot, and sniper entries, organic buy waves, large sells, LP removals, mass dumps) and merge in X posts about it. Use for a post-mortem on a rug or crash.
 ---
 # Rug Replay (with X chatter)
 
@@ -15,8 +15,15 @@ description: Reconstruct a Solana token's lifecycle as a forensic timeline (crea
 - Changes from the original: a dump is reported once per window, not per sell; supply is on-chain; LP_REMOVE needs a SOL gain of 1 or more by the deployer or an insider in an AMM tx (Raydium, Orca, PumpSwap, or CPMM); loss and profit use real SOL flows (the original's token-unit PnL is always about 0).
 
 ## Present the result as a Page
-End every run by rendering the report as a Grok Bot Page (canvas), not a wall of chat text. Read your `canvas` skill before the first `WriteCanvas`. Use the same layout as the CryptOSINT dashboard (`ui/index.html`), with kit blocks only:
-Page style (matches `ui/index.html`): set `palette={["#00e87b", "#ff3b5c", "#ffb020"]}` on `Page` (organic green, insider/sell red, sniper/warn amber; the same tokens as the UI's `--org`, `--ins`, `--snip`). Class colors are fixed everywhere: ORGANIC green, INSIDER red, SNIPER amber, AGENT blue-violet, COPY cyan. Typography comes from the kit (serif-style headline title, mono for addresses and figures by writing them in backticks); never hardcode fonts or paint your own background. Order sections like the UI tab for this view: a one-line kicker `Text` (data source, tx count, scan time), headline `Metrics` (the UI's gauge cards), the main visual, then tables, then an "Evidence" `LinkCards` section and the disclaimer line. Shorten addresses as `9zd5…QzhD`. Status pills: `danger` for CRITICAL/HIGH, `warning` for MEDIUM, no tone for LOW.
+End every run by rendering the report as a Grok Bot Page (canvas), not a wall of chat text. Read your `canvas` skill before the first `WriteCanvas`. Use the same layout as the Grok The Block dashboard (`ui/index.html`), with kit blocks only.
+Page structure (requirement: a Page must reach the same conclusions, evidence and next steps as the dashboard). Use `palette={["#00e87b", "#ff3b5c", "#ffb020"]}` on `Page` (the UI's `--org`, `--ins`, `--snip`); class colors are ORGANIC green, INSIDER red, SNIPER amber, AGENT violet, COPY cyan. Typography comes from the kit; never hardcode fonts. Build it from the result's `assessment` block when present (token scan, wallet scan, rug replay), in this order:
+1. Title `Grok The Block: <subject>`; `summary` = `assessment.lead.text`. If the data is a bundled example, say "Example data, recorded <date>, not live" in the summary.
+2. A `Callout` with the lead finding (tone `danger` for CRITICAL/HIGH, `warning` for MEDIUM) and `lead.why` when present. Name the basis: observed, heuristic or inferred.
+3. Section "Coverage & limits", before any numbers: `Rows` with one row per `coverage.limits` item (kind as `meta`) and one per failed provider (`status` danger). An unreached launch, sampled X data, local-only reputation and approximate SOL figures must appear here. Missing provider data is "unknown", never "clean".
+4. `Metrics` for the key numbers, then the main visual.
+5. Section "Findings & evidence": a `Table` with Finding, Severity, Basis and Evidence columns, plus `LinkCards` for the Solscan or provider links in `evidence`.
+6. Section "Next steps": `Steps`, one per `assessment.nextActions` item (title = `label`, detail = `why`, then "Ask Grok Bot: “<ask>”"). Never say a step ran unless you ran it in this turn.
+Shorten addresses as `9zd5…QzhD`.
 - A `Metrics` row: rug method, lifespan, organic loss, insider profit.
 - A custom SVG timeline or `Rows` (relativeTime as `lead`, event type as `status`, detail as `title`), with X posts interleaved and linked.
 - The wallet breakdown as `Bars`.

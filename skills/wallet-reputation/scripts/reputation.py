@@ -6,12 +6,12 @@ usage: reputation.py <wallet> [<wallet> ...] [--live]   (--live also fetches wal
 import argparse, json, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import classify as C, history, data as D
-from cryptosint.timefmt import age
+from grok_the_block import classify as C, history, data as D
+from grok_the_block.timefmt import age
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("wallets", nargs="+"); ap.add_argument("--live", action="store_true")
+    ap = argparse.ArgumentParser(description='Grok The Block · wallet reputation: score wallets from local scan history.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("wallets", nargs="+"); ap.add_argument("--live", action="store_true")
     a = ap.parse_args()
     out = []
     for w in a.wallets:

@@ -25,7 +25,7 @@ LAMPORTS_PER_SOL = 1_000_000_000
 SOL_MINT = "So11111111111111111111111111111111111111112"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CACHE_DIR = Path(os.environ.get("CRYPTOSINT_CACHE", REPO_ROOT / "cache"))
-UA = {"User-Agent": "cryptosint-grokbot/0.1 (read-only research)"}
+UA = {"User-Agent": "grok-the-block/0.4 (read-only research)"}
 
 
 PUBLIC_RPCS = [u for u in os.environ.get("SOLANA_RPC_URL", "").split(",") if u] or [
@@ -91,8 +91,8 @@ PROVIDERS: dict[str, dict] = {}
 
 
 def _fail_sim(name: str) -> bool:
-    """CRYPTOSINT_SIMULATE_FAIL=dexscreener,rugcheck,rpc simulates a provider outage (testing only)."""
-    return name in {x.strip() for x in os.environ.get("CRYPTOSINT_SIMULATE_FAIL", "").split(",") if x.strip()}
+    """GTB_SIMULATE_FAIL (or CRYPTOSINT_SIMULATE_FAIL)=dexscreener,rugcheck,rpc simulates a provider outage (testing only)."""
+    return name in {x.strip() for x in os.environ.get("GTB_SIMULATE_FAIL") or os.environ.get("CRYPTOSINT_SIMULATE_FAIL", "").split(",") if x.strip()}
 
 
 def mark(name: str, ok: bool, detail: str = "") -> None:

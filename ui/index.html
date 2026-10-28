@@ -115,7 +115,7 @@ tr[data-w]{cursor:pointer}tr.sel td{background:rgba(0,232,123,.06)}
 <aside class="drawer" id="drawer" aria-label="Evidence"></aside>
 <div class="modal" id="palette"><div class="sheet" style="width:min(720px,94vw);max-height:80vh;overflow:auto"><div class="kicker">Search or start</div><div id="palbody"></div></div></div>
 <div class="modal" id="keys"><div class="sheet"><div class="kicker" style="margin-bottom:12px">Keyboard</div><dl>
-<dt>/ or ⌘K</dt><dd>Command bar</dd><dt>1 – 8</dt><dd>Switch view</dd><dt>[ ]</dt><dd>Previous / next report in this view</dd><dt>← →</dt><dd>Scrub the rug replay</dd><dt>space</dt><dd>Play / pause replay</dd><dt>e</dt><dd>Export (original envelope)</dd><dt>click</dt><dd>A wallet row, graph node or timeline event opens its evidence</dd><dt>esc</dt><dd>Close panel or dialog</dd></dl></div></div>
+<dt>/ or ⌘K</dt><dd>Command bar</dd><dt>1 – 8</dt><dd>Switch view</dd><dt>[ ]</dt><dd>Previous / next report in this view</dd><dt>← →</dt><dd>Scrub the rug replay</dd><dt>space</dt><dd>Play / pause replay</dd><dt>e</dt><dd>Export (original envelope)</dd><dt>click</dt><dd>A wallet row, graph node or timeline event opens its evidence</dd><dt>esc</dt><dd>Close panel or dialog</dd></dl><div class="foot" style="margin-top:12px">Grok The Block: plain-English reads of Solana transactions. An evolution of CryptOSINT by @varien. Read-only: signals from public data, not accusations.</div></div></div>
 <input type="file" id="pick" accept=".json" multiple hidden>
 <script>
 "use strict";
@@ -143,7 +143,7 @@ function go(k){S.view=k;history.replaceState(null,"","#"+k);stopPlay();S.scrub=n
 function pickReport(r){S.subject=subjectOf(r)||S.subject;S.idx={};const k=r.k==="watch"?"threats":r.k==="ambig"?"scan":r.k;S.view=k;S.idx[k]=list(k).indexOf(r);history.replaceState(null,"","#"+k);stopPlay();S.scrub=null;render();scrollTo({top:0})}
 function render(){tabs();const tp=$("#tip");if(tp)tp.style.display="none";const app=$("#app");
 if(S.loading){app.innerHTML=`<div class="grid g4">${[1,2,3,4].map(()=>`<div class="card"><div class="skel" style="width:40%"></div><div class="skel" style="height:30px;margin-top:12px"></div></div>`).join("")}</div><div class="card" style="margin-top:16px">${[90,80,95,70,85].map(w=>`<div class="skel" style="width:${w}%;margin:10px 0"></div>`).join("")}</div>`;return}
-const eb=S.errors.length?`<div class="callout bad" style="margin:0 0 16px">Could not read ${S.errors.length} file${S.errors.length>1?"s":""}: ${S.errors.slice(0,3).map(esc).join("; ")}. Check that each is a CryptOSINT JSON report.</div>`:"";
+const eb=S.errors.length?`<div class="callout bad" style="margin:0 0 16px">Could not read ${S.errors.length} file${S.errors.length>1?"s":""}: ${S.errors.slice(0,3).map(esc).join("; ")}. Check that each is a Grok The Block (or CryptOSINT) JSON report.</div>`:"";
 const r=cur();if(!r){app.innerHTML=eb+welcome()+(S.subject?subjBar(null):"")+empty(S.view);bindInv(null);return}
 const l=list(S.view);const pager=l.length>1?`<div class="filters" style="margin:0 0 16px">${l.map((x,i)=>`<button class="chip ${x===r?"on":""}" data-i="${i}" style="color:${x===r?"var(--org)":""}">${esc(label(x))}</button>`).join("")}</div>`:"";
 const vk=r.k==="watch"||r.k==="ambig"||(S.view==="threats")?r.k:S.view;if(!S.subject)S.subject=subjectOf(r);

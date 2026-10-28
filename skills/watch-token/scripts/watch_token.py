@@ -17,10 +17,10 @@ A failed provider never replaces the last good snapshot.
 import argparse, json, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint import data as D, history
-from cryptosint.cli import resolve_mint
-from cryptosint.threats import detect_lp_removals
-from cryptosint.cli import OUT
+from grok_the_block import data as D, history
+from grok_the_block.cli import resolve_mint
+from grok_the_block.threats import detect_lp_removals
+from grok_the_block.cli import OUT
 
 SKILLS = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(SKILLS / 'token-scan' / 'scripts'))
@@ -141,7 +141,7 @@ def emit(entry: dict, mint: str, alerts: list[dict], status: str) -> tuple[list[
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["add", "remove", "list", "check"]); ap.add_argument("token", nargs="?")
+    ap = argparse.ArgumentParser(description='Grok The Block · watch: report material changes in a token since the last successful scan, with evidence.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("cmd", choices=["add", "remove", "list", "check"]); ap.add_argument("token", nargs="?")
     ap.add_argument("--min-sol", type=float, default=10); ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-snapshot", action="store_true", help="only check new transactions; skip the snapshot diff")
     ap.add_argument("--loop", type=int, default=0, help="keep polling for N seconds (webhook-free fast mode)")

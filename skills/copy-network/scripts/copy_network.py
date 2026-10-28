@@ -8,13 +8,13 @@ usage: copy_network.py <scan.json> [--out graph.png]
 import argparse, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
-from cryptosint.data import short
+from grok_the_block.data import short
 
 COL = {"INSIDER": "#ff3b5c", "AGENT": "#b06bff", "SNIPER": "#ffb020", "COPY": "#4fc3ff", "ORGANIC": "#00e87b"}
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("scan"); ap.add_argument("--out")
+    ap = argparse.ArgumentParser(description='Grok The Block · copy network: draw wallets that trade seconds after the same leader.', epilog="An evolution of CryptOSINT by @varien. Read-only."); ap.add_argument("scan"); ap.add_argument("--out")
     a = ap.parse_args()
     r = json.loads(Path(a.scan).read_text())
     rels = r.get("copyNetwork") or []
