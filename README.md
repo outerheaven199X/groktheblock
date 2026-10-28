@@ -60,7 +60,9 @@ python3 -m http.server 8000   # then open http://localhost:8000/ui/
 ```
 Ambiguous tickers: if more than one Solana mint uses the symbol (for example `$TRUMP`), the scan stops, lists the candidates, exits with code 3 and writes `out/ambiguous-<T>.json`. Re-run with the mint or `--pick N`. To test failure handling, set `GTB_SIMULATE_FAIL=dexscreener|rugcheck|rpc` (comma-separated). `CRYPTOSINT_*` env names and `import cryptosint` still work.
 
-Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py` and `python3 tests/test_watch_diff.py` to check the classifier port and the watch diff.
+Optional: `export HELIUS_API_KEY=...` for speed. Optional: `ffmpeg`, `c2patool`, and `exiftool` for promo provenance. Run `python3 tests/test_classify.py`, `python3 tests/test_watch_diff.py` and `python3 tests/test_no_leaks.py` to check the classifier port and the watch diff.
+
+Bundled X examples are sanitized (`tools/sanitize_examples.py`): post text is replaced by pattern summaries, handles and links are removed, and follower counts are bucketed.
 
 The shill detector reads saved X search results (the JSON from X's search API, with `expansions=author_id`). Inside Grok Bot, the bot fetches those with its built-in X tools. Standalone, bring your own export.
 
