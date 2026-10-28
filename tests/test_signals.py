@@ -20,6 +20,8 @@ def shape(s):
         check(k in s, f"signal missing {k}")
     for k in ("eventTime", "availableTime", "ingestTime", "validAsOf", "sourceStatus", "coverage", "limitations"):
         check(k in s["observation"], f"observation missing {k}")
+    o = s["observation"]
+    check(o.get("availableTs") is None or o["availableTs"] <= o["ingestTs"], "available never after ingest")
     check(s["observation"]["sourceStatus"] in ("HEALTHY", "DEGRADED", "STALE", "UNAVAILABLE", "NOT_CONFIGURED"), "status enum")
     check(s["basis"] in X.BASES, "basis")
     check(s["evidence"] and all(e["url"].startswith("https://") for e in s["evidence"] if e.get("url")), "evidence links")

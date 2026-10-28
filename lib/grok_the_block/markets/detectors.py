@@ -85,7 +85,9 @@ def robust(series: list[float], x: float) -> tuple[float | None, float, float]:
 
 def env(obs_base: dict, event=None, available=None, valid=None, approx=False, extra_limits=()) -> dict:
     """Per-signal observation envelope from the run's per-source base (status, coverage, ingest time)."""
-    return T.obs(event, available if available is not None else obs_base["ingestTs"], obs_base["ingestTs"],
+    ing = obs_base["ingestTs"]
+    avail = min(available, ing) if available is not None else ing  # never later than we actually read it
+    return T.obs(event, avail, ing,
                  valid if valid is not None else event, obs_base["status"], obs_base["coverage"],
                  list(obs_base.get("limitations") or []) + list(extra_limits), approx)
 
