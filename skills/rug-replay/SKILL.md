@@ -22,7 +22,7 @@ Page structure (requirement: a Page must reach the same conclusions, evidence an
 3. Section "Coverage & limits", before any numbers: `Rows` with one row per `coverage.limits` item (kind as `meta`) and one per failed provider (`status` danger). An unreached launch, sampled X data, local-only reputation and approximate SOL figures must appear here. Missing provider data is "unknown", never "clean".
 4. `Metrics` for the key numbers, then the main visual.
 5. Section "Findings & evidence": a `Table` with Finding, Severity, Basis and Evidence columns, plus `LinkCards` for the Solscan or provider links in `evidence`.
-6. Section "Next steps": `Steps`, one per `assessment.nextActions` item (title = `label`, detail = `why`, then "Ask Grok Bot: “<ask>”"). Never say a step ran unless you ran it in this turn.
+6. Section "Next steps": `Rows`, one per `assessment.nextActions` item (title = `label`, meta = `why` followed by "Ask Grok Bot: “<ask>”"). Never say a step ran unless you ran it in this turn.
 Shorten addresses as `9zd5…QzhD`.
 - A `Metrics` row: rug method, lifespan, organic loss, insider profit.
 - A custom SVG timeline or `Rows` (relativeTime as `lead`, event type as `status`, detail as `title`), with X posts interleaved and linked.
