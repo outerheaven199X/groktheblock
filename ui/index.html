@@ -1,75 +1,256 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CryptOSINT · Grok Bot</title>
+<meta name="color-scheme" content="dark">
 <style>
-:root{--bg:#07080a;--panel:#0e1013;--line:#1c2026;--text:#e8e8e8;--dim:#8a9099;--org:#00e87b;--ins:#ff3b5c;--agent:#b06bff;--snip:#ffb020;--copy:#4fc3ff;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
-h1{font-size:16px;margin:0;letter-spacing:.08em}h1 b{color:var(--org)}
-nav{display:flex;flex-wrap:wrap;gap:6px}nav button{background:none;border:1px solid var(--line);color:var(--dim);padding:6px 10px;border-radius:6px;cursor:pointer;font:inherit}
-nav button.on{color:var(--text);border-color:var(--org)}
-select,input{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit}
-main{padding:20px;max-width:1280px;margin:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
-.k{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}.v{font-size:26px;font-weight:600;margin-top:4px;overflow-wrap:anywhere}
-.mono{font-family:var(--mono);font-size:12px}table{width:100%;border-collapse:collapse}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--dim);font-weight:500;font-size:12px}td.n{text-align:right;font-family:var(--mono)}
-.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:600;border:1px solid}
+:root{
+  --bg:#07080a;--bg2:#0b0d10;--card:#0f1215;--line:#1b2027;--line2:#262c35;
+  --ink:#ecebe6;--ink2:#a7abb2;--ink3:#6b717b;
+  --org:#00e87b;--ins:#ff3b5c;--agent:#b06bff;--snip:#ffb020;--copy:#4fc3ff;--x:#8fa3ff;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:12px;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:40px;
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.012) 3px 4px);z-index:0}
+a{color:var(--copy);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:var(--mono)}.dim{color:var(--ink2)}.faint{color:var(--ink3)}
+/* shell */
+.top{position:sticky;top:0;z-index:5;background:rgba(7,8,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4);padding:var(--s3) var(--s5);max-width:1360px;margin:auto}
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:.18em;font-size:13px;white-space:nowrap}.brand b{color:var(--org)}.brand i{font-style:normal;color:var(--ink3);font-weight:400}
+.cmd{flex:1;min-width:240px;display:flex;align-items:center;gap:var(--s2);background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:8px 12px;cursor:text}
+.cmd:focus-within{border-color:var(--org);box-shadow:0 0 0 3px rgba(0,232,123,.12)}
+.cmd input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);font:13px var(--mono)}
+.kbd{font:11px var(--mono);color:var(--ink3);border:1px solid var(--line2);border-bottom-width:2px;border-radius:5px;padding:0 5px}
+.tabs{display:flex;flex-wrap:wrap;gap:2px;padding:0 var(--s5);max-width:1360px;margin:auto}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--ink3);padding:10px 12px;font:12px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.tab:hover{color:var(--ink2)}.tab.on{color:var(--ink);border-color:var(--org)}.tab sup{color:var(--ink3);margin-left:3px}
+main{position:relative;z-index:1;max-width:1360px;margin:auto;padding:var(--s5)}
+/* type */
+.kicker{font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+h1.hed{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4vw,46px);line-height:1.05;margin:6px 0 4px;letter-spacing:-.01em}
+.dek{font-family:var(--serif);font-size:18px;color:var(--ink2);max-width:72ch;margin:0 0 var(--s5)}
+h2{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:0 0 var(--s3)}
+/* layout */
+.grid{display:grid;gap:var(--s4)}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.g21{grid-template-columns:2fr 1fr}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g21{grid-template-columns:1fr}}
+@media(max-width:640px){.g4,.g2{grid-template-columns:1fr}main{padding:var(--s4)}.bar{padding:var(--s3) var(--s4)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s4) var(--s4);position:relative;min-width:0}
+.card+.card{margin-top:0}.stack>*+*{margin-top:var(--s4)}
+.stat .v{font:600 28px/1.1 var(--mono);margin-top:6px;overflow-wrap:anywhere}.stat .s{color:var(--ink3);font-size:12px;margin-top:4px}
+/* gauge */
+.gauge{display:flex;align-items:center;gap:var(--s4)}.gauge svg{flex:none}.gauge .n{font:700 34px var(--mono)}
+/* pills & classes */
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 11px var(--mono);letter-spacing:.06em;padding:2px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
 .INSIDER{color:var(--ins)}.AGENT{color:var(--agent)}.SNIPER{color:var(--snip)}.COPY{color:var(--copy)}.ORGANIC{color:var(--org)}
-.sev-CRITICAL,.sev-HIGH{color:var(--ins)}.sev-MEDIUM{color:var(--snip)}.sev-LOW{color:var(--org)}
-.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}.bar span{display:block}
-.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:14px}.tl div{position:relative;padding:5px 0}.tl div:before{content:"";position:absolute;left:-20px;top:11px;width:9px;height:9px;border-radius:50%;background:var(--c,var(--dim))}
-.empty{color:var(--dim);padding:40px;text-align:center;border:1px dashed var(--line);border-radius:10px}
-img.graph{width:100%;border-radius:10px;border:1px solid var(--line)}a{color:var(--copy)}small{color:var(--dim)}
-.drop{outline:2px dashed var(--org)}
+.CRITICAL,.HIGH{color:var(--ins)}.MEDIUM{color:var(--snip)}.LOW{color:var(--org)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:currentColor}
+.seg{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line);gap:2px}.seg span{display:block;min-width:2px}
+.legend{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s3);font:12px var(--mono)}
+/* table */
+.tw{overflow:auto;max-height:560px;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}th{position:sticky;top:0;background:var(--card);text-align:left;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding:8px;border-bottom:1px solid var(--line2);cursor:pointer;user-select:none;white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}td.n{text-align:right;font-family:var(--mono);white-space:nowrap}tr:hover td{background:rgba(255,255,255,.02)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--s3)}
+.chip{background:none;border:1px solid var(--line2);color:var(--ink2);border-radius:99px;padding:3px 10px;font:12px var(--mono);cursor:pointer}.chip.on{border-color:currentColor}
+.callout{border-left:3px solid var(--snip);background:rgba(255,176,32,.06);padding:var(--s3) var(--s4);border-radius:0 8px 8px 0;color:var(--ink)}
+.callout.bad{border-color:var(--ins);background:rgba(255,59,92,.06)}.callout.ok{border-color:var(--org);background:rgba(0,232,123,.05)}
+/* graph */
+.graph{width:100%;height:520px;display:block;border-radius:8px;background:radial-gradient(ellipse at center,#0d1116 0,#07080a 75%);cursor:grab}
+.graph:active{cursor:grabbing}
+.tip{position:fixed;pointer-events:none;background:#000;border:1px solid var(--line2);border-radius:8px;padding:8px 10px;font:12px var(--mono);max-width:320px;z-index:20;display:none}
+/* timeline */
+.scrub{width:100%;accent-color:var(--org)}
+.ev{display:grid;grid-template-columns:72px 120px 1fr;gap:var(--s3);padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px;transition:opacity .15s}
+.ev.future{opacity:.18}.ev .t{font-family:var(--mono);color:var(--ink3)}.ev .k{font:600 11px var(--mono);letter-spacing:.05em}
+@media(max-width:640px){.ev{grid-template-columns:60px 1fr}.ev .k{grid-column:2}.ev .d{grid-column:1/3}}
+/* states */
+.empty{border:1px dashed var(--line2);border-radius:var(--r);padding:var(--s6) var(--s5);text-align:center;color:var(--ink2)}
+.empty h3{font-family:var(--serif);font-size:24px;margin:0 0 8px;color:var(--ink)}
+.empty code,.code{font:12px var(--mono);background:var(--bg2);border:1px solid var(--line2);border-radius:6px;padding:2px 6px;color:var(--ink)}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,var(--line) 0,var(--line2) 50%,var(--line) 100%);background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.btn{background:var(--bg2);border:1px solid var(--line2);color:var(--ink);border-radius:8px;padding:6px 12px;font:12px var(--mono);cursor:pointer}.btn:hover{border-color:var(--org)}
+.foot{color:var(--ink3);font-size:12px;margin-top:var(--s5);border-top:1px solid var(--line);padding-top:var(--s3)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-start;justify-content:center;padding-top:12vh;z-index:30}
+.modal.on{display:flex}.sheet{background:var(--card);border:1px solid var(--line2);border-radius:14px;width:min(560px,92vw);padding:var(--s5)}
+.sheet dl{display:grid;grid-template-columns:120px 1fr;gap:8px;margin:0}.sheet dt{font-family:var(--mono)}
+.res{max-height:280px;overflow:auto;margin-top:var(--s3)}.res div{padding:8px;border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;gap:8px}.res div.on,.res div:hover{background:var(--bg2)}
+.drop:after{content:"Drop JSON to load";position:fixed;inset:12px;border:2px dashed var(--org);border-radius:16px;display:grid;place-items:center;font:600 20px var(--mono);color:var(--org);background:rgba(0,0,0,.6);z-index:40}
 </style></head><body>
-<header><h1>CRYPT<b>OSINT</b> · GROK BOT</h1>
-<nav id="tabs"></nav><select id="file"></select><label class="mono"><input type="file" id="pick" accept=".json" multiple style="display:none"><span style="cursor:pointer;color:var(--dim)">open json…</span></label></header>
+<div class="top"><div class="bar">
+  <div class="brand">CRYPT<b>OSINT</b> <i>// grok bot</i></div>
+  <label class="cmd" id="cmdbox"><span class="faint mono">›</span><input id="cmd" placeholder="Paste a $TICKER, token CA, or wallet…" autocomplete="off" spellcheck="false"><span class="kbd">/</span></label>
+  <button class="btn" id="exp" title="Export current report (e)">Export</button>
+  <button class="btn" id="help" title="Shortcuts (?)">?</button>
+</div><nav class="tabs" id="tabs"></nav></div>
 <main id="app"></main>
+<div class="tip" id="tip"></div>
+<div class="modal" id="palette"><div class="sheet"><div class="kicker">Command</div><div id="palbody"></div></div></div>
+<div class="modal" id="keys"><div class="sheet"><div class="kicker" style="margin-bottom:12px">Keyboard</div><dl>
+<dt>/ or ⌘K</dt><dd>Command bar</dd><dt>1 – 8</dt><dd>Switch view</dd><dt>[ ]</dt><dd>Previous / next report in this view</dd><dt>← →</dt><dd>Scrub the rug replay</dd><dt>space</dt><dd>Play / pause replay</dd><dt>e</dt><dd>Export (original envelope)</dd><dt>esc</dt><dd>Close</dd></dl></div></div>
+<input type="file" id="pick" accept=".json" multiple hidden>
 <script>
-const TYPES={scan:"Token Scan",shill:"Shill Network",wallet:"Wallet Scan",replay:"Rug Replay",leaderboard:"Leaderboard",threats:"Threats",provenance:"Provenance"};
-const COL={INSIDER:"var(--ins)",AGENT:"var(--agent)",SNIPER:"var(--snip)",COPY:"var(--copy)",ORGANIC:"var(--org)"};
-let reports=[],tab="scan";const $=s=>document.querySelector(s);
-const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const sh=a=>a&&a.length>10?a.slice(0,4)+"…"+a.slice(-4):(a||"");const fmt=(n,d=0)=>n==null?"–":Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
-function kind(name,j){if(j.organicScore!=null)return"scan";if(j.coordinationIndex!=null)return"shill";if(j.wallet&&j.tokens)return"wallet";if(j.timeline)return"replay";if(j.entries)return"leaderboard";if(j.results)return"provenance";if(Array.isArray(j))return"threats";return null}
-function add(name,j){const k=kind(name,j);if(!k)return;reports=reports.filter(r=>r.name!==name);reports.push({name,k,j});}
-async function autoload(){for(const dir of ["../out/","../examples/"]){try{const h=await (await fetch(dir)).text();const names=[...h.matchAll(/href="([^"]+\.json)"/g)].map(m=>decodeURIComponent(m[1]));
-await Promise.all(names.map(async n=>{try{if(!reports.some(r=>r.name===n))add(n,await (await fetch(dir+n)).json())}catch(e){}}));}catch(e){}}const has=reports.some(r=>r.k===tab);if(!has&&reports[0])tab=reports[0].k;render()}
-function tabs(){$("#tabs").innerHTML=Object.entries(TYPES).map(([k,l])=>{const c=reports.filter(r=>r.k===k).length;return`<button class="${k===tab?"on":""}" data-k="${k}">${l}${c?` <small>${c}</small>`:""}</button>`}).join("");
-$("#tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
-const list=reports.filter(r=>r.k===tab);$("#file").innerHTML=list.map((r,i)=>`<option value="${i}">${esc(r.name)}</option>`).join("");$("#file").style.display=list.length>1?"":"none"}
-function render(){tabs();const list=reports.filter(r=>r.k===tab);const r=list[+$("#file").value||0];
-if(!r){$("#app").innerHTML=`<div class="empty">No ${TYPES[tab]} reports yet. Run the matching script (outputs land in <span class="mono">out/</span>), serve the repo with <span class="mono">python3 -m http.server</span> and open <span class="mono">/ui/</span>, or drop JSON files here.</div>`;return}
-$("#app").innerHTML=V[tab](r.j,r.name)}
-const metric=(k,v,cls="")=>`<div class="card"><div class="k">${k}</div><div class="v ${cls}">${v}</div></div>`;
+"use strict";
+const VIEWS=[["scan","Token"],["shill","Shill net"],["copy","Copy net"],["wallet","Wallet"],["replay","Replay"],["board","Leaderboard"],["threats","Threats"],["prov","Provenance"]];
+const COL={INSIDER:"#ff3b5c",AGENT:"#b06bff",SNIPER:"#ffb020",COPY:"#4fc3ff",ORGANIC:"#00e87b"};
+const ORDER=["INSIDER","AGENT","SNIPER","COPY","ORGANIC"];
+const S={withX:false,reports:[],view:"scan",idx:{},loading:true,scrub:null,playing:null,sort:{},filter:{}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const sh=a=>a&&a.length>12?a.slice(0,4)+"…"+a.slice(-4):(a||"");
+const fmt=(n,d=0)=>n==null||isNaN(n)?"—":Number(n).toLocaleString("en-US",{maximumFractionDigits:d,minimumFractionDigits:0});
+const money=n=>n==null?"—":n>=1e9?"$"+(n/1e9).toFixed(2)+"B":n>=1e6?"$"+(n/1e6).toFixed(2)+"M":n>=1e3?"$"+(n/1e3).toFixed(1)+"K":"$"+fmt(n);
+const sol=n=>(n>0?"+":"")+fmt(n,3);
+function kind(j){if(!j||typeof j!=="object")return null;if(j.result&&j.tool)return kind(j.result);if(j.organicScore!=null)return"scan";if(j.coordinationIndex!=null)return"shill";if(j.wallet&&j.tokens)return"wallet";if(j.timeline)return"replay";if(j.entries)return"board";if(j.results)return"prov";if(Array.isArray(j))return"threats";return null}
+function add(name,j){if(j&&j.tool&&j.result)j=j.result;const k=kind(j);if(!k)return 0;S.reports=S.reports.filter(r=>r.name!==name);S.reports.push({name,k,j});return 1}
+const list=k=>S.reports.filter(r=>r.k===k||(k==="copy"&&r.k==="scan"&&(r.j.copyNetwork||[]).length));
+const cur=()=>{const l=list(S.view);return l[Math.min(S.idx[S.view]||0,l.length-1)]};
+async function autoload(){for(const dir of["../out/","../examples/"]){try{const h=await(await fetch(dir)).text();const names=[...h.matchAll(/href="([^"]+\.json)"/g)].map(m=>decodeURIComponent(m[1]));
+await Promise.all(names.map(async n=>{if(S.reports.some(r=>r.name===n))return;try{add(n,await(await fetch(dir+n)).json())}catch(e){}}))}catch(e){}}
+S.loading=false;const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))S.view=h;else if(!list(S.view).length&&S.reports[0])S.view=S.reports[0].k;render()}
+function tabs(){$("#tabs").innerHTML=VIEWS.map(([k,l],i)=>{const n=list(k).length;return`<button class="tab ${k===S.view?"on":""}" data-k="${k}" title="${i+1}">${l}${n?`<sup>${n}</sup>`:""}</button>`}).join("");
+$("#tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>go(b.dataset.k))}
+function go(k){S.view=k;history.replaceState(null,"","#"+k);stopPlay();S.scrub=null;render();scrollTo({top:0})}
+function render(){tabs();const app=$("#app");
+if(S.loading){app.innerHTML=`<div class="grid g4">${[1,2,3,4].map(()=>`<div class="card"><div class="skel" style="width:40%"></div><div class="skel" style="height:30px;margin-top:12px"></div></div>`).join("")}</div><div class="card" style="margin-top:16px">${[90,80,95,70,85].map(w=>`<div class="skel" style="width:${w}%;margin:10px 0"></div>`).join("")}</div>`;return}
+const r=cur();if(!r){app.innerHTML=empty(S.view);return}
+const l=list(S.view);const pager=l.length>1?`<div class="filters" style="margin:0 0 16px">${l.map((x,i)=>`<button class="chip ${x===r?"on":""}" data-i="${i}" style="color:${x===r?"var(--org)":""}">${esc(label(x))}</button>`).join("")}</div>`:"";
+app.innerHTML=pager+V[S.view](r.j,r);app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{S.idx[S.view]=+b.dataset.i;S.scrub=null;render()});
+(after[S.view]||(()=>{}))(r.j,r)}
+function label(r){const j=r.j;return j.token?("$"+j.token.symbol):j.ticker?j.ticker:j.wallet?sh(j.wallet.address):j.type?j.type:r.name}
+function empty(k){const cmd={scan:"skills/token-scan/scripts/token_scan.py <mint>",shill:"skills/shill-network/scripts/shill_network.py '$TICKER' out/x-TICKER",copy:"skills/copy-network/scripts/copy_network.py out/scan-….json",wallet:"skills/wallet-scan/scripts/wallet_scan.py <wallet>",replay:"skills/rug-replay/scripts/rug_replay.py <mint> --x-posts out/x-TICKER",board:"skills/leaderboard/scripts/leaderboard.py --type SNIPER",threats:"skills/threat-feed/scripts/threat_feed.py",prov:"skills/promo-provenance/scripts/provenance.py <files>"}[k];
+return`<div class="empty"><div class="kicker">Nothing loaded</div><h3>No ${VIEWS.find(v=>v[0]===k)[1].toLowerCase()} reports yet</h3><p>Ask your Grok Bot, or run <code>.venv/bin/python ${esc(cmd)}</code>.<br>Reports in <code>out/</code> and <code>examples/</code> load automatically when you serve the repo (<code>python3 -m http.server</code>, open <code>/ui/</code>).</p><button class="btn" onclick="document.getElementById('pick').click()">Open JSON…</button> <span class="faint">or drop files anywhere</span></div>`}
+function gauge(v,lab,c){const R=38,C=2*Math.PI*R*0.75,o=C*(1-Math.max(0,Math.min(100,v))/100);
+return`<div class="gauge"><svg width="96" height="96" viewBox="0 0 96 96"><g transform="rotate(135 48 48)"><circle cx="48" cy="48" r="${R}" fill="none" stroke="#1b2027" stroke-width="8" stroke-dasharray="${C} 999" stroke-linecap="round"/><circle cx="48" cy="48" r="${R}" fill="none" stroke="${c}" stroke-width="8" stroke-dasharray="${C} 999" stroke-dashoffset="${o}" stroke-linecap="round" style="transition:stroke-dashoffset .6s"/></g></svg><div><div class="n" style="color:${c}">${fmt(v)}</div><div class="kicker">${lab}</div></div></div>`}
+const scoreCol=v=>v<40?COL.INSIDER:v<65?COL.SNIPER:COL.ORGANIC;
+const sevCol={CRITICAL:COL.INSIDER,HIGH:COL.INSIDER,MEDIUM:COL.SNIPER,LOW:COL.ORGANIC};
+function sortable(id,cols,rows,def){const st=S.sort[id]||def;const sorted=[...rows].sort((a,b)=>{const x=a[st.c],y=b[st.c];return(typeof x==="number"?x-y:String(x).localeCompare(String(y)))*st.d});
+return`<div class="tw"><table data-tbl="${id}"><tr>${cols.map((c,i)=>`<th data-c="${i}">${c}${st.c===i?(st.d>0?" ↑":" ↓"):""}</th>`).join("")}</tr>${sorted.map(r=>`<tr>${r._html}</tr>`).join("")}</table></div>`}
+function bindSort(){document.querySelectorAll("[data-tbl]").forEach(t=>t.querySelectorAll("th").forEach(th=>th.onclick=()=>{const id=t.dataset.tbl,c=+th.dataset.c,st=S.sort[id]||{c:-1,d:1};S.sort[id]={c,d:st.c===c?-st.d:-1};render()}))}
 const V={
-scan(j){const c=j.counts,tot=Object.values(c).reduce((a,b)=>a+b,0)||1,lp=j.lpMonitor||{},rc=lp.rugcheck||{};
-return`<div class="grid">${metric("Token",`$${esc(j.token.symbol)}<br><small class="mono">${esc(j.token.mint)}</small>`)}${metric("Organic score",j.organicScore,j.organicScore<40?"INSIDER":j.organicScore<65?"SNIPER":"ORGANIC")}${metric("Verdict",`<span class="sev-${j.verdict.severity}">${j.verdict.severity}</span>`)}${metric("Market cap",`$${fmt(j.token.mcap)}`)}</div>
-<div class="card"><div class="k">Wallet classes · ${tot} wallets in window</div><div class="bar" style="margin:10px 0">${Object.entries(c).map(([t,n])=>`<span style="width:${100*n/tot}%;background:${COL[t]}" title="${t} ${n}"></span>`).join("")}</div>${Object.entries(c).map(([t,n])=>`<span class="${t}" style="margin-right:14px">● ${t} ${n}</span>`).join("")}<p>${esc(j.verdict.summary)}</p>
-${j.scanWindow&&!j.scanWindow.reachedLaunch?`<p class="sev-MEDIUM">Launch not reached: analyzed the oldest ${j.scanWindow.transactionsAnalyzed} txs we could reach. Early-block labels are unreliable.</p>`:""}</div>
-<div class="card"><div class="k">LP monitor</div><div class="grid" style="margin-top:8px">${metric("Liquidity",`$${fmt(lp.totalLiquidityUsd)}`)}${metric("Pools",(lp.pools||[]).length)}${metric("Mint authority",rc.mintAuthority?'<span class="INSIDER">ENABLED</span>':'<span class="ORGANIC">none</span>')}${metric("LP locked",(rc.markets||[]).length?fmt(rc.markets[0].lpLockedPct,1)+"%":"–")}</div>
-${(rc.risks||[]).length?`<p>${rc.risks.map(x=>`<span class="pill sev-${x.level==="danger"?"HIGH":"MEDIUM"}">${esc(x.name)}</span>`).join(" ")}</p>`:""}</div>
-<div class="card"><div class="k">Wallets</div><table><tr><th>Class</th><th>Wallet</th><th>Block</th><th>Txs</th><th>Supply</th><th>SOL flow</th><th>Tag</th></tr>${j.wallets.map(w=>`<tr><td class="${w.type}">${w.type}</td><td class="mono"><a href="https://solscan.io/account/${w.address}" target="_blank">${sh(w.address)}</a></td><td class="n">${w.entryBlock}</td><td class="n">${w.txCount}</td><td class="n">${fmt(w.supplyPercent,1)}%</td><td class="n">${fmt(w.solFlowEstimate,3)}</td><td><small>${esc(w.tag||"")}</small></td></tr>`).join("")}</table></div>
-${(j.copyNetwork||[]).length?`<div class="card"><div class="k">Copy network</div><table>${j.copyNetwork.map(x=>`<tr><td class="mono">${sh(x.leader)}</td><td>→</td><td class="mono">${sh(x.follower)}</td><td class="n">${x.avgDelaySeconds}s</td></tr>`).join("")}</table></div>`:""}
-<small>${esc(j.disclaimer)}</small>`},
-shill(j,name){const png="../out/"+name.replace(/\.json$/,".png");return`<div class="grid">${metric("Ticker",esc(j.ticker))}${metric("Coordination index",j.coordinationIndex+"%",j.coordinationIndex>=40?"INSIDER":j.coordinationIndex>=20?"SNIPER":"ORGANIC")}${metric("Posts / accounts",`${j.sample.posts} / ${j.sample.accounts}`)}${metric("Clusters",j.clusters.length)}</div>
-<img class="graph" src="${png}" onerror="this.remove()">
-${j.clusters.map((c,i)=>`<div class="card"><div class="k">Cluster ${i+1} · ${c.size} accounts · ${c.posts} posts · median ${fmt(c.medianFollowers)} followers</div><p>${c.accounts.map(a=>`<a href="https://x.com/${a}" target="_blank">@${esc(a)}</a>`).join(" ")}</p>${c.sampleTexts.slice(0,2).map(t=>`<p class="mono" style="white-space:pre-wrap;color:var(--dim)">${esc(t)}</p>`).join("")}</div>`).join("")}
-${j.exactDuplicateTexts.length?`<div class="card"><div class="k">Same text, multiple accounts</div><table>${j.exactDuplicateTexts.map(([t,n])=>`<tr><td class="n">${n}</td><td class="mono">${esc(t)}</td></tr>`).join("")}</table></div>`:""}<small>${esc(j.disclaimer)}</small>`},
-wallet(j){const w=j.wallet;return`<div class="grid">${metric("Wallet",`<span class="mono">${sh(w.address)}</span>`)}${metric("Approx PnL",`${fmt(w.totalPnlSol,2)} SOL`,w.totalPnlSol>=0?"ORGANIC":"INSIDER")}${metric("Win rate",w.winRate+"%")}${metric("Reputation",`${w.reputation.score} · ${w.reputation.grade}`)}</div>
-<div class="card"><span class="sev-${j.verdict.severity}">${j.verdict.severity}</span> ${esc(j.verdict.summary)}<br><small>Age ${esc(w.walletAge||"unknown")} · ${j.window.transactionsAnalyzed} txs analyzed · ${esc((w.reputation.factors||[]).join("; "))}</small></div>
-<div class="card"><div class="k">Tokens</div><table><tr><th>Token</th><th>Class</th><th>PnL (SOL)</th><th>First tx</th></tr>${j.tokens.map(t=>`<tr><td>${esc(t.symbol)}</td><td class="${t.classification}">${t.classification}</td><td class="n">${fmt(t.pnlSol,3)}</td><td><small>${esc(t.firstTx.slice(0,16))}</small></td></tr>`).join("")}</table></div>
-<div class="grid"><div class="card"><div class="k">Funded by</div>${j.associations.fundingSources.map(f=>`<div class="mono">${sh(f.address)} · ${fmt(f.amountSol,2)} SOL</div>`).join("")}</div><div class="card"><div class="k">Funded</div>${j.associations.fundedWallets.map(f=>`<div class="mono">${sh(f.address)} · ${fmt(f.amountSol,2)} SOL</div>`).join("")}</div></div>`},
-replay(j){const s=j.summary,C2={CREATION:"var(--text)",INSIDER_BUY:"var(--ins)",BOT_ENTRY:"var(--agent)",SNIPER_ENTRY:"var(--snip)",ORGANIC_BUY:"var(--org)",LARGE_SELL:"var(--ins)",LP_REMOVE:"var(--ins)",MASS_DUMP:"var(--ins)",X_POST:"var(--copy)"};
-return`<div class="grid">${metric("Token","$"+esc(j.token.symbol))}${metric("Method",s.rugMethod)}${metric("Organic loss",fmt(s.organicLossEstimateSol,2)+" SOL","INSIDER")}${metric("Insider profit",fmt(s.insiderProfitEstimateSol,2)+" SOL")}</div>
-<div class="card"><div class="k">Timeline · ${j.timeline.length} events · ${s.xPostsMerged} X posts</div><div class="tl">${j.timeline.map(e=>`<div style="--c:${C2[e.type]||"var(--dim)"}"><span class="mono" style="color:var(--dim)">${esc(e.relativeTime)}</span> <b style="color:${C2[e.type]}">${e.type}</b> ${e.url?`<a href="${e.url}" target="_blank">${esc(e.detail)}</a>`:esc(e.detail)}</div>`).join("")}</div></div>`},
-leaderboard(j){return`<div class="card"><div class="k">${j.type} leaderboard · ${j.totalWalletsTracked} wallets · ${esc(j.dataSpan)}</div><table><tr><th>#</th><th>Wallet</th><th>Seen</th><th>Avg block</th><th>Win</th><th>PnL</th><th>Tokens</th></tr>${j.entries.map((e,i)=>`<tr><td>${i+1}</td><td class="mono">${sh(e.address)}</td><td class="n">${e.appearances}</td><td class="n">${e.avgEntryBlock}</td><td class="n">${e.winRate}%</td><td class="n">${fmt(e.totalEstimatedPnlSol,2)}</td><td><small>${esc(e.tokens.join(", "))}</small></td></tr>`).join("")}</table></div>`},
-threats(j){return j.length?j.map(t=>`<div class="card"><span class="sev-${t.severity}">${t.severity}</span> <b>${t.type}</b> $${esc(t.tokenSymbol)} — ${esc(t.detail)}</div>`).join(""):`<div class="empty">No threats in this feed.</div>`},
-provenance(j){return j.results.map(r=>`<div class="card"><div class="k">${esc(r.file)}</div><p>C2PA: ${r.c2pa&&r.c2pa.present?'<span class="ORGANIC">present</span>':"none"}</p>${r.signals.map(s=>`<div>• ${esc(s)}</div>`).join("")}${r.notes.map(s=>`<div><small>${esc(s)}</small></div>`).join("")}</div>`).join("")+`<small>${esc(j.disclaimer)}</small>`}};
-$("#file").onchange=render;
-async function readFiles(fs){for(const f of fs){try{add(f.name,JSON.parse(await f.text()))}catch(e){}}const last=reports[reports.length-1];if(last)tab=last.k;render()}
+scan(j){const t=j.token,c=j.counts,tot=ORDER.reduce((a,k)=>a+c[k],0)||1,lp=j.lpMonitor||{},rc=lp.rugcheck||{},b=j.bundleSignal||{},sw=j.scanWindow||{};
+const flt=S.filter.scan||"ALL";const ws=j.wallets.filter(w=>flt==="ALL"||w.type===flt);
+const rows=ws.map(w=>Object.assign([ORDER.indexOf(w.type),w.address,w.entryBlock,w.txCount,w.supplyPercent,w.solFlowEstimate??0,w.tag||""],{_html:`<td><span class="pill ${w.type}">${w.type}</span></td><td class="mono"><a href="https://solscan.io/account/${w.address}" target="_blank" rel="noopener">${sh(w.address)}</a>${w.isDeployer?' <span class="pill" style="color:var(--ink)">DEV</span>':""}</td><td class="n">${w.entryBlock}</td><td class="n">${w.txCount}</td><td class="n">${fmt(w.supplyPercent,2)}%</td><td class="n" style="color:${(w.solFlowEstimate||0)>=0?"var(--org)":"var(--ins)"}">${sol(w.solFlowEstimate||0)}</td><td class="faint" style="font-size:12px">${esc(w.tag||"")}</td>`}));
+const bundleBad=b.valid&&(b.severity==="CRITICAL"||b.severity==="HIGH");
+return`<div class="kicker">Token scan · ${esc(sw.dataSource||"")} · ${fmt(sw.transactionsAnalyzed)} txs from ${sw.reachedLaunch?"launch":"oldest reachable"}</div>
+<h1 class="hed">$${esc(t.symbol)} <span class="faint" style="font-weight:400">${esc(t.name)}</span></h1>
+<p class="dek">${esc(j.verdict.summary)}</p>
+<div class="grid g4"><div class="card">${gauge(j.organicScore,"Organic score",scoreCol(j.organicScore))}</div>
+<div class="card stat"><div class="kicker">Verdict</div><div class="v ${j.verdict.severity}">${j.verdict.severity}</div><div class="s">original classifier</div></div>
+<div class="card stat"><div class="kicker">Bundle signal</div><div class="v ${b.severity||""}">${b.valid?fmt(b.block0SupplyBoughtPct,1)+"%":"—"}</div><div class="s">${b.valid?`${b.block0Buyers} wallets in the launch slot`:"launch not reached"}</div></div>
+<div class="card stat"><div class="kicker">Market cap · age</div><div class="v">${money(t.mcap)}</div><div class="s">${esc(t.age)} · ${fmt(t.totalHolders)} wallets in window</div></div></div>
+${bundleBad?`<div class="callout bad" style="margin-top:16px">The classifier says ${j.verdict.severity}, but ${b.block0Buyers} wallets took ${fmt(b.block0SupplyBoughtPct,1)}% of supply in the launch slot. Weigh the bundle signal.</div>`:""}
+${!sw.reachedLaunch?`<div class="callout" style="margin-top:16px">Launch not reached on this data source. Early-block labels (INSIDER, SNIPER) are unreliable. Add a Helius key.</div>`:""}
+<div class="grid g21" style="margin-top:16px"><div class="card"><h2>Wallet classes</h2><div class="seg">${ORDER.map(k=>c[k]?`<span style="flex:${c[k]};background:${COL[k]}" title="${k} ${c[k]}"></span>`:"").join("")}</div>
+<div class="legend">${ORDER.map(k=>`<span><span class="dot" style="color:${COL[k]}"></span> ${k} <b>${c[k]}</b> <span class="faint">${fmt(100*c[k]/tot)}%</span></span>`).join("")}</div></div>
+<div class="card"><h2>LP monitor</h2><div class="grid g2" style="gap:10px">
+<div><div class="kicker">Liquidity</div><div class="mono">${money(lp.totalLiquidityUsd)}</div></div><div><div class="kicker">Pools</div><div class="mono">${(lp.pools||[]).length} · ${esc((lp.pools||[])[0]?.dex||"")}</div></div>
+<div><div class="kicker">Mint auth</div><div class="mono ${rc.mintAuthority?"INSIDER":"ORGANIC"}">${rc.mintAuthority?"ENABLED":"revoked"}</div></div><div><div class="kicker">Freeze auth</div><div class="mono ${rc.freezeAuthority?"INSIDER":"ORGANIC"}">${rc.freezeAuthority?"ENABLED":"revoked"}</div></div>
+<div><div class="kicker">LP locked</div><div class="mono">${(rc.markets||[]).length?fmt(rc.markets[0].lpLockedPct,1)+"%":"—"}</div></div><div><div class="kicker">RugCheck</div><div class="mono">${rc.scoreNormalised??"—"}</div></div></div>
+${(rc.risks||[]).length?`<div class="filters" style="margin:12px 0 0">${rc.risks.map(x=>`<span class="pill ${x.level==="danger"?"HIGH":"MEDIUM"}">${esc(x.name)}</span>`).join("")}</div>`:""}</div></div>
+<div class="card" style="margin-top:16px"><h2>Wallets <span class="faint">· top ${j.wallets.length} of ${fmt(j.allWalletCount||j.wallets.length)}</span></h2>
+<div class="filters">${["ALL",...ORDER].map(k=>`<button class="chip ${flt===k?"on":""}" data-f="${k}" style="color:${k==="ALL"?"var(--ink)":COL[k]}">${k}${k!=="ALL"?" "+c[k]:""}</button>`).join("")}</div>
+${sortable("w",["Class","Wallet","Block","Txs","Supply","SOL flow","Tag"],rows,{c:0,d:1})}</div>
+<div class="foot">${esc(j.disclaimer)} <span class="mono">${esc(t.mint)}</span></div>`},
+shill(j){return`<div class="kicker">Shill network · X · ${fmt(j.sample.posts)} posts, ${fmt(j.sample.accounts)} accounts${j.anonymized?" · anonymized":""}</div>
+<h1 class="hed">${esc(j.ticker)} on X</h1><p class="dek">${j.coordinationIndex}% of sampled posts came from accounts in a coordinated pattern cluster. ${j.clusters.length} cluster${j.clusters.length===1?"":"s"} found.</p>
+<div class="grid g4"><div class="card">${gauge(j.coordinationIndex,"Coordination",j.coordinationIndex>=40?COL.INSIDER:j.coordinationIndex>=20?COL.SNIPER:COL.ORGANIC)}</div>
+<div class="card stat"><div class="kicker">Clusters</div><div class="v">${j.clusters.length}</div><div class="s">≥3 linked accounts</div></div>
+<div class="card stat"><div class="kicker">Duplicate texts</div><div class="v">${j.exactDuplicateTexts.length}</div><div class="s">same words, different accounts</div></div>
+<div class="card stat"><div class="kicker">Young accounts</div><div class="v">${j.accountFlags["young(<30d)"]}</div><div class="s">&lt;30 days at first post</div></div></div>
+<div class="card" style="margin-top:16px"><h2>Network <span class="faint">· drag nodes, hover for detail · solid = near-identical text, dashed = burst + creation window</span></h2><canvas class="graph" id="g"></canvas></div>
+<div class="grid g2" style="margin-top:16px">${j.clusters.map((c,i)=>`<div class="card"><h2>Cluster ${i+1} <span class="faint">· ${c.size} accounts · ${c.posts} posts · median ${fmt(c.medianFollowers)} followers</span></h2><div class="filters">${c.accounts.map(a=>`<span class="chip">@${esc(a)}</span>`).join("")}</div>${c.sampleTexts.slice(0,2).map(t=>`<blockquote style="margin:8px 0;padding-left:12px;border-left:2px solid var(--line2);font-family:var(--serif);color:var(--ink2);white-space:pre-wrap">${esc(t.slice(0,220))}</blockquote>`).join("")}</div>`).join("")}</div>
+${j.exactDuplicateTexts.length?`<div class="card" style="margin-top:16px"><h2>Same text, multiple accounts</h2><table>${j.exactDuplicateTexts.map(([t,n])=>`<tr><td class="n" style="width:40px">${n}×</td><td class="mono" style="font-size:12px">${esc(t)}</td></tr>`).join("")}</table></div>`:""}
+<div class="foot">${esc(j.disclaimer)}</div>`},
+copy(j){const rels=j.copyNetwork||[];const L=[...new Set(rels.map(r=>r.leader))];return`<div class="kicker">Copy-trade network · from token scan</div><h1 class="hed">$${esc(j.token.symbol)}: ${rels.length} follower${rels.length===1?"":"s"} on ${L.length} leader${L.length===1?"":"s"}</h1>
+<p class="dek">Wallets in blocks 2–10 that bought 3–30 seconds after an INSIDER or AGENT wallet. Timing patterns, not proof of control.</p>
+<div class="card"><h2>Network <span class="faint">· drag to explore</span></h2><canvas class="graph" id="g"></canvas></div>
+<div class="card" style="margin-top:16px"><table><tr><th>Leader</th><th>Follower</th><th>Avg delay</th><th>Matches</th></tr>${rels.map(r=>`<tr><td class="mono">${sh(r.leader)}</td><td class="mono">${sh(r.follower)}</td><td class="n">${r.avgDelaySeconds}s</td><td class="n">${r.matchCount}</td></tr>`).join("")}</table></div>`},
+wallet(j){const w=j.wallet,rp=w.reputation||{score:0,grade:"CLEAN",factors:[]};const rows=j.tokens.map(t=>Object.assign([t.symbol,ORDER.indexOf(t.classification),t.pnlSol,t.firstTx],{_html:`<td><a href="https://dexscreener.com/solana/${t.mint}" target="_blank" rel="noopener">${esc(t.symbol)}</a></td><td><span class="pill ${t.classification}">${t.classification}</span></td><td class="n" style="color:${t.pnlSol>=0?"var(--org)":"var(--ins)"}">${sol(t.pnlSol)}</td><td class="faint mono" style="font-size:12px">${esc((t.firstTx||"").slice(0,16).replace("T"," "))}</td>`}));
+const fl=(a,t)=>`<div class="card"><h2>${t}</h2>${a.length?a.map(f=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line)"><a class="mono" href="https://solscan.io/account/${f.address}" target="_blank" rel="noopener">${sh(f.address)}</a><span class="mono">${fmt(f.amountSol,2)} SOL</span></div>`).join(""):'<div class="faint">None in window</div>'}</div>`;
+return`<div class="kicker">Wallet scan · ${j.window.transactionsAnalyzed} txs · ${esc((j.window.from||"").slice(0,10))} → ${esc((j.window.to||"").slice(0,10))}</div><h1 class="hed mono" style="font-size:clamp(20px,3vw,34px)">${esc(w.address)}</h1><p class="dek">${esc(j.verdict.summary)}</p>
+<div class="grid g4"><div class="card">${gauge(rp.score,"Reputation · "+rp.grade,rp.score>=56?COL.INSIDER:rp.score>=31?COL.SNIPER:COL.ORGANIC)}</div>
+<div class="card stat"><div class="kicker">Approx PnL</div><div class="v" style="color:${w.totalPnlSol>=0?"var(--org)":"var(--ins)"}">${sol(w.totalPnlSol)} SOL</div><div class="s">${w.totalPnlUsdApprox!=null?"≈ $"+fmt(w.totalPnlUsdApprox):""} realized in window</div></div>
+<div class="card stat"><div class="kicker">Win rate</div><div class="v">${w.winRate}%</div><div class="s">${w.totalTokensTouched} tokens touched</div></div>
+<div class="card stat"><div class="kicker">Wallet age</div><div class="v">${esc(w.walletAge||"—")}</div><div class="s">${esc(rp.factors.join(" · "))}</div></div></div>
+<div class="grid g21" style="margin-top:16px"><div class="card"><h2>Tokens</h2>${sortable("t",["Token","Class","PnL (SOL)","First tx"],rows,{c:2,d:-1})}</div><div class="stack">${fl(j.associations.fundingSources,"Funded by")}${fl(j.associations.fundedWallets,"Funded")}</div></div>
+<div class="foot">${esc((j.notes||[]).join(" "))}</div>`},
+replay(j){const ev=j.timeline.filter(e=>S.withX||e.type!=="X_POST"),N=ev.length-1,sc=S.scrub??N,s=j.summary;
+const EC={CREATION:"var(--ink)",INSIDER_BUY:COL.INSIDER,BOT_ENTRY:COL.AGENT,SNIPER_ENTRY:COL.SNIPER,ORGANIC_BUY:COL.ORGANIC,LARGE_SELL:COL.INSIDER,LP_REMOVE:COL.INSIDER,MASS_DUMP:COL.INSIDER,X_POST:"var(--x)"};
+return`<div class="kicker">Rug replay · ${fmt(j.window?.transactionsAnalyzed)} txs · ${s.xPostsMerged} X posts merged</div><h1 class="hed">$${esc(j.token.symbol)}: ${s.rugMethod==="UNKNOWN"?"no LP pull or mass dump detected":s.rugMethod==="LP_PULL"?"liquidity pulled":"mass dump"}</h1>
+<p class="dek">Lifespan ${esc(s.lifespan)}. ${fmt(s.peakHolders)} wallets. Insider and agent wallets realized about ${fmt(s.insiderProfitEstimateSol,1)} SOL.</p>
+<div class="grid g4"><div class="card stat"><div class="kicker">Method</div><div class="v">${esc(s.rugMethod)}</div></div><div class="card stat"><div class="kicker">Organic net spent</div><div class="v INSIDER">${fmt(s.organicLossEstimateSol,1)} SOL</div><div class="s">incl. open positions</div></div><div class="card stat"><div class="kicker">Insider profit</div><div class="v">${fmt(s.insiderProfitEstimateSol,1)} SOL</div></div><div class="card stat"><div class="kicker">Breakdown</div><div class="seg" style="margin-top:14px">${ORDER.map(k=>j.walletBreakdown[k]?`<span style="flex:${j.walletBreakdown[k]};background:${COL[k]}"></span>`:"").join("")}</div><div class="s">${ORDER.map(k=>k[0]+" "+j.walletBreakdown[k]).join(" · ")}</div></div></div>
+<div class="card" style="margin-top:16px"><h2>Timeline <span class="faint">· drag, ← →, or space to play</span></h2>
+<svg id="spark" width="100%" height="90" viewBox="0 0 1000 90" preserveAspectRatio="none" style="display:block"></svg>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">${s.xPostsMerged?`<button class="btn" id="withx">${S.withX?"Hide":"Show"} X posts</button>`:""}<button class="btn" id="play">${S.playing?"Pause":"Play"}</button><input type="range" class="scrub" id="scrub" min="0" max="${N}" step="1" value="${sc}" style="flex:1;min-width:200px"><span class="mono" id="sct" style="min-width:110px;text-align:right">${esc(ev[sc]?.relativeTime||"")}</span></div>
+<div id="evs" style="margin-top:12px;max-height:520px;overflow:auto">${ev.map((e,i)=>`<div class="ev ${i>sc?"future":""}" data-i="${i}"><span class="t">${esc(e.relativeTime)}</span><span class="k" style="color:${EC[e.type]||"var(--ink2)"}">${e.type.replace("_"," ")}</span><span class="d">${esc(e.detail)}</span></div>`).join("")}</div></div>
+<div class="foot">${esc((j.notes||[]).join(" "))}</div>`},
+board(j){const rows=j.entries.map((e,i)=>Object.assign([i,e.address,e.appearances,e.avgEntryBlock,e.winRate,e.totalEstimatedPnlSol],{_html:`<td class="n faint">${i+1}</td><td class="mono"><a href="https://solscan.io/account/${e.address}" target="_blank" rel="noopener">${sh(e.address)}</a></td><td class="n">${e.appearances}</td><td class="n">${e.avgEntryBlock}</td><td class="n">${e.winRate}%</td><td class="n" style="color:${e.totalEstimatedPnlSol>=0?"var(--org)":"var(--ins)"}">${sol(e.totalEstimatedPnlSol)}</td><td class="faint" style="font-size:12px">${esc(e.tokens.slice(0,8).join(", "))}${e.tokens.length>8?" +"+(e.tokens.length-8):""}</td>`}));
+return`<div class="kicker">Leaderboard · ${esc(j.dataSpan)}</div><h1 class="hed"><span class="${j.type}">${j.type}</span> repeat offenders</h1><p class="dek">${fmt(j.totalWalletsTracked)} flagged wallets across ${fmt(j.tokensScanned)} tokens scanned on this machine.</p><div class="card">${sortable("b",["#","Wallet","Seen","Avg block","Win","PnL (SOL)","Tokens"],rows,{c:2,d:-1})}</div>`},
+threats(j){return`<div class="kicker">Threat feed</div><h1 class="hed">${j.length} new threat${j.length===1?"":"s"}</h1><div class="stack">${j.map(t=>`<div class="card" style="border-left:3px solid ${sevCol[t.severity]}"><span class="pill ${t.severity}">${t.severity}</span> <b class="mono">${esc(t.type)}</b> <span class="mono">$${esc(t.tokenSymbol)}</span><div style="margin-top:6px">${esc(t.detail)}</div></div>`).join("")}</div>`},
+prov(j){return`<div class="kicker">Promo provenance</div><h1 class="hed">${j.results.length} file${j.results.length===1?"":"s"} examined</h1><p class="dek">Signals, never verdicts. Missing metadata is normal; present metadata can be forged.</p><div class="grid g2">${j.results.map(r=>`<div class="card"><h2 class="mono" style="text-transform:none;letter-spacing:0">${esc(r.file.split("/").pop())}</h2><div class="filters"><span class="pill ${r.c2pa&&r.c2pa.present?"ORGANIC":""}" style="${r.c2pa&&r.c2pa.present?"":"color:var(--ink3)"}">C2PA ${r.c2pa&&r.c2pa.present?"present":"none"}</span>${(r.reuseMatches||[]).length?`<span class="pill SNIPER">reuse ×${r.reuseMatches.length}</span>`:""}</div>${r.signals.map(s=>`<div style="padding:4px 0;border-bottom:1px solid var(--line)">▸ ${esc(s)}</div>`).join("")}${r.notes.map(s=>`<div class="faint" style="font-size:12px;margin-top:6px">${esc(s)}</div>`).join("")}<div class="faint mono" style="font-size:11px;margin-top:8px">sha256 ${esc(r.sha256.slice(0,24))}…</div></div>`).join("")}</div>`}};
+function relT(d){d=Math.round(d);if(d<60)return"+"+d+"s";if(d<3600)return"+"+Math.floor(d/60)+"m "+(d%60)+"s";return"+"+Math.floor(d/3600)+"h "+Math.floor(d%3600/60)+"m"}
+const after={scan:bindSort,wallet:bindSort,board:bindSort,
+shill(j){const nodes=new Map;j.accounts.forEach(a=>nodes.set(a.username,{id:a.username,r:4+Math.min(10,a.posts*1.5),a}));const links=j.edges.map(e=>({s:e.a,t:e.b,text:!!e.text}));
+const linked=new Set(links.flatMap(l=>[l.s,l.t]));force($("#g"),[...nodes.values()],links,n=>linked.has(n.id)?COL.INSIDER:COL.ORGANIC,n=>`@${n.id}<br>${n.a.followers} followers · ${n.a.posts} posts${n.a.age_days_at_post!=null?" · account "+n.a.age_days_at_post+"d old":""}${n.a.flags.length?"<br><span style='color:#ffb020'>"+n.a.flags.join("<br>")+"</span>":""}`,n=>linked.has(n.id)?"@"+n.id:"")},
+copy(j){const types=Object.fromEntries(j.wallets.map(w=>[w.address,w.type]));const ids=new Set((j.copyNetwork||[]).flatMap(r=>[r.leader,r.follower]));
+const nodes=[...ids].map(id=>({id,r:j.copyNetwork.some(r=>r.leader===id)?11:6}));const links=j.copyNetwork.map(r=>({s:r.leader,t:r.follower,text:true,label:r.avgDelaySeconds+"s"}));
+force($("#g"),nodes,links,n=>COL[types[n.id]]||COL.COPY,n=>`${n.id}<br>${types[n.id]||"COPY"}`,n=>sh(n.id))},
+replay(j){const ev=j.timeline.filter(e=>S.withX||e.type!=="X_POST"),N=Math.max(1,ev.length-1),w=1000/ev.length;
+const ty=e=>e.type==="X_POST"?"x":/SELL|DUMP|LP_REMOVE/.test(e.type)?"s":"b";
+const draw=i=>{const p=(i+1)*w;$("#spark").innerHTML=ev.map((e,k)=>{const t=ty(e),h=e.type==="MASS_DUMP"||e.type==="LP_REMOVE"?40:Math.min(40,8+(e.supplyPercent||2)*3);return t==="x"?`<circle cx="${k*w+w/2}" cy="10" r="${Math.max(1.5,Math.min(4,w/2))}" fill="#8fa3ff"/>`:t==="s"?`<rect x="${k*w}" y="46" width="${Math.max(1,w-1)}" height="${h}" fill="#ff3b5c"/>`:`<rect x="${k*w}" y="${45-h}" width="${Math.max(1,w-1)}" height="${h}" fill="${COL[e.walletType]||"#00e87b"}"/>`}).join("")+`<line x1="0" x2="1000" y1="45.5" y2="45.5" stroke="#262c35"/><rect x="${p}" y="0" width="${Math.max(0,1000-p)}" height="90" fill="#07080a" opacity=".7"/><line x1="${p}" x2="${p}" y1="0" y2="90" stroke="#ecebe6" stroke-width="1.5"/>`};
+const sc=$("#scrub"),set=v=>{v=+v;S.scrub=v;$("#sct").textContent=ev[v]?.relativeTime||"";draw(v);let last;document.querySelectorAll(".ev").forEach(d=>{const f=+d.dataset.i>v;d.classList.toggle("future",f);if(+d.dataset.i===v)last=d});if(S.playing&&last)last.scrollIntoView({block:"nearest"})};
+sc.oninput=e=>set(e.target.value);set(sc.value);
+$("#spark").onclick=e=>{const r=e.currentTarget.getBoundingClientRect();const v=Math.round((e.clientX-r.left)/r.width*N);sc.value=v;set(v)};
+$("#play").onclick=()=>S.playing?stopPlay():startPlay(0,N);const wx=$("#withx");if(wx)wx.onclick=()=>{S.withX=!S.withX;S.scrub=null;stopPlay();render()}}};
+function startPlay(t0,t1){const sc=$("#scrub");if(+sc.value>=t1)sc.value=t0;$("#play").textContent="Pause";const step=1;
+S.playing=setInterval(()=>{const v=Math.min(t1,+sc.value+step);sc.value=v;sc.oninput({target:sc});if(v>=t1)stopPlay()},40)}
+function stopPlay(){if(S.playing){clearInterval(S.playing);S.playing=null;const b=$("#play");if(b)b.textContent="Play"}}
+/* force-directed graph on canvas */
+let simStop=null;
+function force(cv,nodes,links,color,tip,lab){if(simStop)simStop();const dpr=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;const ctx=cv.getContext("2d");ctx.scale(dpr,dpr);
+const byId=new Map(nodes.map(n=>[n.id,n]));nodes.forEach((n,i)=>{const a=i*2.4,rr=Math.min(W,H)*.35*Math.sqrt((i+1)/nodes.length);n.x=W/2+Math.cos(a)*rr;n.y=H/2+Math.sin(a)*rr;n.vx=n.vy=0});
+const L=links.map(l=>({...l,a:byId.get(l.s),b:byId.get(l.t)})).filter(l=>l.a&&l.b);let alpha=1,drag=null,hover=null,raf;const deg=new Map;L.forEach(l=>{deg.set(l.a,(deg.get(l.a)||0)+1);deg.set(l.b,(deg.get(l.b)||0)+1)});
+function tick(){const N=nodes.length;for(let i=0;i<N;i++){const a=nodes[i];for(let j=i+1;j<N;j++){const b=nodes[j];let dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy+.01;if(d2>40000)continue;const f=260/d2*alpha;dx*=f;dy*=f;a.vx+=dx;a.vy+=dy;b.vx-=dx;b.vy-=dy}}
+L.forEach(l=>{const dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,d=Math.hypot(dx,dy)||1,k=(d-60)/d*.06*alpha;l.a.vx+=dx*k;l.a.vy+=dy*k;l.b.vx-=dx*k;l.b.vy-=dy*k});
+nodes.forEach(n=>{const gk=deg.get(n)?.03:.045;n.vx+=(W/2-n.x)*gk*alpha;n.vy+=(H/2-n.y)*gk*alpha*1.4;if(n!==drag){n.vx=Math.max(-8,Math.min(8,n.vx*.6));n.vy=Math.max(-8,Math.min(8,n.vy*.6));n.x+=n.vx;n.y+=n.vy}n.x=Math.max(10,Math.min(W-10,n.x));n.y=Math.max(10,Math.min(H-10,n.y))});alpha=Math.max(.02,alpha*.985)}
+function draw(){ctx.clearRect(0,0,W,H);L.forEach(l=>{ctx.beginPath();ctx.setLineDash(l.text?[]:[4,4]);ctx.strokeStyle=l.text?"rgba(255,59,92,.55)":"rgba(255,176,32,.5)";ctx.lineWidth=hover&&(l.a===hover||l.b===hover)?2.2:1;ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.stroke();if(l.label){ctx.fillStyle="#6b717b";ctx.font="10px ui-monospace,monospace";ctx.fillText(l.label,(l.a.x+l.b.x)/2+3,(l.a.y+l.b.y)/2-3)}});ctx.setLineDash([]);
+nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,7);ctx.fillStyle=color(n);ctx.globalAlpha=n===hover?1:.85;ctx.fill();ctx.globalAlpha=1;if(n===hover){ctx.strokeStyle="#ecebe6";ctx.lineWidth=2;ctx.stroke()}});
+ctx.font="11px ui-monospace,monospace";ctx.fillStyle="#a7abb2";nodes.forEach(n=>{const t=lab(n);if(t)ctx.fillText(t,n.x+n.r+3,n.y+3)})}
+for(let i=0;i<260;i++)tick();alpha=.08;function loop(){tick();draw();raf=requestAnimationFrame(loop)}loop();
+const at=e=>{const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;return nodes.find(n=>(n.x-x)**2+(n.y-y)**2<(n.r+4)**2)};
+cv.onpointerdown=e=>{drag=at(e);if(drag){cv.setPointerCapture(e.pointerId);alpha=.6}};
+cv.onpointermove=e=>{const r=cv.getBoundingClientRect();if(drag){drag.x=e.clientX-r.left;drag.y=e.clientY-r.top;alpha=Math.max(alpha,.3)}hover=drag||at(e);const T=$("#tip");if(hover){T.style.display="block";T.innerHTML=tip(hover);T.style.left=Math.min(innerWidth-330,e.clientX+14)+"px";T.style.top=(e.clientY+14)+"px"}else T.style.display="none"};
+cv.onpointerup=()=>{drag=null};cv.onpointerleave=()=>{hover=null;$("#tip").style.display="none"};simStop=()=>cancelAnimationFrame(raf)}
+/* command bar */
+function classify(q){q=q.trim();if(!q)return null;if(/^\$?[A-Za-z0-9]{1,15}$/.test(q)&&q.length<20)return{t:"ticker",v:q.replace(/^\$/,"")};if(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(q))return{t:q.endsWith("pump")?"token":"address",v:q};return{t:"search",v:q}}
+function palette(q){const c=classify(q);if(!c)return;const hits=S.reports.filter(r=>JSON.stringify(r.j).toLowerCase().includes(c.v.toLowerCase())).slice(0,8);
+const cmds=c.t==="ticker"?[["Token scan",`token_scan.py '$${c.v}'`],["Shill network",`ask Grok Bot: "who's shilling $${c.v} on X"`],["Rug replay",`rug_replay.py '$${c.v}'`]]:c.t==="token"||c.t==="address"?[["Token scan",`token_scan.py ${c.v}`],["Wallet scan",`wallet_scan.py ${c.v}`],["Rug replay",`rug_replay.py ${c.v}`],["Watch",`watch_token.py add ${c.v}`]]:[];
+$("#palbody").innerHTML=`<div class="mono" style="font-size:18px;margin:6px 0 12px;overflow-wrap:anywhere">${esc(c.v)} <span class="pill" style="color:var(--ink3)">${c.t}</span></div>
+${hits.length?`<h2>In loaded reports</h2><div class="res">${hits.map((r,i)=>`<div data-n="${esc(r.name)}" class="${i?"":"on"}"><span>${esc(label(r))}</span><span class="faint mono">${r.k}</span></div>`).join("")}</div>`:`<div class="faint">Not in any loaded report yet.</div>`}
+${cmds.length?`<h2 style="margin-top:16px">Run it</h2>${cmds.map(([l,c])=>`<div style="display:flex;gap:8px;align-items:center;margin:6px 0"><span style="width:110px" class="dim">${l}</span><code class="code" style="flex:1;overflow-wrap:anywhere">${esc(c)}</code><button class="btn" data-copy="${esc(c)}">Copy</button></div>`).join("")}<div class="faint" style="font-size:12px;margin-top:8px">The dashboard is read-only and static. Paste into your Grok Bot chat, or run from the repo with <span class="mono">.venv/bin/python skills/…</span></div>`:""}`;
+$("#palette").classList.add("on");$("#palbody").querySelectorAll("[data-n]").forEach(d=>d.onclick=()=>{const r=S.reports.find(x=>x.name===d.dataset.n);closeAll();S.view=r.k;S.idx[r.k]=list(r.k).indexOf(r);render()});
+$("#palbody").querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{navigator.clipboard?.writeText(b.dataset.copy);b.textContent="Copied"})}
+function closeAll(){document.querySelectorAll(".modal").forEach(m=>m.classList.remove("on"))}
+$("#cmd").addEventListener("keydown",e=>{if(e.key==="Enter"){palette(e.target.value);e.target.blur()}if(e.key==="Escape")e.target.blur()});
+document.querySelectorAll(".modal").forEach(m=>m.onclick=e=>{if(e.target===m)closeAll()});
+$("#help").onclick=()=>$("#keys").classList.add("on");
+function exportCur(){const r=cur();if(!r)return;const env={tool:"CryptOSINT",version:"0.3-grokbot",exportedAt:new Date().toISOString(),scanType:{scan:"token",wallet:"wallet",replay:"replay",shill:"shill"}[r.k]||r.k,result:r.j};
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(env,null,2)],{type:"application/json"}));a.download=`cryptosint-${env.scanType}-${label(r).replace(/[^a-zA-Z0-9_-]/g,"")}-${Date.now()}.json`;a.click()}
+$("#exp").onclick=exportCur;
+document.addEventListener("keydown",e=>{const typing=/INPUT|TEXTAREA/.test(document.activeElement.tagName)&&document.activeElement.type!=="range";
+if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("#cmd").focus();return}if(e.key==="Escape"){closeAll();return}if(typing)return;
+if(e.key==="/"){e.preventDefault();$("#cmd").focus()}else if(e.key==="?")$("#keys").classList.add("on");else if(/^[1-8]$/.test(e.key))go(VIEWS[+e.key-1][0]);
+else if(e.key==="e")exportCur();else if(e.key==="]"||e.key==="["){const n=list(S.view).length;if(n){S.idx[S.view]=((S.idx[S.view]||0)+(e.key==="]"?1:-1)+n)%n;S.scrub=null;render()}}
+else if(S.view==="replay"&&$("#scrub")){const sc=$("#scrub"),st=1;if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();sc.value=+sc.value+(e.key==="ArrowRight"?st:-st);sc.oninput({target:sc})}if(e.key===" "){e.preventDefault();$("#play").click()}}});
+document.addEventListener("click",e=>{const f=e.target.closest("[data-f]");if(f){S.filter.scan=f.dataset.f;render()}});
+async function readFiles(fs){let k=null;for(const f of fs){try{const j=JSON.parse(await f.text());if(add(f.name,j))k=kind(j.result||j)}catch(e){}}S.loading=false;if(k){S.view=k;S.idx[k]=list(k).length-1}render()}
 $("#pick").onchange=e=>readFiles(e.target.files);
-document.addEventListener("dragover",e=>{e.preventDefault();document.body.classList.add("drop")});document.addEventListener("dragleave",()=>document.body.classList.remove("drop"));
-document.addEventListener("drop",e=>{e.preventDefault();document.body.classList.remove("drop");readFiles(e.dataTransfer.files)});
-autoload();
+addEventListener("dragover",e=>{e.preventDefault();document.body.classList.add("drop")});addEventListener("dragleave",e=>{if(!e.relatedTarget)document.body.classList.remove("drop")});
+addEventListener("drop",e=>{e.preventDefault();document.body.classList.remove("drop");readFiles(e.dataTransfer.files)});
+addEventListener("resize",()=>{clearTimeout(window._rz);window._rz=setTimeout(render,200)});
+render();autoload();
 </script></body></html>

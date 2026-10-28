@@ -22,6 +22,14 @@ This is a port of **[CryptOSINT](https://github.com/outerheaven199X/CryptOSINT)*
 
 Plus `ui/`, a zero-build static dashboard in the original's dark palette that reads the JSON the scripts write.
 
+## Screenshots
+
+Open `ui/index.html` (serve the repo root, e.g. `python3 -m http.server`, then visit `/ui/`). Press `/` for the command bar, `1`–`8` for tabs, `?` for shortcuts.
+
+![Token scan](docs/ui-token-scan.png)
+![Shill network (anonymized)](docs/ui-shill-network.png)
+![Rug replay timeline](docs/ui-rug-replay.png)
+
 ## Install
 
 **With Grok Bot.** Tell your bot:

@@ -63,7 +63,7 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
             if b and b not in pools and b not in seen:
                 seen.add(b); k = wtype.get(b, "ORGANIC"); et = BUY_TYPE[k]
                 if et == "ORGANIC_BUY":
-                    m = tx["timestamp"] // 60 * 60; buckets[m] = buckets.get(m, 0) + 1
+                    m = max(created, tx["timestamp"] // 60 * 60); buckets[m] = buckets.get(m, 0) + 1
                 else:
                     ev.append({"timestamp": tx["timestamp"], "relativeTime": rel(tx["timestamp"], created), "type": et, "wallet": b, "walletType": k,
                                "detail": f"{D.short(b)} bought ({k}) — {pct:.1f}% supply", "supplyPercent": pct})
