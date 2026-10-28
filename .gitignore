@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 PLAN.md
 PROGRESS.log
+.progress-relayed

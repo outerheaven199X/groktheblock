@@ -86,7 +86,41 @@ def _throttle() -> None:
     _last_call[0] = time.time()
 
 
+# Provider health for this process, reported in each result's coverage block.
+PROVIDERS: dict[str, dict] = {}
+
+
+def _fail_sim(name: str) -> bool:
+    """CRYPTOSINT_SIMULATE_FAIL=dexscreener,rugcheck,rpc simulates a provider outage (testing only)."""
+    return name in {x.strip() for x in os.environ.get("CRYPTOSINT_SIMULATE_FAIL", "").split(",") if x.strip()}
+
+
+def mark(name: str, ok: bool, detail: str = "") -> None:
+    cur = PROVIDERS.get(name)
+    if cur and not cur["ok"] and ok:
+        return  # once failed in this run, keep it visible
+    PROVIDERS[name] = {"ok": ok, "detail": detail}
+
+
+def provider_report() -> dict:
+    return {k: dict(v) for k, v in PROVIDERS.items()}
+
+
 def rpc(method: str, params: list, retries: int = 8) -> Any:
+    if _fail_sim("rpc"):
+        mark("solana-rpc", False, "simulated outage")
+        raise RuntimeError(f"RPC {method} failed: simulated outage")
+    try:
+        res = _rpc(method, params, retries)
+        mark("solana-rpc", True)
+        return res
+    except RuntimeError as e:
+        if "error:" not in str(e):
+            mark("solana-rpc", False, str(e)[:120])
+        raise
+
+
+def _rpc(method: str, params: list, retries: int = 8) -> Any:
     body = {"jsonrpc": "2.0", "id": 1, "method": method, "params": params}
     delay = 1.0
     for attempt in range(retries):
@@ -108,9 +142,17 @@ def rpc(method: str, params: list, retries: int = 8) -> Any:
 
 
 def http_json(url: str, ns: str, max_age: float = 300) -> Any:
+    if _fail_sim(ns):
+        mark(ns, False, "simulated outage"); return None
     hit = cache_get(ns, url, max_age)
     if hit is not None:
-        return hit
+        mark(ns, True, "cached"); return hit
+    res = _http_json(url, ns)
+    mark(ns, res is not None, "" if res is not None else "no response / non-200")
+    return res
+
+
+def _http_json(url: str, ns: str) -> Any:
     delay = 1.0
     for _ in range(4):
         try:

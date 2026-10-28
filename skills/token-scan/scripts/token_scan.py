@@ -5,11 +5,12 @@ copy network, and JSON export. Port of CryptOSINT /api/scan.
 
 usage: token_scan.py <mint|$TICKER> [--max-tx 200] [--sig-pages 20] [--origins 10] [--out path.json] [--no-record]
 """
-import argparse, sys, time
+import argparse, json, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "lib"))
 from cryptosint import classify as C, data as D, history, lp
 from cryptosint.cli import OUT, resolve_mint
+from cryptosint.assess import assess_scan
 
 ORDER = {"INSIDER": 0, "AGENT": 1, "SNIPER": 2, "COPY": 3, "ORGANIC": 4}
 
@@ -146,6 +147,11 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
     }
     if record and t["reached_genesis"]:
         result["historyRecorded"] = history.record_scan(mint, meta["symbol"], wallets)
+    try:
+        ntok = len({x["tokenMint"] for x in history.load_all()})
+    except Exception:
+        ntok = None
+    result["assessment"] = assess_scan(result, D.provider_report(), ntok)
     return result
 
 
@@ -155,9 +161,15 @@ def main():
     ap.add_argument("--sig-pages", type=int, default=20); ap.add_argument("--origins", type=int, default=10)
     ap.add_argument("--out"); ap.add_argument("--no-record", action="store_true")
     ap.add_argument("--faithful", action="store_true", help="keep pool/program accounts in the wallet set, exactly like the original")
+    ap.add_argument("--pick", type=int, help="when a $TICKER matches several mints, use candidate N (1-based)")
     a = ap.parse_args()
-    mint = resolve_mint(a.token)
-    r = scan(mint, a.max_tx, a.sig_pages, a.origins, not a.no_record, a.faithful)
+    mint = resolve_mint(a.token, a.pick)
+    try:
+        r = scan(mint, a.max_tx, a.sig_pages, a.origins, not a.no_record, a.faithful)
+    except (RuntimeError, SystemExit) as e:
+        if isinstance(e, SystemExit) and not isinstance(e.code, str): raise
+        print(f"Scan failed: {e}. Provider status: {json.dumps(D.provider_report())}. No report written; the previous report (if any) is unchanged.", file=sys.stderr)
+        sys.exit(2)
     out = Path(a.out) if a.out else OUT / f"scan-{r['token']['symbol']}-{mint[:6]}.json"
     D.write_json(out, r)
     tk, lpm = r["token"], r["lpMonitor"]
@@ -171,7 +183,14 @@ def main():
     b = r["bundleSignal"]
     if b["valid"]:
         print(f"Bundle signal [{b['severity']}]: {b['block0Buyers']} wallets bought in the launch slot = {b['block0SupplyBoughtPct']}% of supply; {b['block0BuyersAlreadySoldPct']}% of them already sold out")
-    print(f"Copy relationships: {len(r['copyNetwork'] or [])}\nJSON: {out}")
+    print(f"Copy relationships: {len(r['copyNetwork'] or [])}")
+    A = r["assessment"]
+    print(f"\nLead finding [{A['severity']}] ({A['lead']['basis']}): {A['lead']['text']}")
+    if A["lead"].get("why"): print("  Why the score doesn't override it: " + A["lead"]["why"])
+    for l in A["coverage"]["limits"]: print(f"  limit ({l['kind']}): {l['text']}")
+    bad = [p for p in A["coverage"]["providers"] if not p["ok"]]
+    if bad: print("  PROVIDER FAILURES: " + ", ".join(f"{p['name']} ({p['detail']})" for p in bad))
+    print(f"JSON: {out}")
 
 
 if __name__ == "__main__":

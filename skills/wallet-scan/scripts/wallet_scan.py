@@ -88,6 +88,8 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("wallet"); ap.add_argument("--max-tx", type=int, default=200); ap.add_argument("--out")
     a = ap.parse_args()
     r = scan_wallet(a.wallet, a.max_tx)
+    from cryptosint.assess import assess_wallet
+    r["assessment"] = assess_wallet(r)
     out = Path(a.out) if a.out else OUT / f"wallet-{a.wallet[:8]}.json"
     D.write_json(out, r)
     wl = r["wallet"]

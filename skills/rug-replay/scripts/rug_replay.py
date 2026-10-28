@@ -46,7 +46,7 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
     wallets = C.classify_all_wallets(profiles, supply)
     flows = D.sol_flows(txs, mint)
     wtype = {w["address"]: w["type"] for w in wallets}
-    ev = [{"timestamp": created, "relativeTime": "+0s", "type": "CREATION", "wallet": deployer, "walletType": "INSIDER", "detail": "Token created / first observed tx" + ("" if t["reached_genesis"] else " (NOT the real launch: history beyond scan window)")}]
+    ev = [{"timestamp": created, "relativeTime": "+0s", "type": "CREATION", "wallet": deployer, "walletType": "INSIDER", "detail": "Token created / first observed tx" + ("" if t["reached_genesis"] else " (NOT the real launch: history beyond scan window)"), "signature": txs[0]["signature"]}]
     seen, buckets = set(), {}
     for tx in txs:
         if is_lp_tx(tx) and any(tr["mint"] == mint for tr in tx["tokenTransfers"]):
@@ -66,10 +66,10 @@ def replay(mint, max_tx=500, sig_pages=20, x_paths=None):
                     m = max(created, tx["timestamp"] // 60 * 60); buckets[m] = buckets.get(m, 0) + 1
                 else:
                     ev.append({"timestamp": tx["timestamp"], "relativeTime": rel(tx["timestamp"], created), "type": et, "wallet": b, "walletType": k,
-                               "detail": f"{D.short(b)} bought ({k}) — {pct:.1f}% supply", "supplyPercent": pct})
+                               "detail": f"{D.short(b)} bought ({k}) — {pct:.1f}% supply", "supplyPercent": pct, "signature": tx["signature"]})
             if s and s not in pools and pct >= LARGE_SELL_PCT:
                 ev.append({"timestamp": tx["timestamp"], "relativeTime": rel(tx["timestamp"], created), "type": "LARGE_SELL", "wallet": s, "walletType": wtype.get(s, "ORGANIC"),
-                           "detail": f"{D.short(s)} sold {pct:.1f}% of supply", "supplyPercent": pct})
+                           "detail": f"{D.short(s)} sold {pct:.1f}% of supply", "supplyPercent": pct, "signature": tx["signature"]})
     for m, n in buckets.items():
         ev.append({"timestamp": m, "relativeTime": rel(m, created), "type": "ORGANIC_BUY", "wallet": "", "walletType": "ORGANIC", "detail": f"{n} organic buyer{'s' if n > 1 else ''} entered"})
     sells = sorted([e for e in ev if e["type"] == "LARGE_SELL"], key=lambda e: e["timestamp"])
@@ -110,6 +110,8 @@ def main():
     a = ap.parse_args()
     mint = resolve_mint(a.token)
     r = replay(mint, a.max_tx, a.sig_pages, a.x_posts)
+    from cryptosint.assess import assess_replay
+    r["assessment"] = assess_replay(r)
     out = Path(a.out) if a.out else OUT / f"replay-{r['token']['symbol']}-{mint[:6]}.json"
     D.write_json(out, r)
     s = r["summary"]

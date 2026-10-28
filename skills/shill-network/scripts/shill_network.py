@@ -244,10 +244,17 @@ def main():
     ap.add_argument("--sim", type=float, default=0.6)
     a = ap.parse_args()
     posts, users = load(a.inputs)
-    if not posts: sys.exit("No posts found in inputs.")
-    r = analyze(a.ticker, posts, users, a.sim)
     out = Path(a.out_dir); out.mkdir(parents=True, exist_ok=True)
     slug = re.sub(r"\W+", "", a.ticker) or "ticker"
+    if not posts:
+        empty = {"ticker": a.ticker, "generatedAt": None, "sample": {"posts": 0, "accounts": 0, "from": None, "to": None},
+                 "coordinationIndex": 0, "coordinationIndexMeaning": "No posts to assess.", "clusters": [], "bursts": [],
+                 "exactDuplicateTexts": [], "accountFlags": {"young(<30d)": 0}, "accounts": [], "edges": [],
+                 "emptyReason": "X search returned no posts for this query. That is not evidence of organic promotion; the search window is short and sampled.",
+                 "disclaimer": "Signals, not accusations."}
+        (out / f"shill-{slug}.json").write_text(json.dumps(empty, indent=2))
+        print(f"No posts found in inputs. Wrote an empty result (not a clean bill of health): {out}/shill-{slug}.json"); return
+    r = analyze(a.ticker, posts, users, a.sim)
     (out / f"shill-{slug}.json").write_text(json.dumps(r, indent=2))
     (out / f"shill-{slug}.md").write_text(markdown(r))
     draw(r, out / f"shill-{slug}.png")
