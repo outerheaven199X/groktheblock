@@ -1,0 +1,195 @@
+{
+ "_note": "SYNTHETIC point-in-time fixture; not market data.",
+ "name": "05-midnight-boundary",
+ "ticks": [
+  {
+   "at": 1792623600,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792624500,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792625400,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792626300,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792627200,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792628100,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792629000,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792629900,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  },
+  {
+   "at": 1792630800,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xlong",
+     "text": "Will Bitcoin close above $150k?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    }
+   ]
+  }
+ ]
+}

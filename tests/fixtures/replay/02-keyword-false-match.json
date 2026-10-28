@@ -1,0 +1,170 @@
+{
+ "_note": "SYNTHETIC point-in-time fixture; not market data.",
+ "name": "02-keyword-false-match",
+ "ticks": [
+  {
+   "at": 1792504800,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xmusk",
+     "text": "Will Elon Musk tweet more than 500 times this week?",
+     "type": "VOLUME_SPIKE",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "TSLA",
+     "text": "Tesla",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "polymarket",
+     "id": "0xecon",
+     "text": "Will the economy beat expectations in Q4?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "SPDR S&P 500 economy",
+     "type": "VOLUME_ROBUST_Z",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792505700,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xmusk",
+     "text": "Will Elon Musk tweet more than 500 times this week?",
+     "type": "VOLUME_SPIKE",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "TSLA",
+     "text": "Tesla",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "polymarket",
+     "id": "0xecon",
+     "text": "Will the economy beat expectations in Q4?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "SPDR S&P 500 economy",
+     "type": "VOLUME_ROBUST_Z",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792506600,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xmusk",
+     "text": "Will Elon Musk tweet more than 500 times this week?",
+     "type": "VOLUME_SPIKE",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "TSLA",
+     "text": "Tesla",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "polymarket",
+     "id": "0xecon",
+     "text": "Will the economy beat expectations in Q4?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "SPDR S&P 500 economy",
+     "type": "VOLUME_ROBUST_Z",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792507500,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xmusk",
+     "text": "Will Elon Musk tweet more than 500 times this week?",
+     "type": "VOLUME_SPIKE",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "TSLA",
+     "text": "Tesla",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "polymarket",
+     "id": "0xecon",
+     "text": "Will the economy beat expectations in Q4?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "SPDR S&P 500 economy",
+     "type": "VOLUME_ROBUST_Z",
+     "severity": "LOW"
+    }
+   ]
+  }
+ ]
+}

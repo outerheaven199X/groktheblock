@@ -1,0 +1,41 @@
+{
+ "label": "REAL-HISTORY REPLAY (public data, no outcome labels; not a hit-rate or lead-time measurement)",
+ "treasury": {
+  "source": "treasury.gov",
+  "sessions": 395,
+  "from": "2025-03-31",
+  "to": "2026-10-27",
+  "signals": 38,
+  "sessionsWithSignal": 30,
+  "byType": {
+   "YIELD_MOVE": 29,
+   "CURVE_SHIFT": 9
+  },
+  "bySeverity": {
+   "MEDIUM": 6,
+   "LOW": 32
+  },
+  "calendarTagged": 28,
+  "lifecycleAlerts": 35,
+  "alertsByReason": {
+   "NEW": 4,
+   "NEW_EPISODE": 31
+  },
+  "incidents": 4,
+  "episodes": 35
+ },
+ "polymarket": {
+  "market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+  "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
+  "points": 2744,
+  "from": "2026-09-28T14:30:18Z",
+  "to": "2026-10-28T14:24:23Z",
+  "observationsWithSignal": 2,
+  "lifecycleAlerts": 2,
+  "alertsByReason": {
+   "NEW": 1,
+   "NEW_EPISODE": 1
+  },
+  "note": "24h volume is not point-in-time in Gamma, so the current value is used as a floor (look-ahead on volume only)."
+ }
+}

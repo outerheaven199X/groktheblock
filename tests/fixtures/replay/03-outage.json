@@ -1,0 +1,186 @@
+{
+ "_note": "SYNTHETIC point-in-time fixture; not market data.",
+ "name": "03-outage",
+ "ticks": [
+  {
+   "at": 1792504800,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "HIGH",
+     "magnitude": 1.4
+    }
+   ]
+  },
+  {
+   "at": 1792505700,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "HIGH",
+     "magnitude": 1.4
+    }
+   ]
+  },
+  {
+   "at": 1792506600,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "HIGH",
+     "magnitude": 1.4
+    }
+   ]
+  },
+  {
+   "at": 1792507500,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792508400,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792509300,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792510200,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792511100,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792512000,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "UNAVAILABLE",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": []
+  },
+  {
+   "at": 1792512900,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [],
+   "probes": {
+    "treasury:2Y:YIELD_MOVE": 0.3
+   }
+  },
+  {
+   "at": 1792513800,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [],
+   "probes": {
+    "treasury:2Y:YIELD_MOVE": 0.3
+   }
+  },
+  {
+   "at": 1792514700,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [],
+   "probes": {
+    "treasury:2Y:YIELD_MOVE": 0.3
+   }
+  }
+ ]
+}

@@ -1,0 +1,208 @@
+{
+ "_note": "SYNTHETIC point-in-time fixture; not market data.",
+ "name": "07-cross-family-control",
+ "ticks": [
+  {
+   "at": 1792684800,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.0
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  },
+  {
+   "at": 1792685700,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.1
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  },
+  {
+   "at": 1792686600,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.2
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    },
+    {
+     "source": "crypto",
+     "instrument": "BTC",
+     "text": "Bitcoin",
+     "type": "FUNDING_EXTREME",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792687500,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.3
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    },
+    {
+     "source": "crypto",
+     "instrument": "BTC",
+     "text": "Bitcoin",
+     "type": "FUNDING_EXTREME",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792688400,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.4
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    },
+    {
+     "source": "crypto",
+     "instrument": "BTC",
+     "text": "Bitcoin",
+     "type": "FUNDING_EXTREME",
+     "severity": "LOW"
+    }
+   ]
+  },
+  {
+   "at": 1792689300,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM",
+     "magnitude": 1.5
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 600
+    },
+    {
+     "source": "crypto",
+     "instrument": "BTC",
+     "text": "Bitcoin",
+     "type": "FUNDING_EXTREME",
+     "severity": "LOW"
+    }
+   ]
+  }
+ ]
+}

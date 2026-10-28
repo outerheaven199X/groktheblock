@@ -1,0 +1,157 @@
+{
+ "_note": "SYNTHETIC point-in-time fixture; not market data.",
+ "name": "06-scheduled-cpi",
+ "calendar": [
+  {
+   "type": "CPI",
+   "label": "CPI release (fixture)",
+   "ts": 1792067400
+  }
+ ],
+ "ticks": [
+  {
+   "at": 1792068300,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 300
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "S&P 500",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  },
+  {
+   "at": 1792069200,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 300
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "S&P 500",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  },
+  {
+   "at": 1792070100,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 300
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "S&P 500",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  },
+  {
+   "at": 1792071000,
+   "sourceState": {
+    "polymarket": "HEALTHY",
+    "kalshi": "HEALTHY",
+    "treasury": "HEALTHY",
+    "equities": "HEALTHY",
+    "options": "HEALTHY",
+    "crypto": "HEALTHY"
+   },
+   "signals": [
+    {
+     "source": "polymarket",
+     "id": "0xfedcut",
+     "text": "Will the Fed cut rates in December?",
+     "type": "ODDS_REPRICING",
+     "severity": "MEDIUM"
+    },
+    {
+     "source": "treasury",
+     "instrument": "2Y",
+     "text": "2Y yield",
+     "type": "YIELD_MOVE",
+     "severity": "MEDIUM",
+     "lagS": 300
+    },
+    {
+     "source": "equities",
+     "instrument": "SPY",
+     "text": "S&P 500",
+     "type": "RETURN_VS_REALIZED_VOL",
+     "severity": "MEDIUM",
+     "lagS": 600
+    }
+   ]
+  }
+ ]
+}
