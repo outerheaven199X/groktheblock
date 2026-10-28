@@ -1,0 +1,37 @@
+{
+ "_note": "R6-04 purge rehearsal. Run ONLY on a disposable local mirror clone (git clone --no-local --mirror); git-filter-repo removed the clone's origin remote and nothing was pushed. The real repository and GitHub history are unchanged.",
+ "disposableClone": true,
+ "pushed": false,
+ "verifiedAtCommit": "fe02ee3",
+ "refsInClone": [
+  "refs/heads/main",
+  "refs/remotes/origin/main"
+ ],
+ "tool": "git-filter-repo (pip) in the disposable clone",
+ "commands": [
+  "git clone --no-local --mirror <repo> <tmp>/r6-purge-clone.git",
+  "python tools/verify_history.py <tmp>/r6-purge-clone.git --blobs-out=<tmp>/r6-blobs.txt",
+  "git filter-repo --force --invert-paths --path tests/fixtures/providers/ --path docs/verification/screens/ --path examples/copy-network-OpenBot.png --path-glob 'examples/scan-OpenBot*' --path-glob 'examples/scan-Something*' --path-glob 'examples/scan-Fartcoin*' --path-glob 'examples/replay-Something*' --path-glob 'examples/watch-Something*' --path-glob 'examples/shill-Something*' --path-glob 'examples/wallet-5htGpHK2*'",
+  "git filter-repo --force --strip-blobs-with-ids <tmp>/r6-blobs.txt",
+  "python tools/verify_history.py <tmp>/r6-purge-clone.git"
+ ],
+ "before": {
+  "commitsScanned": 21,
+  "blobsScanned": 746,
+  "findings": 177,
+  "byReason": {
+   "earlier sample version": 145,
+   "real on-chain identifiers": 36,
+   "removed path": 86,
+   "vendor payload shape": 28
+  }
+ },
+ "after": {
+  "commitsScanned": 21,
+  "blobsScanned": 541,
+  "findings": 0,
+  "byReason": {}
+ },
+ "headTreeUnchanged": true,
+ "headTree": "75ded00e023bb6b2bf1d23d3e0119c251271fcc0"
+}

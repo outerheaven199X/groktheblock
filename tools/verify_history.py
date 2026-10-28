@@ -1,7 +1,7 @@
 """R6-04: scan EVERY blob reachable from any ref in a git repository (not only HEAD) for public-sample exposure:
 recognisable raw vendor payload shapes (same markers as tests/test_round5.py) without the synthetic marker, real on-chain
 identifiers from tests/fixtures/onchain-denylist.json (compared by SHA-256), and paths that were removed from the
-public tree. Read-only. Prints a JSON summary.  Usage: python tools/verify_history.py [repo-path]"""
+public tree. Read-only. Prints a JSON summary.  Usage: python tools/verify_history.py [repo-path] [--blobs-out=FILE]"""
 import hashlib, json, re, subprocess, sys
 from pathlib import Path
 
@@ -21,7 +21,7 @@ def git(repo, *a, inp=None):
     return subprocess.run(["git", "-C", str(repo), *a], input=inp, capture_output=True, check=True).stdout
 
 
-def main(repo):
+def main(repo, blobs_out=None):
     deny = set(json.loads((HERE / "tests/fixtures/onchain-denylist.json").read_text())["sha256OfRealIdentifiers"])
     objs = git(repo, "rev-list", "--all", "--objects").decode().splitlines()
     path_of = {}
@@ -70,9 +70,13 @@ def main(repo):
             k = w.split(":")[0] if ":" in w else re.sub(r"^\d+ ", "", w.split(" ", 1)[0] + " " + w.split(" ", 2)[1] if w.startswith("removed") else w)
             k = "removed path" if w.startswith("removed path") else ("real on-chain identifiers" if "identifier" in w else "earlier sample version" if w.startswith("earlier") else k)
             out["byReason"][k] = out["byReason"].get(k, 0) + 1
+    if blobs_out:
+        Path(blobs_out).write_text("\n".join(f["blob"] for f in findings) + ("\n" if findings else ""))
     print(json.dumps(out, indent=1))
     return out
 
 
 if __name__ == "__main__":
-    main(Path(sys.argv[1] if len(sys.argv) > 1 else HERE))
+    a = [x for x in sys.argv[1:] if not x.startswith("--blobs-out=")]
+    bo = next((x.split("=", 1)[1] for x in sys.argv[1:] if x.startswith("--blobs-out=")), None)
+    main(Path(a[0]) if a else HERE, bo)

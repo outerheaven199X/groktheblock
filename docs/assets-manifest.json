@@ -167,6 +167,11 @@
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "5e54bf1010260e5e0d43cf6c79241ea48161ef056bf2f081374c2b0cb350f22a"
   },
+  "docs/review/history-purge-verification.json": {
+   "status": "project-generated",
+   "source": "evaluation config/results written by this project",
+   "sha256": "6d6e6c98f16173daf9c6b38ed884f9cc84168ee8fb0ca69896d762743dc23a67"
+  },
   "docs/review/replay-fixtures.jsonl": {
    "status": "project-generated",
    "source": "output of the synthetic replay harness",
@@ -186,6 +191,11 @@
    "status": "project-generated",
    "source": "test logs written by this project (paths sanitized)",
    "sha256": "2f3b5696224da2552940b39e3173b8adfd54c475e3b75f5f677265e86a06c5c0"
+  },
+  "docs/review/round6-tests-before-fix.txt": {
+   "status": "project-generated",
+   "source": "test logs written by this project (paths sanitized)",
+   "sha256": "e89a2b4eae1ad20488ed7cbceedca1b4b1672439710b6f257b3cd85c009c0e38"
   },
   "docs/screenshots-provenance.json": {
    "status": "project-generated",

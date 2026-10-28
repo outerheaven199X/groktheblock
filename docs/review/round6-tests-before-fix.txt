@@ -1,0 +1,16 @@
+# test_round6.py (round-6 regressions as committed) run against the round-5 tree c894915 before any round-6 fix; command: python tests/test_round6.py; paths sanitized
+FAIL test_R6_01_repeated_stale_present_equity_signal_ages_on_daily_cadence_never_refreshes -- AssertionError {24: 'ACTIVE', 72: 'ACTIVE', 96: 'ACTIVE', 168: 'ACTIVE', 240: 'ACTIVE'}
+FAIL test_R6_01_repeated_stale_present_solana_event_leaves_observed -- AssertionError {24: 'OBSERVED', 72: 'OBSERVED', 96: 'OBSERVED', 168: 'OBSERVED'}
+FAIL test_R6_02_cross_with_daily_treasury_member_does_not_archive_over_a_holiday_weekend -- AssertionError ARCHIVED_UNRESOLVED
+FAIL test_R6_03_partial_overlap_same_identified_event_continues_and_keeps_active_b -- KeyError 'continuity'
+FAIL test_R6_03_partial_overlap_different_event_instance_is_a_new_episode_old_evidence_kept -- AssertionError 
+FAIL test_R6_03_partial_overlap_without_identity_is_a_visible_continuation_hypothesis -- KeyError 'continuity'
+FAIL test_R6_05_adversarial_prediction_pairs_never_converge_by_alias -- AssertionError ('Will Nvidia announce a stock split in 2027?', {'nvidia': 'SAME_EVENT'})
+FAIL test_R6_05_unnormalized_question_is_related_activity_and_positive_control_still_counts -- AssertionError 
+FAIL test_R6_04_every_tracked_public_asset_is_in_the_manifest_with_hash_source_and_status -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/assets-manifest.json'
+FAIL test_R6_04_images_and_examples_are_synthetic_or_project_generated_and_scanned -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/assets-manifest.json'
+FAIL test_R6_04_onchain_examples_carry_no_real_identifiers -- AssertionError docs/verification/fail-incomplete-launch.txt still holds a real on-chain identifier
+FAIL test_R6_04_history_options_documented_and_purge_verified_on_a_disposable_clone -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/HISTORY-EXPOSURE.md'
+FAIL test_R6_06_treasury_dataset_manifest_roster_and_blind_label_sheet_without_labels -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/manifest.json'
+FAIL test_R6_07_runner_names_skipped_suites_and_does_not_count_them -- AssertionError 
+round6: 0/14 passed

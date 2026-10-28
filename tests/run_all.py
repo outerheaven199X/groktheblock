@@ -26,7 +26,7 @@ def main():
         if sk:
             skipped += 1
             res = "SKIPPED (not counted in TOTAL)"
-        status = "PASS" if p.returncode == 0 else "FAIL"
+        status = "SKIP" if (sk and p.returncode == 0) else ("PASS" if p.returncode == 0 else "FAIL")
         failed += p.returncode != 0
         print(f"{status:4} {s:28} {res}" + (f"  [{sk[0].strip()}]" if sk else ""))
         if p.returncode:
