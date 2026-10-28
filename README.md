@@ -29,6 +29,8 @@ Open `ui/index.html` (serve the repo root, e.g. `python3 -m http.server`, then v
 ![Token scan](docs/ui-token-scan.png)
 ![Shill network (anonymized)](docs/ui-shill-network.png)
 ![Rug replay timeline](docs/ui-rug-replay.png)
+![Copy-trade network](docs/ui-copy-network.png)
+<img src="docs/ui-mobile.png" alt="Mobile layout" width="300">
 
 ## Install
 
@@ -68,3 +70,7 @@ The shill detector reads saved X search results (the JSON from X's search API, w
 Port of [CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki (@varien). Data from Solana public RPC, [DexScreener](https://dexscreener.com), and [RugCheck](https://rugcheck.xyz). Content credentials via [c2patool](https://github.com/contentauth/c2pa-rs).
 
 MIT License © Nikki (@varien)
+
+## Verdict change: bundle-aware severity
+
+The original verdict only counts wallets, so a launch where 24 bundled wallets held 93.7% of supply still read LOW (organic score 83). The verdict is now raised to the bundle severity when the launch slot held 25% or more of supply (HIGH at 25%, CRITICAL at 50%). This requires the scan to have reached the launch transaction. `organicScore` is unchanged and still matches classify.ts; the original verdict stays in `verdict.originalSeverity`, and `--faithful` turns the escalation off. Re-test: $Something LOW → CRITICAL (93.7%), $OpenBot LOW → CRITICAL (76.6%), Fartcoin stays LOW (no launch-slot bundle).

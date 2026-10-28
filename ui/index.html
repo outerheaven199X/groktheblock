@@ -139,10 +139,10 @@ return`<div class="kicker">Token scan · ${esc(sw.dataSource||"")} · ${fmt(sw.t
 <h1 class="hed">$${esc(t.symbol)} <span class="faint" style="font-weight:400">${esc(t.name)}</span></h1>
 <p class="dek">${esc(j.verdict.summary)}</p>
 <div class="grid g4"><div class="card">${gauge(j.organicScore,"Organic score",scoreCol(j.organicScore))}</div>
-<div class="card stat"><div class="kicker">Verdict</div><div class="v ${j.verdict.severity}">${j.verdict.severity}</div><div class="s">original classifier</div></div>
+<div class="card stat"><div class="kicker">Verdict</div><div class="v ${j.verdict.severity}">${j.verdict.severity}</div><div class="s">${j.verdict.escalatedBy?`raised from ${esc(j.verdict.originalSeverity)} by bundle signal`:"original classifier"}</div></div>
 <div class="card stat"><div class="kicker">Bundle signal</div><div class="v ${b.severity||""}">${b.valid?fmt(b.block0SupplyBoughtPct,1)+"%":"—"}</div><div class="s">${b.valid?`${b.block0Buyers} wallets in the launch slot`:"launch not reached"}</div></div>
 <div class="card stat"><div class="kicker">Market cap · age</div><div class="v">${money(t.mcap)}</div><div class="s">${esc(t.age)} · ${fmt(t.totalHolders)} wallets in window</div></div></div>
-${bundleBad?`<div class="callout bad" style="margin-top:16px">The classifier says ${j.verdict.severity}, but ${b.block0Buyers} wallets took ${fmt(b.block0SupplyBoughtPct,1)}% of supply in the launch slot. Weigh the bundle signal.</div>`:""}
+${bundleBad&&!j.verdict.escalatedBy?`<div class="callout bad" style="margin-top:16px">The classifier says ${j.verdict.severity}, but ${b.block0Buyers} wallets took ${fmt(b.block0SupplyBoughtPct,1)}% of supply in the launch slot. Weigh the bundle signal.</div>`:""}
 ${!sw.reachedLaunch?`<div class="callout" style="margin-top:16px">Launch not reached on this data source. Early-block labels (INSIDER, SNIPER) are unreliable. Add a Helius key.</div>`:""}
 <div class="grid g21" style="margin-top:16px"><div class="card"><h2>Wallet classes</h2><div class="seg">${ORDER.map(k=>c[k]?`<span style="flex:${c[k]};background:${COL[k]}" title="${k} ${c[k]}"></span>`:"").join("")}</div>
 <div class="legend">${ORDER.map(k=>`<span><span class="dot" style="color:${COL[k]}"></span> ${k} <b>${c[k]}</b> <span class="faint">${fmt(100*c[k]/tot)}%</span></span>`).join("")}</div></div>

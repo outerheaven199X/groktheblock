@@ -118,6 +118,18 @@ def scan(mint: str, max_tx=200, sig_pages=20, origins=10, record=True, faithful=
     if bundle["valid"] and bundle["block0SupplyBoughtPct"] is not None:
         pct = bundle["block0SupplyBoughtPct"]
         bundle["severity"] = "CRITICAL" if pct >= 50 else "HIGH" if pct >= 25 else "MEDIUM" if pct >= 10 else "LOW"
+    # Deviation (skip with --faithful): the original verdict only weighs wallet counts, so a launch
+    # where a few bundled wallets take most of the supply still reads LOW. Escalate the verdict to
+    # the bundle severity when the bundle is HIGH or CRITICAL; organicScore stays the original number.
+    RANK = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    if not faithful and bundle["severity"] in ("HIGH", "CRITICAL") and \
+            RANK.index(bundle["severity"]) > RANK.index(verdict.get("severity", "LOW") if verdict.get("severity") in RANK else "LOW"):
+        verdict = {**verdict, "originalSeverity": verdict.get("severity"), "originalSummary": verdict.get("summary"),
+                   "severity": bundle["severity"],
+                   "summary": f"{bundle['block0Buyers']} wallets held {bundle['block0SupplyBoughtPct']}% of supply at the end of the launch slot "
+                              f"({bundle['block0BuyersAlreadySoldPct']}% of them since sold out). Organic score {score} counts wallets, not supply; "
+                              f"original verdict was {verdict.get('severity')}.",
+                   "escalatedBy": "bundleSignal"}
     result = {
         "token": {"name": meta["name"], "symbol": meta["symbol"], "mint": mint,
                   "age": age_str(int(time.time()) - first_ts) if t["reached_genesis"] else "unknown (history beyond scan window)",
