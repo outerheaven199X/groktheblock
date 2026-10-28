@@ -44,7 +44,7 @@ Every signal has a severity, a basis (*observed*, *heuristic*, *inferred*), what
 | `rug-replay` | Forensic timeline of a token's life (entries, large sells, LP pulls, mass dumps) merged with X posts |
 | `leaderboard` | Repeat snipers and insiders across everything you've scanned |
 | `wallet-reputation` | 0–100 suspicion score (original weights) |
-| `watch-token` | What changed since the last successful scan (liquidity, authorities, LP lock, verdict, new risks) plus whale and insider-move alerts, deduplicated, with evidence links |
+| `watch-token` | (Shown under the dashboard's Threats tab.) What changed since the last successful scan (liquidity, authorities, LP lock, verdict, new risks) plus whale and insider-move alerts, deduplicated, with evidence links |
 | `threat-feed` | Digest of LP pulls, insider dumps, rugged flags, mint/freeze authority |
 | `promo-provenance` | Hashes and reuse, EXIF and generator tags, ffprobe, C2PA, frame and loop checks. Signals, never verdicts |
 | `signals` | Cross-market early-warning feed (see above), watch mode with deduped alerts, routine recipe, webhook |
@@ -68,6 +68,7 @@ Open `ui/index.html` (serve the repo root, e.g. `python3 -m http.server`, then v
 ![Token scan](docs/ui-token-scan.png)
 ![Shill network (anonymized)](docs/ui-shill-network.png)
 ![Rug replay timeline](docs/ui-rug-replay.png)
+![Watch report under the Threats tab](docs/ui-watch.png)
 ![Copy-trade network](docs/ui-copy-network.png)
 <img src="docs/ui-mobile.png" alt="Mobile layout" width="300">
 
