@@ -12,6 +12,7 @@ Severity describes how far past the threshold, never predictive accuracy. Nothin
 from __future__ import annotations
 
 import math
+import re
 import statistics
 
 from . import entities as EN
@@ -19,8 +20,10 @@ from . import timebase as T
 
 SEV = ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
 BASES = ("observed", "heuristic", "inferred", "unverified")
-PROBES: dict[str, float] = {}      # key -> magnitude / entry threshold, for every evaluated subject (lifecycle exit)
-OBSERVED: dict[str, dict] = {}     # instrument id -> latest standardized move, for divergence
+# key -> {"ratio": magnitude/entry threshold | None, "valid": bool, "reason": str | None}. A key that is ABSENT was not
+# observed this run (failed fetch, skipped detector); the lifecycle must hold, never resolve, such incidents.
+PROBES: dict[str, dict] = {}
+OBSERVED: dict[str, dict] = {}     # instrument id -> latest standardized move + its time window, for divergence
 
 
 def reset():
@@ -39,22 +42,36 @@ def key(source: str, entity: str, typ: str) -> str:
     return f"{source}:{entity}:{typ}"
 
 
-def probe(source: str, entity: str, typ: str, ratio: float | None):
-    if ratio is not None and not math.isnan(ratio):
-        PROBES[key(source, entity, typ)] = max(PROBES.get(key(source, entity, typ), 0.0), round(ratio, 4))
+def probe(source: str, entity: str, typ: str, ratio: float | None, reason: str | None = None):
+    """Record a VALID measurement (ratio) or an explicitly invalid one (ratio None + reason, e.g. incomplete history)."""
+    k = key(source, entity, typ)
+    if ratio is None or (isinstance(ratio, float) and math.isnan(ratio)):
+        if k not in PROBES:
+            PROBES[k] = {"ratio": None, "valid": False, "reason": reason or "insufficient history"}
+        return
+    old = PROBES.get(k)
+    r = round(float(ratio), 4)
+    if not old or not old["valid"] or r > old["ratio"]:
+        PROBES[k] = {"ratio": r, "valid": True, "reason": None}
 
 
-def observe(instrument: str, z: float | None, url: str, ts: int | None):
+def invalid(source: str, entity: str, typ: str, reason: str):
+    PROBES[key(source, entity, typ)] = {"ratio": None, "valid": False, "reason": reason}
+
+
+def observe(instrument: str, z: float | None, url: str, ts: int | None, granularity: str = "daily", window: tuple | None = None):
     if z is not None:
-        OBSERVED[instrument] = {"z": round(z, 2), "url": url, "ts": ts}
+        OBSERVED[instrument] = {"z": round(z, 2), "url": url, "ts": ts, "granularity": granularity, "window": window}
 
 
 def _sig(source, typ, severity, basis, title, what, subject, metrics, evidence, limits, observation, trigger,
          text="", instrument=None, limited=False):
     assert basis in BASES
     ents = EN.resolve(source, instrument, f"{subject.get('name', '')} {text}")
+    inst = f"{source}:{instrument}" if instrument else None
     when = observation.get("availableTs") or observation.get("ingestTs")
-    return {"key": key(source, subject.get("id") or subject["name"], typ), "source": source, "family": EN.FAMILY.get(source),
+    return {"key": key(source, subject.get("id") or subject["name"], typ), "source": source, "family": EN.family_of(source, inst),
+            "relations": {e: EN.relation(inst, e, source, text) for e in ents},
             "type": typ, "severity": severity, "basis": basis, "title": title, "what": what, "when": int(when or 0),
             "subject": subject, "entities": ents, "instrument": f"{source}:{instrument}" if instrument else None,
             "metrics": metrics, "trigger": trigger, "observation": observation, "evidence": [e for e in evidence if e.get("url")],
@@ -83,13 +100,30 @@ def robust(series: list[float], x: float) -> tuple[float | None, float, float]:
     return (None if mad == 0 else (x - med) / mad), med, mad
 
 
-def env(obs_base: dict, event=None, available=None, valid=None, approx=False, extra_limits=()) -> dict:
-    """Per-signal observation envelope from the run's per-source base (status, coverage, ingest time)."""
+def env(obs_base: dict, event=None, available=None, valid=None, approx=False, extra_limits=(), *, granularity="intraday",
+        event_basis="provider", avail_basis="provider", final=True, status=None) -> dict:
+    """Per-signal observation envelope. Times keep their basis:
+    event_basis / avail_basis ∈ provider | estimated | ingest-lower-bound | window-start.
+    An availability estimate later than the ingest time is NEVER silently clamped: for data already final in hand
+    (final=True) the first-observed ingest time is used and labelled so; otherwise the observation is marked
+    INCOMPLETE and excluded from time-sensitive (fast) analysis."""
     ing = obs_base["ingestTs"]
-    avail = min(available, ing) if available is not None else ing  # never later than we actually read it
-    return T.obs(event, avail, ing,
-                 valid if valid is not None else event, obs_base["status"], obs_base["coverage"],
-                 list(obs_base.get("limitations") or []) + list(extra_limits), approx)
+    temporal = "OK"
+    if available is None:
+        available, avail_basis = ing, "ingest-lower-bound"
+    elif available > ing:
+        if final:
+            available, avail_basis = ing, "ingest-lower-bound"
+        else:
+            temporal = "INCOMPLETE"
+    if event is not None and event > ing + 120:
+        temporal = "FUTURE_EVENT_TIME"
+    o = T.obs(event, available, ing, valid if valid is not None else event, status or obs_base["status"], obs_base["coverage"],
+              list(obs_base.get("limitations") or []) + list(extra_limits), approx)
+    o.update(granularity=granularity, timeBasis={"event": event_basis, "available": avail_basis, "ingest": "local clock"},
+             temporalStatus=temporal,
+             fastEligible=temporal == "OK" and granularity in ("intraday", "delayed"))
+    return o
 
 
 # ---------------- prediction markets ----------------
@@ -113,23 +147,39 @@ def pm_odds_jump(m: dict, ob: dict, hist: list[tuple[int, float]] | None = None)
     ent = m["id"]
     h1 = m.get("change1h") or 0.0
     c15, vol15 = None, None
+    irregular = False
     if hist and len(hist) >= 20:
-        ps = [p for _, p in hist]
-        c15 = ps[-1] - ps[-2]
-        diffs = [b - a for a, b in zip(ps[:-1], ps[1:])][:-1]
+        # never assume adjacent CLOB samples are 15 min apart: only use pairs 10–20 min apart
+        pairs = [(b[1] - a[1]) for a, b in zip(hist[:-1], hist[1:]) if 600 <= b[0] - a[0] <= 1200]
+        last_gap = hist[-1][0] - hist[-2][0]
+        c15 = (hist[-1][1] - hist[-2][1]) if 600 <= last_gap <= 1200 else None
+        irregular = c15 is None or len(pairs) < len(hist) - 1
+        diffs = pairs[:-1] if c15 is not None else pairs
         vol15 = statistics.pstdev(diffs) if len(diffs) >= 10 else None
     r1h = abs(h1) / 0.12
     r15 = abs(c15) / 0.08 if c15 is not None else 0.0
     rvol = abs(c15) / (3 * vol15) if (c15 is not None and vol15) else None
     ratio = max(r1h, r15 if (rvol is None or rvol >= 1) else 0.0)
     probe("polymarket", ent, "ODDS_REPRICING", ratio)
-    if (m.get("vol24") or 0) < 25_000 or ratio < 1:
+    # volume must be point-in-time: a current Gamma 24h volume is not evidence about a historical observation
+    vol_pit = m.get("vol24AsOf") is None or abs(m["vol24AsOf"] - now) <= 3600
+    if ratio < 1 or (vol_pit and (m.get("vol24") or 0) < 25_000):
         return None
+    if not vol_pit:
+        p = m["price"]
+        return _sig("polymarket", "ODDS_REPRICING", "INFO", "unverified", f"Price moved {pts(abs(h1))} in 1h, volume not known at that time: “{m['title']}”",
+                    "The volume eligibility floor can't be checked: the only volume available is from a later time, which would be look-ahead.",
+                    {"name": m["title"], "id": ent, "url": m["url"]}, {"price": p, "change": h1, "window": "1h", "vol24": None},
+                    [{"label": "Polymarket market", "url": m["url"]}], ["Volume not point-in-time; not eligible as a finding (REPLAY-01)."],
+                    env(ob, now - 3600, now, now, True, granularity="intraday", event_basis="window-start"),
+                    trig(round(abs(h1), 4), None, 0.12, "1h", "probability points"), text=f"{m['title']} {m.get('event') or ''}")
     win, ch, thr = ("15m", c15, 0.08) if r15 >= r1h and c15 is not None else ("1h", h1, 0.12)
     phase, settling = _phase(m, now)
     sev = "HIGH" if ratio >= 2 and (m.get("vol24") or 0) >= 250_000 else "MEDIUM" if ratio >= 1.4 else "LOW"
     limited = hist is None
     lim = ["Real traded notional in the same window isn't available from Gamma; 24h volume is used as a floor."]
+    if irregular and not limited:
+        lim.append("CLOB history has irregular sample spacing; only 10–20 minute pairs were used.")
     if limited:
         lim.append("No CLOB price history: the 15-minute and event-volatility checks were not applied; 1h change only.")
         sev = cap(sev, "MEDIUM")
@@ -142,11 +192,12 @@ def pm_odds_jump(m: dict, ob: dict, hist: list[tuple[int, float]] | None = None)
                 f"{m['outcome']} repriced {'up' if ch > 0 else 'down'} {pts(abs(ch))} in {win}: “{m['title']}”",
                 f"Now {pct(p)} (≈{pct(p - ch)} {win} earlier). 24h volume ${m.get('vol24') or 0:,.0f}. Event phase: {phase}.",
                 {"name": m["title"], "id": ent, "url": m["url"]},
-                {"price": p, "change": ch, "window": win, "vol24": m.get("vol24"), "liquidity": m.get("liquidity"), "spread": spread,
+                {"price": p, "change": ch, "outcome": m.get("outcome"), "window": win, "vol24": m.get("vol24"), "liquidity": m.get("liquidity"), "spread": spread,
                  "eventPhase": phase, "eventVol15m": vol15},
                 [{"label": "Polymarket market", "url": m["url"]}, {"label": "Gamma API record", "url": m.get("api")}],
                 lim, env(ob, now - (900 if win == "15m" else 3600), now, now, approx=True,
-                         extra_limits=["Event time is the start of the measurement window; the exact moment of repricing isn't known."]),
+                         extra_limits=["Event time is the start of the measurement window; the exact moment of repricing isn't known."],
+                         granularity="intraday", event_basis="window-start", avail_basis="ingest-lower-bound"),
                 trig(round(abs(ch), 4), round(vol15 * 3, 4) if vol15 else None, thr, win, "probability points"),
                 text=f"{m['title']} {m.get('event') or ''}", limited=limited)
 
@@ -166,7 +217,7 @@ def pm_volume_spike(m: dict, ob: dict) -> dict | None:
         return _sig("polymarket", "VOLUME_SPIKE", "INFO", "unverified", f"Insufficient baseline: ${vol:,.0f} traded in 24h on “{m['title']}”",
                     f"No usable prior-6-day volume (market age {age_days:.0f} days), so no ratio is computed.", subj,
                     {"vol24": vol, "baselinePerDay": base, "ratio": None, "ageDays": round(age_days, 1)}, ev,
-                    ["Insufficient historical baseline. This is not a maximal anomaly."], env(ob, now - 86400, now, now, True),
+                    ["Insufficient historical baseline. This is not a maximal anomaly."], env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"),
                     trig(vol, None, "4× baseline", "24h vs prior 6d", "USD"), text=f"{m['title']} {m.get('event') or ''}")
     ratio = vol / base
     probe("polymarket", m["id"], "VOLUME_SPIKE", ratio / 4)
@@ -180,7 +231,7 @@ def pm_volume_spike(m: dict, ob: dict) -> dict | None:
     return _sig("polymarket", "VOLUME_SPIKE", sev, "heuristic", f"24h volume {ratio:.0f}× its prior-6-day average: “{m['title']}”",
                 f"${vol:,.0f} in 24h vs ~${base:,.0f}/day before. Event phase: {phase}.", subj,
                 {"vol24": vol, "baselinePerDay": round(base, 2), "ratio": round(ratio, 1), "price": m["price"], "eventPhase": phase}, ev,
-                lim, env(ob, now - 86400, now, now, True), trig(vol, round(base, 2), round(4 * base, 2), "24h vs prior 6d", "USD"),
+                lim, env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"), trig(vol, round(base, 2), round(4 * base, 2), "24h vs prior 6d", "USD"),
                 text=f"{m['title']} {m.get('event') or ''}")
 
 
@@ -242,11 +293,11 @@ def kalshi_shock(m: dict, ob: dict) -> list[dict]:
         probe("kalshi", m["id"], "ODDS_REPRICING", abs(ch) / 0.12)
         if v24 >= 2000 and abs(ch) >= 0.12:
             sev = "HIGH" if abs(ch) >= 0.25 and v24 >= 20_000 else "MEDIUM" if abs(ch) >= 0.18 else "LOW"
-            out.append(_sig("kalshi", "ODDS_REPRICING", cap(sev, "MEDIUM") if lim else sev, "observed",
+            out.append(_sig("kalshi", "ODDS_REPRICING", cap(sev, "LOW") if lim else sev, "heuristic" if lim else "observed",
                             f"Yes {'midpoint' if not lim else 'price'} {'up' if ch > 0 else 'down'} {pts(abs(ch))} vs previous day: “{m['title']}”",
                             f"{pct(p)} vs {pct(prev)} on {v24:,.0f} contracts.", subj, {"price": p, "prev": prev, "change": round(ch, 4), "vol24": v24}, ev,
                             lim + ["Previous-day comparison only (no intraday history); 15m/1h windows not available."],
-                            env(ob, now - 86400, now, now, True), trig(round(abs(ch), 4), prev, 0.12, "1d", "probability points"),
+                            env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"), trig(round(abs(ch), 4), prev, 0.12, "1d", "probability points"),
                             text=f"{m['title']} {m.get('event') or ''}", limited=True))
     if m.get("openTs") and v24 >= 10_000:
         age = max((now - m["openTs"]) / 86400, 0)
@@ -259,12 +310,12 @@ def kalshi_shock(m: dict, ob: dict) -> list[dict]:
                                 f"{v24:,.0f} contracts in 24h vs ~{base:,.0f}/day since it opened {age:.0f} days ago.", subj,
                                 {"vol24": v24, "baselinePerDay": round(base, 1), "ratio": round(ratio, 1)}, ev,
                                 ["Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."],
-                                env(ob, now - 86400, now, now, True), trig(v24, round(base, 1), round(5 * base, 1), "24h vs lifetime/day", "contracts"),
+                                env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"), trig(v24, round(base, 1), round(5 * base, 1), "24h vs lifetime/day", "contracts"),
                                 text=f"{m['title']} {m.get('event') or ''}"))
         elif age < 7 or base <= 0:
             out.append(_sig("kalshi", "VOLUME_SPIKE", "INFO", "unverified", f"Insufficient baseline: {v24:,.0f} contracts in 24h on “{m['title']}”",
                             "Market too new or no prior volume, so no ratio is computed.", subj, {"vol24": v24, "ratio": None, "ageDays": round(age, 1)}, ev,
-                            ["Insufficient historical baseline. This is not a maximal anomaly."], env(ob, now - 86400, now, now, True),
+                            ["Insufficient historical baseline. This is not a maximal anomaly."], env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"),
                             trig(v24, None, "5× baseline", "24h vs lifetime/day", "contracts"), text=m["title"]))
     return out
 
@@ -282,20 +333,32 @@ def daily_anomaly(source: str, sym: str, rows: list[tuple[int, float, float]], u
     Return: daily log return / prior 20-day realized vol, |z| ≥3. Intraday variants are not supported (daily bars only)."""
     name = name or sym
     out, subj = [], {"name": name, "id": sym, "url": url}
+    now = ob["ingestTs"]
+    dropped = None
+    if rows:
+        st = T.daily_bar_status(source, sym, rows[-1][0], now)
+        if not st["complete"]:  # never score an in-progress session as a completed daily bar (TIME-01)
+            dropped = rows[-1]
+            rows = rows[:-1]
     if len(rows) < ret_window + 2:
+        for typ in ("RETURN_VS_REALIZED_VOL", "VOLUME_ROBUST_Z"):
+            invalid(source, sym, typ, "insufficient completed history")
         return []
     t, c, v = rows[-1]
     prev_c = rows[-2][1]
-    ev_ts = _close_ts(t) if source in ("equities", "macro") else t + 86400
-    avail = ev_ts + (15 * 60 if source in ("equities", "macro") else 60)
-    o = env(ob, ev_ts, min(avail, ob["ingestTs"]), ev_ts, approx=True,
-            extra_limits=["Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data."])
+    st = T.daily_bar_status(source, sym, t, now)
+    ev_ts, avail = st["eventTs"], st["availableTs"]
+    extra = ["Daily bars only; the time of day the move happened is unknown. Intraday detectors are not available on this data.",
+             f"Bar close: {st['basis']}; availability is an estimate (close + {T.PUBLISH_LAG_S // 60} min)."]
+    if dropped:
+        extra.append("Today's bar is still forming and was excluded; this is the last completed session.")
+    o = env(ob, ev_ts, avail, ev_ts, approx=True, extra_limits=extra, granularity="daily", event_basis="estimated", avail_basis="estimated", final=False)
     evid = [{"label": f"{name} quote & history", "url": url}]
     rets = [math.log(b[1] / a[1]) for a, b in zip(rows[-ret_window - 2:-2], rows[-ret_window - 1:-1]) if a[1] and b[1]]
     r = math.log(c / prev_c) if prev_c and c else 0.0
     rv = statistics.pstdev(rets) if len(rets) >= 10 else 0.0
     rz = r / rv if rv else None
-    observe(f"{source}:{sym}", rz, url, avail)
+    observe(f"{source}:{sym}", rz, url, avail, "daily", (ev_ts - 86400, ev_ts))
     probe(source, sym, "RETURN_VS_REALIZED_VOL", abs(rz) / 3 if rz is not None else None)
     if rz is not None and abs(rz) >= 3:
         sev = "HIGH" if abs(rz) >= 5 else "MEDIUM" if abs(rz) >= 4 else "LOW"
@@ -341,8 +404,15 @@ def options_activity(sym: str, ch: dict, url: str, ob: dict) -> list[dict]:
     rejected = ch.get("rejected", 0) + sum(1 for r in rows if not r.get("expiry"))
     good = [r for r in rows if r.get("expiry")]
     prem = lambda r: (r["volume"] * (r.get("price") or 0) * 100)  # noqa: E731
-    o = env(ob, snap, (snap + 15 * 60) if snap else None, snap, approx=snap is None,
-            extra_limits=["Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert."])
+    issue = ch.get("snapshotIssue") or (None if snap else "missing snapshot time")
+    if snap:
+        o = env(ob, snap, snap, snap, extra_limits=["Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+                                                   "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."],
+                granularity="delayed", event_basis="provider", avail_basis="provider")
+    else:  # TIME-02: no invented precision; downgraded and excluded from fast convergence
+        o = env(ob, None, None, None, approx=True, extra_limits=[f"Option snapshot time unavailable ({issue}); timing unknown, so this can't take part in fast-mode analysis."],
+                granularity="unknown", status="DEGRADED")
+        o["fastEligible"] = False
     if rejected:
         o["limitations"].append(f"{rejected} contract(s) rejected: expiry could not be parsed.")
     evid = [{"label": f"{sym} delayed option chain", "url": url}]
@@ -387,9 +457,10 @@ def treasury_signals(rows: list[tuple[str, dict]], url: str, ob: dict) -> list[d
     d0, y0 = rows[-2]
     obs_day = T.date.fromisoformat(d1)
     ev_ts = T.ny_ts(obs_day, 15, 30)
-    avail = min(T.ny_ts(obs_day, 18, 0), ob["ingestTs"])
+    avail = T.ny_ts(obs_day, 18, 0)
     o = env(ob, ev_ts, avail, ev_ts, approx=True,
-            extra_limits=["Daily indicative par yields; availability time is an estimate (published the same business day, late afternoon ET)."])
+            extra_limits=["Daily indicative par yields; availability is an estimate (same business day, late afternoon ET) or the first time this scan saw the row, whichever is earlier."],
+            granularity="daily", event_basis="estimated", avail_basis="estimated", final=True)
     evid = [{"label": "US Treasury daily par yield curve", "url": url}]
     subj = lambda n, i: {"name": n, "id": i, "url": url}  # noqa: E731
     for k in ("2Y", "10Y", "30Y"):
@@ -402,7 +473,7 @@ def treasury_signals(rows: list[tuple[str, dict]], url: str, ob: dict) -> list[d
         _, med, scale = robust(hist, bp) if len(hist) >= 20 else (None, 0, 0)
         scale = scale if scale == scale else 0
         thr = max(8.0, 2.5 * scale)
-        observe(f"treasury:{k}", bp / (scale or 8), url, avail)
+        observe(f"treasury:{k}", bp / (scale or 8), url, avail, "daily", (ev_ts - 86400, ev_ts))
         probe("treasury", k, "YIELD_MOVE", abs(bp) / thr)
         if abs(bp) >= thr:
             out.append(_sig("treasury", "YIELD_MOVE", "MEDIUM" if abs(bp) >= 1.5 * thr else "LOW", "observed",
@@ -457,29 +528,37 @@ def crypto_perp_shock(ccy: str, oi: list[tuple], funding: list[tuple], url: str,
         usd_ch = (u1 - u0) / u0 if u0 else None
         probe("crypto", f"{ccy}-PERP", "OI_SHOCK", min(abs(ch) / 0.15, abs(z) / 3) if z is not None else None)
         if abs(ch) >= 0.15 and z is not None and abs(z) >= 3:
-            o = env(ob, t1 + 86400, min(t1 + 86400 + 300, ob["ingestTs"]), t1 + 86400, True, ["OKX only; other venues' open interest can differ."])
+            o = env(ob, t1 + 86400, t1 + 86400 + 300, t1 + 86400, True, ["OKX only; other venues' open interest can differ."], granularity="daily",
+                    event_basis="provider", avail_basis="estimated", final=True)
             out.append(_sig("crypto", "OI_SHOCK", "HIGH" if abs(ch) >= 0.30 else "MEDIUM", "observed",
                             f"Unusual observed open interest: {ccy} perp OI {ch * 100:+.0f}% in contracts over 24h (robust z {z:.1f})",
                             f"Contracts {c0:,.0f} → {c1:,.0f}; USD value {usd_ch * 100:+.0f}%." if usd_ch is not None else f"Contracts {c0:,.0f} → {c1:,.0f}.", subj,
                             {"oiContracts": c1, "oiUsd": u1, "change1dContracts": round(ch, 4), "change1dUsd": None if usd_ch is None else round(usd_ch, 4), "z": round(z, 2)},
                             evid, ["Daily fallback (intraday 1h/4h OI history not used). USD OI can rise with price without contract growth; both are shown."], o,
                             trig(round(ch, 4), None, 0.15, "24h, z vs prior 30 daily changes", "fraction (contracts)"), text=text, instrument=ccy))
-    if len(funding) >= 30:
-        ih = interval_h or 8.0
-        f8 = [(t, r * 8 / ih) for t, r in funding]
+    # per-settlement normalization (PROV-02): each settlement uses its own interval; unknown intervals are skipped
+    f8 = []
+    for row in funding:
+        t_, r_, gap = (row + (interval_h,))[:3] if len(row) == 2 else row
+        if gap:
+            f8.append((t_, r_ * 8 / gap))
+    ih = (funding[-1][2] if len(funding[-1]) > 2 else None) or interval_h or 8.0
+    if len(f8) < 30:
+        invalid("crypto", f"{ccy}-PERP", "FUNDING_EXTREME", f"only {len(f8)} settlements with a known interval; no percentile computed")
+    else:
         t, r = f8[-1]
         hist = sorted(abs(x) for _, x in f8[:-1][-90:])
         p95 = hist[int(0.95 * (len(hist) - 1))]; p99 = hist[int(0.99 * (len(hist) - 1))]
         probe("crypto", f"{ccy}-PERP", "FUNDING_EXTREME", min(abs(r) / 0.0005, abs(r) / p95 if p95 else 99))
         if abs(r) >= 0.0005 and abs(r) > p95:
             severe = abs(r) >= 0.001 and abs(r) > p99
-            o = env(ob, t, min(t + 60, ob["ingestTs"]), t, False, [])
+            o = env(ob, t, t + 60, t, False, [], granularity="intraday", event_basis="provider", avail_basis="estimated", final=True)
             out.append(_sig("crypto", "FUNDING_EXTREME", "HIGH" if severe else "MEDIUM", "observed",
                             f"{ccy} perp funding {r * 100:+.3f}% per 8h-equivalent ({'longs' if r > 0 else 'shorts'} paying), above the 30-day {'99th' if severe else '95th'} percentile",
                             f"Settlement interval {ih:g}h; realized rate normalized to 8h.", subj,
-                            {"funding8h": r, "intervalH": ih, "p95": p95, "p99": p99}, evid,
+                            {"funding8h": r, "intervalH": ih, "p95": p95, "p99": p99, "sample": len(f8) - 1}, evid,
                             ["Funding is positioning context, not a directional forecast. Basis and predicted-next funding not yet combined."], o,
-                            trig(round(abs(r), 6), round(p95, 6), max(0.0005, p95), "latest settlement vs ~30d", "funding per 8h"), text=text, instrument=ccy))
+                            trig(round(abs(r), 6), round(p95, 6), max(0.0005, p95), f"latest settlement vs {len(f8) - 1} prior", "funding per 8h"), text=text, instrument=ccy))
     return out
 
 
@@ -503,7 +582,7 @@ def stablecoin_supply(rows: list[dict], ob: dict) -> list[dict]:
                             {"change1d": round(d1), "pct1d": round(p1, 5), "change7d": round(w1), "chains": a.get("chains")},
                             [{"label": f"{a['name']} supply by chain (DefiLlama)", "url": a["url"]}],
                             ["Aggregate supply changes can reflect issuance, redemptions, cross-chain bridging, peg/price effects, tracking changes or data revisions. Not evidence of a mint or burn transaction."],
-                            env(ob, now - 86400, now, now, True), trig(round(abs(d1)), None, 250e6, "1d", "USD"),
+                            env(ob, now - 86400, now, now, True, granularity="daily", event_basis="window-start", avail_basis="ingest-lower-bound"), trig(round(abs(d1)), None, 250e6, "1d", "USD"),
                             text=a["name"], instrument=a["symbol"]))
     return out
 
@@ -527,30 +606,41 @@ def edgar_events(form4: list[dict] | None, eightk: list[dict] | None, ob: dict, 
     for cik, fs in by.items():
         if len(fs) < 3:
             continue
-        parsed = [t for f in fs for t in ((tx or {}).get(f["url"]) or [])]
+        docs = [d for d in ((tx or {}).get(f["url"]) for f in fs) if isinstance(d, dict)]
+        # amendments: a 4/A from an owner who also has an original filing here is not counted twice
+        orig_owners = {o for d in docs if not d["amendment"] for o in d["owners"]}
+        use = [d for d in docs if not d["amendment"] or not set(d["owners"]) & orig_owners]
+        parsed = [dict(t, owners=d["owners"]) for d in use for t in d["transactions"]]
+        ticker = next((d["issuerTicker"] for d in docs if d.get("issuerTicker")), None)
         n = fs[0]["name"]
         subj = {"name": n, "id": cik, "url": f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={cik}&type=4"}
         ev = [{"label": f"Form 4 · {n}", "url": f["url"]} for f in fs[:4]]
-        o = env(ob, min(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs))
+        o = env(ob, min(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs), max(f["ts"] or now for f in fs),
+                extra_limits=["Event time = earliest EDGAR acceptance time in the cluster; trades occurred up to two business days earlier."],
+                granularity="intraday", event_basis="provider", avail_basis="provider")
         if not parsed:
-            out.append(_sig("sec", "INSIDER_FILING_CLUSTER", "INFO", "unverified", f"{len(fs)} Form 4 filings for {n} (transactions not parsed)",
+            out.append(_sig("sec", "FORM4_FILING_CLUSTER", "INFO", "unverified", f"{len(fs)} Form 4 filings for {n} (transactions not parsed)",
                             "Counts alone are mostly noise: routine grants and planned sales dominate.", subj, {"filings": len(fs)}, ev,
-                            ["Transactions could not be parsed; no finding is made."], o, trig(len(fs), None, 3, "latest EDGAR feed", "filings"), text=n))
+                            ["Transactions could not be parsed; no finding is made."], o, trig(len(fs), None, 3, "latest EDGAR feed", "filings"), text=n, instrument=ticker))
             continue
         buys = [t for t in parsed if t["code"] == "P"]
         sells = [t for t in parsed if t["code"] == "S"]
-        usd = lambda ts: sum((t["shares"] or 0) * (t["price"] or 0) for t in ts)  # noqa: E731
+        owners = lambda ts: len({o for t in ts for o in t["owners"]})  # noqa: E731
+        priced = lambda ts: [t for t in ts if t["price"] is not None and t["shares"] is not None]  # noqa: E731
+        usd = lambda ts: sum(t["shares"] * t["price"] for t in priced(ts))  # noqa: E731
+        nop = lambda ts: len(ts) - len(priced(ts))  # noqa: E731
+        lim0 = ["Reported by the filers on Form 4; this says nothing about what anyone knew or intended."]
         if buys:
-            out.append(_sig("sec", "INSIDER_OPEN_MARKET_PURCHASES", "MEDIUM" if usd(buys) >= 1e6 else "LOW", "observed",
-                            f"{n}: {len(buys)} open-market insider purchase(s) across {len(fs)} Form 4 filings (≈${usd(buys):,.0f})",
-                            "Transaction code P parsed from the filings. Grants, exercises and gifts excluded.", subj,
-                            {"filings": len(fs), "purchases": len(buys), "purchaseUsd": round(usd(buys)), "sales": len(sells)}, ev,
-                            ["Filings arrive up to two business days after the trade."], o, trig(len(buys), None, 1, "latest EDGAR feed", "purchases"), text=n))
+            out.append(_sig("sec", "REPORTED_OPEN_MARKET_PURCHASES", "MEDIUM" if usd(buys) >= 1e6 else "LOW", "observed",
+                            f"{n}: {len(buys)} reported open-market purchase(s) by {owners(buys)} reporting person(s) (≈${usd(buys):,.0f}{' + ' + str(nop(buys)) + ' without a reported price' if nop(buys) else ''})",
+                            "Transaction code P parsed from the filings. Grants, exercises and gifts excluded; amendments not double-counted.", subj,
+                            {"filings": len(fs), "purchases": len(buys), "purchaseUsd": round(usd(buys)), "unpriced": nop(buys), "reportingPersons": owners(buys), "sales": len(sells)}, ev,
+                            lim0 + ["Filings arrive up to two business days after the trade."], o, trig(len(buys), None, 1, "latest EDGAR feed", "purchases"), text=n, instrument=ticker))
         elif sells:
-            out.append(_sig("sec", "INSIDER_SALES_CLUSTER", "LOW", "observed", f"{n}: {len(sells)} insider sale(s) across {len(fs)} Form 4 filings (≈${usd(sells):,.0f})",
+            out.append(_sig("sec", "REPORTED_SALES_CLUSTER", "LOW", "observed", f"{n}: {len(sells)} reported sale(s) by {owners(sells)} reporting person(s) (≈${usd(sells):,.0f})",
                             "Code S parsed. Sales are frequently scheduled (10b5-1); context only.", subj,
-                            {"filings": len(fs), "sales": len(sells), "salesUsd": round(usd(sells))}, ev,
-                            ["10b5-1 plan status isn't parsed."], o, trig(len(sells), None, 1, "latest EDGAR feed", "sales"), text=n))
+                            {"filings": len(fs), "sales": len(sells), "salesUsd": round(usd(sells)), "unpriced": nop(sells), "reportingPersons": owners(sells)}, ev,
+                            lim0 + ["10b5-1 plan status isn't parsed."], o, trig(len(sells), None, 1, "latest EDGAR feed", "sales"), text=n, instrument=ticker))
     seen = set()
     for f in eightk or []:
         items = [i for i in f["items"] if i in MATERIAL_8K]
@@ -591,112 +681,221 @@ def solana_from_reports(reports: list[dict], ob: dict, window_h: float = 72) -> 
     return out
 
 
-# ---------------- convergence & divergence (dependency-aware) ----------------
-MODES = [("fast", 6 * 3600, "Potential timely signal"), ("cross-session", 24 * 3600, "Slower event context"),
-         ("forensic", 48 * 3600, "Retrospective reconstruction; not an early warning")]
+# ---------------- convergence & divergence (typed relations, dependency-aware) ----------------
+MODES = [("fast", 6 * 3600, "Close in time on timely data"), ("cross-session", 24 * 3600, "Slower event context"),
+         ("forensic", 48 * 3600, "Retrospective co-occurrence (not an early warning)")]
+_MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december"
+_SETTLE = re.compile(rf"\b(?:{_MONTHS})(?:\s+\d{{1,2}})?(?:,?\s+\d{{4}})?|\b20\d\d\b|\bq[1-4]\b|end of (?:the )?(?:year|month|\d{{4}})", re.I)
+
+
+def settlement_terms(text: str) -> frozenset:
+    """Settlement date tokens of a prediction question ('December', 'end of 2026', 'Q4'); empty if none found."""
+    return frozenset(m.group(0).lower().replace(",", "") for m in _SETTLE.finditer(text or ""))
+
+
+def _direction(s) -> int:
+    ch = (s.get("metrics") or {}).get("change")
+    if not ch:
+        return 0
+    yes = (s.get("metrics") or {}).get("outcome", "Yes") != "No"
+    return (1 if ch > 0 else -1) * (1 if yes else -1)
+
+
+def _eligible(s, now, window_s):
+    o = s.get("observation") or {}
+    if s["source"] == "cross" or s["basis"] == "unverified" or SEV.index(s["severity"]) < 1:
+        return "not a counted finding (cross/unverified/INFO)"
+    if now - s["when"] > window_s:
+        return "outside the 48h window"
+    if o.get("sourceStatus") in ("STALE", "UNAVAILABLE", "NOT_CONFIGURED"):
+        return f"source {o.get('sourceStatus')}"
+    if o.get("temporalStatus", "OK") != "OK":
+        return f"time not valid ({o.get('temporalStatus')})"
+    return None
+
+
+def _dep(s, ent):
+    if s["family"] == "prediction":
+        return f"prediction:{ent}"
+    if s["source"] == "sec":
+        eq = [i for i in EN.ENTITIES.get(ent, {}).get("instruments", []) if i.startswith("equities:")]
+        if eq:
+            return f"issuer:{eq[0].split(':')[1]}"
+    return EN.dependency_group(s.get("instrument"), s["source"], s["subject"].get("id"))
 
 
 def convergence(sigs: list[dict], now: int, window_s: int = 48 * 3600) -> list[dict]:
-    """Group by canonical entity. Each causal family contributes ONE effective observation (its earliest-available
-    signal). ≥2 families required. Generic tags never link. The ranking is uncalibrated: an attention index, not a probability."""
+    """CONVERGENCE needs ≥2 independent evidence groups in different causal families, each with a counting typed
+    relation to the entity (SAME_UNDERLYING / SAME_EVENT / DIRECT_PROXY / DISCLOSURE_REACTION), time-compatible
+    observations, and non-conflicting prediction questions. Mechanically linked instruments (oil + USO, BTC + MSTR,
+    a filing + its stock) are one group. Otherwise a plausible link is reported as RELATED_ACTIVITY (hypothesis).
+    The rank is an uncalibrated sorting aid; contributing and excluded observations are stored."""
     by: dict[str, list[dict]] = {}
     for s in sigs:
-        if s["source"] == "cross" or s["basis"] == "unverified" or SEV.index(s["severity"]) < 1 or now - s["when"] > window_s:
-            continue
         for e in s.get("entities") or []:
             by.setdefault(e, []).append(s)
     out = []
     for ent, ss in sorted(by.items()):
-        fam: dict[str, list[dict]] = {}
+        excluded, units = [], {}
         for s in ss:
-            fam.setdefault(s["family"], []).append(s)
-        if len(fam) < 2:
+            why = _eligible(s, now, window_s)
+            rel = (s.get("relations") or {}).get(ent) or EN.relation(s.get("instrument"), ent, s["source"], s.get("title", ""))
+            if why is None and rel not in EN.COUNTING and rel != "DISCLOSURE_REACTION":
+                why = f"relation {rel}: exposure, not the same underlying or event"
+            if why:
+                if s["source"] != "cross":
+                    excluded.append({"key": s["key"], "reason": why, "relation": rel})
+                continue
+            units.setdefault(_dep(s, ent), []).append((s, rel))
+        # prediction questions must agree on settlement and direction to count as one SAME_EVENT observation
+        pk = f"prediction:{ent}"
+        if pk in units:
+            ps = [x for x, _ in units[pk]]
+            terms = {settlement_terms(x["title"]) for x in ps}
+            dirs = {_direction(x) for x in ps} - {0}
+            if len(terms) > 1 or len(dirs) > 1:
+                for x in ps:
+                    excluded.append({"key": x["key"], "reason": "prediction questions differ in settlement or direction; not one event", "relation": "UNRESOLVED"})
+                del units[pk]
+        reps = {}
+        for g, lst in units.items():
+            s0 = min(lst, key=lambda x: x[0]["when"])
+            fam = s0[0]["family"]
+            if fam not in reps or s0[0]["when"] < reps[fam]["s"]["when"]:
+                if fam in reps:
+                    excluded.append({"key": reps[fam]["s"]["key"], "reason": f"second group in family {fam}; one per family", "relation": reps[fam]["rel"]})
+                reps[fam] = {"s": s0[0], "rel": s0[1], "group": g, "dependents": [x["key"] for x, _ in lst if x is not s0[0]]}
+            else:
+                excluded.append({"key": s0[0]["key"], "reason": f"second group in family {fam}; one per family", "relation": s0[1]})
+        others = {x["family"] for x in ss if x["source"] != "cross" and _eligible(x, now, window_s) is None}
+        if len(reps) < 2:
+            if len(others) >= 2 and ss:
+                out.append(_related(ent, ss, excluded, now))
             continue
-        reps = {f: min(v, key=lambda s: s["when"]) for f, v in fam.items()}
-        times = sorted(r["when"] for r in reps.values())
+        R = list(reps.values())
+        times = sorted(r["s"]["when"] for r in R)
         span = times[-1] - times[0]
-        mode = next((m for m in MODES if span <= m[1]), None)
+        fast_ok = all((r["s"].get("observation") or {}).get("fastEligible") for r in R)
+        mode = next((m for m in MODES if span <= m[1] and (m[0] != "fast" or fast_ok)), None)
         if not mode:
             continue
         w = {"observed": 1.0, "heuristic": 0.7, "inferred": 0.5}
-        sev_mean = sum(SEV.index(r["severity"]) * w.get(r["basis"], 0.5) for r in reps.values()) / len(reps)
-        rank = min(100, round(30 * (len(reps) - 1) + 12 * sev_mean + {"fast": 15, "cross-session": 8, "forensic": 0}[mode[0]]))
-        sev = "HIGH" if mode[0] == "fast" and len(reps) >= 3 else "MEDIUM" if mode[0] != "forensic" else "LOW"
-        tagged = all(r.get("calendar") for r in reps.values())
-        if tagged:
+        sev_mean = sum(SEV.index(r["s"]["severity"]) * w.get(r["s"]["basis"], 0.5) for r in R) / len(R)
+        rank = min(100, round(30 * (len(R) - 1) + 12 * sev_mean + {"fast": 15, "cross-session": 8, "forensic": 0}[mode[0]]))
+        sev = "HIGH" if mode[0] == "fast" and len(R) >= 3 else "MEDIUM" if mode[0] != "forensic" else "LOW"
+        # calendar (P0.03): only the SAME specific event, already released, as a RELEASE_REACTION for EVERY member explains it
+        rr = [{c["eventId"] for c in (r["s"].get("calendar") or []) if c.get("phase") == "RELEASE_REACTION" and c.get("availableAtObservation")} for r in R]
+        common = set.intersection(*rr) if rr else set()
+        explained = bool(common)
+        PW = {"PRE_EVENT_POSITIONING": "before", "RELEASE_REACTION": "release reaction to", "POST_EVENT_CONTEXT": "after"}
+        ctx = sorted({f"{PW.get(c['phase'], c['phase'])} {c['label']}" for r in R for c in (r["s"].get("calendar") or []) if c.get("phase") != "UNRELATED"})
+        if explained:
             sev = cap(sev, "LOW")
-        chain = sorted(ss, key=lambda s: s["when"])
-        within = {f: len(v) for f, v in fam.items()}
+        chain = sorted([r["s"] for r in R], key=lambda s: s["when"])
         label = mode[0].replace("-", " ")
         s = _sig("cross", "CONVERGENCE", sev, "inferred",
-                 f"{len(reps)} causal families moved on {ent} ({label}, {span / 3600:.1f}h)",
-                 f"{mode[2]}. Distinct data sources; independence of the underlying evidence is not established. Earliest available: "
-                 + "; ".join(f"{EN.FAMILY_LABEL[f]}: {r['title']}" for f, r in sorted(reps.items(), key=lambda kv: kv[1]['when'])) + ".",
+                 f"Related observations on {ent}: {len(R)} independent evidence groups ({label}, {span / 3600:.1f}h)",
+                 f"{mode[2]}. Earliest available per group: " + "; ".join(f"{EN.FAMILY_LABEL.get(r['s']['family'], r['s']['family'])} [{r['rel']}]: {r['s']['title']}"
+                                                                    for r in sorted(R, key=lambda r: r['s']['when'])) + ".",
                  {"name": ent, "id": ent, "url": chain[0]["subject"]["url"]},
-                 {"rank": rank, "rankNote": "uncalibrated anomaly-convergence ranking (not a probability)", "families": sorted(reps),
-                  "effectiveObservations": len(reps), "signalsPerFamily": within, "mode": mode[0], "spanHours": round(span / 3600, 2),
-                  "calendarExplained": tagged,
+                 {"rank": rank, "rankNote": "uncalibrated anomaly-convergence ranking (a sorting aid, not a probability or confidence)",
+                  "families": sorted(reps), "effectiveObservations": len(R), "mode": mode[0], "spanHours": round(span / 3600, 2),
+                  "calendarExplained": explained, "explainedBy": sorted(common), "calendarContext": ctx,
+                  "contributing": [{"key": r["s"]["key"], "family": f, "relation": r["rel"], "dependencyGroup": r["group"], "dependentsCountedOnce": r["dependents"],
+                                    "granularity": (r["s"].get("observation") or {}).get("granularity"), "fastEligible": (r["s"].get("observation") or {}).get("fastEligible")}
+                                   for f, r in reps.items()],
+                  "excluded": excluded, "memberKeys": [r["s"]["key"] for r in R],
                   "chain": [{"key": c["key"], "source": c["source"], "family": c["family"], "severity": c["severity"], "basis": c["basis"],
                              "title": c["title"], "availableTime": T.iso(c["when"]), "when": c["when"],
                              "url": (c["evidence"] or [{"url": c["subject"]["url"]}])[0]["url"]} for c in chain[:10]]},
-                 [e for r in reps.values() for e in r["evidence"][:1]],
-                 ["Matched on a canonical entity, not a shared actor. Same-family signals (e.g. two prediction venues, a stock and its options) count once.",
-                  "Ranking is uncalibrated; no hit rate or lead time has been measured on real history."]
-                 + (["Every family's move coincided with a scheduled event; likely explained, capped at LOW."] if tagged else []),
+                 [e for r in R for e in r["s"]["evidence"][:1]],
+                 ["Linked through a canonical entity and typed relations, not a shared actor. Mechanically linked instruments and same-family venues count once.",
+                  "Independence of the underlying information is not established; this is co-occurrence.",
+                  "Ranking is uncalibrated; no hit rate or lead time has been measured."]
+                 + (["Every group's move was a release reaction to the same event (" + ", ".join(sorted(common)) + "); capped at LOW."] if explained else [])
+                 + (["Calendar context (not an explanation): " + "; ".join(ctx[:4])] if ctx and not explained else []),
                  T.obs(times[0], times[-1], now, times[-1], "HEALTHY", {}, [], False),
-                 trig(len(reps), None, 2, f"{mode[0]} ≤{mode[1] // 3600}h", "effective observations (families)"))
+                 trig(len(R), None, 2, f"{mode[0]} ≤{mode[1] // 3600}h", "independent evidence groups"))
         s["key"] = f"cross:{ent}:CONVERGENCE"
         s["entities"] = [ent]
         out.append(s)
     return out
 
 
+def _related(ent, ss, excluded, now):
+    ss = sorted([x for x in ss if x["source"] != "cross"], key=lambda x: x["when"])
+    s = _sig("cross", "RELATED_ACTIVITY", "INFO", "inferred", f"Related activity on {ent} (not counted as convergence)",
+             "Several observations mention or are exposed to this entity, but they are mechanically linked, exposure-only, conflicting or not time-compatible. A hypothesis to check, not corroboration.",
+             {"name": ent, "id": ent, "url": ss[0]["subject"]["url"]}, {"excluded": excluded, "chain": [{"key": x["key"], "title": x["title"], "when": x["when"], "family": x["family"]} for x in ss[:8]]},
+             [x["evidence"][0] for x in ss if x["evidence"]][:4], ["See `excluded` for why each observation wasn't counted."],
+             T.obs(ss[0]["when"], ss[-1]["when"], now, ss[-1]["when"], "HEALTHY", {}, []), trig(len(ss), None, None, "related", "observations"))
+    s["key"] = f"cross:{ent}:RELATED_ACTIVITY"; s["entities"] = [ent]
+    return s
+
+
 def same_family_repricing(sigs: list[dict], now: int) -> list[dict]:
-    """Two venues in ONE family on the same entity (e.g. Polymarket + Kalshi): reported once, never as independent proof."""
-    by: dict[tuple, list[dict]] = {}
+    """Prediction venues on one entity. Same settlement terms → RELATED_REPRICING (one observation, not corroboration).
+    Different settlement/outcome → RELATED_ACTIVITY wording: different questions, not the same event."""
+    by: dict[str, list[dict]] = {}
     for s in sigs:
         if s["source"] in ("polymarket", "kalshi") and s["basis"] != "unverified":
             for e in s.get("entities") or []:
-                by.setdefault((s["family"], e), []).append(s)
+                by.setdefault(e, []).append(s)
     out = []
-    for (fam, ent), ss in by.items():
+    for ent, ss in by.items():
         if len({s["source"] for s in ss}) < 2:
             continue
         ss.sort(key=lambda s: s["when"])
-        s = _sig("cross", "RELATED_REPRICING", "INFO", "inferred", f"Related contracts on {ent} repriced on {', '.join(sorted({x['source'] for x in ss}))}",
-                 "Same causal family: cross-venue arbitrage or a shared public event can explain both. Counted as one observation, not corroboration.",
-                 {"name": ent, "id": ent, "url": ss[0]["subject"]["url"]}, {"chain": [{"key": x["key"], "title": x["title"], "when": x["when"]} for x in ss]},
+        same = len({settlement_terms(x["title"]) for x in ss}) == 1 and len({_direction(x) for x in ss} - {0}) <= 1
+        typ = "RELATED_REPRICING" if same else "RELATED_ACTIVITY"
+        s = _sig("cross", typ, "INFO", "inferred",
+                 f"Related contracts on {ent} repriced on {', '.join(sorted({x['source'] for x in ss}))}" if same else f"Different prediction questions about {ent} moved",
+                 ("Same question terms on two venues: cross-venue arbitrage or a shared public event can explain both. Counted as one observation, not corroboration."
+                  if same else "The questions differ in settlement date or direction, so they are not the same event and don't corroborate each other."),
+                 {"name": ent, "id": ent, "url": ss[0]["subject"]["url"]}, {"chain": [{"key": x["key"], "title": x["title"], "when": x["when"]} for x in ss], "sameTerms": same},
                  [x["evidence"][0] for x in ss if x["evidence"]][:4], ["Which venue led is unknown without independent event availability timestamps."],
                  T.obs(ss[0]["when"], ss[-1]["when"], now, ss[-1]["when"], "HEALTHY", {}, []), trig(len(ss), None, None, "same family", "signals"))
-        s["key"] = f"cross:{ent}:RELATED_REPRICING"; s["entities"] = [ent]
+        s["key"] = f"cross:{ent}:{typ}"; s["entities"] = [ent]
         out.append(s)
     return out
 
 
 def divergence(sigs: list[dict], now: int, quiet_z: float = 1.0) -> list[dict]:
-    """Which related market failed to move? For an entity with a ≥MEDIUM signal in one family, list related
-    instruments in OTHER families that were observed this run and stayed within ±quiet_z of normal."""
+    """A related instrument in another family that was observed over a COMPARABLE window and stayed within ±quiet_z.
+    A prior-session daily bar can't show that something was quiet during an intraday move (TIME-03)."""
     out = []
     seen = set()
     for s in sigs:
         if s["source"] == "cross" or SEV.index(s["severity"]) < 2 or s["basis"] == "unverified":
             continue
+        so = s.get("observation") or {}
+        g = so.get("granularity")
         for ent in s.get("entities") or []:
             if (ent, s["family"]) in seen:
                 continue
-            rel = [(i, OBSERVED[i]) for i in EN.ENTITIES.get(ent, {}).get("related", []) if i in OBSERVED
-                   and EN.FAMILY.get(i.split(":")[0]) != s["family"] and abs(OBSERVED[i]["z"]) < quiet_z]
+            rel = []
+            for i in EN.ENTITIES.get(ent, {}).get("related", []):
+                o = OBSERVED.get(i)
+                if not o or EN.family_of(i.split(":")[0], i) == s["family"] or abs(o["z"]) >= quiet_z:
+                    continue
+                if g in ("intraday", "delayed") and o.get("granularity") != g:
+                    continue  # not comparable: e.g. yesterday's daily bar vs a live move
+                if g == "daily" and o.get("window") and so.get("eventTs") and not (o["window"][0] <= so["eventTs"] <= o["window"][1] + 86400):
+                    continue
+                if g not in ("intraday", "delayed", "daily"):
+                    continue
+                rel.append((i, o))
             if not rel:
                 continue
             seen.add((ent, s["family"]))
             d = _sig("cross", "DIVERGENCE", "LOW", "inferred", f"Divergence on {ent}: {s['title'][:90]} — but {', '.join(i.split(':')[1] for i, _ in rel)} barely moved",
-                     "A hypothesis to investigate, not a finding: the related market may not have caught up, may disagree, or the link may be weak. Validate with event studies.",
+                     "A hypothesis to investigate, not a finding: the related market may not have caught up, may disagree, or the link may be weak.",
                      {"name": ent, "id": ent, "url": s["subject"]["url"]},
-                     {"moved": s["key"], "quiet": [{"instrument": i, "z": o["z"], "url": o["url"], "availableTime": T.iso(o["ts"])} for i, o in rel]},
+                     {"moved": s["key"], "granularity": g, "quiet": [{"instrument": i, "z": o["z"], "url": o["url"], "availableTime": T.iso(o["ts"]), "granularity": o.get("granularity")} for i, o in rel]},
                      s["evidence"][:1] + [{"label": f"{i} (quiet, z {o['z']:+.1f})", "url": o["url"]} for i, o in rel],
-                     ["Quiet is |standardized move| < 1 on the latest daily observation; timing granularity differs across instruments."],
-                     T.obs(s["observation"].get("eventTs"), s["when"], now, s["when"], "HEALTHY", {}, []),
-                     trig(quiet_z, None, quiet_z, "latest observation", "|z| of related instruments"))
+                     [f"Compared on {g} observations over overlapping windows only."],
+                     T.obs(so.get("eventTs"), s["when"], now, s["when"], "HEALTHY", {}, []),
+                     trig(quiet_z, None, quiet_z, "comparable window", "|z| of related instruments"))
             d["key"] = f"cross:{ent}:DIVERGENCE:{s['family']}"; d["entities"] = [ent]
             out.append(d)
     return out

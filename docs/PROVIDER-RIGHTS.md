@@ -2,7 +2,9 @@
 
 This is a working register, not legal advice. Nothing in it says any use is permitted. **Every row is "unverified, needs review/permission"** until someone with authority reads the current terms (and, where needed, gets written permission) and records the outcome here.
 
-**Default posture:** Grok The Block is software each user runs themselves, locally or on their own Grok Bot, for their own analysis. The project does not operate a central feed that rebroadcasts provider data. Anyone who wants to publish signals publicly, run a shared feed, or sell access should resolve the relevant rows first.
+**Default posture:** Grok The Block is software each user runs themselves, locally or on their own Grok Bot, for their own analysis. The project does not operate a central feed that rebroadcasts provider data. Anyone who wants to publish signals publicly, run a shared feed, or sell access should resolve the relevant rows first. **A row marked "unverified" is not permission.** No shared feed, auto-publishing of provider data, or public derived-alert path exists in this repo, and none should be added until the rights for that exact use are recorded here. A user-supplied API key is not by itself a right to broadcast that data or alerts derived from it.
+
+Calendar contact: BLS and SEC ask automated clients for a contact. It is configured per user through `GTB_CONTACT` (calendar) and `GTB_SEC_USER_AGENT` (EDGAR). This repo ships with **no contact configured** (`data/event-calendar.json` → `contact.configured: false`); the BLS rows in the shipped calendar were fetched with a placeholder test contact and should be rebuilt.
 
 Terms URLs are where the terms were expected to be found when this was written. Confirm the current document, because they change.
 

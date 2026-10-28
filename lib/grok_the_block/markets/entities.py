@@ -9,10 +9,79 @@ import re
 
 # source -> causal family. One family contributes one effective observation.
 FAMILY = {"polymarket": "prediction", "kalshi": "prediction", "equities": "equity", "options": "equity",
-          "treasury": "rates", "macro": "rates", "crypto": "crypto", "stablecoins": "crypto", "solana": "crypto",
+          "treasury": "rates", "macro": "macro", "crypto": "crypto", "stablecoins": "crypto", "solana": "crypto",
           "sec": "disclosure"}
-FAMILY_LABEL = {"prediction": "Prediction markets", "equity": "Equities & options", "rates": "Rates, FX & macro",
+FAMILY_LABEL = {"prediction": "Prediction markets", "equity": "Equities & options", "rates": "Rates",
+                "fx": "FX", "commodities": "Commodities", "volatility": "Volatility",
                 "crypto": "Crypto (spot, perps, on-chain)", "disclosure": "Primary disclosures"}
+MACRO_FAMILY = {"^VIX": "volatility", "DX-Y.NYB": "fx", "EURUSD=X": "fx", "USDJPY=X": "fx", "GC=F": "commodities", "CL=F": "commodities"}
+
+
+def family_of(source: str, instrument: str | None = None) -> str | None:
+    """Causal family; macro splits into FX / commodities / volatility (more families never imply more independence)."""
+    if source == "macro" and instrument:
+        return MACRO_FAMILY.get(instrument.split(":")[-1], "macro")
+    return FAMILY.get(source)
+
+
+# Typed relations between an observation and an entity (P1.04). Only SAME_UNDERLYING, SAME_EVENT and the listed
+# event-linked instruments count toward CONVERGENCE; MACRO_EXPOSURE / UNRESOLVED produce RELATED_ACTIVITY only.
+REL = ("SAME_UNDERLYING", "DIRECT_PROXY", "SAME_EVENT", "DISCLOSURE_REACTION", "MACRO_EXPOSURE", "UNRESOLVED")
+# instrument -> (entity, relation). Anything not listed but matched by alias is UNRESOLVED (non-prediction) or
+# SAME_EVENT-candidate (prediction market whose text names the entity's event).
+LINKS = {
+    "treasury:2Y": [("fed-policy", "SAME_EVENT"), ("us-treasuries", "SAME_UNDERLYING")],
+    "treasury:10Y": [("us-treasuries", "SAME_UNDERLYING"), ("fed-policy", "MACRO_EXPOSURE")],
+    "treasury:30Y": [("us-treasuries", "SAME_UNDERLYING"), ("fed-policy", "MACRO_EXPOSURE")],
+    "treasury:2s10s": [("us-treasuries", "SAME_UNDERLYING"), ("fed-policy", "MACRO_EXPOSURE")],
+    "equities:TLT": [("us-treasuries", "DIRECT_PROXY"), ("fed-policy", "MACRO_EXPOSURE")],
+    "options:TLT": [("us-treasuries", "DIRECT_PROXY"), ("fed-policy", "MACRO_EXPOSURE")],
+    "crypto:BTC": [("bitcoin", "SAME_UNDERLYING")], "crypto:ETH": [("ethereum", "SAME_UNDERLYING")], "crypto:SOL": [("solana", "SAME_UNDERLYING")],
+    "equities:MSTR": [("microstrategy", "SAME_UNDERLYING"), ("bitcoin", "MACRO_EXPOSURE")],
+    "equities:COIN": [("coinbase", "SAME_UNDERLYING"), ("bitcoin", "MACRO_EXPOSURE")],
+    "options:COIN": [("coinbase", "SAME_UNDERLYING"), ("bitcoin", "MACRO_EXPOSURE")],
+    "macro:CL=F": [("oil", "SAME_UNDERLYING")], "equities:USO": [("oil", "DIRECT_PROXY")], "equities:XLE": [("oil", "MACRO_EXPOSURE")],
+    "macro:GC=F": [("gold", "SAME_UNDERLYING")], "equities:GLD": [("gold", "DIRECT_PROXY")],
+    "macro:DX-Y.NYB": [("us-dollar", "SAME_UNDERLYING")], "equities:UUP": [("us-dollar", "DIRECT_PROXY")],
+    "macro:USDJPY=X": [("yen", "SAME_UNDERLYING")], "macro:EURUSD=X": [("euro", "SAME_UNDERLYING")],
+    "macro:^VIX": [("volatility", "SAME_UNDERLYING")],
+}
+# Mechanical dependence: these instruments (or an issuer's filing and its own stock/options) are ONE piece of evidence.
+DEPENDENT_GROUPS = [{"macro:CL=F", "equities:USO"}, {"macro:GC=F", "equities:GLD"}, {"macro:DX-Y.NYB", "equities:UUP"},
+                    {"treasury:10Y", "treasury:30Y", "equities:TLT", "options:TLT", "treasury:2s10s"},
+                    {"crypto:BTC", "equities:MSTR"}, {"equities:SPY", "options:SPY"}, {"equities:QQQ", "options:QQQ"}]
+COUNTING = {"SAME_UNDERLYING", "SAME_EVENT", "DIRECT_PROXY"}
+
+
+def relation(instrument: str | None, entity: str, source: str, text: str = "") -> str:
+    """Typed relation of one observation to an entity."""
+    if instrument:
+        for e, r in LINKS.get(instrument, []):
+            if e == entity:
+                return r
+        if instrument in ENTITIES.get(entity, {}).get("instruments", []):
+            return "SAME_UNDERLYING"
+        tick = instrument.split(":", 1)[-1]
+        if source in ("equities", "options") and f"equities:{tick}" in ENTITIES.get(entity, {}).get("instruments", []):
+            return "SAME_UNDERLYING"
+    if source in ("polymarket", "kalshi"):
+        return "SAME_EVENT"  # candidate; prediction questions are further split by settlement/outcome in convergence
+    if source == "sec":
+        return "DISCLOSURE_REACTION"
+    return "UNRESOLVED"
+
+
+def dependency_group(instrument: str | None, source: str, subject_id: str | None = None) -> str:
+    """Observations sharing a group id are mechanically linked and count once."""
+    if not instrument:
+        return f"{source}:{subject_id}"
+    tick = instrument.split(":", 1)[-1]
+    for i, g in enumerate(DEPENDENT_GROUPS):
+        if instrument in g:
+            return f"dep{i}"
+    if source in ("equities", "options", "sec"):
+        return f"issuer:{tick}"  # a filing, its stock and its options are one disclosure-reaction chain
+    return instrument
 
 # canonical id -> aliases (case-insensitive word match), instrument ids (exact), related instruments for divergence
 ENTITIES = {

@@ -1,0 +1,20 @@
+{
+ "_note": "Frozen evaluation config (RE-AUDIT §04). Change it only with a new version and a note in METHODOLOGY.md. Thresholds are the shadow-mode starting settings in detectors.py at this version; they are not tuned on these results.",
+ "version": "r3-2026-10-28",
+ "universe": {
+  "treasury": ["2Y", "10Y", "30Y", "2s10s"],
+  "polymarket": "highest-volume open non-sports market with CLOB history at run time (recorded in the output)"
+ },
+ "history": {"treasuryLookbackSessions": 60, "polymarketInterval": "1m", "polymarketFidelityMin": 15, "polymarketWindowPoints": 96},
+ "labels": {
+  "kind": "scheduled official release days (FOMC decision, CPI, Employment Situation) from data/event-calendar.json",
+  "meaning": "a day with a known public information release; NOT a label for informed or unusual trading",
+  "split": {"development": "first half of sessions", "holdout": "second half of sessions (reported separately, never used to choose thresholds)"}
+ },
+ "baseline": {"name": "fixed 10bp", "rule": "|daily change| >= 10bp on 2Y, 10Y or 30Y"},
+ "pointInTime": {
+  "treasury": "each session uses rows[0..i] only; availability estimated 18:00 ET",
+  "polymarket": "price history sliced to each point; 24h volume is NOT point-in-time (vol24 None, vol24AsOf = fetch time), so volume-gated findings are rejected (REPLAY-01)"
+ },
+ "outputs": "docs/review/eval-results.json"
+}

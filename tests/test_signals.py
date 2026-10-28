@@ -92,11 +92,13 @@ sc = X.stablecoin_supply([{"symbol": "USDT", "name": "Tether", "now": 150e9, "d1
 check([x["type"] for x in sc] == ["SUPPLY_CHANGE"] and sc[0]["severity"] == "HIGH" and "bridg" in " ".join(sc[0]["limits"]).lower(), [(x["subject"]["id"], x["severity"]) for x in sc])
 
 # --- Convergence: entity-only, family-deduped, generic tags never converge, ranking not probability
-def fake(src, ent, when, sev="MEDIUM", typ="T", cal=()):
-    return {"key": f"{src}:{ent}{when}:{typ}", "source": src, "family": EN.FAMILY[src], "type": typ, "severity": sev, "basis": "observed",
-            "title": f"{src} {ent}", "what": "", "when": when, "subject": {"name": ent, "id": ent, "url": "https://example.org"},
+INST = {"treasury": "treasury:2Y", "equities": "equities:TLT"}
+def fake(src, ent, when, sev="MEDIUM", typ="T", cal=(), inst=None, gran="intraday", title=None):
+    return {"key": f"{src}:{ent}{when}:{typ}", "source": src, "family": EN.family_of(src, inst or INST.get(src)), "type": typ, "severity": sev, "basis": "observed",
+            "instrument": inst or INST.get(src), "relations": {},
+            "title": title or f"{src} {ent}", "what": "", "when": when, "subject": {"name": ent, "id": ent, "url": "https://example.org"},
             "evidence": [{"label": "e", "url": "https://example.org"}], "limits": [], "metrics": {}, "entities": [ent] if ent else [],
-            "calendar": list(cal), "observation": {"eventTs": when}}
+            "calendar": list(cal), "observation": {"eventTs": when, "granularity": gran, "temporalStatus": "OK", "fastEligible": gran in ("intraday", "delayed"), "sourceStatus": "HEALTHY"}}
 cv = X.convergence([fake("polymarket", "fed-policy", NOW - 3600), fake("kalshi", "fed-policy", NOW - 3000)], NOW)
 check(cv == [], "prediction + prediction = one family → no convergence (arbitrage pair)")
 check(X.same_family_repricing([fake("polymarket", "fed-policy", NOW - 3600), fake("kalshi", "fed-policy", NOW - 3000)], NOW)[0]["severity"] == "INFO", "related repricing")
@@ -105,7 +107,7 @@ check(len(cv) == 1 and cv[0]["metrics"]["effectiveObservations"] == 2 and cv[0][
 check("uncalibrated" in cv[0]["metrics"]["rankNote"] and "%" not in cv[0]["title"], "ranking wording")
 cv2 = X.convergence([fake("polymarket", "fed-policy", NOW - 40 * 3600), fake("treasury", "fed-policy", NOW - 1800)], NOW)
 check(cv2[0]["metrics"]["mode"] == "forensic" and cv2[0]["severity"] == "LOW" and "early warning" not in cv2[0]["what"].lower().replace("not an early warning", ""), "forensic")
-cal = [{"type": "FOMC", "label": "FOMC"}]
+cal = [{"type": "FOMC", "label": "FOMC", "eventId": "FOMC-x", "phase": "RELEASE_REACTION", "availableAtObservation": True}]
 cv3 = X.convergence([fake("polymarket", "fed-policy", NOW - 3600, cal=cal), fake("treasury", "fed-policy", NOW - 1800, cal=cal)], NOW)
 check(cv3[0]["severity"] == "LOW" and cv3[0]["metrics"]["calendarExplained"], "calendar-explained capped")
 check(EN.resolve("polymarket", None, "Will the economy beat expectations?") == [] and "nvidia" in EN.resolve("polymarket", None, "Will NVIDIA close above $200?"),

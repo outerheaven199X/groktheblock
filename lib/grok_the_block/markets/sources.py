@@ -201,63 +201,86 @@ def _occ_expiry(code: str) -> str | None:
     return "20" + m.group(1) if m else None
 
 
-def options_chain(symbol: str) -> dict | None:
-    """Per-contract volume, open interest and an estimated price (delayed). Cboe first, Nasdaq second.
+def _snap_ok(ts, now):
+    """(ts, issue): a snapshot time that is missing or more than 2 min in the future is an issue (never clamped)."""
+    if ts is None:
+        return None, "missing snapshot time"
+    if ts > now + 120:
+        return ts, f"snapshot time is {(ts - now) / 60:.0f} min in the future"
+    return ts, None
 
-    Every row carries `expiry` (YYYYMMDD). Rows whose expiry can't be parsed are rejected and counted, so the
-    short-dated routing can never fail silently."""
-    import re
-    def cboe():
-        j = get(f"https://cdn.cboe.com/api/global/delayed_quotes/options/{symbol}.json", "cboe", max_age=600, timeout=60)
-        d = (j or {}).get("data") or {}
-        rows, bad = [], 0
-        for o in d.get("options") or []:
-            exp = _occ_expiry(o.get("option"))
-            if not exp:
-                bad += 1; continue
-            bid, ask, last = _f(o.get("bid"), 0.0), _f(o.get("ask"), 0.0), _f(o.get("last_trade_price"), 0.0)
-            rows.append({"contract": o["option"], "volume": _f(o.get("volume"), 0.0), "oi": _f(o.get("open_interest"), 0.0),
-                         "type": "call" if o["option"][-9] in "Cc" else "put", "expiry": exp, "strike": int(o["option"][-8:]) / 1000,
-                         "price": (bid + ask) / 2 if bid > 0 and ask > 0 else last or None})
+
+def parse_cboe(j, now=None) -> dict | None:
+    """Cboe delayed chain. Rows without a parseable expiry or with missing volume/OI are rejected and counted.
+    priceBasis per row: mid (bid+ask) or last."""
+    now = now or int(time.time())
+    d = (j or {}).get("data") if isinstance(j, dict) else None
+    d = d or {}
+    rows, bad = [], 0
+    for o in d.get("options") or []:
+        exp = _occ_expiry(o.get("option"))
+        v, oi = _f(o.get("volume")), _f(o.get("open_interest"))
+        if not exp or v is None or oi is None:
+            bad += 1; continue
+        bid, ask, last = _f(o.get("bid"), 0.0), _f(o.get("ask"), 0.0), _f(o.get("last_trade_price"), 0.0)
+        mid = bid > 0 and ask > 0
+        rows.append({"contract": o["option"], "volume": v, "oi": oi, "type": "call" if o["option"][-9] in "Cc" else "put", "expiry": exp,
+                     "strike": int(o["option"][-8:]) / 1000, "price": (bid + ask) / 2 if mid else last or None,
+                     "priceBasis": "mid" if mid else "last" if last else None})
+    ts = None
+    try:  # Cboe's snapshot timestamp is UTC (checked against wall clock on 2026-10-28)
+        ts = int(datetime.strptime((j or {}).get("timestamp", ""), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc).timestamp())
+    except (ValueError, TypeError, AttributeError):
         ts = None
-        try:  # Cboe's snapshot timestamp is UTC (checked against wall clock on 2026-10-28)
-            ts = int(datetime.strptime((j or {}).get("timestamp", ""), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc).timestamp())
-        except ValueError:
-            pass
-        return {"rows": rows, "rejected": bad, "snapshotTs": ts, "underlying": _f(d.get("current_price"))} if rows else None
+    ts, issue = _snap_ok(ts, now)
+    return {"rows": rows, "rejected": bad, "snapshotTs": ts, "snapshotIssue": issue, "underlying": _f(d.get("current_price"))} if rows else None
+
+
+def parse_nasdaq(j, symbol, now=None) -> dict | None:
+    """Nasdaq option chain (fallback; no underlying price). Expiry from the drill-down OCC code or the group header."""
+    import re
+    now = now or int(time.time())
+    d = ((j or {}).get("data") if isinstance(j, dict) else None) or {}
+    rows, bad, group = [], 0, None
+    for r in ((d.get("table") or {}).get("rows")) or []:
+        if r.get("expirygroup"):
+            group = None
+            for fmt in ("%B %d, %Y", "%b %d, %Y", "%m/%d/%Y", "%Y-%m-%d"):
+                try:
+                    group = datetime.strptime(r["expirygroup"].strip(), fmt).strftime("%Y%m%d"); break
+                except ValueError:
+                    continue
+        if not r.get("strike"):
+            continue
+        url = r.get("drillDownURL") or ""
+        exp = (_occ_expiry(url.split("--")[-1].upper()) if "--" in url else None) or group
+        for side, pre in (("call", "c_"), ("put", "p_")):
+            rv = str(r.get(pre + "Volume") or "").replace(",", "")
+            v = 0.0 if rv == "--" else _f(rv, None)  # Nasdaq prints "--" for no trades today; missing OI is still rejected
+            oi = _f(str(r.get(pre + "Openinterest") or "").replace(",", ""), None)
+            if v is None or oi is None or not exp:
+                bad += 1; continue
+            bid, ask, last = (_f(str(r.get(pre + k) or "").replace(",", ""), 0.0) for k in ("Bid", "Ask", "Last"))
+            mid = bid > 0 and ask > 0
+            rows.append({"contract": f"{symbol} {exp} {r['strike']} {side}", "volume": v, "oi": oi, "type": side, "expiry": exp,
+                         "strike": _f(r["strike"]), "price": (bid + ask) / 2 if mid else last or None, "priceBasis": "mid" if mid else "last" if last else None})
+    ts = None
+    m = re.search(r"AS OF (\w+ \d+, \d{4} \d+:\d+ [AP]M)", (d.get("lastTrade") or "").upper())
+    if m:
+        from zoneinfo import ZoneInfo
+        ts = int(datetime.strptime(m.group(1).title().replace(" Am", " AM").replace(" Pm", " PM"), "%b %d, %Y %I:%M %p").replace(tzinfo=ZoneInfo("America/New_York")).timestamp())
+    ts, issue = _snap_ok(ts, now)
+    return {"rows": rows, "rejected": bad, "snapshotTs": ts, "snapshotIssue": issue, "underlying": None} if rows else None
+
+
+def options_chain(symbol: str) -> dict | None:
+    """Per-contract volume, open interest and an estimated price (delayed). Cboe first, Nasdaq second."""
+    def cboe():
+        return parse_cboe(get(f"https://cdn.cboe.com/api/global/delayed_quotes/options/{symbol}.json", "cboe", max_age=600, timeout=60))
 
     def nasdaq():
         asset = "etf" if symbol in ETFS else "stocks"
-        j = get(f"https://api.nasdaq.com/api/quote/{symbol}/option-chain?assetclass={asset}&limit=2000&fromdate=all&todate=undefined&excode=oprac&callput=callput&money=all&type=all", "nasdaq-opt", max_age=600)
-        d = (j or {}).get("data") or {}
-        rows, bad, group = [], 0, None
-        for r in ((d.get("table") or {}).get("rows")) or []:
-            if r.get("expirygroup"):
-                try:
-                    group = datetime.strptime(r["expirygroup"], "%B %d, %Y").strftime("%Y%m%d")
-                except ValueError:
-                    group = None
-            if not r.get("strike"):
-                continue
-            url = r.get("drillDownURL") or ""
-            exp = _occ_expiry(url.split("--")[-1].upper()) if "--" in url else None
-            exp = exp or group
-            for side, pre in (("call", "c_"), ("put", "p_")):
-                v = _f(str(r.get(pre + "Volume") or "").replace(",", ""), None)
-                oi = _f(str(r.get(pre + "Openinterest") or "").replace(",", ""), None)
-                if v is None or oi is None:
-                    continue
-                if not exp:
-                    bad += 1; continue
-                bid, ask, last = (_f(str(r.get(pre + k) or "").replace(",", ""), 0.0) for k in ("Bid", "Ask", "Last"))
-                rows.append({"contract": f"{symbol} {exp} {r['strike']} {side}", "volume": v, "oi": oi, "type": side, "expiry": exp,
-                             "strike": _f(r["strike"]), "price": (bid + ask) / 2 if bid > 0 and ask > 0 else last or None})
-        ts = None
-        m = re.search(r"AS OF (\w+ \d+, \d{4} \d+:\d+ [AP]M)", d.get("lastTrade") or "")
-        if m:
-            from zoneinfo import ZoneInfo
-            ts = int(datetime.strptime(m.group(1), "%b %d, %Y %I:%M %p").replace(tzinfo=ZoneInfo("America/New_York")).timestamp())
-        return {"rows": rows, "rejected": bad, "snapshotTs": ts, "underlying": None} if rows else None
+        return parse_nasdaq(get(f"https://api.nasdaq.com/api/quote/{symbol}/option-chain?assetclass={asset}&limit=2000&fromdate=all&todate=undefined&excode=oprac&callput=callput&money=all&type=all", "nasdaq-opt", max_age=600), symbol)
 
     res, via = first(f"options:{symbol}", [("cboe delayed", cboe), ("nasdaq", nasdaq)])
     if res is None:
@@ -336,23 +359,50 @@ def crypto_perps(ccy: str) -> dict | None:
     inst = f"{ccy}-USDT-SWAP"
 
     def okx():
-        oi = get(f"{OKX}/rubik/stat/contracts/open-interest-history?instId={inst}&period=1D&limit=60", "okx-oi")
-        fr = get(f"{OKX}/public/funding-rate-history?instId={inst}&limit=100", "okx-funding")
-        cur = get(f"{OKX}/public/funding-rate?instId={inst}", "okx-funding-now", max_age=60)
-        o = sorted((int(r[0]) // 1000, float(r[1]), float(r[3])) for r in (oi or {}).get("data") or [])
-        f = sorted((int(r["fundingTime"]) // 1000, float(r.get("realizedRate") or r["fundingRate"])) for r in (fr or {}).get("data") or [])
-        c = ((cur or {}).get("data") or [{}])[0]
-        interval_h = None
-        if c.get("fundingTime") and c.get("prevFundingTime"):
-            interval_h = (int(c["fundingTime"]) - int(c["prevFundingTime"])) / 3_600_000
-        elif len(f) >= 2:
-            interval_h = (f[-1][0] - f[-2][0]) / 3600
-        return {"oi": o, "funding": f, "intervalH": interval_h, "next": _f(c.get("fundingRate"))} if o and f else None
+        return parse_okx_perps(get(f"{OKX}/rubik/stat/contracts/open-interest-history?instId={inst}&period=1D&limit=60", "okx-oi"),
+                               get(f"{OKX}/public/funding-rate-history?instId={inst}&limit=100", "okx-funding"),
+                               get(f"{OKX}/public/funding-rate?instId={inst}", "okx-funding-now", max_age=60))
 
     res, _ = first(f"perps:{ccy}", [("okx swap", okx)])
     if res:
         res.update(symbol=ccy, url=f"https://www.okx.com/trade-swap/{ccy.lower()}-usdt-swap")
     return res
+
+
+def parse_okx_perps(oi, fr, cur) -> dict | None:
+    """OKX rubik OI history rows are [ts, oi (contracts), oiCcy (coin), oiUsd] (checked against a saved 2026-10-28
+    response). Funding history: each settlement keeps its own interval (time since the previous settlement), so
+    a history that switched from 8h to 4h is normalized per period, not with today's interval."""
+    def rows(x):
+        return (x or {}).get("data") if isinstance(x, dict) and isinstance((x or {}).get("data"), list) else []
+    o = []
+    for r in rows(oi):
+        try:
+            o.append((int(r[0]) // 1000, float(r[1]), float(r[3])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    f = []
+    for r in rows(fr):
+        try:
+            f.append((int(r["fundingTime"]) // 1000, float(r.get("realizedRate") or r["fundingRate"])))
+        except (TypeError, ValueError, KeyError):
+            continue
+    o.sort(); f.sort()
+    c = (rows(cur) or [{}])[0]
+    interval_h = None
+    try:
+        if c.get("fundingTime") and c.get("prevFundingTime"):
+            interval_h = (int(c["fundingTime"]) - int(c["prevFundingTime"])) / 3_600_000
+    except (TypeError, ValueError):
+        interval_h = None
+    # per-settlement interval: gap to the previous settlement; the first one uses the next gap if it exists
+    fi = []
+    for i, (t, r) in enumerate(f):
+        gap = (t - f[i - 1][0]) / 3600 if i else ((f[1][0] - t) / 3600 if len(f) > 1 else interval_h)
+        fi.append((t, r, gap if gap and 0 < gap <= 24 else None))
+    if not o or not f:
+        return None
+    return {"oi": o, "funding": fi, "intervalH": interval_h, "next": _f(c.get("fundingRate"))}
 
 
 def stablecoins() -> list[dict] | None:
@@ -450,9 +500,25 @@ def edgar_form4_transactions(index_url: str) -> list[dict] | None:
     xml = get("https://www.sec.gov" + m.group(1), "edgar", as_text=True, max_age=86400, headers={"User-Agent": ua})
     if not xml:
         return None
-    out = []
+    return parse_form4(xml)
+
+
+def parse_form4(xml: str) -> dict | None:
+    """Parse an EDGAR ownershipDocument (Form 4 / 4/A). Returns issuer, reporting owners (by CIK), amendment flag,
+    and non-derivative transactions with code, shares, price (None when absent), acquired/disposed."""
+    import re
+    if not xml or "<ownershipDocument" not in xml:
+        return None
+    one = lambda tag, t=xml: ((re.search(rf"<{tag}>\s*(?:<value>)?\s*([^<]+?)\s*(?:</value>)?\s*</{tag}>", t, re.S) or [None, None])[1])  # noqa: E731
+    owners = []
+    for ro in re.findall(r"<reportingOwner>(.*?)</reportingOwner>", xml, re.S):
+        cik = one("rptOwnerCik", ro)
+        if cik and cik not in owners:
+            owners.append(cik)
+    tx = []
     for t in re.findall(r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>", xml, re.S):
-        g = lambda tag: (re.search(rf"<{tag}>\s*(?:<value>)?\s*([^<\s]+)", t) or [None, None])[1]  # noqa: E731
-        out.append({"code": g("transactionCode"), "shares": _f(g("transactionShares")), "price": _f(g("transactionPricePerShare")),
-                    "ad": g("transactionAcquiredDisposedCode")})
-    return out
+        tx.append({"code": one("transactionCode", t), "shares": _f(one("transactionShares", t)), "price": _f(one("transactionPricePerShare", t)),
+                   "ad": one("transactionAcquiredDisposedCode", t)})
+    doc = one("documentType") or ""
+    return {"documentType": doc, "amendment": doc.endswith("/A"), "issuerCik": one("issuerCik"), "issuerTicker": one("issuerTradingSymbol"),
+            "owners": owners, "transactions": tx}

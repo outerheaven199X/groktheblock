@@ -11,6 +11,8 @@ A tag means "this move coincided with a scheduled event", which usually explains
 from __future__ import annotations
 
 import json
+import os
+import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -35,17 +37,64 @@ def load(path: Path = CAL_PATH) -> dict:
         return {"events": [], "sources": {}, "notIncluded": []}
 
 
-def events_near(ts: int, families: set[str], cal: dict, before_h: float = 6, after_h: float = 30) -> list[dict]:
-    """Scheduled events from `before_h` hours after the signal back to `after_h` hours before it.
+PHASES = ("PRE_EVENT_POSITIONING", "RELEASE_REACTION", "POST_EVENT_CONTEXT", "UNRELATED")
+REACTION_S = 60 * 60       # 0–60 min after a known-time release = RELEASE_REACTION
+PRE_S = 24 * 3600          # up to 24h before = PRE_EVENT_POSITIONING (context; never a cap)
+POST_S = 30 * 3600         # after the reaction window up to 30h = POST_EVENT_CONTEXT
+_TENOR = re.compile(r"(\d+)-(Year|Month|Week)", re.I)
 
-    (A move up to 6h before a release can be positioning into it; a daily bar or move up to 30h after
-    it is usually the reaction.) Only events that are expected to move the signal's causal family count."""
+
+def normalize(e: dict) -> dict:
+    """Add eventId, timeExact and tenor to a stored calendar entry (older files lack them)."""
+    e = dict(e)
+    if e["type"] == "AUCTION":
+        e.setdefault("timeExact", False)   # fiscaldata gives the auction DATE only; no time is manufactured
+        m = _TENOR.search(e.get("label", ""))
+        e.setdefault("tenor", (m.group(1) + {"year": "Y", "month": "M", "week": "W"}[m.group(2).lower()]) if m else None)
+    else:
+        e.setdefault("timeExact", e["type"] in ("FOMC", "CPI", "NFP", "OPEX"))
+    e.setdefault("eventId", f"{e['type']}:{T.datetime.fromtimestamp(e['ts'], T.NY).date().isoformat()}:{(e.get('tenor') or '')}")
+    return e
+
+
+def _tenors(instrument: str | None) -> set[str]:
+    tick = (instrument or "").split(":")[-1]
+    return {"2s10s": {"2Y", "10Y"}}.get(tick, {tick} if tick else set())
+
+
+def events_near(ts: int, families: set[str], cal: dict, before_h: float = 24, after_h: float = 30, *, window_start: int | None = None,
+                granularity: str = "intraday", instrument: str | None = None) -> list[dict]:
+    """Calendar relationships for one observation, each with eventId, scheduled time, phase and rationale.
+
+    ts = when the move was observable (availability); window_start = start of the measured move.
+    - PRE_EVENT_POSITIONING: the release is still in the future at ts (up to 24h). Context only; never explains the move.
+    - RELEASE_REACTION: a known-time release at or before ts, within 0–60 min, observed intraday.
+    - POST_EVENT_CONTEXT: later than the reaction window (up to 30h), or any daily/approximate observation.
+    - Treasury auctions match only the same tenor and are date-only, so they are never RELEASE_REACTION."""
     out = []
-    for e in cal.get("events", []):
-        if not (AFFECTS.get(e["type"], set()) & families):
+    ws = window_start if window_start is not None else ts
+    for raw in cal.get("events", []):
+        if not (AFFECTS.get(raw["type"], set()) & families):
             continue
-        if e["ts"] - before_h * 3600 <= ts <= e["ts"] + after_h * 3600:
-            out.append({"type": e["type"], "label": e["label"], "time": T.iso(e["ts"]), "source": e.get("source")})
+        if not (raw["ts"] - before_h * 3600 <= ts <= raw["ts"] + after_h * 3600):
+            continue
+        e = normalize(raw)
+        if e["type"] == "AUCTION":
+            if not (e.get("tenor") and e["tenor"] in _tenors(instrument)):
+                continue
+            same_day = T.datetime.fromtimestamp(ts, T.NY).date() == T.datetime.fromtimestamp(e["ts"], T.NY).date()
+            phase, why = ("POST_EVENT_CONTEXT", f"same-day {e['tenor']} auction; dataset has the date only, so timing can't be checked") if same_day \
+                else ("UNRELATED", "different day")
+            if phase == "UNRELATED":
+                continue
+        elif e["ts"] > ts:
+            phase, why = "PRE_EVENT_POSITIONING", f"observed {(e['ts'] - ts) / 3600:.1f}h BEFORE the scheduled release; the release can't explain it"
+        elif e["timeExact"] and granularity == "intraday" and ts - e["ts"] <= REACTION_S and ws <= e["ts"] + REACTION_S:
+            phase, why = "RELEASE_REACTION", f"observed {(ts - e['ts']) / 60:.0f} min after a known-time release"
+        else:
+            phase, why = "POST_EVENT_CONTEXT", (f"{(ts - e['ts']) / 3600:.1f}h after the release" + ("; daily/approximate timing, context only" if granularity != "intraday" else ""))
+        out.append({"eventId": e["eventId"], "type": e["type"], "label": e["label"], "time": T.iso(e["ts"]), "timeExact": e["timeExact"],
+                    "tenor": e.get("tenor"), "phase": phase, "rationale": why, "availableAtObservation": e["ts"] <= ts, "source": e.get("source")})
     return out
 
 
@@ -84,7 +133,7 @@ def build(fetch_text, fetch_json, years=(2025, 2026, 2027)) -> dict:
     if j and j.get("data"):
         for a in j["data"]:
             dd = date.fromisoformat(a["auction_date"])
-            ev.append({"type": "AUCTION", "label": f"{a['security_term']} {a['security_type']} auction {dd}", "ts": T.ny_ts(dd, 13), "source": "fiscaldata.treasury.gov"})
+            ev.append(normalize({"type": "AUCTION", "label": f"{a['security_term']} {a['security_type']} auction {dd}", "ts": T.ny_ts(dd, 0), "timeExact": False, "source": "fiscaldata.treasury.gov"}))
     else:
         missing.append("Treasury auctions (fiscaldata unreachable)")
     for y in years:

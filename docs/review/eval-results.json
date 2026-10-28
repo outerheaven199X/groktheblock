@@ -1,0 +1,337 @@
+{
+ "configVersion": "r3-2026-10-28",
+ "generatedAt": "2026-10-28T16:07:45Z",
+ "noHitRateOrLeadTime": true,
+ "synthetic": {
+  "label": "SYNTHETIC fixtures; not market data",
+  "fixtures": [
+   {
+    "name": "01-arbitrage-pair",
+    "ticks": 12,
+    "alerts": 2,
+    "alertsByReason": {
+     "NEW": 2
+    },
+    "v1Alerts": 3,
+    "convergences": 0,
+    "convergenceMaxSeverity": null,
+    "relatedRepricing": 12,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 12,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+     "kalshi:KXFED-DEC:ODDS_REPRICING#e1": "ACTIVE"
+    },
+    "telemetry": {
+     "alerts": 2,
+     "newEpisodes": 2,
+     "suppressedUnchanged": 22,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 1
+   },
+   {
+    "name": "02-keyword-false-match",
+    "ticks": 4,
+    "alerts": 4,
+    "alertsByReason": {
+     "NEW": 4
+    },
+    "v1Alerts": 5,
+    "convergences": 0,
+    "convergenceMaxSeverity": null,
+    "relatedRepricing": 0,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 4,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "polymarket:0xmusk:VOLUME_SPIKE#e1": "ACTIVE",
+     "equities:TSLA:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
+     "polymarket:0xecon:ODDS_REPRICING#e1": "ACTIVE",
+     "equities:SPY:VOLUME_ROBUST_Z#e1": "ACTIVE"
+    },
+    "telemetry": {
+     "alerts": 4,
+     "newEpisodes": 4,
+     "suppressedUnchanged": 12,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 1
+   },
+   {
+    "name": "03-outage",
+    "ticks": 12,
+    "alerts": 1,
+    "alertsByReason": {
+     "NEW": 1
+    },
+    "v1Alerts": 1,
+    "convergences": 0,
+    "convergenceMaxSeverity": null,
+    "relatedRepricing": 0,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 0,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "treasury:2Y:YIELD_MOVE#e1": "RESOLVED"
+    },
+    "telemetry": {
+     "alerts": 1,
+     "newEpisodes": 1,
+     "suppressedUnchanged": 2,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 6,
+     "heldUnobserved": 0,
+     "resolved": 1,
+     "cooling": 1,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 0
+   },
+   {
+    "name": "04-quiet-session",
+    "ticks": 13,
+    "alerts": 0,
+    "alertsByReason": {},
+    "v1Alerts": 0,
+    "convergences": 0,
+    "convergenceMaxSeverity": null,
+    "relatedRepricing": 0,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 0,
+    "resolvedDuringOutage": 0,
+    "finalStates": {},
+    "telemetry": {
+     "alerts": 0,
+     "newEpisodes": 0,
+     "suppressedUnchanged": 0,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 0
+   },
+   {
+    "name": "05-midnight-boundary",
+    "ticks": 9,
+    "alerts": 1,
+    "alertsByReason": {
+     "NEW": 1
+    },
+    "v1Alerts": 2,
+    "convergences": 0,
+    "convergenceMaxSeverity": null,
+    "relatedRepricing": 0,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 0,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "polymarket:0xlong:ODDS_REPRICING#e1": "ACTIVE"
+    },
+    "telemetry": {
+     "alerts": 1,
+     "newEpisodes": 1,
+     "suppressedUnchanged": 8,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 1
+   },
+   {
+    "name": "06-scheduled-cpi",
+    "ticks": 4,
+    "alerts": 4,
+    "alertsByReason": {
+     "NEW": 4
+    },
+    "v1Alerts": 4,
+    "convergences": 4,
+    "convergenceMaxSeverity": "LOW",
+    "relatedRepricing": 0,
+    "calendarTagged": 12,
+    "falseConvergencePrevented": 0,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+     "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
+     "equities:SPY:RETURN_VS_REALIZED_VOL#e1": "ACTIVE",
+     "cross:fed-policy:CONVERGENCE#e1": "ACTIVE"
+    },
+    "telemetry": {
+     "alerts": 4,
+     "newEpisodes": 4,
+     "suppressedUnchanged": 12,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": 0
+   },
+   {
+    "name": "07-cross-family-control",
+    "ticks": 6,
+    "alerts": 5,
+    "alertsByReason": {
+     "NEW": 4,
+     "MAGNITUDE_RISE": 1
+    },
+    "v1Alerts": 4,
+    "convergences": 6,
+    "convergenceMaxSeverity": "MEDIUM",
+    "relatedRepricing": 0,
+    "calendarTagged": 0,
+    "falseConvergencePrevented": 0,
+    "resolvedDuringOutage": 0,
+    "finalStates": {
+     "polymarket:0xfedcut:ODDS_REPRICING#e1": "ACTIVE",
+     "treasury:2Y:YIELD_MOVE#e1": "ACTIVE",
+     "cross:fed-policy:CONVERGENCE#e1": "ACTIVE",
+     "crypto:BTC:FUNDING_EXTREME#e1": "ACTIVE"
+    },
+    "telemetry": {
+     "alerts": 5,
+     "newEpisodes": 4,
+     "suppressedUnchanged": 17,
+     "belowFloor": 0,
+     "muted": 0,
+     "deferred": 0,
+     "skippedUnavailable": 0,
+     "heldUnobserved": 0,
+     "resolved": 0,
+     "cooling": 0,
+     "reminders": 0,
+     "delivered": 0,
+     "deliveryFailed": 0
+    },
+    "duplicatesAvoidedVsV1": -1
+   }
+  ]
+ },
+ "unlabelledHistorical": {
+  "treasury": {
+   "source": "treasury.gov",
+   "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+   "sessions": 395,
+   "from": "2025-03-31",
+   "to": "2026-10-27",
+   "signals": 38,
+   "sessionsWithSignal": 30,
+   "byType": {
+    "YIELD_MOVE": 29,
+    "CURVE_SHIFT": 9
+   },
+   "bySeverity": {
+    "MEDIUM": 6,
+    "LOW": 32
+   },
+   "calendarPhases": {
+    "PRE_EVENT_POSITIONING": 7,
+    "POST_EVENT_CONTEXT": 10
+   },
+   "lifecycleAlerts": 35,
+   "alertsByReason": {
+    "NEW": 4,
+    "NEW_EPISODE": 31
+   },
+   "incidents": 4
+  },
+  "polymarket": {
+   "market": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+   "url": "https://polymarket.com/event/who-will-be-the-next-prime-minister-of-israel-after-the-next-election",
+   "points": 2744,
+   "from": "2026-09-28T16:15:18Z",
+   "to": "2026-10-28T16:07:39Z",
+   "priceMovesPastThreshold": 1,
+   "eligibleFindings": 0,
+   "lifecycleAlerts": 0,
+   "note": "Volume is not point-in-time, so every price move is reported as UNVERIFIED and none is eligible as a finding. This is the intended REPLAY-01 behaviour, not a quiet market."
+  },
+  "label": "REAL public history, no outcome labels: alert volume and lifecycle behaviour only"
+ },
+ "labelled": {
+  "label": "Treasury sessions labelled by scheduled official release days. Association with known public news only; not informed-trading ground truth; no hit rate or lead time.",
+  "labelSource": "data/event-calendar.json (FOMC, CPI, NFP)",
+  "labelCaveat": "BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).",
+  "development": {
+   "detector": {
+    "flaggedOnLabelDays": 3,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 7,
+    "otherDays": 173,
+    "shareOfLabelDaysFlagged": 0.125,
+    "shareOfOtherDaysFlagged": 0.04
+   },
+   "baseline10bp": {
+    "flaggedOnLabelDays": 6,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 13,
+    "otherDays": 173,
+    "shareOfLabelDaysFlagged": 0.25,
+    "shareOfOtherDaysFlagged": 0.075
+   }
+  },
+  "holdout": {
+   "detector": {
+    "flaggedOnLabelDays": 3,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 17,
+    "otherDays": 174,
+    "shareOfLabelDaysFlagged": 0.125,
+    "shareOfOtherDaysFlagged": 0.098
+   },
+   "baseline10bp": {
+    "flaggedOnLabelDays": 3,
+    "labelDays": 24,
+    "flaggedOnOtherDays": 11,
+    "otherDays": 174,
+    "shareOfLabelDaysFlagged": 0.125,
+    "shareOfOtherDaysFlagged": 0.063
+   }
+  }
+ }
+}

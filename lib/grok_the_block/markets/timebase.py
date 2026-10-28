@@ -24,6 +24,10 @@ NYSE_HOLIDAYS = {  # source: NYSE "Holidays & Trading Hours" (curated, verify an
 }
 BOND_EXTRA = {"2025-10-13", "2025-11-11", "2026-10-12", "2026-11-11", "2027-10-11", "2027-11-11"}  # SIFMA (curated)
 
+# NYSE early closes at 13:00 ET (curated from NYSE holiday notices, verify annually)
+EARLY_CLOSE = {"2025-07-03", "2025-11-28", "2025-12-24", "2026-11-27", "2026-12-24", "2027-11-26"}
+PUBLISH_LAG_S = 15 * 60  # assumed delay before a closed daily bar is published by the free providers (estimate)
+
 STATES = ("HEALTHY", "DEGRADED", "STALE", "UNAVAILABLE", "NOT_CONFIGURED")
 
 
@@ -91,3 +95,32 @@ def obs(event: int | None, available: int | None, ingest: int, valid_as_of: int 
     return {"eventTime": iso(event), "availableTime": iso(available), "ingestTime": iso(ingest), "validAsOf": iso(valid_as_of),
             "eventTs": event, "availableTs": available, "ingestTs": ingest, "validAsOfTs": valid_as_of,
             "timesApproximate": approx, "sourceStatus": status, "coverage": coverage, "limitations": limitations}
+
+
+def session_close(d: date) -> tuple[int, int]:
+    return (13, 0) if d.isoformat() in EARLY_CLOSE else (16, 0)
+
+
+def daily_bar_status(source: str, symbol: str, bar_ts: int, now_ts: int) -> dict:
+    """When is a daily bar complete, and when could it first be known?
+
+    equities (NYSE): complete at the session close (13:00 on early-close days), available ≈ close + PUBLISH_LAG_S.
+    macro: VIX at 16:15 ET; FX/DXY and CME futures (GC=F, CL=F) at 17:00 ET (their trading day ends then).
+    crypto: UTC candle, complete at 00:00 UTC of the next day.
+    Returns {"complete": bool, "eventTs": close, "availableTs": estimate, "basis": ...}. Never clamps a future
+    availability to now: an incomplete bar is reported as incomplete, not as available."""
+    if source == "crypto":
+        close = bar_ts + 86400
+        basis = "UTC candle close"
+    else:
+        d = datetime.fromtimestamp(bar_ts, NY).date() if source != "crypto" else None
+        # Yahoo/Nasdaq daily rows are stamped at the session open or midnight; take the NY calendar date
+        if source == "equities":
+            hh, mm = session_close(d); basis = "NYSE close" + (" (early close)" if (hh, mm) == (13, 0) else "")
+        elif symbol == "^VIX":
+            hh, mm = 16, 15; basis = "Cboe VIX close"
+        else:
+            hh, mm = 17, 0; basis = "17:00 ET trading-day end (FX / CME futures)"
+        close = ny_ts(d, hh, mm)
+    avail = close + PUBLISH_LAG_S
+    return {"complete": now_ts >= avail, "eventTs": close, "availableTs": avail, "basis": basis, "estimated": True}

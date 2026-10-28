@@ -25,15 +25,20 @@ FIX = Path(__file__).resolve().parents[3] / "tests" / "fixtures" / "replay"
 
 def _signal(spec: dict, at: int) -> dict:
     src = spec["source"]
+    inst = spec.get("instrument")
+    inst = inst if not inst or ":" in inst else f"{src}:{inst}"
     ents = EN.resolve(src, spec.get("instrument"), spec.get("text", ""))
+    gran = spec.get("granularity", "intraday")
     sid = spec.get("id") or spec.get("instrument") or spec.get("text")
     typ = spec.get("type", "FIXTURE")
     avail = at - spec.get("lagS", 0)
-    return {"key": X.key(src, sid, typ), "source": src, "family": EN.FAMILY[src], "type": typ, "severity": spec.get("severity", "MEDIUM"),
+    return {"key": X.key(src, sid, typ), "source": src, "family": EN.family_of(src, inst), "instrument": inst, "relations": {}, "type": typ, "severity": spec.get("severity", "MEDIUM"),
             "basis": spec.get("basis", "observed"), "title": spec.get("title") or spec.get("text") or f"{src} {sid}", "what": "", "when": avail,
             "subject": {"name": sid, "id": sid, "url": "https://example.org/fixture"}, "evidence": [{"label": "fixture", "url": "https://example.org/fixture"}],
             "limits": [], "metrics": {"distinctTx": spec.get("tx", [])}, "entities": ents, "calendar": [],
-            "observation": {"eventTs": avail - spec.get("eventLeadS", 0), "availableTs": avail}}
+            "observation": {"eventTs": avail - spec.get("eventLeadS", 0), "availableTs": avail, "granularity": gran,
+                            "temporalStatus": spec.get("temporalStatus", "OK"), "sourceStatus": spec.get("sourceStatus", "HEALTHY"),
+                            "fastEligible": gran in ("intraday", "delayed") and spec.get("temporalStatus", "OK") == "OK"}}
 
 
 def run_fixture(fx: dict) -> dict:
@@ -48,7 +53,8 @@ def run_fixture(fx: dict) -> dict:
         sigs = [_signal(s, at) for s in tick.get("signals", [])]
         for s in sigs:
             assert s["when"] <= at, "look-ahead in fixture"
-            s["calendar"] = EV.events_near(s["observation"]["eventTs"], {s["family"]}, cal)
+            s["calendar"] = EV.events_near(s["when"], {s["family"]}, cal, window_start=s["observation"]["eventTs"],
+                                           granularity=s["observation"]["granularity"], instrument=s.get("instrument"))
             out["calendarTagged"] += bool(s["calendar"])
         conv = X.convergence(sigs, at)
         rel = X.same_family_repricing(sigs, at)
@@ -67,8 +73,12 @@ def run_fixture(fx: dict) -> dict:
             if k1 not in v1_seen:
                 v1_seen[k1] = "LOW"; out["v1Alerts"] += 1
         allsig = sigs + conv + rel
-        probes = {s["key"]: next((x.get("magnitude", 1.0) for x in tick["signals"] if X.key(x["source"], x.get("id") or x.get("instrument") or x.get("text"), x.get("type", "FIXTURE")) == s["key"]), 1.0)
-                  for s in sigs}
+        probes = {s["key"]: next(({"ratio": x.get("magnitude", 1.0), "valid": x.get("valid", True)} for x in tick["signals"] if X.key(x["source"], x.get("id") or x.get("instrument") or x.get("text"), x.get("type", "FIXTURE")) == s["key"]), 1.0)
+                  for s in sigs if s["source"] != "cross"}
+        for c in conv:  # a cross incident is observed through its members
+            ms = [probes.get(m) for m in c["metrics"]["memberKeys"]]
+            if all(m and m["valid"] for m in ms):
+                probes[c["key"]] = {"ratio": min(m["ratio"] for m in ms), "valid": True}
         probes.update({k: v for k, v in (tick.get("probes") or {}).items()})
         before = {k: i["state"] for k, i in st["incidents"].items()}
         res = LC.step(st, allsig, probes, tick.get("sourceState", {}), at, fx.get("prefs"))

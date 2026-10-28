@@ -29,6 +29,7 @@ ap.add_argument("--min-severity", default="MEDIUM", choices=["INFO", "LOW", "MED
 ap.add_argument("--mute", default="", help="watch mode: comma-separated sources to mute, e.g. kalshi,macro")
 ap.add_argument("--quiet-hours", default="", help="watch mode: hold alerts between local hours, e.g. 22-7; released after")
 ap.add_argument("--tz-offset", type=float, default=0, help="hours from UTC for --quiet-hours (e.g. -4)")
+ap.add_argument("--quiet-tz", default=os.environ.get("GTB_QUIET_TZ", ""), help="IANA zone for --quiet-hours, DST-aware (e.g. America/New_York); overrides --tz-offset")
 ap.add_argument("--digest", action="store_true", help="watch mode: hold alerts in a digest; release with --release-digest")
 ap.add_argument("--release-digest", action="store_true")
 a = ap.parse_args()
@@ -37,19 +38,23 @@ rep = F.run([x.strip().lower() for x in a.sources.split(",") if x.strip()], spli
 if a.cmd == "watch":
     qh = tuple(int(x) for x in a.quiet_hours.split("-")) if a.quiet_hours else None
     prefs = {"minSeverity": a.min_severity, "mute": [x.strip().lower() for x in a.mute.split(",") if x.strip()], "quietHours": qh,
-             "tzOffsetH": a.tz_offset, "digest": a.digest, "releaseDigest": a.release_digest}
-    rep = F.watch(rep, D.CACHE_DIR / "signals-watch.json", prefs)
-    rep["watch"]["minSeverity"] = a.min_severity
-    if a.webhook and rep["watch"]["alerts"]:
+             "tzOffsetH": a.tz_offset, "quietTz": a.quiet_tz or None, "digest": a.digest, "releaseDigest": a.release_digest}
+    send = None
+    if a.webhook:
         import requests
-        body = {"tool": "grok-the-block", "kind": "signals-alerts", "generatedAt": rep["generatedAt"], "disclaimer": rep["disclaimer"],
-                "previousSuccessfulScanAt": rep["watch"]["previousSuccessfulScanAt"],
-                "alerts": [{k: x[k] for k in ("key", "incidentId", "alertReason", "severity", "basis", "source", "title", "what", "when", "evidence", "limits")} for x in rep["watch"]["alerts"]]}
-        try:
-            r = requests.post(a.webhook, json=body, timeout=15)
-            rep["watch"]["webhook"] = {"ok": r.ok, "status": r.status_code}
-        except requests.RequestException as e:
-            rep["watch"]["webhook"] = {"ok": False, "error": type(e).__name__}
+
+        def send(x):  # True only on a 2xx response; failures stay in the outbox for the next run
+            body = {"tool": "grok-the-block", "kind": "signals-alert", "disclaimer": F.DISCLAIMER, "alertId": x["alertId"],
+                    "alert": {k: x.get(k) for k in ("key", "incidentId", "alertReason", "severity", "basis", "source", "title", "what", "when", "evidence", "limits")}}
+            try:
+                return requests.post(a.webhook, json=body, timeout=15).ok
+            except requests.RequestException:
+                return False
+    rep = F.watch(rep, D.CACHE_DIR / "signals-watch.json", prefs, send)
+    rep["watch"]["minSeverity"] = a.min_severity
+    if a.webhook:
+        t = rep["watch"]["telemetry"]
+        rep["watch"]["webhook"] = {"delivered": t.get("delivered", 0), "failed": t.get("deliveryFailed", 0), "pending": t.get("pendingDelivery", 0)}
 OUT.mkdir(parents=True, exist_ok=True)
 stamp = time.strftime("%Y%m%d-%H%M", time.gmtime(rep["generatedAt"]))
 D.write_json(OUT / f"signals-{stamp}.json", rep)
@@ -62,7 +67,7 @@ if not a.quiet:
     if a.cmd == "watch":
         w = rep["watch"]
         if w.get("webhook"):
-            print(f"  webhook: {'delivered' if w['webhook']['ok'] else 'FAILED'} ({w['webhook'].get('status') or w['webhook'].get('error')})")
+            print(f"  webhook: {w['webhook']['delivered']} delivered, {w['webhook']['failed']} failed, {w['webhook']['pending']} queued for retry")
         print("  baseline set; no alerts on the first run" if w["baseline"] else f"  {len(w['alerts'])} alerts · telemetry {w['telemetry']}")
     print(f"  → out/signals-{stamp}.json")
     print("Not financial advice: unusual activity with evidence, not a prediction or a recommendation.")

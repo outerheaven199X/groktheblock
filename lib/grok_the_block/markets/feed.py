@@ -65,7 +65,7 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
     status: dict[str, dict] = {}
     limits = [{"kind": "latency", "text": "Signals appear at the next observation or scan, subject to each provider's latency (options ~15 min delayed; equities, FX and Treasuries are daily)."},
               {"kind": "heuristic", "text": "Thresholds are the review's proposed shadow-mode starting settings, not optimized or validated cutoffs."},
-              {"kind": "inferred", "text": "Convergence links observations through canonical entities and counts one observation per causal family; it shows co-occurrence, not a shared actor or causality."},
+              {"kind": "inferred", "text": "Related observations are linked through canonical entities and typed relations; mechanically linked instruments count once and each causal family contributes one independent evidence group. It shows co-occurrence, not a shared actor, intent or causality."},
               {"kind": "unvalidated", "text": "No historical hit rate or lead time has been measured on real history. Rankings are uncalibrated."}]
 
     def base(src, st, cov, lim=()):
@@ -137,12 +137,16 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
                 bad.append(sym); continue
             if d.get("via", "").startswith("nasdaq") or d.get("via", "").startswith("coinbase"):
                 fb.append(sym)
-            latest.append(d["rows"][-1][0]); pend.append((sym, d))
+            done = [r for r in d["rows"] if T.daily_bar_status(src, sym, r[0], now)["complete"]]  # forming bars don't count as fresh data
+            if done:
+                latest.append((done[-1][0], sym))
+            pend.append((sym, d))
         last = max(latest) if latest else None
-        evt = (X._close_ts(last) if src in ("equities", "macro") else last + 86400) if last else None
+        evt = T.daily_bar_status(src, last[1], last[0], now)["eventTs"] if last else None
         fresh = T.freshness(src, evt, now) if evt else None
         cov = {"universe": f"{len(items)} configured: {', '.join(items)}", "observed": len(pend), "sampleFraction": round(len(pend) / len(items), 3) if items else 0,
-               "exclusions": [f"unavailable: {', '.join(bad)}"] if bad else []}
+               "exclusions": [f"unavailable: {', '.join(bad)}"] if bad else [],
+               "failedInstruments": bad, "observedInstruments": [p[0] for p in pend]}
         st, note = _src_status(bool(pend), bool(bad), f"fallback provider for {', '.join(fb)}" if fb else None, fresh)
         ob = base(src, st, cov)
         return pend, ob, st, note, cov, evt
@@ -166,11 +170,15 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
             if o["via"] == "nasdaq":
                 fb.append(sym)
         snap = max(snaps) if snaps else None
+        issues = [f"{sym}: {o['snapshotIssue']}" for sym, o in chains if o.get("snapshotIssue")]
         cov = {"universe": f"{len(tick)} underlyings: {', '.join(tick)}", "observed": len(chains), "sampleFraction": round(len(chains) / len(tick), 3),
                "exclusions": ([f"unavailable: {', '.join(bad)}"] if bad else []) + ([f"{rej} contracts rejected (unparsed expiry)"] if rej else []),
+               "failedInstruments": bad, "observedInstruments": [c[0] for c in chains], "snapshotIssues": issues,
                "routing": "expiry ≤ next session → SHORT_DATED_OPTIONS (conservative); later expiries → UNUSUAL_OPTIONS_VOLUME"}
         st, note = _src_status(bool(chains), bool(bad), f"Nasdaq fallback (no underlying price) for {', '.join(fb)}" if fb else None,
                                T.freshness("options", snap, now) if snap else ("STALE", "no snapshot time"))
+        if issues and st == "HEALTHY":  # P0.02: a missing or future snapshot is a degraded source, never fast mode
+            st, note = "DEGRADED", "snapshot time problem: " + "; ".join(issues)
         ob = base("options", st, cov)
         for sym, o in chains:
             sigs += X.options_activity(sym, o, o["url"], ob)
@@ -239,7 +247,7 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
                         clusters.setdefault(f["cik"], []).append(f)
                 for fs in [v for v in clusters.values() if len(v) >= 3][:8]:
                     for f in fs[:6]:
-                        tx[f["url"]] = S.edgar_form4_transactions(f["url"]) or []
+                        tx[f["url"]] = S.edgar_form4_transactions(f["url"])
                 cov = {"universe": "latest 100 Form 4 + 100 8-K", "observed": len(f4 or []) + len(f8 or []), "sampleFraction": None,
                        "exclusions": ["grants/exercises/gifts excluded from Form 4 findings"]}
                 st = "HEALTHY" if f4 is not None and f8 is not None else "DEGRADED"
@@ -262,9 +270,15 @@ def run(sources: list[str] | None = None, tickers: list[str] | None = None, opti
 
     sigs = group_events(sigs)
     for s in sigs:  # calendar context: tag expected-volatility moments
-        s["calendar"] = EV.events_near(s["observation"].get("eventTs") or s["when"], {s["family"]}, cal)
-        if s["calendar"]:
-            s["limits"].append("Coincides with a scheduled event (" + ", ".join(e["label"] for e in s["calendar"][:2]) + "); expected volatility may explain it.")
+        o = s["observation"]
+        s["calendar"] = EV.events_near(s["when"], {s["family"]}, cal, window_start=o.get("windowStart") or o.get("eventTs"),
+                                       granularity=o.get("granularity") or "intraday", instrument=s.get("instrument"))
+        rr = [e for e in s["calendar"] if e["phase"] == "RELEASE_REACTION"]
+        pre = [e for e in s["calendar"] if e["phase"] == "PRE_EVENT_POSITIONING"]
+        if rr:
+            s["limits"].append("Release reaction: within 60 min after " + ", ".join(e["label"] for e in rr[:2]) + "; the release may explain it.")
+        elif pre:
+            s["limits"].append("Before a scheduled event (" + ", ".join(e["label"] for e in pre[:2]) + "): pre-event activity, not explained by it.")
     cross = X.convergence(sigs, now) + X.same_family_repricing(sigs, now) + X.divergence(sigs, now)
     sigs += cross
     sigs = list({s["key"]: s for s in sigs}.values())
@@ -345,7 +359,7 @@ def _assess(sigs, status):
         seen.add(s["source"])
         lab, why, ask = NEXT.get(s["source"], NEXT["cross"])
         na.append({"label": lab, "why": f"{why} ({s['title'][:80]})", "ask": ask.format(t=s["subject"]["name"][:60], id=s["subject"]["id"]), "signal": s["key"]})
-    why = (f"Top uncalibrated anomaly-convergence ranking ({top['metrics']['rank']}): {top['metrics']['effectiveObservations']} causal families, {top['metrics']['mode']} mode."
+    why = (f"{top['metrics']['effectiveObservations']} independent evidence groups in different families, {top['metrics']['mode']} mode. Co-occurrence through typed relations, not a shared actor; ordering is an uncalibrated sorting aid."
            if top in conv else f"Highest-severity of {len(real)} signals; basis {top['basis']}.")
     return {"severity": top["severity"], "lead": {"text": top["title"] + ". " + top["what"] + tail, "basis": top["basis"], "signal": top["key"], "why": why}, "nextActions": na}
 
@@ -364,8 +378,16 @@ def _local_watch_reports() -> list[dict]:
 _STATE_MAP = {"ok": "HEALTHY", "partial": "DEGRADED", "unknown": "UNAVAILABLE", "skipped": "NOT_CONFIGURED", "none": "NOT_CONFIGURED"}
 
 
+_SEC_RENAME = {"INSIDER_OPEN_MARKET_PURCHASES": "REPORTED_OPEN_MARKET_PURCHASES", "INSIDER_SALES_CLUSTER": "REPORTED_SALES_CLUSTER"}
+
+
 def adapt(rep: dict) -> dict:
-    """Upgrade a v1 signals report (no observation envelope, date-stamped keys) to the v2 shape in place."""
+    """Upgrade a v1 signals report (no observation envelope, date-stamped keys) to the v2 shape in place.
+    Any version: SEC types from before round 3 are renamed to the reported-by-filer wording."""
+    if rep.get("kind") == "signals":
+        for s in rep.get("signals") or []:
+            if s.get("type") in _SEC_RENAME:
+                s["type"] = _SEC_RENAME[s["type"]]; s["key"] = s["key"].replace(":INSIDER_", ":REPORTED_")
     if rep.get("kind") != "signals" or (rep.get("version") or 1) >= 2:
         return rep
     for k, v in (rep.get("sourceStatus") or {}).items():
@@ -397,7 +419,8 @@ def adapt(rep: dict) -> dict:
 
 # ---------------- watch mode ----------------
 
-def watch(rep: dict, state_path: Path, prefs: dict | None = None) -> dict:
+def watch(rep: dict, state_path: Path, prefs: dict | None = None, send=None) -> dict:
+    """send(alert) -> bool, optional: webhook delivery through the restart-safe outbox (delivered counted on success only)."""
     st = LC.load(state_path)
     prev_ok = st.get("lastSuccessAt")
     src_state = {k: v["state"] for k, v in rep["sourceStatus"].items()}
@@ -408,6 +431,8 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None) -> dict:
                 inc["history"].append({"at": rep["generatedAt"], "event": "SOURCE_UNAVAILABLE", "state": inc["state"], "severity": inc["severity"], "note": "every source failed"})
     else:
         res = LC.step(st, rep["signals"], rep.get("probes") or {}, src_state, rep["generatedAt"], prefs)
+    if send is not None:
+        LC.deliver(st, res["alerts"], send, res["telemetry"])
     D.write_json(state_path, st)
     active = [{k: i[k] for k in ("id", "key", "state", "severity", "openedAt", "lastSeenAt", "episode", "title")} | {"history": i["history"][-8:]}
               for i in st["incidents"].values() if i["state"] != "RESOLVED"]
@@ -423,5 +448,5 @@ def watch(rep: dict, state_path: Path, prefs: dict | None = None) -> dict:
                     "prefs": prefs or {}, "sourceLastValid": st.get("sourceLastValid", {}),
                     "notes": ["First run sets the baseline and sends nothing." if res["baseline"] else
                               "Alerts: new episode, new distinct transaction, ≥25% magnitude rise, escalation, or a reminder for unresolved HIGH (6h, then daily).",
-                              "Incidents resolve only after 2 valid observations below 75% of the entry threshold. An unavailable source never resolves anything."]}
+                              "Incidents resolve only after 2 valid observations of their own instrument below 75% of the entry threshold. A missing or invalid observation holds the incident; it never counts as zero."]}
     return rep

@@ -1,46 +1,46 @@
-# Evaluation
+# Evaluation (round 3)
 
-**No historical hit rate or lead time has been measured.** Nothing here shows that any signal anticipates anything. The fixtures test plumbing and noise control. The real-history replay measures alert volume on public data without outcome labels. The review's §08 evidence (a ≥90-day adversarial replay with labelled events, measured precision and lead time against a news/availability timeline) is still outstanding.
+**No historical hit rate, precision or lead time has been measured, and none is claimed.** Method, point-in-time rules and the unmet minimum standard: `METHODOLOGY.md`. Frozen config: `eval-config.json` (`r3-2026-10-28`). Machine-readable output: `eval-results.json` (generated 2026-10-28T16:07:45Z). The three tracks are separate; don't add them up.
 
-## 1. Deterministic fixture replay
+## 1. Synthetic regression (not market data)
 
-Reproduce: `PYTHONPATH=lib python3 -m grok_the_block.markets.replay` (output saved in `replay-fixtures.jsonl`); assertions in `tests/test_replay.py`.
-The fixtures (`tests/fixtures/replay/*.json`) are synthetic and point-in-time: a tick may only use observations with availability time ≤ the tick. The harness runs the real entity resolution, calendar tagging, convergence, related-repricing and incident-lifecycle code. "v1" is a simulation of the f1a1819 behaviour: date-stamped keys, alert on a new key or higher severity, and keyword/topic convergence between any two sources.
+Reproduce: `PYTHONPATH=lib python3 -m grok_the_block.markets.replay` → `replay-fixtures.jsonl`; assertions in `tests/test_replay.py`. The harness runs the real typed-relation convergence, calendar phases and incident lifecycle. "v1" simulates the f1a1819 behaviour.
 
-| Fixture | Ticks | Alerts (v2) | Alerts (v1 sim) | Δ | Convergences (max sev) | Related repricing | False convergence prevented (ticks) | Calendar-tagged signals | Suppressed unchanged | Skipped unavailable | Resolved during outage |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 01-arbitrage-pair | 12 | 2 | 3 | +1 | 0 (–) | 12 | 12 | 0 | 22 | 0 | 0 |
-| 02-keyword-false-match | 4 | 4 | 5 | +1 | 0 (–) | 0 | 4 | 0 | 12 | 0 | 0 |
-| 03-outage | 12 | 1 | 1 | +0 | 0 (–) | 0 | 0 | 0 | 2 | 6 | 0 |
-| 04-quiet-session | 13 | 0 | 0 | +0 | 0 (–) | 0 | 0 | 0 | 0 | 0 | 0 |
-| 05-midnight-boundary | 9 | 1 | 2 | +1 | 0 (–) | 0 | 0 | 0 | 8 | 0 | 0 |
-| 06-scheduled-cpi | 4 | 4 | 4 | +0 | 4 (LOW) | 0 | 0 | 12 | 12 | 0 | 0 |
-| 07-cross-family-control | 6 | 5 | 4 | -1 | 6 (MEDIUM) | 0 | 0 | 0 | 17 | 0 | 0 |
+| Fixture | Ticks | Alerts | v1 sim | Convergences (max sev) | Related repricing | False convergence prevented | Calendar-tagged | Skipped unavailable | Held unobserved | Resolved during outage |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 01-arbitrage-pair | 12 | 2 | 3 | 0 (–) | 12 | 12 | 0 | 0 | 0 | 0 |
+| 02-keyword-false-match | 4 | 4 | 5 | 0 (–) | 0 | 4 | 0 | 0 | 0 | 0 |
+| 03-outage | 12 | 1 | 1 | 0 (–) | 0 | 0 | 0 | 6 | 0 | 0 |
+| 04-quiet-session | 13 | 0 | 0 | 0 (–) | 0 | 0 | 0 | 0 | 0 | 0 |
+| 05-midnight-boundary | 9 | 1 | 2 | 0 (–) | 0 | 0 | 0 | 0 | 0 | 0 |
+| 06-scheduled-cpi | 4 | 4 | 4 | 4 (LOW) | 0 | 0 | 12 | 0 | 0 | 0 |
+| 07-cross-family-control | 6 | 5 | 4 | 6 (MEDIUM) | 0 | 0 | 0 | 0 | 0 | 0 |
 
-How to read it:
-- **Arbitrage pair:** the same Fed contract on Polymarket and Kalshi is one causal family, so it never converges. It's reported as RELATED_REPRICING (INFO). v1 would have alerted on a cross-market "convergence".
-- **Keyword-only false match:** "Elon Musk tweets" doesn't map to Tesla, and "economy" doesn't map to the S&P 500, so there are 0 convergences. v1's topic matching would have linked them.
-- **Outage:** the treasury incident stays ACTIVE through 6 unavailable ticks (skippedUnavailable = 6) and resolves only after 2 valid observations below 75% of entry.
-- **Quiet session:** 0 alerts; the empty-feed text says what was observed, not that markets were quiet.
-- **Midnight boundary:** one continuous condition from 23:00 to 01:00 UTC is one alert (v1: two).
-- **Scheduled CPI:** three families move after a CPI release. Every signal is calendar-tagged and the convergence is capped at LOW.
-- **Cross-family control:** an unscheduled Fed-market + 2Y move converges (MEDIUM, fast mode) and re-alerts once on a ≥25% magnitude rise. A low-severity BTC funding signal doesn't join, because it isn't the same entity.
+The adversarial cases the re-audit asked for (oil+USO, BTC+MSTR, 8-K+stock, Fed vs unrelated rates, different settlement dates, opposite outcomes, COIN vs BTC, stale TLT + live Fed market, positive control) are deterministic tests in `tests/test_round3.py` (CONV-01/02/03), not replay fixtures.
 
-## 2. Small real-history replay (labelled)
+## 2. Unlabelled historical (real public data, frequency only)
 
-Reproduce: `python3 skills/signals/scripts/replay_real.py` (output saved in `replay-real-20261028.json`, run 2026-10-28). Public data, no outcome labels.
+**Treasury par curve** (treasury.gov), 395 sessions 2025-03-31 → 2026-10-27, rolled forward one session at a time:
+- 38 signals on 30 sessions. By type {'YIELD_MOVE': 29, 'CURVE_SHIFT': 9}; by severity {'MEDIUM': 6, 'LOW': 32}.
+- Calendar phases on those signals: {'PRE_EVENT_POSITIONING': 7, 'POST_EVENT_CONTEXT': 10}. Daily data can't prove a 0–60 min release reaction, so none is tagged RELEASE_REACTION; auctions only match their own tenor and are date-only.
+- Lifecycle: 35 alerts across 4 incident keys ({'NEW': 4, 'NEW_EPISODE': 31}). Daily moves usually resolve after two quiet sessions, so most re-entries are new episodes. This is alert burden, not quality.
 
-**Treasury par curve (treasury.gov), 395 sessions from 2025-03-31 to 2026-10-27, rolled forward one session at a time:**
-- 38 signals on 30 sessions (7.6% of sessions). By type: {'YIELD_MOVE': 29, 'CURVE_SHIFT': 9}; by severity: {'MEDIUM': 6, 'LOW': 32}.
-- 28 of 38 signals fell within the calendar window of a scheduled rates event (FOMC, CPI, NFP, or a note/bond auction). Auctions are frequent, so the tag is broad. It is context, not an explanation.
-- Lifecycle: 35 alerts across 4 incident keys and 35 episodes ({'NEW': 4, 'NEW_EPISODE': 31}). Daily data means most moves are one-session episodes.
+**Polymarket CLOB history**: “Will Benjamin Netanyahu be the next Prime Minister of Israel?”, 2744 points 2026-09-28T16:15:18Z → 2026-10-28T16:07:39Z:
+- 1 price move(s) crossed the ODDS_REPRICING price rule; **0 eligible findings and 0 alerts**, because 24h volume isn't point-in-time and the detector now refuses to use current volume (REPLAY-01). Round 2 reported 2 alerts here using the current volume; that was look-ahead and is withdrawn.
 
-**Polymarket CLOB 15-minute history**: “Will Benjamin Netanyahu be the next Prime Minister of Israel?”, 2744 points from 2026-09-28T14:30:18Z to 2026-10-28T14:24:23Z:
-- 2 observations crossed the ODDS_REPRICING rule; 2 lifecycle alerts ({'NEW': 1, 'NEW_EPISODE': 1}).
-- Caveat: 24h volume is not point-in-time in Gamma, so the current value is used as a floor (look-ahead on volume only).
+## 3. Labelled (scheduled official release days)
 
-## 3. What this does not show
-- Whether any alert preceded public information. No availability-time news timeline was built.
-- Precision or recall against labelled events, or any lead time.
-- Calibration of the convergence ranking. It stays labelled "uncalibrated".
-- Behaviour on options, equities intraday, Kalshi intraday or SEC data over history. The free sources don't provide point-in-time history for those.
+Label = the session is an FOMC decision, CPI or Employment Situation release day (`data/event-calendar.json`). It means "a known public information day", **not** informed trading. Label caveat: BLS entries were fetched with a placeholder contact and should be rebuilt (see the calendar provenance).
+
+| Split | Detector: flagged label days | Detector: flagged other days | 10bp baseline: label days | 10bp baseline: other days |
+|---|---|---|---|---|
+| Development | 3/24 | 7/173 | 6/24 | 13/173 |
+| Holdout | 3/24 | 17/174 | 3/24 | 11/174 |
+
+Reading: with 24 label days per half the samples are thin. In both halves the regime-aware detector flags fewer label days than the fixed 10bp rule and, in the holdout, flags other days at a higher rate than the baseline. Nothing here supports a claim that the detector separates news days better than a simple threshold. No interval estimates are given because the sample can't support them.
+
+## 4. What this does not show
+- Whether any alert preceded public information (no availability-time news timeline).
+- Precision/recall against adjudicated events, or any lead time.
+- Calibration of the related-observations ranking. It stays an uncalibrated sorting aid.
+- Options, intraday equities, Kalshi intraday, SEC history: no free point-in-time history.
