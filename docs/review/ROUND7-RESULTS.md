@@ -15,7 +15,7 @@ Not financial advice. Read-only. Normal pushes only, no history rewrite. Regress
 - `python tests/run_all.py`: **233/233** counted tests (round7 14, round6 14, round5 30, round4 27, round3 19, replay 7, signals 122); leak/classify/watch-diff/private-fixtures pass.
 - `python tests/test_round7.py`: 14/14. `python tests/test_round6.py`: 14/14.
 - `python tools/verify_history.py`: 0 findings, 29 commits, 570 blobs.
-- `python tools/build_asset_manifest.py`: 64 assets (synthetic 39, project-generated 20, public-official 2, license-text 3).
+- `python tools/build_asset_manifest.py`: 65 assets (synthetic 39, project-generated 21, public-official 2, license-text 3).
 - `python tools/build_release_calendar.py` and `python skills/signals/scripts/eval_treasury_r7.py`: outputs as above.
 - UI (Playwright, **Chromium emulation**): ui_r3 111/111; ui_r4 27/27; signals_ui and smoke-sig ALL PASS; animation desktop 32/32, android 31/31, iphone 31/31, reduced-motion 32/32, bad-landscape 32/32; e2e 155/155 (191 screens). No UI file changed (`git diff 5fabd64 -- ui/` is empty), so there are no before/after pairs. Captures are in `ui-screens-r7.zip` (outside the repo).
 
