@@ -33,6 +33,20 @@ def _iso(s):
 SPORTS_RX = __import__("re").compile(r"\bvs\.?\b|win on \d{4}-|\bO/U\b|Spread:|\bMap \d|\bBO\d|\bGame \d|\bSet \d|Over/Under|\bWorld Series\b|\bSuper Bowl\b|\bNBA\b|\bNFL\b|\bNHL\b|\bMLB\b|Premier League|Champions League|\bUFC\b|Grand Prix", 2)
 
 
+def _tok(x):
+    try:
+        return json.loads(x) if isinstance(x, str) else (x or [])
+    except ValueError:
+        return []
+
+
+def polymarket_history(token_id: str, interval: str = "1w", fidelity: int = 15) -> list[tuple[int, float]] | None:
+    """CLOB price history for one outcome token: [(ts, price)] at `fidelity`-minute spacing."""
+    j = get(f"https://clob.polymarket.com/prices-history?market={token_id}&interval={interval}&fidelity={fidelity}", "clob", max_age=300)
+    h = (j or {}).get("history") if isinstance(j, dict) else None
+    return [(int(p["t"]), float(p["p"])) for p in h] if h else None
+
+
 def _pm_norm(m: dict) -> dict | None:
     try:
         prices = json.loads(m.get("outcomePrices") or "[]")
@@ -50,6 +64,7 @@ def _pm_norm(m: dict) -> dict | None:
             "vol24": _f(m.get("volume24hr"), 0.0), "vol1wk": _f(m.get("volume1wk"), 0.0), "volume": _f(m.get("volumeNum") or m.get("volume"), 0.0),
             "liquidity": _f(m.get("liquidityNum") or m.get("liquidity"), 0.0), "endDate": m.get("endDate"),
             "startTs": _iso(m.get("startDate") or m.get("createdAt")), "endTs": _iso(m.get("endDate")),
+            "tokenIds": _tok(m.get("clobTokenIds")), "bestBid": _f(m.get("bestBid")), "bestAsk": _f(m.get("bestAsk")),
             "category": "sports" if SPORTS_RX.search(f"{m.get('question')} {ev.get('title') or ''}") else None}
 
 
@@ -105,7 +120,8 @@ def _kalshi_norm(m: dict, cat: str | None) -> dict:
     return {"source": "kalshi", "id": m.get("ticker"), "title": " ".join(x for x in [m.get("title"), m.get("yes_sub_title")] if x).replace("**", ""),
             "event": m.get("event_ticker"), "category": cat, "url": f"https://kalshi.com/markets/{series.lower()}",
             "api": f"{KALSHI_HOSTS[0]}/markets/{m.get('ticker')}", "price": _f(m.get("last_price_dollars")),
-            "prev": _f(m.get("previous_price_dollars")), "vol24": _f(m.get("volume_24h_fp"), 0.0),
+            "prev": _f(m.get("previous_price_dollars")), "yesBid": _f(m.get("yes_bid_dollars")), "yesAsk": _f(m.get("yes_ask_dollars")),
+            "prevBid": _f(m.get("previous_yes_bid_dollars")), "prevAsk": _f(m.get("previous_yes_ask_dollars")), "vol24": _f(m.get("volume_24h_fp"), 0.0),
             "volume": _f(m.get("volume_fp"), 0.0), "oi": _f(m.get("open_interest_fp"), 0.0),
             "openTs": _iso(m.get("open_time")), "closeTs": _iso(m.get("close_time"))}
 
@@ -145,7 +161,7 @@ def kalshi_markets(pages: int = 10) -> list[dict] | None:
 def equity_daily(symbol: str) -> dict | None:
     def yahoo(host):
         def go():
-            j = get(f"https://{host}/v8/finance/chart/{symbol}?range=3mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
+            j = get(f"https://{host}/v8/finance/chart/{symbol}?range=6mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
             r = (((j or {}).get("chart") or {}).get("result") or [None])[0]
             if not r:
                 return None
@@ -156,8 +172,8 @@ def equity_daily(symbol: str) -> dict | None:
 
     def nasdaq():
         asset = "etf" if symbol in ETFS else "stocks"
-        frm = time.strftime("%Y-%m-%d", time.gmtime(time.time() - 120 * 86400))
-        j = get(f"https://api.nasdaq.com/api/quote/{symbol}/historical?assetclass={asset}&fromdate={frm}&limit=90", "nasdaq")
+        frm = time.strftime("%Y-%m-%d", time.gmtime(time.time() - 200 * 86400))
+        j = get(f"https://api.nasdaq.com/api/quote/{symbol}/historical?assetclass={asset}&fromdate={frm}&limit=150", "nasdaq")
         rows = ((((j or {}).get("data") or {}).get("tradesTable") or {}).get("rows")) or []
         out = []
         for x in reversed(rows):
@@ -178,34 +194,75 @@ def equity_daily(symbol: str) -> dict | None:
 ETFS = {"SPY", "QQQ", "IWM", "TLT", "HYG", "GLD", "USO", "UUP", "XLE", "IEF", "SHY", "SLV", "XLF", "SMH"}
 
 
+def _occ_expiry(code: str) -> str | None:
+    """YYYYMMDD from an OCC-style contract code (…YYMMDD[C|P]strike), else None."""
+    import re
+    m = re.search(r"(\d{6})[CPcp]\d{8}$", code or "")
+    return "20" + m.group(1) if m else None
+
+
 def options_chain(symbol: str) -> dict | None:
-    """Per-contract volume and open interest (delayed). Cboe first, Nasdaq second."""
+    """Per-contract volume, open interest and an estimated price (delayed). Cboe first, Nasdaq second.
+
+    Every row carries `expiry` (YYYYMMDD). Rows whose expiry can't be parsed are rejected and counted, so the
+    short-dated routing can never fail silently."""
+    import re
     def cboe():
         j = get(f"https://cdn.cboe.com/api/global/delayed_quotes/options/{symbol}.json", "cboe", max_age=600, timeout=60)
-        opts = ((j or {}).get("data") or {}).get("options") or []
-        rows = [{"contract": o["option"], "volume": _f(o.get("volume"), 0.0), "oi": _f(o.get("open_interest"), 0.0),
-                 "type": "call" if o["option"][-9] == "C" else "put", "expiry": "20" + o["option"][-15:-9]} for o in opts if o.get("option")]
-        return rows or None
+        d = (j or {}).get("data") or {}
+        rows, bad = [], 0
+        for o in d.get("options") or []:
+            exp = _occ_expiry(o.get("option"))
+            if not exp:
+                bad += 1; continue
+            bid, ask, last = _f(o.get("bid"), 0.0), _f(o.get("ask"), 0.0), _f(o.get("last_trade_price"), 0.0)
+            rows.append({"contract": o["option"], "volume": _f(o.get("volume"), 0.0), "oi": _f(o.get("open_interest"), 0.0),
+                         "type": "call" if o["option"][-9] in "Cc" else "put", "expiry": exp, "strike": int(o["option"][-8:]) / 1000,
+                         "price": (bid + ask) / 2 if bid > 0 and ask > 0 else last or None})
+        ts = None
+        try:  # Cboe's snapshot timestamp is UTC (checked against wall clock on 2026-10-28)
+            ts = int(datetime.strptime((j or {}).get("timestamp", ""), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc).timestamp())
+        except ValueError:
+            pass
+        return {"rows": rows, "rejected": bad, "snapshotTs": ts, "underlying": _f(d.get("current_price"))} if rows else None
 
     def nasdaq():
         asset = "etf" if symbol in ETFS else "stocks"
         j = get(f"https://api.nasdaq.com/api/quote/{symbol}/option-chain?assetclass={asset}&limit=2000&fromdate=all&todate=undefined&excode=oprac&callput=callput&money=all&type=all", "nasdaq-opt", max_age=600)
-        rows = ((((j or {}).get("data") or {}).get("table") or {}).get("rows")) or []
-        out = []
-        for r in rows:
+        d = (j or {}).get("data") or {}
+        rows, bad, group = [], 0, None
+        for r in ((d.get("table") or {}).get("rows")) or []:
+            if r.get("expirygroup"):
+                try:
+                    group = datetime.strptime(r["expirygroup"], "%B %d, %Y").strftime("%Y%m%d")
+                except ValueError:
+                    group = None
             if not r.get("strike"):
                 continue
+            url = r.get("drillDownURL") or ""
+            exp = _occ_expiry(url.split("--")[-1].upper()) if "--" in url else None
+            exp = exp or group
             for side, pre in (("call", "c_"), ("put", "p_")):
                 v = _f(str(r.get(pre + "Volume") or "").replace(",", ""), None)
                 oi = _f(str(r.get(pre + "Openinterest") or "").replace(",", ""), None)
-                if v is not None and oi is not None:
-                    out.append({"contract": f"{symbol} {r.get('expiryDate') or r.get('expirygroup') or ''} {r['strike']} {side}", "volume": v, "oi": oi, "type": side, "expiry": None})
-        return out or None
+                if v is None or oi is None:
+                    continue
+                if not exp:
+                    bad += 1; continue
+                bid, ask, last = (_f(str(r.get(pre + k) or "").replace(",", ""), 0.0) for k in ("Bid", "Ask", "Last"))
+                rows.append({"contract": f"{symbol} {exp} {r['strike']} {side}", "volume": v, "oi": oi, "type": side, "expiry": exp,
+                             "strike": _f(r["strike"]), "price": (bid + ask) / 2 if bid > 0 and ask > 0 else last or None})
+        ts = None
+        m = re.search(r"AS OF (\w+ \d+, \d{4} \d+:\d+ [AP]M)", d.get("lastTrade") or "")
+        if m:
+            from zoneinfo import ZoneInfo
+            ts = int(datetime.strptime(m.group(1), "%b %d, %Y %I:%M %p").replace(tzinfo=ZoneInfo("America/New_York")).timestamp())
+        return {"rows": rows, "rejected": bad, "snapshotTs": ts, "underlying": None} if rows else None
 
-    rows, via = first(f"options:{symbol}", [("cboe delayed", cboe), ("nasdaq", nasdaq)])
-    if rows is None:
+    res, via = first(f"options:{symbol}", [("cboe delayed", cboe), ("nasdaq", nasdaq)])
+    if res is None:
         return None
-    return {"symbol": symbol, "rows": rows, "via": via, "url": f"https://www.cboe.com/delayed_quotes/{symbol.lower()}/quote_table"}
+    return dict(res, symbol=symbol, via=via, url=f"https://www.cboe.com/delayed_quotes/{symbol.lower()}/quote_table")
 
 
 # ---------------- US Treasuries ----------------
@@ -259,13 +316,13 @@ CB = "https://api.exchange.coinbase.com"
 def crypto_daily(ccy: str) -> dict | None:
     """Daily spot candles (OKX first, Coinbase second) as (ts, close, quote-volume) oldest first."""
     def okx():
-        j = get(f"{OKX}/market/history-candles?instId={ccy}-USDT&bar=1Dutc&limit=60", "okx")
+        j = get(f"{OKX}/market/history-candles?instId={ccy}-USDT&bar=1Dutc&limit=100", "okx")
         rows = [(int(r[0]) // 1000, float(r[4]), float(r[7])) for r in (j or {}).get("data") or []]
         return sorted(rows) or None
 
     def coinbase():
         j = get(f"{CB}/products/{ccy}-USD/candles?granularity=86400", "coinbase")
-        rows = [(int(r[0]), float(r[4]), float(r[5]) * float(r[4])) for r in (j or [])[:60]] if isinstance(j, list) else []
+        rows = [(int(r[0]), float(r[4]), float(r[5]) * float(r[4])) for r in (j or [])[:100]] if isinstance(j, list) else []
         return sorted(rows) or None
 
     rows, via = first(f"crypto:{ccy}", [("okx spot", okx), ("coinbase spot", coinbase)])
@@ -275,13 +332,22 @@ def crypto_daily(ccy: str) -> dict | None:
 
 
 def crypto_perps(ccy: str) -> dict | None:
-    """OKX perpetual: daily open interest (USD) history and recent funding rates."""
+    """OKX perpetual: daily open interest in contracts AND USD, funding history, and the settlement interval."""
+    inst = f"{ccy}-USDT-SWAP"
+
     def okx():
-        oi = get(f"{OKX}/rubik/stat/contracts/open-interest-volume?ccy={ccy}&period=1D", "okx-oi")
-        fr = get(f"{OKX}/public/funding-rate-history?instId={ccy}-USDT-SWAP&limit=30", "okx-funding")
-        o = sorted((int(r[0]) // 1000, float(r[1])) for r in (oi or {}).get("data") or [])
-        f = sorted((int(r["fundingTime"]) // 1000, float(r["fundingRate"])) for r in (fr or {}).get("data") or [])
-        return {"oi": o, "funding": f} if o and f else None
+        oi = get(f"{OKX}/rubik/stat/contracts/open-interest-history?instId={inst}&period=1D&limit=60", "okx-oi")
+        fr = get(f"{OKX}/public/funding-rate-history?instId={inst}&limit=100", "okx-funding")
+        cur = get(f"{OKX}/public/funding-rate?instId={inst}", "okx-funding-now", max_age=60)
+        o = sorted((int(r[0]) // 1000, float(r[1]), float(r[3])) for r in (oi or {}).get("data") or [])
+        f = sorted((int(r["fundingTime"]) // 1000, float(r.get("realizedRate") or r["fundingRate"])) for r in (fr or {}).get("data") or [])
+        c = ((cur or {}).get("data") or [{}])[0]
+        interval_h = None
+        if c.get("fundingTime") and c.get("prevFundingTime"):
+            interval_h = (int(c["fundingTime"]) - int(c["prevFundingTime"])) / 3_600_000
+        elif len(f) >= 2:
+            interval_h = (f[-1][0] - f[-2][0]) / 3600
+        return {"oi": o, "funding": f, "intervalH": interval_h, "next": _f(c.get("fundingRate"))} if o and f else None
 
     res, _ = first(f"perps:{ccy}", [("okx swap", okx)])
     if res:
@@ -297,7 +363,14 @@ def stablecoins() -> list[dict] | None:
         for a in (j or {}).get("peggedAssets") or []:
             c = lambda k: _f(((a.get(k) or {}).get("peggedUSD")))  # noqa: E731
             if (c("circulating") or 0) >= 1e9:
+                chains = []
+                for ch, v in (a.get("chainCirculating") or {}).items():
+                    cur_, prev_ = _f(((v.get("current") or {}).get("peggedUSD"))), _f(((v.get("circulatingPrevDay") or {}).get("peggedUSD")))
+                    if cur_ is not None and prev_ is not None:
+                        chains.append((ch, round(cur_ - prev_)))
+                chains.sort(key=lambda x: -abs(x[1]))
                 out.append({"symbol": a["symbol"], "name": a["name"], "id": a["id"], "now": c("circulating"), "d1": c("circulatingPrevDay"), "w1": c("circulatingPrevWeek"),
+                            "chains": chains[:4],
                             "url": f"https://defillama.com/stablecoin/{a.get('gecko_id') or a['symbol'].lower()}"})
         return out or None
 
@@ -313,7 +386,7 @@ MACRO = {"^VIX": "VIX volatility index", "DX-Y.NYB": "US dollar index (DXY)", "G
 def macro_daily(sym: str) -> dict | None:
     def yahoo(host):
         def go():
-            j = get(f"https://{host}/v8/finance/chart/{sym}?range=3mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
+            j = get(f"https://{host}/v8/finance/chart/{sym}?range=6mo&interval=1d", "yahoo", headers={"User-Agent": "Mozilla/5.0"})
             r = (((j or {}).get("chart") or {}).get("result") or [None])[0]
             if not r:
                 return None
@@ -361,3 +434,25 @@ def edgar_current(form: str, count: int = 100) -> list[dict] | None:
 
     rows, _ = first(f"edgar:{form}", [("edgar atom", atom)])
     return rows
+
+
+def edgar_form4_transactions(index_url: str) -> list[dict] | None:
+    """Parse non-derivative transactions from one Form 4 (code, shares, price, acquired/disposed)."""
+    import os
+    import re
+    ua = os.environ.get("GTB_SEC_USER_AGENT", "").strip()
+    if "@" not in ua:
+        return None
+    idx = get(index_url, "edgar", as_text=True, max_age=86400, headers={"User-Agent": ua})
+    m = re.search(r'href="(/Archives/edgar/data/[^"]+\.xml)"', idx or "")
+    if not m:
+        return None
+    xml = get("https://www.sec.gov" + m.group(1), "edgar", as_text=True, max_age=86400, headers={"User-Agent": ua})
+    if not xml:
+        return None
+    out = []
+    for t in re.findall(r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>", xml, re.S):
+        g = lambda tag: (re.search(rf"<{tag}>\s*(?:<value>)?\s*([^<\s]+)", t) or [None, None])[1]  # noqa: E731
+        out.append({"code": g("transactionCode"), "shares": _f(g("transactionShares")), "price": _f(g("transactionPricePerShare")),
+                    "ad": g("transactionAcquiredDisposedCode")})
+    return out

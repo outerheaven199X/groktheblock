@@ -1,0 +1,1816 @@
+{
+ "builtAt": "2026-10-28T14:10:19Z",
+ "events": [
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-01-06",
+   "ts": 1736186400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-01-07",
+   "ts": 1736272800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2025-01-08",
+   "ts": 1736359200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-01-10",
+   "ts": 1736515800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-01-15",
+   "ts": 1736947800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-01-17",
+   "ts": 1737147600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2025-01-22",
+   "ts": 1737568800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-01-23",
+   "ts": 1737655200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-01-27",
+   "ts": 1738000800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-01-27",
+   "ts": 1738000800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-01-28",
+   "ts": 1738087200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-01-28",
+   "ts": 1738087200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-01-29",
+   "ts": 1738177200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-02-07",
+   "ts": 1738935000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-02-11",
+   "ts": 1739296800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-02-12",
+   "ts": 1739367000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-02-12",
+   "ts": 1739383200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2025-02-13",
+   "ts": 1739469600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2025-02-19",
+   "ts": 1739988000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2025-02-20",
+   "ts": 1740074400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-02-21",
+   "ts": 1740171600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-02-24",
+   "ts": 1740420000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-02-25",
+   "ts": 1740506400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2025-02-26",
+   "ts": 1740592800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-02-26",
+   "ts": 1740592800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-03-07",
+   "ts": 1741354200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-03-11",
+   "ts": 1741712400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-03-12",
+   "ts": 1741782600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2025-03-12",
+   "ts": 1741798800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2025-03-13",
+   "ts": 1741885200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2025-03-18",
+   "ts": 1742317200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-03-19",
+   "ts": 1742407200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-03-20",
+   "ts": 1742490000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-03-21",
+   "ts": 1742587200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-03-25",
+   "ts": 1742922000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-03-26",
+   "ts": 1743008400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2025-03-26",
+   "ts": 1743008400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-03-27",
+   "ts": 1743094800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-04-04",
+   "ts": 1743769800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-04-08",
+   "ts": 1744131600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-04-09",
+   "ts": 1744218000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-04-10",
+   "ts": 1744288200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2025-04-10",
+   "ts": 1744304400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2025-04-16",
+   "ts": 1744822800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-04-17",
+   "ts": 1744909200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-04-17",
+   "ts": 1744920000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-04-22",
+   "ts": 1745341200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-04-23",
+   "ts": 1745427600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-04-23",
+   "ts": 1745427600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-04-24",
+   "ts": 1745514000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-05-02",
+   "ts": 1746189000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-05-05",
+   "ts": 1746464400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-05-06",
+   "ts": 1746550800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-05-07",
+   "ts": 1746640800,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2025-05-08",
+   "ts": 1746723600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-05-13",
+   "ts": 1747139400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-05-16",
+   "ts": 1747425600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2025-05-21",
+   "ts": 1747846800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 8-Month Note auction 2025-05-22",
+   "ts": 1747933200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-05-27",
+   "ts": 1748365200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-05-28",
+   "ts": 1748451600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2025-05-28",
+   "ts": 1748451600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-05-29",
+   "ts": 1748538000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-06-06",
+   "ts": 1749213000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-06-10",
+   "ts": 1749574800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-06-11",
+   "ts": 1749645000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2025-06-11",
+   "ts": 1749661200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2025-06-12",
+   "ts": 1749747600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2025-06-16",
+   "ts": 1750093200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "4-Year 10-Month Note auction 2025-06-17",
+   "ts": 1750179600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-06-18",
+   "ts": 1750269600,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-06-20",
+   "ts": 1750449600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-06-24",
+   "ts": 1750784400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-06-25",
+   "ts": 1750870800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2025-06-25",
+   "ts": 1750870800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-06-26",
+   "ts": 1750957200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-07-03",
+   "ts": 1751545800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-07-08",
+   "ts": 1751994000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-07-09",
+   "ts": 1752080400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2025-07-10",
+   "ts": 1752166800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-07-15",
+   "ts": 1752582600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-07-18",
+   "ts": 1752868800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2025-07-23",
+   "ts": 1753290000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-07-24",
+   "ts": 1753376400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-07-28",
+   "ts": 1753722000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-07-28",
+   "ts": 1753722000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-07-29",
+   "ts": 1753808400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-07-29",
+   "ts": 1753808400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-07-30",
+   "ts": 1753898400,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-08-01",
+   "ts": 1754051400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-08-05",
+   "ts": 1754413200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-08-06",
+   "ts": 1754499600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2025-08-07",
+   "ts": 1754586000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-08-12",
+   "ts": 1755001800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-08-15",
+   "ts": 1755288000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2025-08-20",
+   "ts": 1755709200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 6-Month Bond auction 2025-08-21",
+   "ts": 1755795600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-08-26",
+   "ts": 1756227600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-08-27",
+   "ts": 1756314000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2025-08-27",
+   "ts": 1756314000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-08-28",
+   "ts": 1756400400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-09-05",
+   "ts": 1757075400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-09-09",
+   "ts": 1757437200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2025-09-10",
+   "ts": 1757523600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-09-11",
+   "ts": 1757593800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2025-09-11",
+   "ts": 1757610000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2025-09-16",
+   "ts": 1758042000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-09-17",
+   "ts": 1758132000,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-09-18",
+   "ts": 1758214800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-09-19",
+   "ts": 1758312000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-09-23",
+   "ts": 1758646800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2025-09-24",
+   "ts": 1758733200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-09-24",
+   "ts": 1758733200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-09-25",
+   "ts": 1758819600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-10-07",
+   "ts": 1759856400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2025-10-08",
+   "ts": 1759942800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2025-10-09",
+   "ts": 1760029200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-10-17",
+   "ts": 1760731200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2025-10-22",
+   "ts": 1761152400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-10-23",
+   "ts": 1761238800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-10-24",
+   "ts": 1761309000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-10-27",
+   "ts": 1761584400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-10-27",
+   "ts": 1761584400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-10-28",
+   "ts": 1761670800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-10-29",
+   "ts": 1761757200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-10-29",
+   "ts": 1761760800,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-11-10",
+   "ts": 1762797600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2025-11-12",
+   "ts": 1762970400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2025-11-13",
+   "ts": 1763056800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2025-11-19",
+   "ts": 1763575200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-11-20",
+   "ts": 1763645400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 8-Month Note auction 2025-11-20",
+   "ts": 1763661600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-11-21",
+   "ts": 1763758800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-11-24",
+   "ts": 1764007200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2025-11-25",
+   "ts": 1764093600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-11-25",
+   "ts": 1764093600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-11-26",
+   "ts": 1764180000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2025-12-08",
+   "ts": 1765216800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2025-12-09",
+   "ts": 1765303200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2025-12-10",
+   "ts": 1765393200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2025-12-11",
+   "ts": 1765476000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2025-12-16",
+   "ts": 1765891800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2025-12-17",
+   "ts": 1765994400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2025-12-18",
+   "ts": 1766064600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "4-Year 10-Month Note auction 2025-12-18",
+   "ts": 1766080800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2025-12-19",
+   "ts": 1766178000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2025-12-22",
+   "ts": 1766426400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2025-12-23",
+   "ts": 1766512800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2025-12-23",
+   "ts": 1766512800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2025-12-24",
+   "ts": 1766599200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-01-09",
+   "ts": 1767965400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-01-12",
+   "ts": 1768240800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-01-12",
+   "ts": 1768240800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-01-13",
+   "ts": 1768311000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2026-01-13",
+   "ts": 1768327200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-01-16",
+   "ts": 1768597200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2026-01-21",
+   "ts": 1769018400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2026-01-22",
+   "ts": 1769104800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-01-26",
+   "ts": 1769450400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-01-27",
+   "ts": 1769536800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-01-28",
+   "ts": 1769623200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-01-28",
+   "ts": 1769626800,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-01-29",
+   "ts": 1769709600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-02-10",
+   "ts": 1770746400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-02-11",
+   "ts": 1770816600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2026-02-11",
+   "ts": 1770832800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2026-02-12",
+   "ts": 1770919200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-02-13",
+   "ts": 1770989400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2026-02-18",
+   "ts": 1771437600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2026-02-19",
+   "ts": 1771524000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-02-20",
+   "ts": 1771621200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-02-24",
+   "ts": 1771956000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2026-02-25",
+   "ts": 1772042400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-02-25",
+   "ts": 1772042400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-02-26",
+   "ts": 1772128800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-03-06",
+   "ts": 1772803800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-03-10",
+   "ts": 1773162000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-03-11",
+   "ts": 1773232200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2026-03-11",
+   "ts": 1773248400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2026-03-12",
+   "ts": 1773334800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2026-03-17",
+   "ts": 1773766800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-03-18",
+   "ts": 1773856800,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-03-19",
+   "ts": 1773939600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-03-20",
+   "ts": 1774036800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-03-24",
+   "ts": 1774371600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-03-25",
+   "ts": 1774458000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2026-03-25",
+   "ts": 1774458000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-03-26",
+   "ts": 1774544400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-04-03",
+   "ts": 1775219400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-04-07",
+   "ts": 1775581200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-04-08",
+   "ts": 1775667600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2026-04-09",
+   "ts": 1775754000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-04-10",
+   "ts": 1775824200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-04-17",
+   "ts": 1776456000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2026-04-22",
+   "ts": 1776877200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-04-23",
+   "ts": 1776963600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-04-27",
+   "ts": 1777309200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-04-27",
+   "ts": 1777309200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-04-28",
+   "ts": 1777395600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-04-28",
+   "ts": 1777395600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-04-29",
+   "ts": 1777485600,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-05-08",
+   "ts": 1778243400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-05-11",
+   "ts": 1778518800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-05-12",
+   "ts": 1778589000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2026-05-12",
+   "ts": 1778605200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2026-05-13",
+   "ts": 1778691600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-05-15",
+   "ts": 1778875200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2026-05-20",
+   "ts": 1779296400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 8-Month Note auction 2026-05-21",
+   "ts": 1779382800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-05-26",
+   "ts": 1779814800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2026-05-27",
+   "ts": 1779901200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-05-27",
+   "ts": 1779901200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-05-28",
+   "ts": 1779987600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-06-05",
+   "ts": 1780662600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-06-09",
+   "ts": 1781024400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-06-10",
+   "ts": 1781094600,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2026-06-10",
+   "ts": 1781110800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2026-06-11",
+   "ts": 1781197200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2026-06-16",
+   "ts": 1781629200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-06-17",
+   "ts": 1781719200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "4-Year 10-Month Note auction 2026-06-18",
+   "ts": 1781802000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-06-18",
+   "ts": 1781812800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-06-23",
+   "ts": 1782234000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2026-06-24",
+   "ts": 1782320400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-06-24",
+   "ts": 1782320400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-06-25",
+   "ts": 1782406800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-07-02",
+   "ts": 1782995400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-07-07",
+   "ts": 1783443600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-07-08",
+   "ts": 1783530000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2026-07-09",
+   "ts": 1783616400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-07-14",
+   "ts": 1784032200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-07-17",
+   "ts": 1784318400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2026-07-22",
+   "ts": 1784739600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2026-07-23",
+   "ts": 1784826000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-07-27",
+   "ts": 1785171600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-07-27",
+   "ts": 1785171600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-07-28",
+   "ts": 1785258000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-07-29",
+   "ts": 1785344400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-07-29",
+   "ts": 1785348000,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-08-07",
+   "ts": 1786105800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-08-11",
+   "ts": 1786467600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-08-12",
+   "ts": 1786537800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "10-Year Note auction 2026-08-12",
+   "ts": 1786554000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "30-Year Bond auction 2026-08-13",
+   "ts": 1786640400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "20-Year Bond auction 2026-08-19",
+   "ts": 1787158800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 6-Month Bond auction 2026-08-20",
+   "ts": 1787245200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-08-21",
+   "ts": 1787342400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-08-25",
+   "ts": 1787677200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 11-Month Note auction 2026-08-26",
+   "ts": 1787763600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-08-26",
+   "ts": 1787763600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-08-27",
+   "ts": 1787850000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-09-04",
+   "ts": 1788525000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-09-08",
+   "ts": 1788886800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 11-Month Note auction 2026-09-09",
+   "ts": 1788973200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 11-Month Bond auction 2026-09-10",
+   "ts": 1789059600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-09-11",
+   "ts": 1789129800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 11-Month Bond auction 2026-09-15",
+   "ts": 1789491600,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-09-16",
+   "ts": 1789581600,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-09-17",
+   "ts": 1789664400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-09-18",
+   "ts": 1789761600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "2-Year Note auction 2026-09-22",
+   "ts": 1790096400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-09-23",
+   "ts": 1790182800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "1-Year 10-Month Note auction 2026-09-23",
+   "ts": 1790182800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "7-Year Note auction 2026-09-24",
+   "ts": 1790269200,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-10-02",
+   "ts": 1790944200,
+   "source": "bls.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "3-Year Note auction 2026-10-06",
+   "ts": 1791306000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "9-Year 10-Month Note auction 2026-10-07",
+   "ts": 1791392400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "29-Year 10-Month Bond auction 2026-10-08",
+   "ts": 1791478800,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-10-14",
+   "ts": 1791981000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-10-16",
+   "ts": 1792180800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "AUCTION",
+   "label": "19-Year 10-Month Bond auction 2026-10-21",
+   "ts": 1792602000,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "AUCTION",
+   "label": "5-Year Note auction 2026-10-22",
+   "ts": 1792688400,
+   "source": "fiscaldata.treasury.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-10-28",
+   "ts": 1793210400,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-11-06",
+   "ts": 1793971800,
+   "source": "bls.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-11-10",
+   "ts": 1794317400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-11-20",
+   "ts": 1795208400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "NFP",
+   "label": "Employment Situation 2026-12-04",
+   "ts": 1796391000,
+   "source": "bls.gov"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2026-12-09",
+   "ts": 1796842800,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "CPI",
+   "label": "Consumer Price Index 2026-12-10",
+   "ts": 1796909400,
+   "source": "bls.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2026-12-18",
+   "ts": 1797627600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-01-15",
+   "ts": 1800046800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-01-27",
+   "ts": 1801076400,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-02-19",
+   "ts": 1803070800,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-03-17",
+   "ts": 1805306400,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-03-19",
+   "ts": 1805486400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-04-16",
+   "ts": 1807905600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-04-28",
+   "ts": 1808935200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-05-21",
+   "ts": 1810929600,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-06-09",
+   "ts": 1812564000,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-06-17",
+   "ts": 1813262400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-07-16",
+   "ts": 1815768000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-07-28",
+   "ts": 1816797600,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-08-20",
+   "ts": 1818792000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-09-15",
+   "ts": 1821031200,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-09-17",
+   "ts": 1821211200,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-10-15",
+   "ts": 1823630400,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-10-27",
+   "ts": 1824660000,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-11-19",
+   "ts": 1826658000,
+   "source": "computed (third Friday rule)"
+  },
+  {
+   "type": "FOMC",
+   "label": "FOMC decision 2027-12-08",
+   "ts": 1828292400,
+   "source": "federalreserve.gov"
+  },
+  {
+   "type": "OPEX",
+   "label": "Monthly options expiration 2027-12-17",
+   "ts": 1829077200,
+   "source": "computed (third Friday rule)"
+  }
+ ],
+ "missing": [],
+ "sources": {
+  "FOMC": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+  "CPI/NFP": "https://www.bls.gov/schedule/news_release/bls.ics",
+  "AUCTION": "https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/",
+  "OPEX": "computed: third Friday, NYSE-holiday aware"
+ },
+ "notIncluded": [
+  "Earnings dates: no free official schedule; listed tickers are not tagged for earnings.",
+  "PCE (BEA) and political milestones: not yet included."
+ ]
+}

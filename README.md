@@ -1,6 +1,8 @@
 # Grok The Block
 
-**The everything app for unusual activity.** Grok The Block watches public markets from every direction — Polymarket (down to the on-chain wallets), Kalshi, US stocks and options, Treasury yields, crypto exchanges and perps, stablecoin supply, the dollar, gold, oil and VIX, SEC filings, and Solana tokens — and tells you, in plain English, the moment something looks like it's about to happen. When several independent markets move on the same story at once, it ranks that **anomaly convergence** at the top with the full evidence chain. Run it on a schedule from your own Grok Bot and it DMs you only what's new.
+**Unusual-activity analysis across selected public markets, with the evidence behind every flag.** Grok The Block reads selected markets across multiple asset classes — Polymarket (including on-chain trade links), Kalshi, a configured list of US stocks and options, the Treasury curve, BTC/ETH/SOL on OKX, large stablecoins' aggregate supply, a few FX/commodity/volatility series, SEC filings (opt-in), and your own Solana watch reports. At the next observation or scan, subject to each provider's latency, it explains in plain English what looks unusual compared with that market's own history, what it was compared against, and what the data can't show. When markets in different causal families move on the same canonical entity, it lists them first as an **uncalibrated anomaly-convergence ranking** with the timeline and the evidence. It is not a prediction: no historical hit rate or lead time has been measured.
+
+By default you run it yourself, locally or on your own Grok Bot, for your own analysis. It is not a central broadcast feed: provider display and redistribution rights are unverified (see [docs/PROVIDER-RIGHTS.md](docs/PROVIDER-RIGHTS.md)).
 
 > **Not financial advice.** Grok The Block flags unusual activity in public data and shows the evidence behind it. A signal is not a prediction, a recommendation to buy or sell, or an accusation against anyone. It never trades.
 
@@ -12,23 +14,25 @@ Grok The Block is an evolution of **[CryptOSINT](https://github.com/outerheaven1
 
 `skills/signals` (`signals.py scan | watch`) → `out/signals-*.json` → the **Signals** tab (key `9`).
 
-| Source | Keyless data used | Signals |
+| Source | Keyless data used (latency) | Detectors (review shadow-mode defaults) |
 |---|---|---|
-| Polymarket | Gamma API (markets), data-api (trades, wallet activity); trades settle on Polygon, so each links to Polygonscan | odds jumps, volume vs 6-day baseline, large bets from wallets new to Polymarket while odds move |
-| Kalshi | public trade API v2 (events + markets) | price shocks vs previous day, volume vs lifetime daily average |
-| US stocks | Yahoo chart API (Nasdaq fallback) | volume and return z-scores vs 20 sessions |
-| US options | Cboe delayed chains (Nasdaq fallback) | volume ≥2× open interest, put/call, 0DTE excluded |
-| Treasuries | Treasury.gov daily par curve (FRED fallback) | sudden 2Y/10Y/30Y moves, 2s10s inversion and shifts |
-| Crypto CEX | OKX spot + perps (Coinbase spot fallback) | BTC/ETH/SOL volume/return z, open-interest shocks, extreme funding |
-| Stablecoins | DefiLlama on-chain supply | large daily mints and burns |
-| FX · commodities · vol | Yahoo (VIX, DXY, gold, WTI, EUR/USD, USD/JPY) | outsized daily moves, VIX spikes |
-| SEC EDGAR | public atom feed (opt-in: set `GTB_SEC_USER_AGENT="Name email"` per SEC rules) | insider Form 4 clusters, material 8-K items |
-| Solana | your local `watch-token` reports | whale sells, insider moves, LP changes |
-| **Convergence** | all of the above | 0–100 score when independent sources move on the same topic/name/ticker within 48h |
+| Polymarket | Gamma (markets), CLOB price history, data-api (trades); trades settle on Polygon (polled per scan) | ODDS_REPRICING (≥8 pts/15m or ≥12 pts/1h, ≥3× event volatility), VOLUME_SPIKE (≥4× prior 6 days), NEWLY_OBSERVED_ADDRESS_ACTIVITY (address newly observed on Polymarket within available history, ≥$25K) |
+| Kalshi | public trade API v2 (per scan) | ODDS_REPRICING on executable midpoint vs previous day (limited), lifetime-volume spikes (context, capped LOW) |
+| US stocks | Yahoo chart API, Nasdaq fallback (daily bars) | VOLUME_ROBUST_Z (60-session MAD, ≥3 and ≥1.8× median), RETURN_VS_REALIZED_VOL (≥3× 20-day vol) |
+| US options | Cboe delayed chains, Nasdaq fallback (~15 min delayed) | UNUSUAL_OPTIONS_VOLUME (limited) and a separate conservative SHORT_DATED_OPTIONS (0/1DTE). Contracts without a parsed expiry are rejected and counted |
+| Treasuries | Treasury.gov par curve, FRED fallback (daily, end of day) | YIELD_MOVE (max(8 bp, 2.5× robust scale)), CURVE_SHIFT with bull/bear steepening/flattening, persistent CURVE_INVERSION |
+| Crypto | OKX spot + perps, Coinbase spot fallback (daily / per scan) | spot return/volume, OI_SHOCK (contracts and USD), FUNDING_EXTREME (normalized to 8h) |
+| Stablecoins | DefiLlama aggregate supply (daily) | SUPPLY_CHANGE (≥$250M and ≥0.5%; HIGH ≥$1B), not mint/burn transactions |
+| FX · commodities · vol | Yahoo (VIX, DXY, gold, WTI, EUR/USD, USD/JPY) (daily) | return vs realized vol, volume robust z |
+| SEC EDGAR | atom feed + Form 4 XML (opt-in `GTB_SEC_USER_AGENT="Name email"`) | INSIDER_OPEN_MARKET_PURCHASES / INSIDER_SALES_CLUSTER (parsed transaction codes), material 8-K items |
+| Solana | your local `watch-token` reports | whale sells, flagged wallet moves, LP changes |
+| **Cross-market** | the above | CONVERGENCE (one observation per causal family, canonical entities only; fast ≤6h / cross-session ≤24h / forensic ≤48h), RELATED_REPRICING (same family, e.g. two prediction venues), DIVERGENCE (a related market that didn't move) |
 
-Every signal has a severity, a basis (*observed*, *heuristic*, *inferred*), what/when, evidence links and its limits. A provider that fails shows as **unknown**, never as quiet. Not included because they couldn't be verified keylessly from the build machine: Binance/Bybit (geo-blocked there), per-transaction stablecoin mints (Etherscan keyless API retired), Stooq (JS challenge).
+Every signal has a severity, a basis (*observed*, *heuristic*, *inferred*, *unverified*), an observation envelope (event, availability, ingest and valid-as-of times; source status HEALTHY/DEGRADED/STALE/UNAVAILABLE/NOT_CONFIGURED; coverage; limitations), a trigger explanation (observed value, baseline, threshold, window, data age), evidence links and its limits. Signals near FOMC, CPI, NFP, Treasury auctions or monthly options expiry are tagged from `data/event-calendar.json` (`skills/signals/scripts/refresh_calendar.py`); earnings are not included. A source that fails is **unknown**, never quiet. Not included: Binance/Bybit (geo-blocked from the build machine), transaction-level stablecoin mints (keyless Etherscan retired), Stooq (JS challenge), trade-level options prints and intraday stock bars.
 
-**Alerts:** `signals.py watch` diffs against the last successful run and only reports new or escalated signals (deduplicated by key). `skills/signals/SKILL.md` has a copy-paste Grok Bot routine so anyone's own Grok Bot can DM them on new material signals, plus an optional `--webhook` JSON output. Nothing uses the author's accounts.
+**Alerts:** `signals.py watch` keeps incidents (NEW → ACTIVE → COOLING → RESOLVED) keyed by provider + entity + detector + episode. It alerts on a new episode, a new distinct transaction, a ≥25% rise in magnitude or an escalation, and reminds about unresolved HIGH after 6h, then at most daily. An incident resolves only after two valid observations below 75% of its entry threshold; an unavailable source never resolves anything. Controls: `--min-severity`, `--mute kalshi,macro`, `--quiet-hours 22-7 --tz-offset -4`, `--digest`. `skills/signals/SKILL.md` has a routine recipe for your own Grok Bot and an optional `--webhook` to your own endpoint. Nothing uses the author's accounts.
+
+Evaluation: [docs/review/EVALUATION.md](docs/review/EVALUATION.md) (deterministic fixture replay; no real-history hit rate or lead time measured). Review reconciliation: [docs/review/FINDINGS.md](docs/review/FINDINGS.md).
 
 ![Signals tab](docs/signals-desktop-hero.png)
 ![Signal feed with evidence](docs/signals-desktop-feed.png)
@@ -47,7 +51,7 @@ Every signal has a severity, a basis (*observed*, *heuristic*, *inferred*), what
 | `watch-token` | (Shown under the dashboard's Threats tab.) What changed since the last successful scan (liquidity, authorities, LP lock, verdict, new risks) plus whale and insider-move alerts, deduplicated, with evidence links |
 | `threat-feed` | Digest of LP pulls, insider dumps, rugged flags, mint/freeze authority |
 | `promo-provenance` | Hashes and reuse, EXIF and generator tags, ffprobe, C2PA, frame and loop checks. Signals, never verdicts |
-| `signals` | Cross-market early-warning feed (see above), watch mode with deduped alerts, routine recipe, webhook |
+| `signals` | Unusual-activity feed across selected markets (see above), incident-lifecycle watch mode, alert controls, routine recipe, webhook |
 | `solana-data` | Shared data layer: public RPC with failover, DexScreener, RugCheck, optional Helius, local cache |
 
 Plus `ui/`, a zero-build static dashboard in the original's dark palette that reads the JSON the scripts write.
