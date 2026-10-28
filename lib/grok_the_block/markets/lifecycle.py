@@ -141,7 +141,7 @@ def _close(inc, now, how, note):
     _hist(inc, now, how, note)
 
 
-PUBLISH_HM = (18, 0)  # daily sources: a session's value is expected by ~18:00 ET (labelled estimate, conservative)
+PUBLISH_GRACE_NOTE = "daily expected-update times come from timebase.expected_update (R7-03)"
 PUBLISH_GRACE_S = 24 * 3600
 POLLED_AGE_S = (UNCONFIRMED_AFTER_S, ARCHIVE_UNRESOLVED_AFTER_S)
 
@@ -159,26 +159,28 @@ def _src_of(member_key: str) -> str:
     return (member_key or "").split(":", 1)[0]
 
 
-def _nth_session_publication(last: int, n: int, market: str) -> int:
-    """18:00 ET on the n-th trading session strictly after the NY date of `last` (holiday-aware, conservative)."""
-    d = T.datetime.fromtimestamp(last, T.NY).date()
-    k = 0
-    while k < n:
-        d += T.timedelta(days=1)
-        if T.is_session(d, market):
-            k += 1
-    return T.ny_ts(d, *PUBLISH_HM)
-
-
-def deadlines(source: str, last: int) -> tuple[int, int]:
-    """R6-02: when a missing observation from `source` makes an incident UNCONFIRMED / ARCHIVED_UNRESOLVED.
-    Polled sources: 24h / 72h after the last valid observation. Daily sources: the next expected publication
-    (holiday-aware) plus 24h grace, then the third; never earlier than the fixed 96h / 168h floor."""
+def deadlines(source: str, last: int, instrument: str | None = None) -> tuple[int, int]:
+    """R6-02/R7-03: when a missing observation from `source` makes an incident UNCONFIRMED / ARCHIVED_UNRESOLVED,
+    derived from that source/instrument's own update clock (timebase.expected_update):
+    - treasury, equities, macro (daily bars): 1st expected update + 24h grace / 3rd + 24h, never earlier than the
+      96h / 168h fail-safe floors (conservative research defaults, not provider SLAs);
+    - options (hourly delayed snapshots while the exchange is open): 4th / 14th expected snapshot, so missed snapshots
+      in an open session count the same day while a closed exchange (weekend, holiday) does not;
+    - stablecoins (7-day calendar, ~daily aggregate): 1st expected + 24h / 3rd + 24h;
+    - polled sources: 24h / 72h after the last valid observation."""
+    if source == "options":
+        return T.expected_update(source, instrument, last, 4), T.expected_update(source, instrument, last, 14)
+    if source == "stablecoins":
+        return T.expected_update(source, instrument, last, 1) + PUBLISH_GRACE_S, T.expected_update(source, instrument, last, 3) + PUBLISH_GRACE_S
     if source in DAILY_SOURCES:
-        market = "bond" if source == "treasury" else "equity"
-        return (max(last + DAILY_AGE_S[0], _nth_session_publication(last, 1, market) + PUBLISH_GRACE_S),
-                max(last + DAILY_AGE_S[1], _nth_session_publication(last, 3, market) + PUBLISH_GRACE_S))
+        return (max(last + DAILY_AGE_S[0], T.expected_update(source, instrument, last, 1) + PUBLISH_GRACE_S),
+                max(last + DAILY_AGE_S[1], T.expected_update(source, instrument, last, 3) + PUBLISH_GRACE_S))
     return last + POLLED_AGE_S[0], last + POLLED_AGE_S[1]
+
+
+def _inst_of(key: str | None) -> str | None:
+    p = (key or "").split(":")
+    return p[1] if len(p) > 1 else None
 
 
 def _age(inc, now, tel, missing=None, why="no valid observation"):
@@ -190,10 +192,13 @@ def _age(inc, now, tel, missing=None, why="no valid observation"):
         base = inc.get("lastValidObsAt") or inc.get("openedAt") or now
     lv = inc.get("memberLastValid") or {}
     keys = missing or [None]
-    dl = []
+    dl, clocks = [], []
     for m in keys:
         last = (lv.get(m) or base) if m else base
-        dl.append(deadlines(_src_of(m) if m and inc["source"] == "cross" else inc["source"], last))
+        src = _src_of(m) if m and inc["source"] == "cross" else inc["source"]
+        ins = _inst_of(m if m and inc["source"] == "cross" else inc.get("key"))
+        dl.append(deadlines(src, last, ins))
+        clocks.append(f"{src}: {T.cadence(src, ins)}")
     unc, arc = max(d[0] for d in dl), max(d[1] for d in dl)
     if inc.get("kind") == "event":  # an immutable event can't "cool"; a stale feed makes it UNCONFIRMED at once, archived after 2× the source's freshness limit
         unc, arc = now, base + 2 * EVENT_SOURCE_LIMIT_S.get(inc["source"], 72 * 3600)
@@ -207,7 +212,7 @@ def _age(inc, now, tel, missing=None, why="no valid observation"):
         tel["archivedUnresolved"] = tel.get("archivedUnresolved", 0) + 1
     elif now >= unc and inc["state"] != "UNCONFIRMED":
         inc["state"] = "UNCONFIRMED"; inc["unconfirmedSince"] = now
-        _hist(inc, now, "UNCONFIRMED", f"{why} of {what} past its expected publication + grace; last valid {base}")
+        _hist(inc, now, "UNCONFIRMED", f"{why} of {what} past its expected update ({'; '.join(sorted(set(clocks)))}); last valid {base}")
         tel["unconfirmed"] = tel.get("unconfirmed", 0) + 1
 
 

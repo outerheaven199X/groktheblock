@@ -1,0 +1,11 @@
+{"_provenance": "synthetic", "_note": "R7-01 test vignettes (synthetic descriptions, not historical labels). Two independent reviewers must also return these labels before real labelling starts; that check has NOT been run.",
+ "vignettes": [
+  {"id": "genuine-anomaly-no-cause", "description": "10Y moves 19bp, above the 99th percentile of the prior 250 sessions; values and 18:00 ET availability match treasury.gov; no release that day and no documented cause found.",
+   "axes": {"anomaly": "YES", "integrity": "OK", "context": "UNEXPLAINED"}, "intended": {"primary": "ANOMALY_CONFIRMED", "context": "UNEXPLAINED"}},
+  {"id": "scheduled-cpi-move", "description": "2Y moves 16bp on a CPI release day (in release-calendar.json), above the 97.5th percentile; evidence correct.",
+   "axes": {"anomaly": "YES", "integrity": "OK", "context": "SCHEDULED"}, "intended": {"primary": "ANOMALY_CONFIRMED", "context": "SCHEDULED"}},
+  {"id": "ordinary-move-public-story", "description": "30Y moves 4bp (60th percentile) on a day with a widely reported fiscal headline; evidence correct.",
+   "axes": {"anomaly": "NO", "integrity": "OK", "context": "DOCUMENTED_UNSCHEDULED"}, "intended": {"primary": "NOT_ANOMALOUS", "context": "DOCUMENTED_UNSCHEDULED"}},
+  {"id": "wrong-timestamp-real-event", "description": "A real FOMC-day 2Y move, but the alert shows it as available at 14:05 ET, before the curve is published (~18:00 ET).",
+   "axes": {"anomaly": "YES", "integrity": "TIMESTAMP_ERROR", "context": "SCHEDULED"}, "intended": {"primary": "FALSE", "context": "SCHEDULED"}}
+ ]}

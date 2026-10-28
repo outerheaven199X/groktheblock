@@ -1,0 +1,16 @@
+# test_round7.py (round-7 regressions as committed) run against the round-6 tree 5fabd64 before any round-7 fix; command: python tests/test_round7.py; paths sanitized
+FAIL test_R7_01_frozen_decision_table_is_versioned_and_hash_recorded -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/adjudication-r7.json'
+FAIL test_R7_01_four_vignettes_get_the_intended_labels_and_cause_is_not_validity -- ModuleNotFoundError No module named 'adjudication'
+FAIL test_R7_01_objective_a_uses_r7_rubric_and_reports_no_precision -- KeyError 'rubricVersion'
+FAIL test_R7_02_r6_roster_kept_unchanged_as_quiet_control_record -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/manifest-r7.json'
+FAIL test_R7_02_probability_sample_has_denominators_inclusion_probabilities_and_strata -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/sample-design-r7.json'
+FAIL test_R7_02_new_roster_is_blind_frozen_and_hashed -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/eval-treasury/roster-r7.json'
+FAIL test_R7_03_equities_early_close_and_treasury_thanksgiving -- AttributeError module 'grok_the_block.markets.timebase' has no attribute 'expected_update'
+FAIL test_R7_03_options_open_session_vs_long_weekend -- TypeError deadlines() takes 2 positional arguments but 3 were given
+FAIL test_R7_03_stablecoins_run_on_a_7_day_calendar -- AssertionError Sunday delay counts: stablecoin aggregates are not NYSE-bound
+FAIL test_R7_03_fx_uses_london_day_end_across_dst_mismatch_and_vix_futures_clocks -- AttributeError module 'grok_the_block.markets.timebase' has no attribute 'expected_update'
+FAIL test_R7_03_cross_mixing_hourly_options_and_daily_treasury_ages_on_the_missing_member -- AssertionError ('options', 'NEW')
+FAIL test_R7_04_rehearsal_and_final_receipts_are_distinct -- FileNotFoundError [Errno 2] No such file or directory: '<repo>/docs/review/history-purge-rehearsal.json'
+FAIL test_R7_04_docs_separate_historical_phases -- AssertionError 
+FAIL test_R7_05_ci_staged_with_round7_and_results_say_not_active -- AssertionError 
+round7: 0/14 passed

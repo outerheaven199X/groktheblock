@@ -235,7 +235,9 @@ def test_R6_04_history_options_documented_and_purge_verified_on_a_disposable_clo
     doc = (R / "docs/review/HISTORY-EXPOSURE.md").read_text()
     for t in ("coordinated purge", "clean-root", "risk acceptance", "already cloned", "forks", "not run on the real repository"):
         assert t in doc, t
-    v = json.loads((R / "docs/review/history-purge-verification.json").read_text())
+    # R7-04 amendment: the round-6 receipt describes the REHEARSAL only and was renamed; the live push has its own receipt
+    v = json.loads((R / "docs/review/history-purge-rehearsal.json").read_text())
+    assert v["phase"] == "REHEARSAL"
     assert v["disposableClone"] is True and v["pushed"] is False
     assert v["before"]["findings"] > 0 and v["after"]["findings"] == 0
     assert (R / "tools/verify_history.py").exists()

@@ -142,6 +142,11 @@
     "examples/watch-SYNTHING-SyndEg.json"
    ]
   },
+  "docs/review/adjudication-r7.json": {
+   "status": "project-generated",
+   "source": "evaluation config/results written by this project",
+   "sha256": "f3b072c93c6b48bd7f1855352af2cad67ca62c9be0e7767ab673e4ce40961254"
+  },
   "docs/review/eval-config.json": {
    "status": "project-generated",
    "source": "evaluation config/results written by this project",
@@ -150,27 +155,57 @@
   "docs/review/eval-results.json": {
    "status": "project-generated",
    "source": "evaluation config/results written by this project",
-   "sha256": "77858bf98724388ccb12372e9ae01dd2c8cfcd2c8ac73d231034f2a367e3747d"
+   "sha256": "6ce38f47ff6b1313c13c820b023649354e4f1229e50a01ff2b53b3c8aa5fb479"
+  },
+  "docs/review/eval-treasury/labels-r7.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "3e5d0a4080173aa84e6156eb9e0b1b90e1a98421bed885add1b9a360bc6f0011"
   },
   "docs/review/eval-treasury/labels.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "a4bc52524ab115911ec1d2975882b84f5fd2012fa2313cbf49a2795a49dbf3dc"
   },
+  "docs/review/eval-treasury/manifest-r7.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "edb4a7d6d8fbb764291ed581a2a1c97fcf70c7579ca01f8e60bd7ac7b7fd0416"
+  },
   "docs/review/eval-treasury/manifest.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "d735c7251dd01cf94f3a224806fe98922ac08b9f0adb25fac97e7798db590e17"
+  },
+  "docs/review/eval-treasury/release-calendar.json": {
+   "status": "public-official",
+   "source": "release DATES (FOMC, CPI, NFP) from federalreserve.gov and bls.gov archive indexes; no data values (tools/build_release_calendar.py)",
+   "sha256": "191169dda2d67e5c33f59806ac66b675f86cfcd4e0196c0b41fedd0699ac3267"
+  },
+  "docs/review/eval-treasury/roster-r7.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "81b646befde0c7d1b0653d2e81f522dd9c96647a151de09140c9f6303bfa0b95"
   },
   "docs/review/eval-treasury/roster.json": {
    "status": "project-generated",
    "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
    "sha256": "5e54bf1010260e5e0d43cf6c79241ea48161ef056bf2f081374c2b0cb350f22a"
   },
-  "docs/review/history-purge-verification.json": {
+  "docs/review/eval-treasury/sample-design-r7.json": {
+   "status": "project-generated",
+   "source": "R6-06 evaluation dataset manifest/roster/label sheet: dates, tenors and checksums of treasury.gov series; no raw values",
+   "sha256": "25df629220f780770562c3404c73c8e76b58b8e60613d52689beb4a078c97238"
+  },
+  "docs/review/history-purge-final.json": {
    "status": "project-generated",
    "source": "evaluation config/results written by this project",
-   "sha256": "6d6e6c98f16173daf9c6b38ed884f9cc84168ee8fb0ca69896d762743dc23a67"
+   "sha256": "c7876e33dbf783cff7a3b895bf6dd350855ee29e1fe5d473f7a02fc757370cba"
+  },
+  "docs/review/history-purge-rehearsal.json": {
+   "status": "project-generated",
+   "source": "evaluation config/results written by this project",
+   "sha256": "3346d7f4a3eb03ebf454cbfaeb296c27ee1eaebbb23c31da6b16cd1509aa8e61"
   },
   "docs/review/replay-fixtures.jsonl": {
    "status": "project-generated",
@@ -196,6 +231,11 @@
    "status": "project-generated",
    "source": "test logs written by this project (paths sanitized)",
    "sha256": "e89a2b4eae1ad20488ed7cbceedca1b4b1672439710b6f257b3cd85c009c0e38"
+  },
+  "docs/review/round7-tests-before-fix.txt": {
+   "status": "project-generated",
+   "source": "test logs written by this project (paths sanitized)",
+   "sha256": "a331f3f105b60f79075f9666176aa78e6821e043855e71b8c3349758cce1ced0"
   },
   "docs/screenshots-provenance.json": {
    "status": "project-generated",
@@ -406,6 +446,11 @@
    "status": "synthetic",
    "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
    "sha256": "14a47807c7fd6d5a57767e8f499849a1242810001e6badcf72ffb9cba5564515"
+  },
+  "tests/fixtures/adjudication-vignettes-r7.json": {
+   "status": "synthetic",
+   "source": "R7-01 written vignettes for the decision table (invented descriptions, no labels of real events)",
+   "sha256": "7117097649908b111be5de6db4ad1097bb7ee7473f5fb693f495a5e98652b7c2"
   },
   "tests/fixtures/onchain-denylist.json": {
    "status": "project-generated",

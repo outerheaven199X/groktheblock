@@ -441,6 +441,20 @@
     "sessions": 455
    }
   },
-  "why": "The dataset, blind roster and empty label sheet exist; no reviewer has labelled anything. Reported as INSUFFICIENT_EVIDENCE, not a percentage. No lead time is claimed."
+  "why": "r7 rubric, blind r7 roster and probability sample exist; no reviewer has labelled anything. INSUFFICIENT_EVIDENCE; no precision on the r6 rubric; no lead time.",
+  "rubricVersion": "r7-2026-10-28",
+  "vignetteReviewerCheck": {
+   "status": "NOT_RUN",
+   "why": "two independent reviewers have not returned the four vignette labels"
+  },
+  "rosterR7": {
+   "file": "docs/review/eval-treasury/roster-r7.json",
+   "counts": {
+    "EPISODE": 196,
+    "QUIET_CONTROL": 196,
+    "PROBABILITY_SAMPLE": 411
+   },
+   "items": 778
+  }
  }
 }

@@ -1,0 +1,15 @@
+{
+ "_note": "EMPTY. r7 label sheet (adjudication-r7.json axes). No reviewer has labelled anything; nothing is invented.",
+ "rubric": "docs/review/adjudication-r7.json",
+ "reviewers": [],
+ "labels": [],
+ "fields": [
+  "itemId",
+  "reviewer",
+  "anomaly",
+  "integrity",
+  "context",
+  "primary",
+  "note"
+ ]
+}

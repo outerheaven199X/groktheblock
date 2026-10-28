@@ -1,0 +1,33 @@
+{
+ "version": "r7-2026-10-28",
+ "frozenBeforeLabels": true,
+ "supersedes": "ADJUDICATION.md round-6 amendment (public-cause requirement), which conflated anomaly validity with explanation",
+ "axes": {
+  "anomaly": {
+   "values": ["YES", "NO", "UNASSESSABLE"],
+   "question": "Is the session's daily change in this series unusual against an independently specified reference distribution?",
+   "rule": "YES if |change| of the item's session (official treasury.gov par yield, bp; 2s10s spread for the curve) is at or above the 97.5th percentile of |daily change| over the 250 preceding sessions of the same series in the same official CSVs; NO otherwise; UNASSESSABLE if fewer than 250 prior sessions or the official value is missing.",
+   "notTheDetectorRule": "This is an empirical 250-session percentile, not the detector's 60-session robust-scale / 8bp cutoff, and reviewers do not see detector output."
+  },
+  "integrity": {
+   "values": ["OK", "VALUE_ERROR", "TIMESTAMP_ERROR", "AVAILABILITY_ERROR", "UNASSESSABLE"],
+   "question": "Do the tool's evidence values, session date and availability time match the official record?",
+   "rule": "VALUE_ERROR: shown value differs from the official CSV by >0.5bp. TIMESTAMP_ERROR: wrong session date or a time earlier than publication (~18:00 ET). AVAILABILITY_ERROR: claimed available before it could be known. OK otherwise."
+  },
+  "context": {
+   "values": ["SCHEDULED", "DOCUMENTED_UNSCHEDULED", "UNEXPLAINED", "UNAVAILABLE"],
+   "question": "Is there an explanation? Recorded separately; it never changes the primary label.",
+   "rule": "SCHEDULED: a release in release-calendar.json on the session (FOMC, CPI, NFP) or a scheduled auction. DOCUMENTED_UNSCHEDULED: contemporaneous official or major-wire record of an unscheduled event. UNEXPLAINED: searched, none found. UNAVAILABLE: could not search."
+  }
+ },
+ "decisionTable": [
+  {"integrity": "VALUE_ERROR|TIMESTAMP_ERROR|AVAILABILITY_ERROR", "anomaly": "*", "primary": "FALSE"},
+  {"integrity": "UNASSESSABLE", "anomaly": "*", "primary": "UNASSESSABLE"},
+  {"integrity": "OK", "anomaly": "UNASSESSABLE", "primary": "UNASSESSABLE"},
+  {"integrity": "OK", "anomaly": "YES", "primary": "ANOMALY_CONFIRMED"},
+  {"integrity": "OK", "anomaly": "NO", "primary": "NOT_ANOMALOUS"}
+ ],
+ "contextLabel": "the context axis value, reported alongside, never combined into the primary label",
+ "reporting": "Per stratum: share of ANOMALY_CONFIRMED / NOT_ANOMALOUS / FALSE among assessable items with Wilson 95% intervals; probability-sample estimates weighted by 1/inclusionProbability; Cohen's kappa on the primary label before adjudication; context distribution separately.",
+ "doNotReport": ["precision on the r6 rubric", "recall from QUIET_CONTROL items", "lead time", "any figure with fewer than 100 assessable episodes"]
+}

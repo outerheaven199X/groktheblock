@@ -1,5 +1,7 @@
 # Round 6 results (ROUND6-REVIEW of c894915)
 
+> **Superseded on history (R7-04):** the statements below that published history was "unchanged" describe the state at round 6. The owner-approved force-push happened afterwards (2026-10-28 15:19 ET). See `history-purge-final.json` and `HISTORY-EXPOSURE.md` (Phase 2).
+
 Commit: see `git log` (the round-6 commits on top of `c894915`; normal pushes only, no history rewrite). Not financial advice. Read-only: nothing trades.
 Regressions: `tests/test_round6.py` (14). Before the fix, on c894915: **0/14** (`round6-tests-before-fix.txt`). After the fix: **14/14**.
 

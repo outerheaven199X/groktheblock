@@ -117,3 +117,11 @@ Full table: `ROUND6-RESULTS.md`. Regressions: `tests/test_round6.py` (0/14 befor
 - **R6-04 partial.** The current tree is synthetic or project-generated (manifest of 56 assets with sha256). Old real examples and verification artifacts were removed from the tree. A purge was verified on a disposable clone (177 findings → 0). Published history is unchanged; the options are in `HISTORY-EXPOSURE.md`.
 - **R6-06 partial.** The Treasury dataset, blind roster (196 + 196), holdout and preregistered criteria exist. There are no labels, so Objective A is INSUFFICIENT_EVIDENCE.
 - **R6-07 partial.** SKIPPED suites are shown and not counted. CI is staged but not active (token scope). No physical-device testing.
+
+## Round 7 (ROUND7-REVIEW of 5fabd64)
+Full table: `ROUND7-RESULTS.md`. Regressions: `tests/test_round7.py` (0/14 before, 14/14 after).
+- **R7-01 partial.** *Correction to round 6:* the R6 rubric made an unexplained move FALSE, which conflated anomaly validity with explanation. It is replaced by the frozen 3-axis table `adjudication-r7.json`. The two-reviewer vignette check has not been run.
+- **R7-02 done (design).** The r6 negatives are kept as QUIET_CONTROL only. A detector-independent stratified probability sample (411 of 7,584 windows, 48 strata) and the blind roster r7 are added. Labels are empty.
+- **R7-03 fixed.** *Correction to round 6:* options, stablecoins and macro were aged on an NYSE 18:00 ET daily clock. Each source and instrument now has its own clock in timebase.
+- **R7-04 fixed.** Rehearsal and final receipts are separate. The R6-04 test was amended to read the renamed rehearsal receipt.
+- **R7-05 / R7-06 outstanding.** CI is not active (token lacks `workflow` scope). No physical-device QA.

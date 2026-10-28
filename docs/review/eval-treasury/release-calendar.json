@@ -1,0 +1,1041 @@
+{
+"_provenance": "public-official",
+"_note": "Release DATES only (no data values). Used to stratify evaluation windows; a window is a release window if its session date is a release date.",
+"sources": {
+"fomc": {
+"url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+"sha256": "f35d6b29e687b3cde6bf12f7f2ffdbeeae076d44f77d64c83224a1f99408e607"
+},
+"fomc2019": {
+"url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+"sha256": "be742b2b18abcec23431cda3cd68136971b9fb1b98154af9978b9579bc9dcb44"
+},
+"fomc2020": {
+"url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+"sha256": "f56ff8cc883c14970486bc353dd7fb933325d63866d786c8b261c62c7d17d312"
+},
+"cpi": {
+"url": "https://www.bls.gov/bls/news-release/cpi.htm",
+"sha256": "a6c6595103212f19425d454b5fa4b58f63eb4e037a5da6659b9f787c8e449b2b"
+},
+"empsit": {
+"url": "https://www.bls.gov/bls/news-release/empsit.htm",
+"sha256": "faabff400e4e64d8e354a5e6a6d5f6aebb59a006b951ae5f5259b47b7245adf3"
+}
+},
+"counts": {
+"FOMC": 64,
+"CPI": 93,
+"NFP": 95
+},
+"events": [
+{
+"type": "NFP",
+"date": "2019-01-04"
+},
+{
+"type": "CPI",
+"date": "2019-01-11"
+},
+{
+"type": "FOMC",
+"date": "2019-01-30"
+},
+{
+"type": "NFP",
+"date": "2019-02-01"
+},
+{
+"type": "CPI",
+"date": "2019-02-13"
+},
+{
+"type": "NFP",
+"date": "2019-03-08"
+},
+{
+"type": "CPI",
+"date": "2019-03-12"
+},
+{
+"type": "FOMC",
+"date": "2019-03-20"
+},
+{
+"type": "NFP",
+"date": "2019-04-05"
+},
+{
+"type": "CPI",
+"date": "2019-04-10"
+},
+{
+"type": "FOMC",
+"date": "2019-05-01"
+},
+{
+"type": "NFP",
+"date": "2019-05-03"
+},
+{
+"type": "CPI",
+"date": "2019-05-10"
+},
+{
+"type": "NFP",
+"date": "2019-06-07"
+},
+{
+"type": "CPI",
+"date": "2019-06-12"
+},
+{
+"type": "FOMC",
+"date": "2019-06-19"
+},
+{
+"type": "NFP",
+"date": "2019-07-05"
+},
+{
+"type": "CPI",
+"date": "2019-07-11"
+},
+{
+"type": "FOMC",
+"date": "2019-07-31"
+},
+{
+"type": "NFP",
+"date": "2019-08-02"
+},
+{
+"type": "CPI",
+"date": "2019-08-13"
+},
+{
+"type": "NFP",
+"date": "2019-09-06"
+},
+{
+"type": "CPI",
+"date": "2019-09-12"
+},
+{
+"type": "FOMC",
+"date": "2019-09-18"
+},
+{
+"type": "NFP",
+"date": "2019-10-04"
+},
+{
+"type": "CPI",
+"date": "2019-10-10"
+},
+{
+"type": "FOMC",
+"date": "2019-10-30"
+},
+{
+"type": "NFP",
+"date": "2019-11-01"
+},
+{
+"type": "CPI",
+"date": "2019-11-13"
+},
+{
+"type": "NFP",
+"date": "2019-12-06"
+},
+{
+"type": "CPI",
+"date": "2019-12-11"
+},
+{
+"type": "FOMC",
+"date": "2019-12-11"
+},
+{
+"type": "NFP",
+"date": "2020-01-10"
+},
+{
+"type": "CPI",
+"date": "2020-01-14"
+},
+{
+"type": "FOMC",
+"date": "2020-01-29"
+},
+{
+"type": "NFP",
+"date": "2020-02-07"
+},
+{
+"type": "CPI",
+"date": "2020-02-13"
+},
+{
+"type": "FOMC",
+"date": "2020-03-02"
+},
+{
+"type": "NFP",
+"date": "2020-03-06"
+},
+{
+"type": "CPI",
+"date": "2020-03-11"
+},
+{
+"type": "FOMC",
+"date": "2020-03-15"
+},
+{
+"type": "NFP",
+"date": "2020-04-03"
+},
+{
+"type": "CPI",
+"date": "2020-04-10"
+},
+{
+"type": "FOMC",
+"date": "2020-04-29"
+},
+{
+"type": "NFP",
+"date": "2020-05-08"
+},
+{
+"type": "CPI",
+"date": "2020-05-12"
+},
+{
+"type": "NFP",
+"date": "2020-06-05"
+},
+{
+"type": "CPI",
+"date": "2020-06-10"
+},
+{
+"type": "FOMC",
+"date": "2020-06-10"
+},
+{
+"type": "NFP",
+"date": "2020-07-02"
+},
+{
+"type": "CPI",
+"date": "2020-07-14"
+},
+{
+"type": "FOMC",
+"date": "2020-07-29"
+},
+{
+"type": "NFP",
+"date": "2020-08-07"
+},
+{
+"type": "CPI",
+"date": "2020-08-12"
+},
+{
+"type": "NFP",
+"date": "2020-09-04"
+},
+{
+"type": "CPI",
+"date": "2020-09-11"
+},
+{
+"type": "FOMC",
+"date": "2020-09-16"
+},
+{
+"type": "NFP",
+"date": "2020-10-02"
+},
+{
+"type": "CPI",
+"date": "2020-10-13"
+},
+{
+"type": "FOMC",
+"date": "2020-11-05"
+},
+{
+"type": "NFP",
+"date": "2020-11-06"
+},
+{
+"type": "CPI",
+"date": "2020-11-12"
+},
+{
+"type": "NFP",
+"date": "2020-12-04"
+},
+{
+"type": "CPI",
+"date": "2020-12-10"
+},
+{
+"type": "FOMC",
+"date": "2020-12-16"
+},
+{
+"type": "NFP",
+"date": "2021-01-08"
+},
+{
+"type": "CPI",
+"date": "2021-01-13"
+},
+{
+"type": "FOMC",
+"date": "2021-01-27"
+},
+{
+"type": "NFP",
+"date": "2021-02-05"
+},
+{
+"type": "CPI",
+"date": "2021-02-10"
+},
+{
+"type": "NFP",
+"date": "2021-03-05"
+},
+{
+"type": "CPI",
+"date": "2021-03-10"
+},
+{
+"type": "FOMC",
+"date": "2021-03-17"
+},
+{
+"type": "NFP",
+"date": "2021-04-02"
+},
+{
+"type": "CPI",
+"date": "2021-04-13"
+},
+{
+"type": "FOMC",
+"date": "2021-04-28"
+},
+{
+"type": "NFP",
+"date": "2021-05-07"
+},
+{
+"type": "CPI",
+"date": "2021-05-12"
+},
+{
+"type": "NFP",
+"date": "2021-06-04"
+},
+{
+"type": "CPI",
+"date": "2021-06-10"
+},
+{
+"type": "FOMC",
+"date": "2021-06-16"
+},
+{
+"type": "NFP",
+"date": "2021-07-02"
+},
+{
+"type": "CPI",
+"date": "2021-07-13"
+},
+{
+"type": "FOMC",
+"date": "2021-07-28"
+},
+{
+"type": "NFP",
+"date": "2021-08-06"
+},
+{
+"type": "CPI",
+"date": "2021-08-11"
+},
+{
+"type": "NFP",
+"date": "2021-09-03"
+},
+{
+"type": "CPI",
+"date": "2021-09-14"
+},
+{
+"type": "FOMC",
+"date": "2021-09-22"
+},
+{
+"type": "NFP",
+"date": "2021-10-08"
+},
+{
+"type": "CPI",
+"date": "2021-10-13"
+},
+{
+"type": "FOMC",
+"date": "2021-11-03"
+},
+{
+"type": "NFP",
+"date": "2021-11-05"
+},
+{
+"type": "CPI",
+"date": "2021-11-10"
+},
+{
+"type": "NFP",
+"date": "2021-12-03"
+},
+{
+"type": "CPI",
+"date": "2021-12-10"
+},
+{
+"type": "FOMC",
+"date": "2021-12-15"
+},
+{
+"type": "NFP",
+"date": "2022-01-07"
+},
+{
+"type": "CPI",
+"date": "2022-01-12"
+},
+{
+"type": "FOMC",
+"date": "2022-01-26"
+},
+{
+"type": "NFP",
+"date": "2022-02-04"
+},
+{
+"type": "CPI",
+"date": "2022-02-10"
+},
+{
+"type": "NFP",
+"date": "2022-03-04"
+},
+{
+"type": "CPI",
+"date": "2022-03-10"
+},
+{
+"type": "FOMC",
+"date": "2022-03-16"
+},
+{
+"type": "NFP",
+"date": "2022-04-01"
+},
+{
+"type": "CPI",
+"date": "2022-04-12"
+},
+{
+"type": "FOMC",
+"date": "2022-05-04"
+},
+{
+"type": "NFP",
+"date": "2022-05-06"
+},
+{
+"type": "CPI",
+"date": "2022-05-11"
+},
+{
+"type": "NFP",
+"date": "2022-06-03"
+},
+{
+"type": "CPI",
+"date": "2022-06-10"
+},
+{
+"type": "FOMC",
+"date": "2022-06-15"
+},
+{
+"type": "NFP",
+"date": "2022-07-08"
+},
+{
+"type": "CPI",
+"date": "2022-07-13"
+},
+{
+"type": "FOMC",
+"date": "2022-07-27"
+},
+{
+"type": "NFP",
+"date": "2022-08-05"
+},
+{
+"type": "CPI",
+"date": "2022-08-10"
+},
+{
+"type": "NFP",
+"date": "2022-09-02"
+},
+{
+"type": "CPI",
+"date": "2022-09-13"
+},
+{
+"type": "FOMC",
+"date": "2022-09-21"
+},
+{
+"type": "NFP",
+"date": "2022-10-07"
+},
+{
+"type": "CPI",
+"date": "2022-10-13"
+},
+{
+"type": "FOMC",
+"date": "2022-11-02"
+},
+{
+"type": "NFP",
+"date": "2022-11-04"
+},
+{
+"type": "CPI",
+"date": "2022-11-10"
+},
+{
+"type": "NFP",
+"date": "2022-12-02"
+},
+{
+"type": "CPI",
+"date": "2022-12-13"
+},
+{
+"type": "FOMC",
+"date": "2022-12-14"
+},
+{
+"type": "NFP",
+"date": "2023-01-06"
+},
+{
+"type": "CPI",
+"date": "2023-01-12"
+},
+{
+"type": "FOMC",
+"date": "2023-02-01"
+},
+{
+"type": "NFP",
+"date": "2023-02-03"
+},
+{
+"type": "CPI",
+"date": "2023-02-14"
+},
+{
+"type": "NFP",
+"date": "2023-03-10"
+},
+{
+"type": "CPI",
+"date": "2023-03-14"
+},
+{
+"type": "FOMC",
+"date": "2023-03-22"
+},
+{
+"type": "NFP",
+"date": "2023-04-07"
+},
+{
+"type": "CPI",
+"date": "2023-04-12"
+},
+{
+"type": "FOMC",
+"date": "2023-05-03"
+},
+{
+"type": "NFP",
+"date": "2023-05-05"
+},
+{
+"type": "CPI",
+"date": "2023-05-10"
+},
+{
+"type": "NFP",
+"date": "2023-06-02"
+},
+{
+"type": "CPI",
+"date": "2023-06-13"
+},
+{
+"type": "FOMC",
+"date": "2023-06-14"
+},
+{
+"type": "NFP",
+"date": "2023-07-07"
+},
+{
+"type": "CPI",
+"date": "2023-07-12"
+},
+{
+"type": "FOMC",
+"date": "2023-07-26"
+},
+{
+"type": "NFP",
+"date": "2023-08-04"
+},
+{
+"type": "CPI",
+"date": "2023-08-10"
+},
+{
+"type": "NFP",
+"date": "2023-09-01"
+},
+{
+"type": "CPI",
+"date": "2023-09-13"
+},
+{
+"type": "FOMC",
+"date": "2023-09-20"
+},
+{
+"type": "NFP",
+"date": "2023-10-06"
+},
+{
+"type": "CPI",
+"date": "2023-10-12"
+},
+{
+"type": "FOMC",
+"date": "2023-11-01"
+},
+{
+"type": "NFP",
+"date": "2023-11-03"
+},
+{
+"type": "CPI",
+"date": "2023-11-14"
+},
+{
+"type": "NFP",
+"date": "2023-12-08"
+},
+{
+"type": "CPI",
+"date": "2023-12-12"
+},
+{
+"type": "FOMC",
+"date": "2023-12-13"
+},
+{
+"type": "NFP",
+"date": "2024-01-05"
+},
+{
+"type": "CPI",
+"date": "2024-01-11"
+},
+{
+"type": "FOMC",
+"date": "2024-01-31"
+},
+{
+"type": "NFP",
+"date": "2024-02-02"
+},
+{
+"type": "CPI",
+"date": "2024-02-13"
+},
+{
+"type": "NFP",
+"date": "2024-03-08"
+},
+{
+"type": "CPI",
+"date": "2024-03-12"
+},
+{
+"type": "FOMC",
+"date": "2024-03-20"
+},
+{
+"type": "NFP",
+"date": "2024-04-05"
+},
+{
+"type": "CPI",
+"date": "2024-04-10"
+},
+{
+"type": "FOMC",
+"date": "2024-05-01"
+},
+{
+"type": "NFP",
+"date": "2024-05-03"
+},
+{
+"type": "CPI",
+"date": "2024-05-15"
+},
+{
+"type": "NFP",
+"date": "2024-06-07"
+},
+{
+"type": "CPI",
+"date": "2024-06-12"
+},
+{
+"type": "FOMC",
+"date": "2024-06-12"
+},
+{
+"type": "NFP",
+"date": "2024-07-05"
+},
+{
+"type": "CPI",
+"date": "2024-07-11"
+},
+{
+"type": "FOMC",
+"date": "2024-07-31"
+},
+{
+"type": "NFP",
+"date": "2024-08-02"
+},
+{
+"type": "CPI",
+"date": "2024-08-14"
+},
+{
+"type": "NFP",
+"date": "2024-09-06"
+},
+{
+"type": "CPI",
+"date": "2024-09-11"
+},
+{
+"type": "FOMC",
+"date": "2024-09-18"
+},
+{
+"type": "NFP",
+"date": "2024-10-04"
+},
+{
+"type": "CPI",
+"date": "2024-10-10"
+},
+{
+"type": "NFP",
+"date": "2024-11-01"
+},
+{
+"type": "FOMC",
+"date": "2024-11-07"
+},
+{
+"type": "CPI",
+"date": "2024-11-13"
+},
+{
+"type": "NFP",
+"date": "2024-12-06"
+},
+{
+"type": "CPI",
+"date": "2024-12-11"
+},
+{
+"type": "FOMC",
+"date": "2024-12-18"
+},
+{
+"type": "NFP",
+"date": "2025-01-10"
+},
+{
+"type": "CPI",
+"date": "2025-01-15"
+},
+{
+"type": "FOMC",
+"date": "2025-01-29"
+},
+{
+"type": "NFP",
+"date": "2025-02-07"
+},
+{
+"type": "CPI",
+"date": "2025-02-12"
+},
+{
+"type": "NFP",
+"date": "2025-03-07"
+},
+{
+"type": "CPI",
+"date": "2025-03-12"
+},
+{
+"type": "FOMC",
+"date": "2025-03-19"
+},
+{
+"type": "NFP",
+"date": "2025-04-04"
+},
+{
+"type": "CPI",
+"date": "2025-04-10"
+},
+{
+"type": "NFP",
+"date": "2025-05-02"
+},
+{
+"type": "FOMC",
+"date": "2025-05-07"
+},
+{
+"type": "CPI",
+"date": "2025-05-13"
+},
+{
+"type": "NFP",
+"date": "2025-06-06"
+},
+{
+"type": "CPI",
+"date": "2025-06-11"
+},
+{
+"type": "FOMC",
+"date": "2025-06-18"
+},
+{
+"type": "NFP",
+"date": "2025-07-03"
+},
+{
+"type": "CPI",
+"date": "2025-07-15"
+},
+{
+"type": "FOMC",
+"date": "2025-07-30"
+},
+{
+"type": "NFP",
+"date": "2025-08-01"
+},
+{
+"type": "CPI",
+"date": "2025-08-12"
+},
+{
+"type": "NFP",
+"date": "2025-09-05"
+},
+{
+"type": "CPI",
+"date": "2025-09-11"
+},
+{
+"type": "FOMC",
+"date": "2025-09-17"
+},
+{
+"type": "CPI",
+"date": "2025-10-24"
+},
+{
+"type": "FOMC",
+"date": "2025-10-29"
+},
+{
+"type": "NFP",
+"date": "2025-11-20"
+},
+{
+"type": "FOMC",
+"date": "2025-12-10"
+},
+{
+"type": "NFP",
+"date": "2025-12-16"
+},
+{
+"type": "CPI",
+"date": "2025-12-18"
+},
+{
+"type": "NFP",
+"date": "2026-01-09"
+},
+{
+"type": "CPI",
+"date": "2026-01-13"
+},
+{
+"type": "FOMC",
+"date": "2026-01-28"
+},
+{
+"type": "NFP",
+"date": "2026-02-11"
+},
+{
+"type": "CPI",
+"date": "2026-02-13"
+},
+{
+"type": "NFP",
+"date": "2026-03-06"
+},
+{
+"type": "CPI",
+"date": "2026-03-11"
+},
+{
+"type": "FOMC",
+"date": "2026-03-18"
+},
+{
+"type": "NFP",
+"date": "2026-04-03"
+},
+{
+"type": "CPI",
+"date": "2026-04-10"
+},
+{
+"type": "FOMC",
+"date": "2026-04-29"
+},
+{
+"type": "NFP",
+"date": "2026-05-08"
+},
+{
+"type": "CPI",
+"date": "2026-05-12"
+},
+{
+"type": "NFP",
+"date": "2026-06-05"
+},
+{
+"type": "CPI",
+"date": "2026-06-10"
+},
+{
+"type": "FOMC",
+"date": "2026-06-17"
+},
+{
+"type": "NFP",
+"date": "2026-07-02"
+},
+{
+"type": "CPI",
+"date": "2026-07-14"
+},
+{
+"type": "FOMC",
+"date": "2026-07-29"
+},
+{
+"type": "NFP",
+"date": "2026-08-07"
+},
+{
+"type": "CPI",
+"date": "2026-08-12"
+},
+{
+"type": "NFP",
+"date": "2026-09-04"
+},
+{
+"type": "CPI",
+"date": "2026-09-11"
+},
+{
+"type": "FOMC",
+"date": "2026-09-16"
+},
+{
+"type": "NFP",
+"date": "2026-10-02"
+},
+{
+"type": "CPI",
+"date": "2026-10-14"
+},
+{
+"type": "FOMC",
+"date": "2026-10-28"
+},
+{
+"type": "NFP",
+"date": "2026-11-06"
+},
+{
+"type": "NFP",
+"date": "2026-12-04"
+}
+]
+}

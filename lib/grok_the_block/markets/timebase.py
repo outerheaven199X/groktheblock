@@ -97,6 +97,82 @@ def obs(event: int | None, available: int | None, ingest: int, valid_as_of: int 
             "timesApproximate": approx, "sourceStatus": status, "coverage": coverage, "limitations": limitations}
 
 
+LONDON = ZoneInfo("Europe/London")
+OPTION_SLOTS = [(h, 0) for h in range(10, 17)]  # delayed option snapshots expected hourly while the exchange is open (10:00…16:00 ET)
+
+
+def cadence(source: str, instrument: str | None = None) -> str:
+    """R7-03: the expected-update clock for a source/instrument, in words (used in lifecycle explanations)."""
+    i = instrument or ""
+    if source == "treasury":
+        return "Treasury par curve, ~18:00 ET each bond-market session (SIFMA holidays)"
+    if source == "equities":
+        return "NYSE daily bar, session close (13:00 on early-close days) + 15 min"
+    if source == "options":
+        return "delayed option snapshot, hourly while the exchange is open"
+    if source == "stablecoins":
+        return "stablecoin aggregate, every 24h on a 7-day calendar"
+    if source == "macro":
+        if i == "^VIX":
+            return "Cboe VIX close, 16:15 ET each NYSE session"
+        if i.endswith("=X"):
+            return "FX daily bar, end of the London calendar day (Mon-Fri, London DST)"
+        return "futures/index daily bar, 17:00 ET each session"
+    return "polled source"
+
+
+def expected_update(source: str, instrument: str | None, last: int, n: int = 1) -> int | None:
+    """R7-03: when the n-th update after `last` is expected from this source/instrument's own schedule
+    (None = polled source without a schedule). Reuses the session calendars above; no second table."""
+    i = instrument or ""
+    if source == "stablecoins":
+        return last + n * 86400
+    if source == "macro" and i.endswith("=X"):
+        d = datetime.fromtimestamp(last, LONDON).date()
+        k = 0
+        while True:
+            end = int((datetime(d.year, d.month, d.day, tzinfo=LONDON) + timedelta(days=1)).timestamp())
+            if d.weekday() < 5 and end > last:
+                k += 1
+                if k == n:
+                    return end
+            d += timedelta(days=1)
+    if source == "options":
+        d = datetime.fromtimestamp(last, NY).date()
+        k = 0
+        while True:
+            if is_session(d):
+                for hh, mm in OPTION_SLOTS:
+                    t = ny_ts(d, hh, mm)
+                    if t > last:
+                        k += 1
+                        if k == n:
+                            return t
+            d += timedelta(days=1)
+    if source in ("treasury", "equities", "macro"):
+        market = "bond" if source == "treasury" else "equity"
+        d0 = d = datetime.fromtimestamp(last, NY).date()
+        k = 0
+        while True:
+            if is_session(d, market):
+                if source == "treasury":
+                    t = ny_ts(d, 18)
+                elif source == "equities":
+                    t = ny_ts(d, *session_close(d)) + PUBLISH_LAG_S
+                elif i == "^VIX":
+                    t = ny_ts(d, 16, 15)
+                else:
+                    t = ny_ts(d, 17)
+                # treasury/equities: the n-th session after the NY date of `last` (an observation taken during a session
+                # shows the previous close; R6-02 holiday logic kept); macro clocks: the n-th close after `last`
+                if (d > d0) if source in ("treasury", "equities") else (t > last):
+                    k += 1
+                    if k == n:
+                        return t
+            d += timedelta(days=1)
+    return None
+
+
 def session_close(d: date) -> tuple[int, int]:
     return (13, 0) if d.isoformat() in EARLY_CLOSE else (16, 0)
 

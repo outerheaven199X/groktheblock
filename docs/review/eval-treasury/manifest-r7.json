@@ -1,0 +1,35 @@
+{
+ "version": "r7-2026-10-28",
+ "_note": "R7-02 frozen roster manifest. r6 records are kept unchanged as history.",
+ "priorRosters": {
+  "roster.json": {
+   "sha256": "5e54bf1010260e5e0d43cf6c79241ea48161ef056bf2f081374c2b0cb350f22a",
+   "role": "historical record (r6); its negatives are the QUIET_CONTROL stratum, never used for recall"
+  },
+  "manifest.json": {
+   "sha256": "d735c7251dd01cf94f3a224806fe98922ac08b9f0adb25fac97e7798db590e17",
+   "role": "r6 dataset manifest (CSV SHA-256s still apply)"
+  },
+  "labels.json": {
+   "sha256": "a4bc52524ab115911ec1d2975882b84f5fd2012fa2313cbf49a2795a49dbf3dc",
+   "role": "r6 label sheet (empty, superseded by labels-r7.json)"
+  }
+ },
+ "roster": {
+  "file": "roster-r7.json",
+  "sha256": "81b646befde0c7d1b0653d2e81f522dd9c96647a151de09140c9f6303bfa0b95"
+ },
+ "sampleDesign": {
+  "file": "sample-design-r7.json",
+  "sha256": "25df629220f780770562c3404c73c8e76b58b8e60613d52689beb4a078c97238"
+ },
+ "releaseCalendar": {
+  "file": "release-calendar.json",
+  "sha256": "191169dda2d67e5c33f59806ac66b675f86cfcd4e0196c0b41fedd0699ac3267"
+ },
+ "rubric": {
+  "file": "docs/review/adjudication-r7.json",
+  "sha256": "f3b072c93c6b48bd7f1855352af2cad67ca62c9be0e7767ab673e4ce40961254"
+ },
+ "labels": "labels-r7.json"
+}

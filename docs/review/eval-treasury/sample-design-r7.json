@@ -1,0 +1,504 @@
+{
+ "version": "r7-2026-10-28",
+ "selectionUsesDetectorOutput": false,
+ "seed": 20261035,
+ "fraction": 0.05,
+ "minPerStratum": 3,
+ "frame": {
+  "windows": 7584,
+  "rule": "every session\u00d7tenor with \u226560 prior sessions, 2019-03-29 \u2192 2026-10-27",
+  "tenors": [
+   "2Y",
+   "10Y",
+   "30Y",
+   "2s10s"
+  ]
+ },
+ "calendarSource": "docs/review/eval-treasury/release-calendar.json",
+ "volRegimeCuts_bp": {
+  "2Y": [
+   3.421,
+   6.469
+  ],
+  "10Y": [
+   4.321,
+   6.428
+  ],
+  "30Y": [
+   4.371,
+   5.705
+  ],
+  "2s10s": [
+   3.168,
+   4.209
+  ]
+ },
+ "strata": [
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 424,
+   "n": 21,
+   "inclusionProbability": 0.049528301886792456
+  },
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 417,
+   "n": 21,
+   "inclusionProbability": 0.050359712230215826
+  },
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 420,
+   "n": 21,
+   "inclusionProbability": 0.05
+  },
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 57,
+   "n": 3,
+   "inclusionProbability": 0.05263157894736842
+  },
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 63,
+   "n": 3,
+   "inclusionProbability": 0.047619047619047616
+  },
+  {
+   "tenor": "10Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 60,
+   "n": 3,
+   "inclusionProbability": 0.05
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 16,
+   "n": 3,
+   "inclusionProbability": 0.1875
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 186,
+   "n": 9,
+   "inclusionProbability": 0.04838709677419355
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 197,
+   "n": 10,
+   "inclusionProbability": 0.050761421319796954
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 2,
+   "n": 2,
+   "inclusionProbability": 1.0
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 29,
+   "n": 3,
+   "inclusionProbability": 0.10344827586206896
+  },
+  {
+   "tenor": "10Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 25,
+   "n": 3,
+   "inclusionProbability": 0.12
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 426,
+   "n": 21,
+   "inclusionProbability": 0.04929577464788732
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 419,
+   "n": 21,
+   "inclusionProbability": 0.050119331742243436
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 416,
+   "n": 21,
+   "inclusionProbability": 0.05048076923076923
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 55,
+   "n": 3,
+   "inclusionProbability": 0.05454545454545454
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 61,
+   "n": 3,
+   "inclusionProbability": 0.04918032786885246
+  },
+  {
+   "tenor": "2Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 64,
+   "n": 3,
+   "inclusionProbability": 0.046875
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 44,
+   "n": 3,
+   "inclusionProbability": 0.06818181818181818
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 37,
+   "n": 3,
+   "inclusionProbability": 0.08108108108108109
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 318,
+   "n": 16,
+   "inclusionProbability": 0.050314465408805034
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 6,
+   "n": 3,
+   "inclusionProbability": 0.5
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 4,
+   "n": 3,
+   "inclusionProbability": 0.75
+  },
+  {
+   "tenor": "2Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 46,
+   "n": 3,
+   "inclusionProbability": 0.06521739130434782
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 427,
+   "n": 21,
+   "inclusionProbability": 0.04918032786885246
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 417,
+   "n": 21,
+   "inclusionProbability": 0.050359712230215826
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 417,
+   "n": 21,
+   "inclusionProbability": 0.050359712230215826
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 54,
+   "n": 3,
+   "inclusionProbability": 0.05555555555555555
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 63,
+   "n": 3,
+   "inclusionProbability": 0.047619047619047616
+  },
+  {
+   "tenor": "2s10s",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 63,
+   "n": 3,
+   "inclusionProbability": 0.047619047619047616
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 20,
+   "n": 3,
+   "inclusionProbability": 0.15
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 267,
+   "n": 13,
+   "inclusionProbability": 0.04868913857677903
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 112,
+   "n": 6,
+   "inclusionProbability": 0.05357142857142857
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 4,
+   "n": 3,
+   "inclusionProbability": 0.75
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 36,
+   "n": 3,
+   "inclusionProbability": 0.08333333333333333
+  },
+  {
+   "tenor": "2s10s",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 16,
+   "n": 3,
+   "inclusionProbability": 0.1875
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 423,
+   "n": 21,
+   "inclusionProbability": 0.04964539007092199
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 422,
+   "n": 21,
+   "inclusionProbability": 0.04976303317535545
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 416,
+   "n": 21,
+   "inclusionProbability": 0.05048076923076923
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 58,
+   "n": 3,
+   "inclusionProbability": 0.05172413793103448
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 58,
+   "n": 3,
+   "inclusionProbability": 0.05172413793103448
+  },
+  {
+   "tenor": "30Y",
+   "split": "development",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 64,
+   "n": 3,
+   "inclusionProbability": 0.046875
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "HIGH",
+   "N": 35,
+   "n": 3,
+   "inclusionProbability": 0.08571428571428572
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "LOW",
+   "N": 252,
+   "n": 13,
+   "inclusionProbability": 0.051587301587301584
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "NO_RELEASE",
+   "volRegime": "MID",
+   "N": 112,
+   "n": 6,
+   "inclusionProbability": 0.05357142857142857
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "HIGH",
+   "N": 6,
+   "n": 3,
+   "inclusionProbability": 0.5
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "LOW",
+   "N": 35,
+   "n": 3,
+   "inclusionProbability": 0.08571428571428572
+  },
+  {
+   "tenor": "30Y",
+   "split": "holdout",
+   "calendar": "RELEASE",
+   "volRegime": "MID",
+   "N": 15,
+   "n": 3,
+   "inclusionProbability": 0.2
+  }
+ ],
+ "sampleSize": 411,
+ "distributionTable": {
+  "NO_RELEASE/HIGH": {
+   "N": 1815,
+   "n": 96
+  },
+  "NO_RELEASE/LOW": {
+   "N": 2417,
+   "n": 122
+  },
+  "NO_RELEASE/MID": {
+   "N": 2408,
+   "n": 122
+  },
+  "RELEASE/HIGH": {
+   "N": 242,
+   "n": 23
+  },
+  "RELEASE/LOW": {
+   "N": 349,
+   "n": 24
+  },
+  "RELEASE/MID": {
+   "N": 353,
+   "n": 24
+  }
+ },
+ "detectorStatusInSample": {
+  "flagged": 25,
+  "nearThreshold": 25,
+  "belowThreshold": 361,
+  "unmeasured": 0
+ },
+ "estimation": "Horvitz-Thompson weights 1/inclusionProbability for population shares; QUIET_CONTROL items are never used for recall or specificity."
+}

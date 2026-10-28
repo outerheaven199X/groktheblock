@@ -1,5 +1,6 @@
 {
- "_note": "R6-04 purge rehearsal. Run ONLY on a disposable local mirror clone (git clone --no-local --mirror); git-filter-repo removed the clone's origin remote and nothing was pushed. The real repository and GitHub history are unchanged.",
+ "phase": "REHEARSAL",
+ "_note": "Phase 1 (round 6): rehearsal on a disposable local clone. NOT the live operation. For the real force-push see history-purge-final.json.",
  "disposableClone": true,
  "pushed": false,
  "verifiedAtCommit": "fe02ee3",
@@ -33,5 +34,6 @@
   "byReason": {}
  },
  "headTreeUnchanged": true,
- "headTree": "75ded00e023bb6b2bf1d23d3e0119c251271fcc0"
+ "headTree": "75ded00e023bb6b2bf1d23d3e0119c251271fcc0",
+ "rehearsalNote": "R6-04 purge rehearsal. Run ONLY on a disposable local mirror clone (git clone --no-local --mirror); git-filter-repo removed the clone's origin remote and nothing was pushed. The real repository and GitHub history are unchanged."
 }

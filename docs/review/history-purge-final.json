@@ -1,0 +1,76 @@
+{
+ "phase": "FINAL_FORCE_PUSH",
+ "_note": "Phase 2: the live, owner-approved coordinated purge of the public repository. Recorded after the fact; no further force-push, rewrite or backup deletion is requested.",
+ "pushed": true,
+ "ownerApproved": true,
+ "approval": "repository owner, 2026-10-28, after being told the draft branches lose older screenshots/examples, PR refs and forks stay exposed, and examples/provenance-sample.json stays",
+ "date": "2026-10-28T15:19-04:00",
+ "repository": "https://github.com/outerheaven199X/CryptOSINT-GrokBot",
+ "tool": "git-filter-repo on a fresh --mirror of GitHub (same commands as the rehearsal, all branches)",
+ "refs": [
+  {
+   "ref": "refs/heads/main",
+   "old": "fd858c053bc1e98fe007893b1ad529c99ccca995",
+   "new": "aa4de42a050817b49720b50742b6e7850042a983"
+  },
+  {
+   "ref": "refs/heads/ui/investigation-workbench-20261028",
+   "old": "d82465e52b3585603d503a29f440558c99279789",
+   "new": "305c51a1baded1ed5aa105b18fd0988bb044412f"
+  },
+  {
+   "ref": "refs/heads/ui/reference-dark-preserved-20261028",
+   "old": "8ae120ed25905d42a0d53aa2693418dbdf5d18c3",
+   "new": "b9ec82716506dd5a21230bf09f477ec3483b425c"
+  }
+ ],
+ "tags": [],
+ "scan": {
+  "tool": "python tools/verify_history.py",
+  "before": {
+   "commitsScanned": 28,
+   "blobsScanned": 772,
+   "findings": 177,
+   "byReason": {
+    "earlier sample version": 145,
+    "real on-chain identifiers": 36,
+    "removed path": 86,
+    "vendor payload shape": 28
+   }
+  },
+  "after": {
+   "commitsScanned": 28,
+   "blobsScanned": 567,
+   "findings": 0
+  }
+ },
+ "mainTreeEqual": true,
+ "mainTree": "d0f663977a60334eddaa21b995b5f9aba21fd5cd",
+ "freshClone": {
+  "from": "GitHub, after the push",
+  "findings": 0,
+  "commitsScanned": 28,
+  "blobsScanned": 567,
+  "mirrorWithPullRefsFindings": 0,
+  "leakTest": "python tests/test_no_leaks.py \u2192 leak check: 144 tracked files clean",
+  "runAll": "python tests/run_all.py \u2192 219/219 counted; private suite SKIPPED (not counted)"
+ },
+ "prHead": {
+  "ref": "refs/pull/1/head",
+  "old": "8ae120ed25905d42a0d53aa2693418dbdf5d18c3",
+  "new": "b9ec82716506dd5a21230bf09f477ec3483b425c",
+  "note": "GitHub moved the PR head to the rewritten branch; 8ae120e was absent from a fresh mirror"
+ },
+ "keptOnPurpose": [
+  "examples/provenance-sample.json (blob 82d5a4f) is part of the current tree"
+ ],
+ "draftBranchEffect": "both draft UI branches lost their older screenshots/example files at their tips; nothing else changed; nothing merged",
+ "backups": "a pre-purge mirror and bundle are kept locally by the operator (still contain the old history; not published)",
+ "followUpCommit": "5fabd64 (HISTORY-EXPOSURE update, normal push)",
+ "limitations": [
+  "Copies that were already cloned before the purge, forks, CI caches and third-party mirrors or archives cannot be revoked.",
+  "GitHub may keep old commits reachable by SHA, in cached views or PR history, until GitHub Support expires them on request.",
+  "0 findings applies to this project's scanner (vendor markers, denylisted identifiers, removed paths, earlier sample versions), not every conceivable exposure.",
+  "Any credential that ever appeared in previously exposed material must be treated as compromised and rotated."
+ ]
+}
