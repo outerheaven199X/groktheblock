@@ -1,5 +1,25 @@
 # History exposure (R6-04)
 
+## Update 2026-10-28 15:19 ET: coordinated purge done (owner-approved force-push)
+With the owner's explicit approval, published history was rewritten using the rehearsed git-filter-repo plan. It removes the listed paths and strips every blob that `tools/verify_history.py` flagged. That covers the scope of the earlier sanitize purge, so old example X data and account/connection data are gone from history. A full mirror and bundle backup was taken first and kept privately; it was not published.
+
+| Ref | Before | After |
+|---|---|---|
+| main | fd858c0 | aa4de42 |
+| ui/investigation-workbench-20261028 | d82465e | 305c51a |
+| ui/reference-dark-preserved-20261028 | 8ae120e | b9ec827 |
+
+- **Current files unchanged:** main's tree is byte-identical before and after (`d0f6639…`).
+- **Draft branches:** both lost their older screenshots and example files, nothing else. Nothing was merged.
+- **Kept:** `examples/provenance-sample.json` (blob `82d5a4f`) is part of the current tree, so it was kept.
+- **PR #1:** GitHub moved `refs/pull/1/head` to b9ec827.
+- **Verification on a fresh clone from GitHub:** `verify_history` found **0** issues over 28 commits and 567 blobs. A mirror that includes the pull refs also found 0. The leak test reported 144 files clean, and `run_all.py` passed 219/219 counted tests.
+
+**Still exposed:** the purge cannot revoke anything that was **already cloned** before it: forks, local copies, CI caches and third-party mirrors or archives. GitHub may also keep the old commits reachable by SHA, and in cached views or PR history, until GitHub Support expires them on request. If any secrets were in the old commits, they should be treated as public and rotated.
+
+(The text below is the pre-purge record.)
+
+
 **Status: not resolved in published history.** The current tree (`HEAD`) contains only synthetic or project-generated public samples (see `docs/assets-manifest.json`). Earlier commits on GitHub still contain real on-chain examples and screenshots, raw vendor payloads (`tests/fixtures/providers/`, removed in round 5), and verification screenshots. No history was rewritten and nothing was force-pushed in this round.
 
 ## What is exposed
