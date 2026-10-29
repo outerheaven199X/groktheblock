@@ -22,7 +22,7 @@ BADURLS = ["javascript:window.__pwn=1", "JaVaScRiPt:window.__pwn=1", " javascrip
   "http://example.com", "//evil.example/x", "https:evil", "https://user:pw@evil.example/", "https://exa mple.com", "https:\\\\evil.example", "", None, 42, {"toString": 1}]
 GOOD = ["https://www.ecb.europa.eu/stats/", "HTTPS://fred.stlouisfed.org/series/DCOILWTICO"]
 with sync_playwright() as p:
-    b = p.chromium.launch(args=GL)
+    b = p.chromium.launch(channel="chrome", args=GL)
     ctx = b.new_context(viewport={"width": 1440, "height": 900}); pg = ctx.new_page(); errs, off = [], []
     pg.on("pageerror", lambda e: errs.append(str(e))); pg.on("console", lambda m: m.type == "error" and errs.append(m.text))
     pg.on("request", lambda r: (not r.url.startswith((ORIGIN, "data:", "blob:"))) and off.append(r.url))
