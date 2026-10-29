@@ -5,7 +5,10 @@
 "use strict";
 window.GTB_TCG_MAKE = (H) => {
 const { $, $$, esc, head, askBtn, iso, render, S, EV, EV_SIGS, REG } = H;
-const TCG = { q: "", set: "all", rarity: "all", lang: "all", fin: "all", game: "mtg", sel: null, face: 0, STALE_DAYS: 7 };
+const TCG = { q: "", set: "all", rarity: "all", lang: "all", fin: "all", game: "mtg", sel: null, face: 0, fopen: false, STALE_DAYS: 7 };
+const TCG_F = ["set", "rarity", "lang", "fin"];
+// No artwork ships in the npm package or a fresh clone. The optional sync script lives in the GitHub repo, not in npm.
+const TCG_SYNC_HINT = "Card artwork is not included in the npm package. To see images, clone github.com/outerheaven199X/groktheblock, run python3 tools/sync_tcg_art.py there (optional; images stay in that local cache) and open the app from that checkout.";
 function tcgData() {
   const C = window.GTB_TCG_CACHE;
   if (C && Array.isArray(C.groups)) return { C, synced: true };
@@ -33,12 +36,12 @@ function tcgMatch(p, g) {
 function tcgFaceState(p, f) {
   if (p.image_status === "placeholder") return ["placeholder", "No real artwork at the provider yet (placeholder)"];
   if (p.image_status === "missing" || f.state === "provider-missing") return ["missing", "No artwork from the provider"];
-  if (f.state === "not-synced") return ["unsynced", "Artwork not synced: run python3 tools/sync_tcg_art.py"];
+  if (f.state === "not-synced") return ["unsynced", "Text card: artwork not synced"];
   if (!f.img || !f.img.small) return ["uncached", "Artwork not cached for this printing"];
   return ["ok", ""];
 }
 function tcgPH(p, f, why, big) {
-  return `<div class="tph${big ? " big" : ""}" role="img" aria-label="${esc((f && f.name || p.name) + ": " + why)}"><span class="tn disp">${esc((f && f.name) || p.name)}</span><span class="ts">${esc(String(p.set).toUpperCase())} · #${esc(p.cn)} · ${esc(p.lang)}</span><span class="tw">${esc(why)}</span>${big && p.uri ? `<a class="tl" href="${esc(p.uri)}" target="_blank" rel="noopener noreferrer">Source: Scryfall</a>` : ""}</div>`;
+  return `<div class="tph${big ? " big" : ""}" role="img" aria-label="${esc((f && f.name || p.name) + ": " + why)}"><span class="tn disp">${esc((f && f.name) || p.name)}</span><span class="ts">${esc(String(p.set).toUpperCase())} · #${esc(p.cn)} · ${esc(p.lang)}</span><span class="tw">${esc(why)}</span>${big && why.startsWith("Text card") ? `<span class="tw">${esc(TCG_SYNC_HINT)}</span>` : ""}${big && p.uri ? `<a class="tl" href="${esc(p.uri)}" target="_blank" rel="noopener noreferrer">Source: Scryfall</a>` : ""}</div>`;
 }
 function tcgImg(p, fi, size, big) {
   const f = p.faces[fi] || p.faces[0]; const [st, why] = tcgFaceState(p, f);
@@ -77,15 +80,19 @@ function vTcg(P) {
   const hits = C.groups.map(g => ({ g, ps: g.printings.filter(p => tcgMatch(p, g)) })).filter(x => x.ps.length);
   const sel = TCG.sel && all.find(x => x.p.key === TCG.sel);
   const tile = ({ g, ps }) => { const p = ps[0]; const n = g.printings.length; return `<button class="tcard${sel && sel.g === g ? " on" : ""}" data-tkey="${esc(p.key)}" aria-label="${esc(g.name + ", " + String(p.set).toUpperCase() + " #" + p.cn + ", " + n + (n === 1 ? " printing" : " printings"))}">${tcgImg(p, 0, "small", false)}<span class="tcap"><span class="tnm">${esc(g.name)}</span><span class="tmt">${esc(String(p.set).toUpperCase())} #${esc(p.cn)} · ${n}P${p.tracked ? ` · <b>tracked</b>` : ""}</span></span></button>`; };
+  const nAct = TCG_F.filter(k => TCG[k] !== "all").length;
   P.innerHTML = `<div class="tcgx">
-  <div class="card tbar"><label class="tf tq"><span>Search</span><input id="tcgQ" type="search" placeholder="Name, set code or collector number" value="${esc(TCG.q)}" autocomplete="off" aria-label="Search cards by name, set or collector number"></label>
-  <label class="tf"><span>Game</span><select data-tf="game">${games}</select></label>${opts("set", "Set")}${opts("rarity", "Rarity")}${opts("lang", "Language")}
-  <label class="tf"><span>Printing</span><select data-tf="fin"><option value="all">All</option>${["nonfoil", "foil", "etched"].map(v => `<option value="${v}"${TCG.fin === v ? " selected" : ""}>${v}</option>`).join("")}${TCG_KIND.slice(2).map(([k, l]) => `<option value="${esc(k)}"${TCG.fin === k ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></label></div>
-  <div class="tstat" id="tcgStat"><span>${esc(C.attribution || "")}</span><span>Cache: ${esc(cacheTxt)}${synced ? " · " + esc((C.counts || {}).thumbs ?? 0) + " thumbnails" : ""}</span><span class="tbk">Artwork rights: ${esc(C.artworkRights || "BLOCKED")}</span><span>${synced ? "Local cache only; not redistributed" : "Text fallback: no artwork in this checkout"}</span></div>
+  <div class="card tbar"><label class="tf tq"><span>Search</span><input id="tcgQ" type="search" placeholder="Name, set or collector #" value="${esc(TCG.q)}" autocomplete="off" aria-label="Search cards by name, set or collector number"></label>
+  <div class="tfa"><button class="btn tfb" id="tcgFb" aria-expanded="${TCG.fopen}" aria-controls="tcgFp" aria-label="Filters${nAct ? ", " + nAct + " active" : ""}">Filters${nAct ? ` <b class="tfn" aria-hidden="true">${nAct}</b>` : ""}</button>${nAct ? `<button class="btn" id="tcgReset" aria-label="Reset ${nAct} active filter${nAct > 1 ? "s" : ""}">Reset</button>` : ""}</div>
+  <div class="tfp" id="tcgFp" role="group" aria-label="Card filters"${TCG.fopen ? "" : " data-closed"}><label class="tf"><span>Game</span><select data-tf="game">${games}</select></label>${opts("set", "Set")}${opts("rarity", "Rarity")}${opts("lang", "Language")}
+  <label class="tf"><span>Printing</span><select data-tf="fin"><option value="all">All</option>${["nonfoil", "foil", "etched"].map(v => `<option value="${v}"${TCG.fin === v ? " selected" : ""}>${v}</option>`).join("")}${TCG_KIND.slice(2).map(([k, l]) => `<option value="${esc(k)}"${TCG.fin === k ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></label></div></div>
+  <div class="tstat" id="tcgStat"><span class="tst1">${esc(cacheTxt)} · <span class="tbk">Artwork rights: ${esc(C.artworkRights || "BLOCKED")}</span></span><details class="tsd"><summary>Source: Scryfall · details</summary><span>${esc(C.attribution || "")}</span>${synced ? `<span>${esc((C.counts || {}).thumbs ?? 0)} thumbnails · Local cache only; not redistributed</span>` : `<span>Text fallback: no artwork in this checkout. ${esc(TCG_SYNC_HINT)}</span>`}</details></div>
   ${sel ? tcgDetail(sel, C) : ""}
   <div class="tgrid" role="list" aria-label="Cards">${hits.map(h => `<div role="listitem">${tile(h)}</div>`).join("") || `<div class="empty">No card matches. Search covers ${C.groups.length} synced cards only.</div>`}</div></div>`;
   const q = $("#tcgQ"); q.oninput = () => { TCG.q = q.value; const pos = q.selectionStart; render(); const n = $("#tcgQ"); n.focus(); n.setSelectionRange(pos, pos); };
   $$("[data-tf]", P).forEach(s => s.onchange = () => { TCG[s.dataset.tf] = s.value; render(); const n = $(`[data-tf="${s.dataset.tf}"]`); n && n.focus(); });
+  $("#tcgFb").onclick = () => { TCG.fopen = !TCG.fopen; render(); const n = $("#tcgFb"); n && n.focus(); };
+  const rs = $("#tcgReset"); if (rs) rs.onclick = () => { TCG_F.forEach(k => TCG[k] = "all"); render(); const n = $("#tcgFb"); n && n.focus(); };
 }
 function tcgDetail({ g, p }, C) {
   const fi = Math.min(TCG.face, p.faces.length - 1), o = tcgObs(p);
@@ -105,7 +112,7 @@ function tcgDetail({ g, p }, C) {
 }
 document.addEventListener("click", (e) => {
   if (S.view !== "tcg") return;
-  const k = e.target.closest("[data-tkey]"); if (k) { TCG.sel = k.dataset.tkey; TCG.face = 0; render(); const d = $("#tcgDet"); if (d) { d.focus({ preventScroll: true }); d.scrollIntoView({ block: "nearest" }); } return; }
+  const k = e.target.closest("[data-tkey]"); if (k) { TCG.sel = k.dataset.tkey; TCG.face = 0; render(); const d = $("#tcgDet"); if (d) { d.focus({ preventScroll: true }); d.scrollIntoView({ block: k.classList.contains("tpb") ? "start" : "nearest" }); } return; }
   const f = e.target.closest("[data-tface]"); if (f) { TCG.face = +f.dataset.tface; render(); const b = $(`[data-tface="${TCG.face}"]`); b && b.focus(); return; }
   if (e.target.closest("#tcgClose")) { const was = TCG.sel; TCG.sel = null; render(); const t = $(`.tcard[data-tkey="${CSS.escape(was)}"]`) || $("#tcgQ"); t && t.focus(); return; }
   const a = e.target.closest("#tcgAnalyze"); if (a) { GTB.analyzeCard(a.dataset.asset); }

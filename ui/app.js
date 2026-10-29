@@ -520,7 +520,7 @@ $("#dlg").onclick = () => { if (S.scanning) return; const L = dlgLines(S.target)
 
 /* ---------------- render ---------------- */
 function head(title, kindTxt, chips, askArgs, extra = "") {
-  const h = $("#rhead"); h.hidden = false;
+  const h = $("#rhead"); h.hidden = false; h.dataset.v = S.view;
   h.innerHTML = `<div class="l"><h1 class="disp">${esc(title)}</h1><span class="meta up">${esc(kindTxt)}${chips.length ? " // " + chips.map(esc).join(" // ") : ""}</span></div><div class="acts">${askArgs ? askBtn("Ask about this", askArgs, "btn y", "Ask Grok Bot about this report") : ""}${extra}<button class="btn" id="exportBtn">Export</button></div>`;
 }
 function render() {
