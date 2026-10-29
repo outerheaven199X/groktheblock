@@ -1,7 +1,7 @@
 """Card Explorer mobile first fold, in Chromium EMULATION (Playwright + SwiftShader), not real phones. CSP ENFORCED.
 Usage: python3 tests/ui/ui_tcg_mobile.py [base-url] [--shots DIR]   (serve the repo root; synced cache in ui/cache/tcg)
 Covers: a card image (or the text card when unsynced) inside the INITIAL viewport at 375x812 and 390x844, first-viewport
-measurements at 320/375/390/430/768, one Filters control (collapsed on phones) with active count and Reset, one-line
+measurements at 320/375/390/430/768 (>=50% of the first card visible at 320x568), one Filters control (collapsed on phones) with active count and Reset, one-line
 cache/rights status with details on demand, 2-column phone grid with correct aspect ratio and lazy thumbnails, 44px touch
 targets, labels, focus return, detail view title/Close first on narrow screens with no clipping or overflow, printing selector,
 front/back flip, stage hidden behind the panel, no off-origin requests, no CSP violations."""
@@ -43,18 +43,26 @@ OVER = "document.documentElement.scrollWidth - innerWidth"
 with sync_playwright() as p:
     b = p.chromium.launch(channel="chrome", args=GL)
     meas = {}
-    for (w, h) in [(320, 568), (375, 812), (390, 844), (430, 932), (768, 1024)]:
+    for (w, h) in [(320, 568), (375, 667), (375, 812), (390, 844), (430, 932), (768, 1024)]:
         ctx, pg = page(b, w, h)
-        f = pg.evaluate(FOLD); meas[w] = f
-        if w in (375, 390):
+        f = pg.evaluate(FOLD); meas[f"{w}x{h}"] = f
+        if (w, h) == (375, 667):
+            res("375x667: first card image starts in the initial viewport and >=80% of it is visible (no regression)", f and f["img"] and f["scrollY"] == 0 and f["visible"] >= 0.8 * f["h"], f)
+        elif w in (375, 390):
             res(f"{w}x{h}: a real card image is fully inside the initial viewport (no scroll)", f and f["img"] and f["loaded"] and f["scrollY"] == 0 and f["bottom"] <= h and f["visible"] >= f["h"] - 1, f)
         elif w in (430, 768):
             res(f"{w}x{h}: first card image fully inside the initial viewport", f and f["img"] and f["bottom"] <= h, f)
         else:
-            res(f"{w}x{h}: first card tile starts inside the initial viewport (partial: short screen)", f and f["top"] < h, f)
+            res(f"{w}x{h}: >=50% of the first card image is visible in the initial viewport (was 13px / 7%)", f and f["img"] and f["loaded"] and f["scrollY"] == 0 and f["visible"] >= 0.5 * f["h"] and f["visible"] >= 90, f)
+            hd = pg.evaluate("(()=>{const r=id=>document.getElementById(id).getBoundingClientRect();const l=r('logo'),o=r('openBtn'),fb=r('feedBtn');return {same:Math.abs(l.top-o.top)<2&&Math.abs(o.top-fb.top)<2,right:fb.right,vw:innerWidth,min:Math.min(l.height,o.height,fb.height,o.width,fb.width)}})()")
+            res("320: logo, Open and Feed share one header row, inside the viewport, >=44px targets", hd["same"] and hd["right"] <= hd["vw"] and hd["min"] >= 44, hd)
+            st = pg.evaluate("(()=>{const l=document.querySelector('#tcgStat .tst1');const lh=parseFloat(getComputedStyle(l).lineHeight)||16;return {h:l.getBoundingClientRect().height,lh}})()")
+            res("320: cache/rights status fits on one line", st["h"] <= st["lh"] * 1.5, st)
+            res("320: touch targets >=44px (search, Filters, status disclosure, card tiles, Ask, Export)", not pg.evaluate(SMALL, "#tcgQ,#tcgFb,#tcgStat summary,.tcard,#rhead .btn"), pg.evaluate(SMALL, "#tcgQ,#tcgFb,#tcgStat summary,.tcard,#rhead .btn")[:4])
+            shot(pg, "mobile-320-immediate-load.png")
         res(f"{w}: no horizontal overflow; grid columns {'2' if w < 768 else '>=3'}", pg.evaluate(OVER) <= 0 and ((f["cols"] == 2) if w < 768 else f["cols"] >= 3), (pg.evaluate(OVER), f["cols"]))
         res(f"{w}: thumbnail keeps card aspect ratio (146:204) and lazy-loads", abs(f["ratio"] - 146 / 204) < 0.02 and pg.evaluate("[...document.querySelectorAll('.tgrid img')].every(i=>i.loading==='lazy')"), f["ratio"])
-        if w == 375:
+        if (w, h) == (375, 812):
             shot(pg, "mobile-375-immediate-load.png")
             res("375: search usable in first fold (visible, labelled, >=44px)", pg.evaluate("(()=>{const i=document.getElementById('tcgQ');const r=i.getBoundingClientRect();return r.bottom<innerHeight&&r.height>=44&&!!i.getAttribute('aria-label')})()"))
             st = pg.evaluate("(()=>{const l=document.querySelector('#tcgStat .tst1');const lh=parseFloat(getComputedStyle(l).lineHeight)||16;return {h:l.getBoundingClientRect().height,lh,t:document.getElementById('tcgStat').textContent,open:document.querySelector('#tcgStat details').open}})()")
@@ -105,9 +113,15 @@ with sync_playwright() as p:
         res(f"{w}: no off-origin requests, no CSP violations, no page errors", not pg.off and not pg.evaluate("window.__csp||[]") and not pg.errs, (pg.off[:2], pg.evaluate("window.__csp||[]")[:2], pg.errs[:2]))
         ctx.close()
     # unsynced (fresh npm install / fresh clone): text cards in the first fold, hint names the GitHub repo
-    for (w, h) in [(375, 812), (390, 844)]:
+    for (w, h) in [(320, 568), (375, 812), (390, 844)]:
         ctx, pg = page(b, w, h, unsynced=True)
         f = pg.evaluate(FOLD)
+        if w == 320:
+            nm = pg.evaluate("(()=>{const n=document.querySelector('.tgrid .tph .tn');const r=n.getBoundingClientRect();return {b:Math.round(r.bottom),t:n.textContent,ov:n.scrollWidth-n.clientWidth}})()")
+            res("320 unsynced: >=50% of the first text card and its card name are visible in the initial viewport", f and not f["img"] and f["visible"] >= 0.5 * f["h"] and nm["b"] <= h and nm["t"].strip() and pg.evaluate(OVER) <= 0, (f, nm))
+            shot(pg, "mobile-320-unsynced-text-cards.png")
+            res("320 unsynced: no off-origin requests, no CSP violations", not pg.off and not pg.evaluate("window.__csp||[]"), pg.off[:2])
+            ctx.close(); continue
         res(f"{w} unsynced: a text card (fallback) is fully inside the initial viewport", f and not f["img"] and f["bottom"] <= h, f)
         t = pg.evaluate("document.getElementById('tcgStat').textContent + ' || ' + document.querySelector('.tgrid .tph').textContent")
         res(f"{w} unsynced: fallback says artwork is not in the npm package and that the sync script comes from the GitHub repo", "not included in the npm package" in t and "github.com/outerheaven199X/groktheblock" in t and "Text card" in t, t[:200])
