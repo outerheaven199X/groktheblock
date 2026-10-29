@@ -7,7 +7,24 @@
 > **Research preview.** The example data is synthetic, there is no live feed, and it has not been tested on physical devices. Hosted alerts are **NO GO**. The evaluation is **unlabeled** (the human-review gate is blocked), so **no detection accuracy has been measured or is claimed.** Not financial advice. See the [Legal notice](#legal-notice).
 
 ## What it is
-Grok The Block is a read-only forensics tool for unusual activity in public market data. Its Python skills, run locally or by Grok Bot, analyze Solana tokens and wallets, X promo accounts, promo media, and selected cross-market sources (prediction markets, US stocks and options, Treasuries, crypto, stablecoins). They write JSON reports. The `ui/` dashboard (design v6) shows those reports with the evidence behind every flag and states what the data can't show. It never trades, never connects a wallet, and never says who traded or claims wrongdoing.
+Grok The Block is the everything app for unusual market activity. Together with Grok Bot, it flags unusual activity across prediction markets, US stocks and options, Treasuries, macro and calendar events, and crypto, and it shows the evidence behind every flag. It never tells you to buy, sell or hold.
+
+Its Python skills run locally or through Grok Bot and write JSON reports. The `ui/` dashboard (design v6) shows those reports with their evidence and states what the data can't show. It never trades, never connects a wallet, never says who traded and never claims wrongdoing.
+
+## Markets covered
+All markets below run through one cross-market engine (`skills/signals`, `lib/grok_the_block/markets/`) and appear together in the **Signals** view.
+
+| Market | What is flagged | Public sources |
+|---|---|---|
+| Prediction markets | Polymarket odds jumps, volume spikes and large trades from new wallets; Kalshi price and volume shocks | Polymarket Gamma/CLOB, Kalshi public API |
+| US stocks and options | Daily price/volume anomalies; unusual options volume and open interest | Yahoo/Nasdaq, Cboe delayed |
+| Bonds | Treasury yield-curve moves | Treasury.gov / FRED |
+| Macro and calendar | Macro series anomalies; activity linked to Fed decisions, BLS releases, Treasury auctions and options expiry (`data/event-calendar.json`) | Yahoo, federalreserve.gov, bls.gov, fiscaldata.treasury.gov |
+| Filings | SEC Form 4 and 8-K events as context (opt-in) | SEC EDGAR |
+| Crypto | Perp open-interest and funding shocks; stablecoin supply changes; daily anomalies | OKX/Coinbase, DefiLlama |
+| Solana module | Token, wallet, rug-replay, copy-trade and leaderboard scans, plus X promo-account and media checks | Solana RPC, DexScreener, RugCheck, Helius (optional) |
+
+Signals from different markets are linked when they line up (convergence, same-family repricing, divergence), and each link says how certain it is.
 
 ## What it does
 **Views** (`ui/`, top navigation):
@@ -28,15 +45,14 @@ Grok The Block is a read-only forensics tool for unusual activity in public mark
 - **Grok Bot:** a three.js character on the result stage. It drops in, hovers, blinks, follows the cursor and reacts to verdicts, and its TL;DR box types out a summary of the report.
 - **Verdict phrases** are mapped from each report's severity and score, for example CRITICAL → "Red flags stacking up" and LOW with a high organic score → "Looks organic". An unknown severity reads "Mixed signals", never clean. The phrases never advise buying, selling or holding.
 - **Ask about this:** on report headers, holder rows, Why-flagged findings, Live feed items, Signals items and dossiers, Threats alerts, Shill/Copy net evidence panels, Leaderboard rows and Provenance records. It copies a structured prompt (view, item, evidence ID, report and timestamp, key facts, question) built only from page data. You paste it into Grok Bot yourself. If the clipboard isn't available, a selectable text box opens instead.
-- **Live feed and ticker:** these replay items from the loaded reports. They are not a live connection.
+- **Live feed and ticker:** these replay items from the loaded reports.
 - **Open / Export:** Open loads report JSON files from your device. Export saves the current report as JSON.
 
 ## Quick start
 ```bash
-git clone https://github.com/outerheaven199X/CryptOSINT-GrokBot && cd CryptOSINT-GrokBot
-git checkout ui/v6-20261028
-python3 -m http.server 8821        # serve the repo root
-# open http://localhost:8821/ui/
+git clone https://github.com/outerheaven199X/groktheblock && cd groktheblock
+python3 -m http.server 8000        # Windows: py -m http.server 8000
+# open http://localhost:8000/ui/
 ```
 - **Serve over http.** From `file://` the browser blocks the 3D modules, and the app falls back to a static bot.
 - **Add `?nowebgl`** to force that fallback.
@@ -56,8 +72,8 @@ Reports go to `out/`. Load them in the UI with **Open**. With Grok Bot, ask it t
 python3 tests/run_all.py                                  # backend + static UI checks
 python3 tools/build_ui_data.py --check                    # embedded example data matches examples/
 pip install playwright && playwright install chromium     # once, for the browser tests
-python3 -m http.server 8821 &                             # from the repo root
-python3 tests/ui/ui_v6.py http://localhost:8821/ui/       # v6 UI in Chromium emulation
+python3 -m http.server 8000 &                             # from the repo root
+python3 tests/ui/ui_v6.py http://localhost:8000/ui/       # v6 UI in Chromium emulation
 ```
 - `ui_v6.py` checks:
   - zero network requests
@@ -90,6 +106,14 @@ examples/*.json (synthetic) ──tools/build_ui_data.py──▶ ui/data/report
 - **Plain JavaScript, no build step:** `index.html`, `app.js` and `stage.js`.
 - **The skills do use the network:** they call public APIs when you run them. The UI never does.
 - **Grok Bot integration** is copy-and-paste only: there is no chat panel, no API key and no deep link.
+
+## Roadmap
+- **Live data in the UI.** Today the UI shows saved reports; live polling runs only in `signals.py watch`.
+- **Hosted alerts.** No hosted service exists yet.
+- **Measured accuracy.** The human-labelled evaluation has not started, so no accuracy is claimed.
+- **Dedicated market views.** Non-crypto markets share the Signals view; Token, Wallet and Replay views are Solana-only.
+- **More markets.** Futures, FX and non-US equities are not covered.
+- **Physical-device testing** on iOS and Android.
 
 ## Project status and limitations
 - **Research preview.** Local use: CONDITIONAL GO. Hosted or public alerts: **NO GO**. Provider rights, licensed latency, monitored delivery, and load and device testing are all outstanding.
