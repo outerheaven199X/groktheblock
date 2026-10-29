@@ -137,8 +137,8 @@ async function init() {
       if (k === "worried") rot += (i === 0 ? -0.45 : 0.45) * ew; if (k === "determined") { rot += (i === 0 ? 0.45 : -0.45) * ew; ey *= 1 - 0.2 * ew; }
       e.scale.set(ex, ey, 1); e.rotation.z = rot; e.position.y = py; });
     key.shadow.radius = 6 + Math.max(0, root.position.y) * 4; if (!drag) rotY += (0 - rotY) * 0.01;
-    if (composer && fxTier !== "low" && fxLast && fxN < 150) { const d = now - fxLast; if (d < 250) { fxN++; if (fxN > 30) fxSum += d; } if (fxN === 150 && fxSum / 120 > 34) { fxTier = "low"; el.dataset.fx = "low"; } }
-    fxLast = now; el.dataset.frameMs = fxN > 30 ? (fxSum / (fxN - 30)).toFixed(1) : "";
+    if (composer && fxTier !== "low" && fxLast && fxN < 45) { const d = now - fxLast; if (d < 400) { fxN++; if (fxN > 15) fxSum += d; } if (fxN === 45 && fxSum / 30 > 34) { fxTier = "low"; el.dataset.fx = "low"; } }
+    fxLast = now; el.dataset.frameMs = fxN > 15 ? (fxSum / (fxN - 15)).toFixed(1) : "";
     if (composer && !still && fxTier !== "low") composer.render(); else renderer.render(scene, camera);
     body.getWorldPosition(bodyW); const pc = bodyW.clone().project(camera), dist = camera.position.distanceTo(bodyW);
     el.dataset.bot = [(pc.x + 1) / 2 * W, (1 - pc.y) / 2 * H, curK * Math.max(sx, sy) * (H / 2) / (dist * Math.tan(camera.fov * Math.PI / 360))].map(Math.round).join(",");

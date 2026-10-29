@@ -42,7 +42,7 @@ with sync_playwright() as p:
         rec(f"{tag0} toast", check(pg, False))
         for v in ["universe", "anomalies", "signals", "threats", "shill", "copy", "board", "prov"]:
             pg.evaluate("v=>GTB.go(v)", v); pg.wait_for_timeout(120); rec(f"{tag0} view {v}", check(pg, False))
-        pg.evaluate("GTB.go('universe')"); pg.wait_for_timeout(80); pg.click("[data-uni=mtg]"); pg.wait_for_timeout(120); rec(f"{tag0} universe detail", check(pg, False))
+        pg.evaluate("GTB.go('universe')"); pg.wait_for_timeout(80); pg.evaluate("document.querySelectorAll('details.fam').forEach(d=>d.open=true)"); pg.click("[data-uni=mtg]"); pg.wait_for_timeout(120); rec(f"{tag0} universe detail", check(pg, False))  # MIGRATED (RC): families can start collapsed on narrow screens
         if errs: rec(tag0 + " page errors", errs)
         ctx.close()
     # resize mid-animation and after the result (motion ON)
