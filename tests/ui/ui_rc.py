@@ -96,17 +96,24 @@ with sync_playwright() as p:
         if not rows or any(r not in u or not re.search(allowed, r, re.I) for r in rows): mis[fid] = rows[:5]
     res("market pages render only instruments of their own asset class", not mis, mis)
     # search routing
-    cases = {"EUR/USD": "asset:fx:EUR/USD", "eurusd": "asset:fx:EUR/USD", "usd/jpy": "lim:", "gold": "asset:metals:GLD", "wti": "asset:energy:DCOILWTICO", "black lotus": "asset:mtg:Black Lotus", "SYNX": "feat:eq.signals", "SYNO": "feat:eq.options", "will the fed cut in december?": "feat:pm.odds", "AAPL": "lim:", "$SYNTHING": "token:"}
+    # MIGRATED (RC2): the real cached markets report is now the first signals report, so equity/option tickers come from it
+    # (an options-signal ticker -> Options Activity; a fetched equities ticker with no option signal -> Equity Signals) and an
+    # unknown ticker (ZZZQ) takes the limited state that AAPL used to (AAPL is now in the fetched equities universe).
+    tk = pg.evaluate("(()=>{const r=GTB.REPORTS.find(x=>x.k==='signals'),o=(r.j.signals||[]).filter(s=>s.source==='options').map(s=>String(s.instrument).split(':').pop()),u=(((r.j.sourceStatus||{}).equities||{}).coverage||{}).observedInstruments||[];return {opt:o[0]||null,eq:u.find(x=>!o.includes(x))||null}})()")
+    cases = {"EUR/USD": "asset:fx:EUR/USD", "eurusd": "asset:fx:EUR/USD", "usd/jpy": "lim:", "gold": "asset:metals:GLD", "wti": "asset:energy:DCOILWTICO", "black lotus": "asset:mtg:Black Lotus", "will the fed cut in december?": "feat:pm.odds", "ZZZQ": "lim:", "$SYNTHING": "token:"}
+    if tk["eq"]: cases[tk["eq"]] = "feat:eq.signals"
+    if tk["opt"]: cases[tk["opt"]] = "feat:eq.options"
     wrong = {q: pg.evaluate("q=>GTB_SUG(q)[0]||''", q) for q in cases}
     wrong = {q: v for q, v in wrong.items() if cases[q] not in v}
     res("search dispatches instruments to the right tool (FX, metals, energy, MTG, equities, options, prediction, crypto)", not wrong, wrong)
-    res("unsupported ticker is never sent through the Solana scanner", "token:" not in pg.evaluate("GTB_SUG('AAPL').join()"))
-    pg.evaluate("GTB.go('home')"); pg.fill("#q", "AAPL"); pg.keyboard.press("Enter"); pg.wait_for_timeout(120)
+    res("unsupported ticker is never sent through the Solana scanner", "token:" not in pg.evaluate("GTB_SUG('ZZZQ').join()"))  # MIGRATED (RC2): AAPL -> ZZZQ
+    pg.evaluate("GTB.go('home')"); pg.fill("#q", "ZZZQ"); pg.keyboard.press("Enter"); pg.wait_for_timeout(120)  # MIGRATED (RC2): AAPL -> ZZZQ
     res("recognized but unloaded instrument shows a limited state, no verdict", pg.evaluate("GTB.S.view==='limited' && /unknown, not quiet/i.test(document.getElementById('panel').textContent) && !/Nothing flagged/.test(document.body.textContent)"))
     # unknown, not quiet
     pg.evaluate("GTB.goFeat('eq.sec')"); pg.wait_for_timeout(80)
     t = pg.evaluate("document.getElementById('panel').textContent")
-    res("provider not configured (SEC) shows 'Provider unavailable', never a quiet result", "Provider unavailable" in t and "Nothing in this report crossed" not in t, t[:160])
+    # MIGRATED (RC2): directive wording "Unknown / not assessed" replaces "Provider unavailable"; quiet wording is now "No findings in the assessed markets"
+    res("provider not configured (SEC) shows 'Unknown / not assessed', never a quiet result", "Unknown / not assessed" in t and "No findings in the assessed" not in t, t[:160])
     pg.evaluate("GTB.goFeat('tcg.history')"); pg.wait_for_timeout(80)
     t = pg.evaluate("document.getElementById('panel').textContent")
     res("insufficient snapshot history is unassessable, not quiet", "Unassessable" in t and "Nothing past threshold" not in t, t[:160])

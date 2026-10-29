@@ -285,7 +285,7 @@ footer .links{flex-wrap:wrap}
     <button class="logo" id="logo" aria-label="Home"><span class="mk"><i></i></span><span class="t disp">Grok the Block</span></button>
     <div class="hsearch"><div class="sbox" id="hsbox" hidden><div class="in"><span style="color:var(--y)">›</span><input id="hq" placeholder="SCAN ANOTHER" aria-label="Scan another" autocomplete="off"><span class="kbd">⌘K</span></div><div class="sugg" id="hsugg" hidden></div></div></div>
     <button class="btn" id="openBtn" aria-label="Open report JSON files from this device">Open</button>
-    <button class="btn up" id="feedBtn" aria-label="Live feed" aria-expanded="false" aria-controls="feed"><span class="blinkdot" style="color:var(--y)"></span>Live feed<span class="n" id="feedN">0</span></button>
+    <button class="btn up" id="feedBtn" aria-label="Feed (cached, not live)" aria-expanded="false" aria-controls="feed"><span class="blinkdot" style="color:var(--y)"></span>Feed<span class="n" id="feedN">0</span></button>
   </header>
   <nav id="views" aria-label="Markets"></nav>
   <main id="main">
@@ -316,7 +316,7 @@ footer .links{flex-wrap:wrap}
     <span class="links"><a href="#legal">Legal notice (README)</a><a href="#risk">Risk disclosure</a><a href="#methodology">Methodology</a></span>
   </footer>
   <div id="notif" role="status" aria-live="polite" hidden></div>
-  <div id="feed" aria-hidden="true" aria-label="Live feed"><div class="fh"><span class="disp" style="font-size:20px;color:var(--y)">Live feed</span><span style="display:flex;gap:6px"><button class="btn" id="pauseBtn">Pause</button><button class="btn" id="feedClose" aria-label="Close feed">×</button></span></div><div class="fl" id="feedList"></div></div>
+  <div id="feed" aria-hidden="true" aria-label="Feed (cached, not live)"><div class="fh"><span class="disp" style="font-size:20px;color:var(--y)">Feed</span><span style="display:flex;gap:6px"><button class="btn" id="pauseBtn">Pause</button><button class="btn" id="feedClose" aria-label="Close feed">×</button></span></div><div class="fl" id="feedList"></div></div>
   <div id="toastWrap" aria-live="polite" role="status"><div id="toast"></div></div>
   <div id="fbk"><div class="sh" id="fbkSh"></div><div class="dl" role="dialog" aria-modal="true" aria-label="Copy prompt"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.4px solid var(--y)"><span class="up" style="color:var(--y)">Copy this, then paste into Grok Bot</span><button class="btn" id="fbkClose">Close</button></div><textarea id="fbkTa" readonly></textarea></div></div>
   <input type="file" id="pick" accept=".json,application/json" multiple hidden>

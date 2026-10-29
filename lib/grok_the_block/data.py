@@ -69,7 +69,8 @@ def cache_get(ns: str, key: str, max_age: float | None = None) -> Any:
 
 
 def cache_put(ns: str, key: str, value: Any) -> None:
-    _cache_path(ns, key).write_text(json.dumps(value))
+    p = _cache_path(ns, key); tmp = p.with_name(p.name + f".{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(value)); os.replace(tmp, p)  # atomic: an interrupted write never leaves a half file
 
 
 # ---------------- HTTP / RPC ----------------

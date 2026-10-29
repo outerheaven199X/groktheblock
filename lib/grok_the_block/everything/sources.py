@@ -145,6 +145,8 @@ def parse_scryfall_card(c: dict) -> dict | None:
     p = c.get("prices") or {}
     f = lambda k: float(p[k]) if p.get(k) not in (None, "") else None  # noqa: E731
     return {"id": c.get("id"), "name": c.get("name"), "set": c.get("set"), "set_name": c.get("set_name"),
+            "cn": c.get("collector_number"), "lang": c.get("lang", "en"), "finish": "nonfoil",
+            "paper": "paper" in (c.get("games") or []) and not c.get("digital"),
             "usd": f("usd"), "eur": f("eur"), "usd_foil": f("usd_foil"), "url": c.get("scryfall_uri", "").split("?")[0]}
 
 
@@ -154,12 +156,40 @@ SCRYFALL_WATCH = ["Black Lotus", "Mox Sapphire", "Ancestral Recall", "Time Walk"
                   "Dockside Extortionist", "Smothering Tithe", "Fierce Guardianship", "Imperial Seal", "Grim Monolith"]
 
 
+# Explicit paper pins. /cards/named returns Scryfall's default printing, which for the Power 9, the original duals and
+# Mox Diamond is an MTGO-only digital printing (VMA, TPR): its prices describe a digital card. Pin the Unlimited (2ED)
+# paper printing for Power and duals (the reference paper printing that carries both venue prices most often) and
+# Stronghold for Mox Diamond. Market observations bind to exactly this printing + nonfoil finish.
+PAPER_PIN = {"Black Lotus": ("2ed", "233"), "Mox Sapphire": ("2ed", "266"), "Ancestral Recall": ("2ed", "48"),
+             "Time Walk": ("2ed", "84"), "Timetwister": ("2ed", "85"), "Underground Sea": ("2ed", "286"),
+             "Volcanic Island": ("2ed", "287"), "Mox Diamond": ("sth", "138")}
+
+
+def scryfall_card(name: str) -> dict | None:
+    """One watched card, resolved to a PAPER printing. Pinned names use /cards/:set/:cn; others use /cards/named and, if that
+    is digital-only, fall back to the earliest paper printing from /cards/search (game:paper). Never returns a digital printing."""
+    if name in PAPER_PIN:
+        st, cn = PAPER_PIN[name]
+        c = parse_scryfall_card(H.get(f"https://api.scryfall.com/cards/{st}/{cn}", "scryfall", max_age=20 * 3600, headers=UA) or {})
+        return c if c and c["paper"] and c["name"] == name else None
+    c = parse_scryfall_card(H.get(f"https://api.scryfall.com/cards/named?exact={quote(name)}", "scryfall", max_age=20 * 3600, headers=UA) or {})
+    if c and c["paper"]:
+        return c
+    time.sleep(0.15)
+    q = quote(f'!"{name}" game:paper')
+    j = H.get(f"https://api.scryfall.com/cards/search?q={q}&unique=prints&order=released&dir=asc", "scryfall", max_age=20 * 3600, headers=UA)
+    for d in (j or {}).get("data", []) if isinstance(j, dict) else []:
+        c = parse_scryfall_card(d)
+        if c and c["paper"] and c["name"] == name:
+            return c
+    return None
+
+
 def scryfall_snapshot(names=SCRYFALL_WATCH) -> list[dict]:
-    """Cheapest-printing price per watched card via /cards/named (Scryfall asks for 50-100 ms between requests; we wait 150 ms)."""
+    """Paper-printing price per watched card (Scryfall asks for 50-100 ms between requests; we wait 150 ms)."""
     out = []
     for n in names:
-        j = H.get(f"https://api.scryfall.com/cards/named?exact={quote(n)}", "scryfall", max_age=20 * 3600, headers=UA)
-        c = parse_scryfall_card(j) if j else None
+        c = scryfall_card(n)
         if c:
             out.append(c)
         time.sleep(0.15)
