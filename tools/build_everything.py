@@ -191,6 +191,26 @@ def derive_signal(s):
     return keep
 
 
+SRC_PROVIDERS = {"polymarket": ["gamma", "gamma-events", "clob", "pmdata", "pmdata-activity"], "kalshi": ["kalshi", "kalshi-m"], "equities": ["yahoo", "nasdaq"],
+                 "options": ["cboe", "nasdaq-opt"], "treasury": ["treasury", "fred"], "crypto": ["okx", "okx-oi", "okx-funding", "okx-funding-now", "coinbase"],
+                 "stablecoins": ["llama"], "macro": ["yahoo"], "sec": ["edgar"]}
+TRANSIENT = {"timeout", "rate_limited", "http_5xx", "network", "tls", "schema"}
+
+
+def _src_err(k):
+    from grok_the_block.markets import http as HT
+    return next((HT.LAST_ERR[p] for p in SRC_PROVIDERS.get(k, []) if p in HT.LAST_ERR), None)
+
+
+def _outcome(k, v):
+    """UNAVAILABLE is BLOCKED_EXTERNAL only when the provider refused (401/403/451, challenge page) or gave no reason;
+    a transient failure (timeout, 429, 5xx, network) is DEGRADED: still unknown this run, not blocked."""
+    if v["state"] != "UNAVAILABLE":
+        return OUTCOME.get(v["state"], "BLOCKED_EXTERNAL")
+    e = _src_err(k)
+    return "DEGRADED" if e in TRANSIENT else "BLOCKED_EXTERNAL"
+
+
 def mod_markets(ctx):
     from grok_the_block.markets import feed as F
     rep = F.run(F.SOURCES)
@@ -210,7 +230,7 @@ def mod_markets(ctx):
         ok = v["state"] in ("HEALTHY", "DEGRADED")
         cov = v.get("coverage") or {}
         n_sig = sum(1 for s in sigs if s["source"] == k and not s.get("carried"))
-        status[k] = {"state": v["state"], "outcome": OUTCOME.get(v["state"], "BLOCKED_EXTERNAL"), "detail": v.get("detail"),
+        status[k] = {"state": v["state"], "outcome": _outcome(k, v), "detail": v.get("detail"), "errorCategory": _src_err(k) if not ok else None,
                      "coverage": {kk: cov.get(kk) for kk in ("universe", "observed", "active24h", "sampleFraction", "exclusions", "priceHistory", "failedInstruments", "observedInstruments") if kk in cov},
                      "lastValidAt": v.get("lastValidAt") or pv.get("lastValidAt"), "lastValidTs": v.get("lastValidTs") or pv.get("lastValidTs"),
                      "lastAttemptAt": ctx["now"], "lastSuccessAt": ctx["now"] if ok else pv.get("lastSuccessAt"),

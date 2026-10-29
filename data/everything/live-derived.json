@@ -3053,8 +3053,8 @@
  "coverage": [
   {
    "attribution": "Source: ECB statistics",
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "fx",
    "observed": 16,
    "sourceAsOf": "2026-10-28",
@@ -3062,8 +3062,8 @@
    "via": "Frankfurter v1 (ECB reference rates; ECB host unreachable from this machine)"
   },
   {
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "fx-h10",
    "observed": 1,
    "sourceAsOf": "2026-10-23",
@@ -3071,8 +3071,8 @@
    "via": "FRED fredgraph (H.10 DEXUSEU)"
   },
   {
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "metals",
    "observed": 5,
    "sourceAsOf": "2026-10-28",
@@ -3081,8 +3081,8 @@
   },
   {
    "attribution": "Source: U.S. Energy Information Administration",
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "energy",
    "observed": 3,
    "sourceAsOf": "2026-10-27",
@@ -3090,8 +3090,8 @@
    "via": "FRED fredgraph (EIA series)"
   },
   {
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cot",
    "observed": 8,
    "sourceAsOf": "2026-10-20",
@@ -3099,8 +3099,8 @@
    "via": "CFTC Public Reporting (Socrata 6dca-aqww)"
   },
   {
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "mtg",
    "observed": 24,
    "snapshotDays": 1,
@@ -3110,8 +3110,8 @@
    "via": "Scryfall /cards (paper printings pinned; derived only)"
   },
   {
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cs2",
    "observed": 10,
    "sourceAsOf": "2026-10-29",
@@ -3119,88 +3119,86 @@
    "via": "Steam priceoverview (undocumented; derived only; roadmap)"
   }
  ],
- "generatedAt": 1793275398,
+ "generatedAt": 1793277341,
  "health": [
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "fx",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-28",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "metals",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-28",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "energy",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-27",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cot",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-20",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "mtg",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-29",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 86400,
    "errorCategory": null,
-   "lastAttemptAt": 1793274917,
-   "lastSuccessAt": 1793274917,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cs2",
-   "nextExpectedRun": 1793361317,
+   "nextExpectedRun": 1793363643,
    "sourceAsOf": "2026-10-29",
    "status": "HEALTHY"
   },
   {
    "cadenceS": 21600,
    "errorCategory": null,
-   "lastAttemptAt": 1793275398,
-   "lastSuccessAt": 1793275398,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "markets",
-   "nextExpectedRun": 1793296998,
+   "nextExpectedRun": 1793298843,
    "sourceAsOf": "2026-10-29",
    "status": "DEGRADED"
   }
  ],
  "kind": "everything",
  "lastRun": {
-  "at": 1793275398,
-  "id": "20261029T120318Z",
+  "at": 1793277341,
+  "id": "20261029T123541Z",
   "ok": true,
-  "only": [
-   "markets"
-  ],
-  "scheduled": false
+  "only": null,
+  "scheduled": true
  },
  "probes": [
   {
@@ -4015,7 +4013,7 @@
    },
    "type": "CROSS_VENUE_SPREAD",
    "what": "Venue gap +59% of midpoint, converting at the ECB EUR/USD reference rate of 2026-10-28.",
-   "when": 1793274917
+   "when": 1793277243
   },
   {
    "asset": "AWP | Asiimov (Field-Tested)",
@@ -4050,7 +4048,7 @@
    },
    "type": "ASK_VS_MEDIAN_SALE",
    "what": "10 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
-   "when": 1793274917
+   "when": 1793277243
   },
   {
    "asset": "Sticker | Natus Vincere | Paris 2023",
@@ -4085,7 +4083,7 @@
    },
    "type": "ASK_VS_MEDIAN_SALE",
    "what": "600 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
-   "when": 1793274917
+   "when": 1793277243
   }
  ],
  "synthetic": false

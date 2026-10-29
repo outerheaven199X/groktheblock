@@ -471,6 +471,11 @@ function frame() {
   if (!reduced() && !S.paused && Date.now() - (S.lastPush || 0) > 3800) { S.lastPush = Date.now(); if (S.lastPushInit) pushFeed(); S.lastPushInit = true; }
   requestAnimationFrame(frame);
 }
+// Verdict entry scale: v6 slams in from 2.4x, clamped so the scaled box never crosses the stage edge (narrow screens).
+// The roll swaps the verdict text, so the clamp uses the widest verdict word at the current font size (measured once per size).
+const VDW = {};
+function vdMaxW(vb) { const k = vb.style.fontSize + "|" + innerWidth; if (VDW[k]) return VDW[k]; const tx = $("#vdTx"), old = tx.textContent; let m = 0; HYPE.forEach(([w]) => { tx.textContent = w; m = Math.max(m, vb.offsetWidth); }); tx.textContent = old; return (VDW[k] = m); }
+function vdEntry(vb) { const sw = $("#stageWrap").getBoundingClientRect(), r = vb.getBoundingClientRect(), w = Math.max(vb.offsetWidth, vdMaxW(vb)), h = vb.offsetHeight; if (!w || !h) return 2.4; const cy = (r.top + r.bottom) / 2; return Math.max(1, Math.min(2.4, (r.right - sw.left - 4) / w, 2 * (cy - sw.top - 2) / h, 2 * (sw.bottom - cy - 2) / h)).toFixed(3); }
 function seqFrame(t, B) {
   const L = S.L || {};
   const { r, n, land } = reveal(t, B);
@@ -486,7 +491,7 @@ function seqFrame(t, B) {
   if (B >= rollStart && B < land) { rolling = true; const pr = easeO((B - rollStart) / (land - rollStart)); hi = ((t.vi - steps + Math.floor(pr * steps)) % HYPE.length + HYPE.length) % HYPE.length; }
   const tone = TONE[HYPE[hi][1]], done = r > n; const vb = $("#vdBox");
   $("#vdLab").style.opacity = B >= rollStart ? 1 : 0; 
-  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(2.4)"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border;
+  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(" + vdEntry(vb) + ")"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border;
   $("#vdJp").textContent = tone.jp; $("#vdJp").style.display = tone.jp ? "inline" : "none"; $("#vdTx").textContent = HYPE[hi][0];
   vb.dataset.landed = done ? "1" : "0"; vb.dataset.tone = HYPE[hi][1];
 }

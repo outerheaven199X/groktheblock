@@ -9,12 +9,12 @@
   "data/everything/live-derived.json": {
    "status": "project-generated",
    "source": "tools/build_everything.py --fetch: detector output. Raw values only from redistributable official sources (ECB reference rates, EIA via FRED, CFTC COT); Nasdaq, Scryfall and Steam inputs appear only as derived numbers (z-scores, % gaps, counts)",
-   "sha256": "ba52826fc832eb4e36f77e6f312cd9c9c000e45c1c0b73a60d004ff85e10dc31"
+   "sha256": "b43891d094e09e4d58b80bcab3f9b500ece30ae40778aac104adf19cfd01f584"
   },
   "data/everything/markets-derived.json": {
    "status": "project-generated",
    "source": "tools/build_everything.py --fetch (markets module): signals-engine output for Polymarket, Kalshi, equities, options, Treasury, crypto. Raw values kept only for US-government sources (Treasury, SEC); vendor sources carry type, ratio, severity, time, market title and link only (derivedOnly)",
-   "sha256": "3de90c1dae877477e1581f3649dae22a5a99208d45f5d9eb399d47e757b0bf26"
+   "sha256": "4e6507e2e3b5acf411bfd32e6f2995a9e3760628633c6f0a53c21fdf7b24d006"
   },
   "data/everything/synthetic.json": {
    "status": "synthetic",
