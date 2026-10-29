@@ -182,7 +182,7 @@ def test_R6_05_unnormalized_question_is_related_activity_and_positive_control_st
 # ======================= R6-04: every public asset classified; images covered; history options =======================
 
 ASSET_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".mp4", ".zip", ".json", ".jsonl", ".csv", ".txt"}
-STATUSES = {"synthetic", "project-generated", "public-official", "license-text"}
+STATUSES = {"synthetic", "project-generated", "public-official", "license-text", "third-party-licensed"}  # v6: self-hosted OFL fonts
 
 
 def _assets():

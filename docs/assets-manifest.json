@@ -572,6 +572,36 @@
    "source": "hand-written detector fixtures (invented values; file _note says SYNTHETIC)",
    "sha256": "1c0d89c63ff87c12725ccb090b28b39a84ff6fae649991c8ab1d1b4edd38ca0c"
   },
+  "ui/fonts/BigShouldersDisplay-900-latin-ext.woff2": {
+   "status": "third-party-licensed",
+   "source": "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md",
+   "sha256": "7daaef25a551918dc08f691c0b5b5b08ff1f76c6b962b430a88bfee593082554"
+  },
+  "ui/fonts/BigShouldersDisplay-900-latin.woff2": {
+   "status": "third-party-licensed",
+   "source": "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md",
+   "sha256": "360cba2701b9e040d31a953bfbc36d69fc63a5d0358ab3671f41c9010392bf0c"
+  },
+  "ui/fonts/MartianMono-var-latin-ext.woff2": {
+   "status": "third-party-licensed",
+   "source": "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md",
+   "sha256": "21fce7e290a2395b70fb1569e1b2ef65b3a2c0a121f28203e23dd9b17d120ed4"
+  },
+  "ui/fonts/MartianMono-var-latin.woff2": {
+   "status": "third-party-licensed",
+   "source": "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md",
+   "sha256": "f9c1655c2c9d1ed5bb8b301a57d1169a1123ffef1a588dc50a7a487810f7d732"
+  },
+  "ui/fonts/NotoSansJP-400-kiken-chui.woff2": {
+   "status": "third-party-licensed",
+   "source": "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md",
+   "sha256": "4b15fcfaa908ca2bf26785d2ef7f2e293ff97cf0c5d51b7b621c119ff1964cbf"
+  },
+  "ui/licenses/BigShouldersDisplay-OFL.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "338f9c050f19daeda1d597243faf79f3a3d437c338af58cb7047617d0ce08771"
+  },
   "ui/licenses/Bungee-OFL.txt": {
    "status": "license-text",
    "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
@@ -582,10 +612,25 @@
    "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
    "sha256": "a34971681b85fa8d07ab3a336df38f8359297b6fd3cad6ebff5f4f47b61a35fc"
   },
+  "ui/licenses/MartianMono-OFL.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "ddafd2c3f37ef1d83ef284ca63e159befd3820850c5e9eded14ca52eee92c256"
+  },
+  "ui/licenses/NotoSansJP-OFL.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+  },
   "ui/licenses/Pixelarticons-MIT.txt": {
    "status": "license-text",
    "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
    "sha256": "eb113ac5006542496193a0641f8e90dcaf392e5025540ba45c2ee042af3ae51d"
+  },
+  "ui/licenses/three.js-r164-MIT.txt": {
+   "status": "license-text",
+   "source": "font/icon licence texts (OFL, MIT) shipped with the UI",
+   "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
   }
  }
 }
