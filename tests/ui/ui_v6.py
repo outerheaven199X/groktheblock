@@ -5,6 +5,8 @@ verdict mapping, reduced motion, WebGL fallback, legal footer, tap targets, keyb
 import json, sys, re
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright
+import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from v6_layout import inject, end_state, check
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8821/ui/"
 O = urlparse(U); ORIGIN = f"{O.scheme}://{O.netloc}"
 R = []
@@ -81,7 +83,7 @@ with sync_playwright() as p:
     ask_check(pg, "leaderboard row", lambda: pg.locator("#panel tbody [data-ask]").first.click(), "Leaderboard", "board:INSIDER#")
     pg.evaluate("GTB.go('prov')"); pg.wait_for_timeout(300)
     ask_check(pg, "provenance record", lambda: pg.locator("#panel .card [data-ask]").first.click(), "Provenance", "prov:")
-    res("legal footer flagged for counsel review", pg.locator("[data-legal-status=NEEDS_COUNSEL_REVIEW]").count() == 1 and "not financial advice" in pg.locator("footer").inner_text().lower())
+    res("legal footer present without draft/counsel labels", "counsel" not in pg.locator("body").inner_text().lower() and "draft" not in pg.locator("body").inner_text().lower() and "not financial advice" in pg.locator("footer").inner_text().lower())
     bad = [r for r in pg.reqs if not r[1].startswith(ORIGIN + O.path) or r[0] in ("fetch", "xhr", "websocket", "eventsource")]
     res("zero network requests beyond the app's own local files (no fetch/XHR/websocket, no other origin)", not bad and len(pg.reqs) > 0, bad[:5] or f"{len(pg.reqs)} local file loads")
     res("no page errors (1440)", not pg.errs, pg.errs[:3])
@@ -115,6 +117,26 @@ with sync_playwright() as p:
     ctx, pg = page(b, viewport={"width": 1440, "height": 900})
     pg.goto(U + "?nowebgl"); pg.wait_for_function("window.GTB&&GTB.ready"); pg.wait_for_timeout(800)
     res("WebGL unavailable -> static bot fallback", pg.evaluate("document.getElementById('stage').dataset.webgl") == "fallback" and pg.locator("#fallback").is_visible())
+    ctx.close()
+    # --- viewport regressions (bug report: Windows Chrome, main @ 49f82db: stats clipped, bot over RESULT) ---
+    for (w, h, d, z) in [(1024, 556, 1.25, 1), (1280, 720, 1, 1), (1366, 768, 1, 1.5), (390, 844, 3, 1), (360, 640, 2, 1), (844, 390, 2, 1), (1920, 1080, 1, 1.25)]:
+        ctx, pg = page(b, viewport={"width": round(w / z), "height": round(h / z)}, device_scale_factor=d * z, reduced_motion="reduce")
+        pg.goto(U); pg.wait_for_function("window.GTB&&GTB.ready"); inject(pg); pg.wait_for_timeout(500)
+        tag = f"{w}x{h} dpr{d}" + (f" zoom{int(z*100)}%" if z != 1 else "")
+        res(f"layout {tag}: home fits stage, bot clear of text", not (c := check(pg)), c)
+        for tid in ["replay:SYNTHING", "token:SYNTHING", "token:SYNFART", "token:SYNTHETICEXTRALONGTICKERNAME2026", "token:SYNEMPTY"]:
+            end_state(pg, tid); c = check(pg)
+            res(f"layout {tag}: {tid} result end state: stats/verdict/TL;DR inside stage, no overlap, bot clear", not c, c)
+        res(f"layout {tag}: no page errors", not pg.errs, pg.errs[:3]); ctx.close()
+    ctx, pg = page(b, viewport={"width": 1440, "height": 900})
+    pg.goto(U); pg.wait_for_function("window.GTB&&GTB.ready"); pg.wait_for_timeout(800)
+    pg.evaluate("GTB.scan('token:SYNTHING',true)"); pg.wait_for_timeout(1400); pg.set_viewport_size({"width": 1024, "height": 556})
+    pg.wait_for_function("document.getElementById('vdBox').dataset.landed==='1'", timeout=60000); pg.wait_for_timeout(2500)
+    res("layout: resize mid-animation 1440x900 -> 1024x556", not (c := check(pg)), c)
+    pg.set_viewport_size({"width": 390, "height": 844}); pg.wait_for_timeout(2500)
+    res("layout: resize after result -> 390x844", not (c := check(pg)), c)
+    body = pg.locator("body").inner_text().lower()
+    res("no draft/counsel/emulation/'not a live connection' meta labels in the UI", not re.search(r"draft|counsel|emulation|not a live connection|static view", body), [k for k in ["draft", "counsel", "emulation", "not a live connection", "static view"] if k in body])
     ctx.close()
     b.close()
 print(("ALL PASS" if all(R) else "SOME FAIL"), f"{sum(R)}/{len(R)}")

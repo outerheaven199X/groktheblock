@@ -83,7 +83,6 @@ main{display:flex;flex-direction:column;gap:12px;padding:16px;min-height:0;min-w
 #fallback .bot{position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2a2a30,#141418 60%);box-shadow:0 30px 30px -20px rgba(0,0,0,.5)}
 #fallback .bot i{position:absolute;top:44px;width:22px;height:56px;border-radius:11px;background:#f8f8fa}
 #fallback .bot i:first-child{left:44px}#fallback .bot i:last-child{right:44px}
-#fallback .note{position:absolute;left:12px;top:10px;font-size:10px;color:var(--g);background:var(--y);padding:2px 8px}
 .stage-static #fallback{display:block}
 #home{position:absolute;display:flex;flex-direction:column;gap:18px;z-index:3}
 #home h1{margin:0;line-height:.86;color:var(--y)}
@@ -165,7 +164,6 @@ footer{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 20px;padding:1
 footer .nfa{flex-shrink:0;background:var(--y);color:var(--g);font-size:10px;padding:3px 8px}
 footer p{margin:0;flex:1 1 520px;font-size:11px;line-height:17px;color:#c8c8cc;text-wrap:pretty}
 footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17px}
-footer .cr{flex-basis:100%;font-size:10px;color:var(--y)}
 /* feed, notif, toast, fallback */
 #notif{position:absolute;top:94px;right:16px;width:min(340px,calc(100% - 32px));z-index:8;background:var(--p);border:1px solid var(--b);border-top:2.4px solid var(--y);padding:12px 14px;display:flex;flex-direction:column;gap:8px;transform:translateX(calc(100% + 32px));transition:transform .35s cubic-bezier(.2,1.2,.3,1)}
 #notif.on{transform:none}
@@ -205,7 +203,7 @@ footer .cr{flex-basis:100%;font-size:10px;color:var(--y)}
     <div class="rhead" id="rhead" hidden></div>
     <div id="stageWrap">
       <div id="stage" aria-hidden="true"></div>
-      <div id="fallback" aria-hidden="true"><span class="note up" id="fbNote">Static view</span><div class="bot" id="fbBot"><i></i><i></i></div></div>
+      <div id="fallback" aria-hidden="true"><div class="bot" id="fbBot"><i></i><i></i></div></div>
       <div id="home" hidden>
         <h1 class="disp" id="homeH1">Grok the Block</h1>
         <p>Paste a token, wallet or ticker. Grok Bot reads the loaded reports and tells you what the evidence supports, and what it doesn't.</p>
@@ -227,10 +225,9 @@ footer .cr{flex-basis:100%;font-size:10px;color:var(--y)}
     <span class="nfa up">Not financial advice</span>
     <p>Research preview. Grok The Block is an informational research tool, not financial, investment, legal or tax advice, and not a recommendation to buy, sell or hold any asset. Signals are statistical patterns in public data; they are not accusations of wrongdoing or claims about anyone's identity or intent, and they may be wrong, incomplete or stale. Labels such as "insider" or "sniper" are timing patterns, not identities. Example data is synthetic. Provided as is, without warranty. Not affiliated with or endorsed by xAI, X, Solana, Polymarket, Kalshi, the SEC, BLS, the Federal Reserve or any exchange. Do your own research and consult a licensed professional.</p>
     <span class="links"><a href="#legal">Legal notice (README)</a><a href="#risk">Risk disclosure</a><a href="#methodology">Methodology</a></span>
-    <span class="cr up" data-legal-status="NEEDS_COUNSEL_REVIEW">Draft wording · needs counsel review before launch</span>
   </footer>
   <div id="notif" role="status" aria-live="polite" hidden></div>
-  <div id="feed" aria-hidden="true" aria-label="Live feed"><div class="fh"><span class="disp" style="font-size:20px;color:var(--y)">Live feed</span><span style="display:flex;gap:6px"><button class="btn" id="pauseBtn">Pause</button><button class="btn" id="feedClose" aria-label="Close feed">×</button></span></div><div class="dim" style="padding:8px 16px;font-size:10px;border-bottom:1px solid var(--b)">Replays the loaded synthetic reports. Not a live connection.</div><div class="fl" id="feedList"></div></div>
+  <div id="feed" aria-hidden="true" aria-label="Live feed"><div class="fh"><span class="disp" style="font-size:20px;color:var(--y)">Live feed</span><span style="display:flex;gap:6px"><button class="btn" id="pauseBtn">Pause</button><button class="btn" id="feedClose" aria-label="Close feed">×</button></span></div><div class="fl" id="feedList"></div></div>
   <div id="toastWrap" aria-live="polite" role="status"><div id="toast"></div></div>
   <div id="fbk"><div class="sh" id="fbkSh"></div><div class="dl" role="dialog" aria-modal="true" aria-label="Copy prompt"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.4px solid var(--y)"><span class="up" style="color:var(--y)">Copy this, then paste into Grok Bot</span><button class="btn" id="fbkClose">Close</button></div><textarea id="fbkTa" readonly></textarea></div></div>
   <input type="file" id="pick" accept=".json,application/json" multiple hidden>

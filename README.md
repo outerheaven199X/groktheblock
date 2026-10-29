@@ -103,7 +103,7 @@ examples/*.json (synthetic) ──tools/build_ui_data.py──▶ ui/data/report
   - Leaderboard and reputation only know what this machine has scanned.
   - X data comes from samples.
   - Release-calendar BLS times are provisional unless `GTB_CONTACT` is set.
-- **Design and text not yet final:** the legal wording and the footer links are placeholders that still need counsel review.
+- **Footer links:** Risk disclosure and Methodology are placeholders.
 
 ## Data sources and provider rights
 - **Solana:** public RPC, DexScreener, RugCheck, and Helius (optional).
@@ -125,7 +125,6 @@ examples/*.json (synthetic) ──tools/build_ui_data.py──▶ ui/data/report
 Grok The Block grew out of [CryptOSINT](https://github.com/outerheaven199X/CryptOSINT) by Nikki ([@varien](https://x.com/varien)).
 
 ## Legal notice
-*Template pending review by legal counsel.*
 
 - **Not advice.** Nothing in this software, its output or this repository is financial, investment, legal or tax advice.
 - **No recommendation.** Nothing here is an offer, solicitation or recommendation to buy, sell or hold any asset, token or security.

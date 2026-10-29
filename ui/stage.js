@@ -3,10 +3,9 @@ const wrap = document.getElementById("stageWrap"), el = document.getElementById(
 const RM = matchMedia("(prefers-reduced-motion: reduce)");
 function fallback(why) {
   wrap.classList.add("stage-static"); el.dataset.webgl = "fallback"; el.dataset.reason = why;
-  document.getElementById("fbNote").textContent = "Static view · " + why;
   const bot = document.getElementById("fbBot");
-  const place = () => { const home = window.GTB && window.GTB.S.view === "home"; const w = wrap.clientWidth, h = wrap.clientHeight; bot.style.left = (w >= 640 ? (home ? w * 0.72 : w * 0.25) : w / 2) - 75 + "px"; bot.style.top = Math.max(40, h * 0.42 - 75) + "px"; };
-  place(); addEventListener("resize", place); setInterval(place, 500);
+  const place = () => { const b = window.GTB_BOX; if (!b) return; const d = Math.max(40, Math.min(150, Math.min(b.w, b.h) * 0.8)); bot.style.transform = "scale(" + (d / 150).toFixed(3) + ")"; bot.style.transformOrigin = "0 0"; bot.style.left = (b.x + b.w / 2 - d / 2) + "px"; bot.style.top = (b.y + b.h / 2 - d / 2) + "px"; el.dataset.bot = [b.x + b.w / 2, b.y + b.h / 2, d / 2].map(Math.round).join(","); };
+  place(); addEventListener("resize", place); setInterval(place, 200);
   const noop = () => {}; window.GTB_STAGE = { intro: noop, hop: noop, spin: noop, punch: noop, setMode: place, react: noop, set: noop, setTalking: noop, resize: place, setVisible: noop, static: true };
 }
 function webglOK() { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } }
@@ -67,7 +66,7 @@ async function init() {
   if (PP) { try { composer = new PP.EffectComposer(renderer); composer.addPass(new PP.RenderPass(scene, camera)); composer.addPass(new PP.AfterimagePass(0.72)); composer.addPass(new PP.UnrealBloomPass(new THREE.Vector2(512, 512), 0.28, 0.4, 0.86)); composer.addPass(new PP.OutputPass()); } catch (e) { composer = null; } }
   el.dataset.post = composer ? "on" : "off";
   let lastW = 0, lastH = 0;
-  const resize = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h || (w === lastW && h === lastH)) return; lastW = w; lastH = h; renderer.setSize(w, h, false); if (composer) composer.setSize(w, h); camera.aspect = w / h; camBase.z = w / h < 1 ? 11 : 8.4; camera.position.z = camBase.z; camera.updateProjectionMatrix(); };
+  const resize = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h || (w === lastW && h === lastH)) return; lastW = w; lastH = h; renderer.setSize(w, h, false); if (composer) composer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(el); resize();
   let mode = "home", rotY = 0, drag = null, look = { x: 0, y: 0 }, lookT = { x: -0.45, y: -0.05 };
   const gaze = () => mode === "home" ? { x: -0.5, y: -0.05 } : { x: 0.3, y: -0.05 };
@@ -77,7 +76,8 @@ async function init() {
   wrap.addEventListener("pointerleave", () => { lookT = gaze(); });
   const acts = [], now0 = () => performance.now();
   const add = (type, dur, delay = 0) => { if (RM.matches && type !== "blink") return; acts.push({ type, t0: now0() + delay, dur }); };
-  const EMO = ["happy", "suspicious", "surprised", "worried", "determined"]; let emo = null, emoI = 0, nextEmo = now0() + 3200, nextBlink = now0() + 2500, talking = false, curX = null, visible = true;
+  const EMO = ["happy", "suspicious", "surprised", "worried", "determined"]; let emo = null, emoI = 0, nextEmo = now0() + 3200, nextBlink = now0() + 2500, talking = false, curX = null, curY = null, curK = null, visible = true;
+  const TAN = Math.tan(14 * Math.PI / 180), bodyW = new THREE.Vector3();
   const api = {
     intro: () => { acts.length = 0; add("drop", 1150); add("blink", 180, 1300); },
     hop: () => { add("hop", 420); lookT = { x: 0.6, y: -0.02 }; }, spin: () => add("spin", 900), punch: () => add("punch", 380),
@@ -111,9 +111,14 @@ async function init() {
       if (now > nextEmo) { emo = { k: EMO[emoI++ % EMO.length], t0: now }; nextEmo = now + 5000; if (emo.k === "happy" || emo.k === "surprised") add("hop", 380); }
     }
     const idle = still ? 0 : Math.sin(now * 0.0021) * 0.05;
-    const botT = camera.aspect >= 1.25 ? (mode === "home" ? 2.2 : -2.0) : 0; if (curX == null || still) curX = botT; curX += (botT - curX) * 0.04;
-    const hx = curX + (still ? 0 : Math.sin(now * 0.00055) * 0.3), hy = 0.95 + (still ? 0 : Math.sin(now * 0.0011) * 0.12);
-    root.position.set(ox + hx, y + hy + idle, still ? 0 : Math.sin(now * 0.0004) * 0.3);
+    // Fit the bot inside the free box the layout reserved (stage px), so it never covers the text.
+    const W = lastW || 1, H = lastH || 1, ppw = (H / 2) / (camBase.z * TAN), b = window.GTB_BOX || { x: W * 0.25, y: H * 0.2, w: W * 0.5, h: H * 0.6 };
+    const kT = Math.max(0.12, Math.min(1.35, Math.min(b.w, b.h) / 2 * 0.66 / ppw));
+    const xT = (b.x + b.w / 2 - W / 2) / ppw, yT = 1.75 + (H / 2 - (b.y + b.h / 2)) / ppw;
+    if (curX == null || still) { curX = xT; curY = yT; curK = kT; } const ease = 0.12; curX += (xT - curX) * ease; curY += (yT - curY) * ease; curK += (kT - curK) * ease;
+    const u = curK / 1.35, hx = curX + (still ? 0 : Math.sin(now * 0.00055) * 0.3 * u), hy = still ? 0 : Math.sin(now * 0.0011) * 0.12 * u;
+    root.scale.setScalar(curK);
+    root.position.set(ox * u + hx, curY - curK + (y + hy + idle * u) * u, still ? 0 : Math.sin(now * 0.0004) * 0.3 * u);
     rz += still ? 0 : -Math.cos(now * 0.00055) * 0.09;
     let ew = 0; if (emo && !still) { const q = (now - emo.t0) / 1100; ew = q < 0 || q > 1 ? 0 : Math.max(0, Math.min(1, q / 0.15, (1 - q) / 0.2)); }
     if (emo && emo.k === "suspicious") rz += 0.12 * ew; if (emo && emo.k === "worried") sy *= 1 - 0.05 * ew;
@@ -125,6 +130,8 @@ async function init() {
       e.scale.set(ex, ey, 1); e.rotation.z = rot; e.position.y = py; });
     key.shadow.radius = 6 + Math.max(0, root.position.y) * 4; if (!drag) rotY += (0 - rotY) * 0.01;
     if (composer && !still) composer.render(); else renderer.render(scene, camera);
+    body.getWorldPosition(bodyW); const pc = bodyW.clone().project(camera), dist = camera.position.distanceTo(bodyW);
+    el.dataset.bot = [(pc.x + 1) / 2 * W, (1 - pc.y) / 2 * H, curK * Math.max(sx, sy) * (H / 2) / (dist * Math.tan(camera.fov * Math.PI / 360))].map(Math.round).join(",");
     el.dataset.frames = ++frames;
   };
   let failed = false;

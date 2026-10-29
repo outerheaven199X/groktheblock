@@ -104,7 +104,9 @@ const VIEWS = [["home", "Home"], ["token", "Token"], ["wallet", "Wallet"], ["rep
 const S = { view: "home", target: null, scanning: false, brel: 0, t0: 0, tab: 0, open: false, scrub: 62, withX: false, dl: 0, dc: 0, dh: 0, feed: [], pool: [], paused: false, notifAt: 0, sel: {}, sort: { col: "appearances", dir: -1 }, filter: "ALL", sigFilter: "all", lastAsk: null };
 window.GTB = { S, REPORTS, targets, addReport };
 const three = () => window.GTB_STAGE || null;
-const wide = () => innerWidth >= 1180 && innerHeight >= 680;
+// Wide = fixed full-height grid. If that leaves the stage too short for the result (short windows, zoom), fall back to the scrolling layout.
+const shortKey = () => innerWidth + "x" + innerHeight + "|" + S.view + "|" + (S.target && S.target.id);
+const wide = () => innerWidth >= 1180 && innerHeight >= 680 && S.tooShort !== shortKey();
 
 /* ---------------- ask about this ---------------- */
 function ask(view, item, evId, report, facts) {
@@ -206,6 +208,8 @@ function scan(id, quiet) {
   scanT = setTimeout(() => { S.scanning = false; S.t0 = performance.now(); S._rv = -1; if (three()) three().spin(); render(); }, quiet ? 700 : 1600);
 }
 window.GTB.scan = scan;
+/* test/automation hook: jump the current result sequence to its end state */
+window.GTB.finish = () => { clearTimeout(scanT); S.scanning = false; S.t0 = performance.now() - 20000; S._rv = -1; render(); };
 const boardRows = (t) => [[t.score.label, t.score.value + (t.score.unit && t.score.unit.startsWith("/") ? " " + t.score.unit : ""), null]].concat(t.metrics).slice(0, 5);
 function reveal(t, B) { const n = boardRows(t).length; const raw = Math.floor(Math.max(0, B - 900) / 420); const land = 900 + n * 420 + 1700; const r = raw > n ? (B >= land ? n + 1 : n) : raw; return { r, n, land }; }
 function dlgLines(t) {
@@ -214,10 +218,71 @@ function dlgLines(t) {
   return ["TL;DR on " + t.title + ": " + HYPE[t.vi][0] + ".", t.verdictNote, t.score.label + ": " + t.score.value + unit + ". " + t.score.note, t.metrics.slice(0, 3).map(([k, v]) => k + " " + v).join(", ") + ".", t.why[1] || t.why[0] || "No further findings in this report.", "Signals, not predictions. Ask me about any row."].filter(Boolean);
 }
 function shake(px) { if (reduced()) return; const el = $("#stageWrap"); if (!el.animate) return; const k = []; for (let i = 0; i < 8; i++) { const a = px * (1 - i / 8); k.push({ transform: "translate(" + ((i % 2 ? 1 : -1) * a).toFixed(1) + "px," + ((i % 3 - 1) * a * 0.6).toFixed(1) + "px)" }); } k.push({ transform: "none" }); el.animate(k, { duration: 320, easing: "linear" }); }
+/* ---------------- stage layout: everything is sized from the stage box so nothing clips ---------------- */
+function longest(a) { return a.reduce((m, x) => x.length > m.length ? x : m, ""); }
+function layoutStage(t) {
+  const W = $("#stageWrap"); if (W.hidden) return;
+  const home = S.view === "home" || !t, sw = W.clientWidth; if (!sw) return;
+  if ($("#root").className === "wide" && W.clientHeight < 440) { S.tooShort = shortKey(); $("#root").className = "narrow"; }
+  const narrow = $("#root").className !== "wide";
+  const sh0 = narrow ? Math.max(380, Math.min(560, Math.round(innerHeight * 0.78))) : W.clientHeight;
+  const key = [S.view, t && t.id, sw, sh0, innerHeight, document.fonts ? document.fonts.status : ""].join("|");
+  if (S.L && S.L.key === key) { window.GTB_BOX = S.L.box; return; }
+  const side = sw >= 640, dlg = $("#dlg"), P = 16;
+  // TL;DR box: reserve the height of the longest line so typing never moves anything
+  const lines = dlgLines(t);
+  const dlgH = (dw) => { const inner = Math.max(80, dw - 64), cpl = Math.max(8, Math.floor(inner / 8.4)); const n = Math.max(2, Math.max(...lines.map(l => Math.ceil(l.length / cpl) + (l.length > cpl ? 1 : 0)))); return { box: n * 22 + 38, all: n * 22 + 38 + 22 }; };
+  const L = { key, side, narrow };
+  if (home) {
+    const hm = $("#home"), h1 = $("#homeH1"); const hw = side ? Math.min(520, Math.round(sw * 0.48)) : sw - 40;
+    const dw = side ? sw - (32 + hw) - 24 - P : sw - 2 * P, dh = dlgH(dw);
+    Object.assign(hm.style, { left: side ? "32px" : "20px", width: hw + "px", transform: "none" });
+    let hs = Math.max(40, Math.min(120, Math.floor(hw * 0.23), side ? Math.floor((sh0 - 230) * 0.5) : 72));
+    h1.style.fontSize = hs + "px"; let hh = hm.offsetHeight;
+    while (side && hh > sh0 - 2 * P && hs > 40) { hs -= 6; h1.style.fontSize = hs + "px"; hh = hm.offsetHeight; }
+    const req = side ? Math.max(hh + 2 * P, dh.all + 150 + 3 * P) : 20 + hh + 12 + 150 + 12 + dh.all + P;
+    const sh = narrow ? Math.max(sh0, req) : sh0;
+    hm.style.top = (side ? Math.max(P, Math.round((sh - hh) / 2)) : 20) + "px";
+    Object.assign(dlg.style, { left: (side ? 32 + hw + 24 : P) + "px", right: P + "px" }); $("#dlg .box").style.minHeight = dh.box + "px";
+    const dTop = sh - P - dh.all;
+    L.box = side ? { x: 32 + hw + 24, y: P, w: sw - (32 + hw + 24) - P, h: dTop - 12 - P } : { x: P, y: 20 + hh + 12, w: sw - 2 * P, h: dTop - 12 - (20 + hh + 12) };
+    L.sh = sh;
+  } else {
+    const st = $("#stats"), rows = boardRows(t), box = $("#srows");
+    if (box.dataset.t !== t.id) { box.dataset.t = t.id; box.innerHTML = rows.map(() => `<div class="srow"><span class="k disp"></span><span class="v disp"></span></div>`).join(""); }
+    // measure with the final values and the longest verdict phrase the slot-roll can show
+    $$(".srow", box).forEach((el, i) => { el.children[0].textContent = rows[i][0]; el.children[1].textContent = rows[i][1]; });
+    const vt = $("#vdTx"), vj = $("#vdJp"), keepT = vt.textContent, keepJ = vj.style.display;
+    vt.textContent = longest(HYPE.map(h => h[0])); vj.textContent = "危険"; vj.style.display = "inline"; vt.style.whiteSpace = "nowrap";
+    const colW = side ? Math.round(Math.min(480, Math.max(250, sw * 0.44))) : sw - 2 * P - 8;
+    const setF = (f) => { $$(".srow .k", box).forEach(e => e.style.fontSize = f + "px"); $$(".srow .v", box).forEach(e => e.style.fontSize = Math.round(f * 1.3) + "px"); $("#vdLab").style.fontSize = f + "px"; $("#vdBox").style.fontSize = Math.round(f * 1.5) + "px"; vj.style.fontSize = Math.round(f * 1.12) + "px"; };
+    st.style.width = "max-content"; st.style.transform = "none";
+    const dwSide = sw - colW - 2 * P - 24, dh = dlgH(side ? dwSide : sw - 2 * P);
+    const fits = (f) => { setF(f); const w = st.offsetWidth, h = st.offsetHeight; return w + h * 0.07 <= colW && (!side || h + w * 0.07 <= sh0 - 2 * P); };
+    let f = side ? 30 : 24; while (f > 11 && !fits(f)) f -= 1; if (f <= 11) setF(f);
+    vt.textContent = keepT; vj.style.display = keepJ; vt.style.whiteSpace = "";
+    st.style.width = colW + "px"; st.style.transform = ""; const sH = st.offsetHeight;
+    const rs = side ? Math.round(Math.max(34, Math.min(80, (sw - colW - 3 * P) * 0.26, sh0 * 0.15))) : Math.round(Math.max(34, Math.min(56, sw * 0.13)));
+    const rsp = $("#resSpan"); rsp.style.fontSize = rs + "px"; const rw = $("#resWord"), w0 = rw.offsetWidth, h0 = rw.offsetHeight;
+    const rTop = P + Math.ceil(w0 * 0.14) - Math.round(h0 * 0.1); rw.style.left = (P + 8) + "px"; rw.style.top = rTop + "px"; const rBot = rTop + h0 + 4;
+    let sh, sTop;
+    if (side) { const req = Math.max(sH + colW * 0.07 + 2 * P, rBot + 150 + dh.all + 2 * P); sh = narrow ? Math.max(sh0, Math.ceil(req)) : sh0; sTop = Math.max(P + colW * 0.035, (sh - sH) / 2); }
+    else { sTop = rBot + 8 + colW * 0.035; const sBot = sTop + sH + colW * 0.035; const req = sBot + 12 + 150 + 12 + dh.all + P; sh = narrow ? Math.max(sh0, Math.ceil(req)) : sh0; }
+    Object.assign(st.style, { top: Math.round(sTop) + "px", right: P + "px" });
+    Object.assign(dlg.style, { left: P + "px", right: (side ? colW + P + 24 : P) + "px" }); $("#dlg .box").style.minHeight = dh.box + "px";
+    const dTop = sh - P - dh.all;
+    L.box = side ? { x: P, y: rBot + 8, w: sw - colW - 2 * P - 24, h: dTop - 12 - (rBot + 8) } : { x: P, y: sTop + sH + colW * 0.035 + 12, w: sw - 2 * P, h: dTop - 12 - (sTop + sH + colW * 0.035 + 12) };
+    L.sh = sh; L.f = f;
+  }
+  if (narrow) W.style.height = L.sh + "px"; else W.style.height = "";
+  L.box.sw = sw; L.box.sh = L.sh; S.L = L; window.GTB_BOX = L.box;
+  W.dataset.layout = (L.side ? "side" : "stack") + (L.f ? " f" + L.f : "");
+}
 function frame() {
   const t = S.target, stageView = ["home", "token", "wallet", "replay"].includes(S.view);
   if (stageView) {
     const B = S.view === "home" || S.scanning || !S.t0 ? 0 : performance.now() - S.t0; S.brel = B;
+    layoutStage(t);
     if (S.view !== "home" && t) seqFrame(t, B);
     typeFrame(t, B);
   }
@@ -225,30 +290,25 @@ function frame() {
   requestAnimationFrame(frame);
 }
 function seqFrame(t, B) {
-  const sw = $("#stageWrap").clientWidth, sh = $("#stageWrap").clientHeight, side = sw >= 640, big = side && sh >= 520;
+  const L = S.L || {};
   const { r, n, land } = reveal(t, B);
   if (B >= 280 && !S._slam) { S._slam = true; shake(9); three() && three().punch(); } if (B < 280) S._slam = false;
   if (r !== S._rv) { if (r > S._rv && three()) { if (r === n + 1) { three().react(t.vc); three().punch(); shake(t.vc === "red" ? 14 : 8); } else if (r > 0) three().hop(); } S._rv = r; }
   const wp = B < 50 ? 0 : B < 260 ? 1 : 2; const wipe = $("#wipe");
   wipe.style.transition = wp === 0 ? "none" : "clip-path .2s cubic-bezier(.7,0,.3,1)"; wipe.style.clipPath = S.scanning ? "inset(0 100% 0 0)" : wp === 0 ? "inset(0 100% 0 0)" : wp === 1 ? "inset(0 0 0 0)" : "inset(0 0 0 100%)";
   const rw = $("#resWord"); rw.style.opacity = B >= 280 ? 1 : 0; rw.style.transition = B >= 280 ? "transform .32s cubic-bezier(.2,1.6,.4,1), opacity .08s" : "none"; rw.style.transform = B >= 280 ? "rotate(-8deg) scale(1)" : "rotate(-14deg) scale(2.8)";
-  $("#resSpan").style.fontSize = big ? "80px" : "56px";
-  const st = $("#stats"); st.style.width = side ? "clamp(280px,46%,420px)" : "62%"; st.style.bottom = side ? "16px" : "136px";
   $("#hzTop").style.transform = B >= 750 ? "scaleX(1)" : "scaleX(0)"; $("#hzMid").style.transform = r > n - 1 && B >= 900 + n * 420 ? "scaleX(1)" : "scaleX(0)";
   const rows = boardRows(t); const box = $("#srows");
-  if (box.dataset.t !== t.id) { box.dataset.t = t.id; box.innerHTML = rows.map(() => `<div class="srow"><span class="k disp"></span><span class="v disp"></span></div>`).join(""); }
-  $$(".srow", box).forEach((el, i) => { const [k, v, c] = rows[i]; const on = r > i; const pp = easeO(Math.min(1, Math.max(0, B - 900 - i * 420) / 380)); el.classList.toggle("on", on); el.children[0].textContent = k; el.children[0].style.fontSize = big ? "26px" : "20px"; el.children[1].textContent = on ? countTo(v, pp) : v; el.children[1].style.fontSize = big ? "34px" : "24px"; el.children[1].style.color = c === "red" ? C.red : C.ink; });
+  $$(".srow", box).forEach((el, i) => { const [k, v, c] = rows[i]; const on = r > i; const pp = easeO(Math.min(1, Math.max(0, B - 900 - i * 420) / 380)); el.classList.toggle("on", on); el.children[0].textContent = k; el.children[1].textContent = on ? countTo(v, pp) : v; el.children[1].style.color = c === "red" ? C.red : C.ink; });
   const rollStart = 900 + n * 420 + 150, steps = 22; let hi = t.vi, rolling = false;
   if (B >= rollStart && B < land) { rolling = true; const pr = easeO((B - rollStart) / (land - rollStart)); hi = ((t.vi - steps + Math.floor(pr * steps)) % HYPE.length + HYPE.length) % HYPE.length; }
   const tone = TONE[HYPE[hi][1]], done = r > n; const vb = $("#vdBox");
-  $("#vdLab").style.opacity = B >= rollStart ? 1 : 0; $("#vdLab").style.fontSize = big ? "26px" : "20px";
-  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(2.4)"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border; vb.style.fontSize = big ? "40px" : "28px";
-  $("#vdJp").textContent = tone.jp; $("#vdJp").style.display = tone.jp ? "inline" : "none"; $("#vdJp").style.fontSize = big ? "30px" : "22px"; $("#vdTx").textContent = HYPE[hi][0];
+  $("#vdLab").style.opacity = B >= rollStart ? 1 : 0; 
+  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(2.4)"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border;
+  $("#vdJp").textContent = tone.jp; $("#vdJp").style.display = tone.jp ? "inline" : "none"; $("#vdTx").textContent = HYPE[hi][0];
   vb.dataset.landed = done ? "1" : "0"; vb.dataset.tone = HYPE[hi][1];
 }
 function typeFrame(t, B) {
-  const dlg = $("#dlg"), sw = $("#stageWrap").clientWidth;
-  dlg.style.left = S.view === "home" && sw >= 640 ? "calc(52% + 8px)" : "16px"; dlg.style.right = S.view === "home" ? "16px" : sw >= 640 ? "calc(clamp(280px,46%,420px) + 44px)" : "16px";
   const lines = dlgLines(t); const L = lines[S.dl] || "";
   const ready = S.view === "home" ? true : (!S.scanning && t && reveal(t, B).r > reveal(t, B).n);
   if (S.scanning) { $("#dlgTx").textContent = "Scanning " + t.title + "…"; $("#dlgArr").style.display = "none"; three() && three().setTalking(false); return; }
@@ -272,8 +332,6 @@ function render() {
   $("#stageWrap").hidden = !stageView; $("#panel").hidden = stageView; $("#home").hidden = S.view !== "home"; $("#res").hidden = !stageView || S.view === "home";
   $("#details").hidden = !stageView || S.view === "home"; $("#hsbox").hidden = S.view === "home"; $("#rhead").hidden = S.view === "home";
   if (three()) three().setVisible(stageView);
-  const sw = $("#stageWrap").clientWidth || innerWidth;
-  const hm = $("#home"); Object.assign(hm.style, sw >= 640 ? { left: "48px", top: "50%", transform: "translateY(-60%)", width: "min(520px,48%)" } : { left: "20px", top: "24px", transform: "none", width: "calc(100% - 40px)" }); $("#homeH1").style.fontSize = sw >= 900 ? "120px" : "72px";
   if (S.view === "home") { $("#tryChips").innerHTML = targets().filter((t, i, a) => a.findIndex(x => x.view === t.view) === i || t.view === "token").slice(0, 4).map(t => `<button data-scan="${esc(t.id)}">${esc(t.title)}</button>`).join(""); return; }
   if (stageView) {
     const t = S.target;

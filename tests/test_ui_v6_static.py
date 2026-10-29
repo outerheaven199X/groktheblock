@@ -31,7 +31,7 @@ def test_v6_vendored_three_r164_postprocessing_and_fonts_with_licences():
 
 def test_v6_product_rules_in_copy():
     t = (UI / "index.html").read_text() + (UI / "app.js").read_text()
-    assert 'data-legal-status="NEEDS_COUNSEL_REVIEW"' in t and "Not financial advice" in t
+    assert "Not financial advice" in t and "counsel" not in t.lower() and "draft" not in t.lower()
     phrases = re.search(r"const HYPE = (\[.*?\]);", t).group(1).lower()
     assert not re.search(r"\b(buy|sell|hold|moon|pump|scam|rug ?pull)\b", phrases), phrases
     assert "prefers-reduced-motion" in t and "nowebgl" in (UI / "stage.js").read_text()
