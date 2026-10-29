@@ -139,15 +139,38 @@ def cot(weeks: int = 80) -> dict | None:
 
 # ---------------- collectibles ----------------
 def parse_scryfall_card(c: dict) -> dict | None:
-    """Keep only identity + the two venue prices we derive signals from (never re-published as a table)."""
+    """Keep only identity + the two venue prices we derive signals from (never re-published as a table).
+    Paper valuation reads ONLY prices.usd / prices.eur (the nonfoil paper guide). prices.tix (MTGO tickets) and foil/etched
+    prices are never read into a paper observation. finish is "nonfoil" only when the printing actually exists in nonfoil."""
     if not isinstance(c, dict) or c.get("object") != "card":
         return None
     p = c.get("prices") or {}
     f = lambda k: float(p[k]) if p.get(k) not in (None, "") else None  # noqa: E731
+    fins = c.get("finishes") or (["nonfoil"] if c.get("nonfoil", True) else [])
     return {"id": c.get("id"), "name": c.get("name"), "set": c.get("set"), "set_name": c.get("set_name"),
-            "cn": c.get("collector_number"), "lang": c.get("lang", "en"), "finish": "nonfoil",
+            "cn": c.get("collector_number"), "lang": c.get("lang", "en"), "finish": "nonfoil" if "nonfoil" in fins else None,
             "paper": "paper" in (c.get("games") or []) and not c.get("digital"),
             "usd": f("usd"), "eur": f("eur"), "usd_foil": f("usd_foil"), "url": c.get("scryfall_uri", "").split("?")[0]}
+
+
+def paper_reject(c: dict | None, name: str, want: tuple[str, str] | None = None, lang: str = "en") -> str | None:
+    """Why this parsed printing may NOT carry a paper market observation for `name` (None = acceptable). Identity is exact:
+    provider id + set + collector number + language + finish; a name match alone is never enough."""
+    if not c:
+        return "provider returned no card"
+    if c.get("name") != name:
+        return f"provider returned a different card ({c.get('name')!r})"
+    if not c.get("paper"):
+        return f"{str(c.get('set')).upper()} #{c.get('cn')} is a digital-only (MTGO/Arena) printing"
+    if want and (c.get("set"), c.get("cn")) != want:
+        return f"provider returned {c.get('set')}/{c.get('cn')}, not the pinned {want[0]}/{want[1]}"
+    if c.get("lang") != lang:
+        return f"printing language is {c.get('lang')!r}, not {lang!r}"
+    if c.get("finish") != "nonfoil":
+        return "printing has no nonfoil finish (foil-only); a foil price is never substituted"
+    if not c.get("id") or not c.get("cn"):
+        return "printing has no stable provider id / collector number"
+    return None
 
 
 SCRYFALL_WATCH = ["Black Lotus", "Mox Sapphire", "Ancestral Recall", "Time Walk", "Timetwister", "Underground Sea", "Volcanic Island",
@@ -165,33 +188,42 @@ PAPER_PIN = {"Black Lotus": ("2ed", "233"), "Mox Sapphire": ("2ed", "266"), "Anc
              "Volcanic Island": ("2ed", "287"), "Mox Diamond": ("sth", "138")}
 
 
-def scryfall_card(name: str) -> dict | None:
-    """One watched card, resolved to a PAPER printing. Pinned names use /cards/:set/:cn; others use /cards/named and, if that
-    is digital-only, fall back to the earliest paper printing from /cards/search (game:paper). Never returns a digital printing."""
+def scryfall_resolve(name: str) -> tuple[dict | None, str | None]:
+    """One watched card resolved to an exact English nonfoil PAPER printing, or (None, reason). Pinned names use
+    /cards/:set/:cn and must come back as exactly that printing; others use /cards/named and, if that is digital-only or
+    otherwise unacceptable, the earliest acceptable paper printing from /cards/search (game:paper). Never another edition
+    for a pinned card, never a digital printing, never a foil price, never a different language."""
     if name in PAPER_PIN:
         st, cn = PAPER_PIN[name]
         c = parse_scryfall_card(H.get(f"https://api.scryfall.com/cards/{st}/{cn}", "scryfall", max_age=20 * 3600, headers=UA) or {})
-        return c if c and c["paper"] and c["name"] == name else None
+        why = paper_reject(c, name, (st, cn))
+        return (None, f"pinned paper printing {st.upper()} #{cn} unavailable: {why}") if why else (c, None)
     c = parse_scryfall_card(H.get(f"https://api.scryfall.com/cards/named?exact={quote(name)}", "scryfall", max_age=20 * 3600, headers=UA) or {})
-    if c and c["paper"]:
-        return c
+    why = paper_reject(c, name)
+    if not why:
+        return c, None
     time.sleep(0.15)
-    q = quote(f'!"{name}" game:paper')
+    q = quote(f'!"{name}" game:paper lang:en')
     j = H.get(f"https://api.scryfall.com/cards/search?q={q}&unique=prints&order=released&dir=asc", "scryfall", max_age=20 * 3600, headers=UA)
     for d in (j or {}).get("data", []) if isinstance(j, dict) else []:
         c = parse_scryfall_card(d)
-        if c and c["paper"] and c["name"] == name:
-            return c
-    return None
+        if not paper_reject(c, name):
+            return c, None
+    return None, f"no English nonfoil paper printing identified (default printing: {why})"
+
+
+def scryfall_card(name: str) -> dict | None:
+    return scryfall_resolve(name)[0]
 
 
 def scryfall_snapshot(names=SCRYFALL_WATCH) -> list[dict]:
-    """Paper-printing price per watched card (Scryfall asks for 50-100 ms between requests; we wait 150 ms)."""
+    """Paper-printing price per watched card (Scryfall asks for 50-100 ms between requests; we wait 150 ms).
+    A card with no acceptable paper printing is returned as {"name", "unresolved": reason} and becomes UNKNOWN downstream;
+    it is never silently dropped or substituted."""
     out = []
     for n in names:
-        c = scryfall_card(n)
-        if c:
-            out.append(c)
+        c, why = scryfall_resolve(n)
+        out.append(c if c else {"name": n, "unresolved": why})
         time.sleep(0.15)
     return out
 

@@ -62,8 +62,12 @@ def tracked_printings() -> list[dict]:
     for a in j.get("assets", []):
         if a.get("universe") != "mtg":
             continue
+        pr = a.get("printing") or {}
+        if pr.get("paper") is False:
+            continue  # a digital printing never carries a paper market binding
         sc = parse_scryfall_uri(a.get("url", ""))
-        out.append({"name": a["name"], "set": sc[0] if sc else None, "cn": sc[1] if sc else None, "lang": "en", "finish": "nonfoil"})
+        out.append({"name": a["name"], "set": pr.get("set") or (sc[0] if sc else None), "cn": pr.get("cn") or (sc[1] if sc else None),
+                    "lang": pr.get("lang") or "en", "finish": pr.get("finish") or "nonfoil", **({"id": pr["id"]} if pr.get("id") else {})})
     return out
 
 
@@ -128,7 +132,8 @@ def build(cards: list[dict], tracked: list[dict], *, download=None, large=False,
     tracked_ids = set()
     for p in ps:
         t = tmap.get((p["set"], p["cn"], p["lang"]))
-        if t and t["name"] == p["name"]:
+        # exact identity: name + set + cn + lang, the provider id when the committed data has one, and a finish this printing has
+        if t and t["name"] == p["name"] and (not t.get("id") or t["id"] == p["id"]) and t["finish"] in (p.get("finishes") or ["nonfoil"]):
             p["tracked"] = {"asset": t["name"], "finish": t["finish"]}  # observations bind to this printing + finish only
             tracked_ids.add(p["id"])
     groups = group_printings(ps, tracked_ids)

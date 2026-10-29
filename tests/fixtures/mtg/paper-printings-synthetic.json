@@ -1,0 +1,343 @@
+{
+ "_note": "SYNTHETIC Scryfall-shaped fixtures for the paper-printing regression suite. Ids and prices are invented; shapes follow api.scryfall.com/cards.",
+ "routes": {
+  "/cards/named?exact=Black%20Lotus": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000a1",
+   "name": "Black Lotus",
+   "set": "vma",
+   "set_name": "VMA (synthetic)",
+   "collector_number": "4",
+   "lang": "en",
+   "games": [
+    "mtgo"
+   ],
+   "digital": true,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": null,
+    "eur": null,
+    "usd_foil": null,
+    "tix": "9.99"
+   },
+   "scryfall_uri": "https://scryfall.com/card/vma/4/black-lotus?utm_source=api"
+  },
+  "/cards/2ed/233": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000a2",
+   "name": "Black Lotus",
+   "set": "2ed",
+   "set_name": "2ED (synthetic)",
+   "collector_number": "233",
+   "lang": "en",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": null,
+    "eur": "20000.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/2ed/233/black-lotus?utm_source=api"
+  },
+  "/cards/2ed/286": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000b2",
+   "name": "Underground Sea",
+   "set": "2ed",
+   "set_name": "2ED (synthetic)",
+   "collector_number": "286",
+   "lang": "en",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "1500.00",
+    "eur": "1000.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/2ed/286/underground-sea?utm_source=api"
+  },
+  "/cards/2ed/287": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000c9",
+   "name": "Volcanic Island",
+   "set": "vma",
+   "set_name": "VMA (synthetic)",
+   "collector_number": "324",
+   "lang": "en",
+   "games": [
+    "mtgo"
+   ],
+   "digital": true,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "1.00",
+    "eur": "1.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/vma/324/volcanic-island?utm_source=api"
+  },
+  "/cards/2ed/48": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000d2",
+   "name": "Ancestral Recall",
+   "set": "2ed",
+   "set_name": "2ED (synthetic)",
+   "collector_number": "48",
+   "lang": "en",
+   "games": [
+    "mtgo"
+   ],
+   "digital": true,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "10.00",
+    "eur": "10.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/2ed/48/ancestral-recall?utm_source=api"
+  },
+  "/cards/named?exact=Grim%20Monolith": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000e1",
+   "name": "Grim Monolith",
+   "set": "vma",
+   "set_name": "VMA (synthetic)",
+   "collector_number": "260",
+   "lang": "en",
+   "games": [
+    "mtgo"
+   ],
+   "digital": true,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "0.50",
+    "eur": "0.40",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/vma/260/grim-monolith?utm_source=api"
+  },
+  "/cards/search?q=%21%22Grim%20Monolith%22%20game%3Apaper%20lang%3Aen": {
+   "object": "list",
+   "data": [
+    {
+     "object": "card",
+     "id": "00000000-0000-4000-8000-0000000000e1",
+     "name": "Grim Monolith",
+     "set": "vma",
+     "set_name": "VMA (synthetic)",
+     "collector_number": "260",
+     "lang": "en",
+     "games": [
+      "mtgo"
+     ],
+     "digital": true,
+     "finishes": [
+      "nonfoil"
+     ],
+     "prices": {
+      "usd": "0.50",
+      "eur": "0.40",
+      "usd_foil": null,
+      "tix": null
+     },
+     "scryfall_uri": "https://scryfall.com/card/vma/260/grim-monolith?utm_source=api"
+    },
+    {
+     "object": "card",
+     "id": "00000000-0000-4000-8000-0000000000e3",
+     "name": "Grim Monolith",
+     "set": "ulg",
+     "set_name": "ULG (synthetic)",
+     "collector_number": "126",
+     "lang": "en",
+     "games": [
+      "paper",
+      "mtgo"
+     ],
+     "digital": false,
+     "finishes": [
+      "nonfoil"
+     ],
+     "prices": {
+      "usd": "300.00",
+      "eur": "250.00",
+      "usd_foil": null,
+      "tix": null
+     },
+     "scryfall_uri": "https://scryfall.com/card/ulg/126/grim-monolith?utm_source=api"
+    }
+   ]
+  },
+  "/cards/named?exact=Foil%20Only": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-0000000000f1",
+   "name": "Foil Only",
+   "set": "fx1",
+   "set_name": "FX1 (synthetic)",
+   "collector_number": "1",
+   "lang": "en",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "foil"
+   ],
+   "prices": {
+    "usd": null,
+    "eur": null,
+    "usd_foil": "99.00",
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/fx1/1/foil-only?utm_source=api"
+  },
+  "/cards/search?q=%21%22Foil%20Only%22%20game%3Apaper%20lang%3Aen": {
+   "object": "list",
+   "data": [
+    {
+     "object": "card",
+     "id": "00000000-0000-4000-8000-0000000000f1",
+     "name": "Foil Only",
+     "set": "fx1",
+     "set_name": "FX1 (synthetic)",
+     "collector_number": "1",
+     "lang": "en",
+     "games": [
+      "paper"
+     ],
+     "digital": false,
+     "finishes": [
+      "foil"
+     ],
+     "prices": {
+      "usd": null,
+      "eur": null,
+      "usd_foil": "99.00",
+      "tix": null
+     },
+     "scryfall_uri": "https://scryfall.com/card/fx1/1/foil-only?utm_source=api"
+    }
+   ]
+  },
+  "/cards/named?exact=German%20Card": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000101",
+   "name": "German Card",
+   "set": "gde",
+   "set_name": "GDE (synthetic)",
+   "collector_number": "7",
+   "lang": "de",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "10.00",
+    "eur": "8.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/gde/7/german-card?utm_source=api"
+  },
+  "/cards/search?q=%21%22German%20Card%22%20game%3Apaper%20lang%3Aen": {
+   "object": "list",
+   "data": [
+    {
+     "object": "card",
+     "id": "00000000-0000-4000-8000-000000000102",
+     "name": "German Card",
+     "set": "gen",
+     "set_name": "GEN (synthetic)",
+     "collector_number": "7",
+     "lang": "en",
+     "games": [
+      "paper"
+     ],
+     "digital": false,
+     "finishes": [
+      "nonfoil"
+     ],
+     "prices": {
+      "usd": "12.00",
+      "eur": "9.00",
+      "usd_foil": null,
+      "tix": null
+     },
+     "scryfall_uri": "https://scryfall.com/card/gen/7/german-card?utm_source=api"
+    }
+   ]
+  },
+  "/cards/named?exact=Force%20of%20Will": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000201",
+   "name": "Force of Will",
+   "set": "dmr",
+   "set_name": "DMR (synthetic)",
+   "collector_number": "50",
+   "lang": "en",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": "80.00",
+    "eur": "70.00",
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/dmr/50/force-of-will?utm_source=api"
+  },
+  "/cards/named?exact=No%20Prices": {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000301",
+   "name": "No Prices",
+   "set": "npx",
+   "set_name": "NPX (synthetic)",
+   "collector_number": "1",
+   "lang": "en",
+   "games": [
+    "paper"
+   ],
+   "digital": false,
+   "finishes": [
+    "nonfoil"
+   ],
+   "prices": {
+    "usd": null,
+    "eur": null,
+    "usd_foil": null,
+    "tix": null
+   },
+   "scryfall_uri": "https://scryfall.com/card/npx/1/no-prices?utm_source=api"
+  }
+ }
+}

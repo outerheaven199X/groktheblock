@@ -120,7 +120,14 @@ def mod_mtg(ctx):
     History is keyed by exact printing (set + collector number), so a re-pinned printing starts its own history."""
     from grok_the_block.everything import sources as SRC
     S, P, A = [], [], []
-    cards = SRC.scryfall_snapshot()
+    raw = SRC.scryfall_snapshot()
+    # Exact-identity gate: only English nonfoil PAPER printings with a provider id + set + collector number may carry an
+    # observation. Anything else (digital/MTGO, other language, foil-only, no identity, resolver failure) is UNKNOWN with
+    # its reason. It is never dropped silently and never substituted with another edition.
+    cards, unresolved = [], []
+    for c in raw or []:
+        why = c.get("unresolved") or SRC.paper_reject(c, c.get("name"), SRC.PAPER_PIN.get(c.get("name")))
+        (unresolved.append({"name": c.get("name"), "reason": why}) if why else cards.append(c))
     if not cards:
         return None
     now = ctx["now"]; day = time.strftime("%Y-%m-%d", time.gmtime(now))
@@ -134,19 +141,41 @@ def mod_mtg(ctx):
         except ValueError:
             continue  # a damaged snapshot is skipped, never trusted
         for c in rows:
-            if c.get("usd") and c.get("cn"):
-                hist.setdefault((c["set"], c["cn"]), []).append((ts, c["usd"]))
+            # history joins on the exact printing identity (provider id + set + cn + lang + finish), never the name
+            if c.get("usd") and c.get("cn") and c.get("id") and c.get("paper") and not c.get("unresolved"):
+                hist.setdefault(_pkey(c), []).append((ts, c["usd"]))
     for c in cards:
         c["ts"] = now
-        s, p = X.snapshot_move("cards", "mtg", c["name"], c["name"], hist.get((c["set"], c["cn"]), []), c["url"]); S += s; P += p
+        s, p = X.snapshot_move("cards", "mtg", c["name"], c["name"], hist.get(_pkey(c), []), c["url"]); S += _bind(s, c); P += p
         A.append({"id": c["name"], "universe": "mtg", "name": c["name"], "url": c["url"], "asOf": day, "redistributable": False,
-                  "printing": {"provider": "scryfall", "id": c["id"], "set": c["set"], "cn": c["cn"], "lang": c["lang"], "finish": c["finish"], "paper": c["paper"]}})
+                  "printing": _printing(c)})
     rate, fxd = _usd_eur(ctx, ctx["prev"])
     if rate:
-        s, p = X.cross_venue_spread("cards", cards, rate, fxd); S += s; P += p
+        for c in cards:
+            s, p = X.cross_venue_spread("cards", [c], rate, fxd); S += _bind(s, c); P += p
+    else:
+        P += [X.probe(c["name"], "CROSS_VENUE_SPREAD", None, "no EUR/USD reference rate available") for c in cards]
+    for u in unresolved:
+        P += [X.probe(u["name"], t, None, "no paper printing identified: " + u["reason"]) for t in ("GUIDE_MOVE_VS_30D_MEDIAN", "CROSS_VENUE_SPREAD")]
     days = len(list((SNAP / "scryfall").glob("*.json")))
     paper_days = len({ts for v in hist.values() for ts, _ in v})
-    return S, P, A, [{"module": "mtg", "status": "HEALTHY", "via": "Scryfall /cards (paper printings pinned; derived only)", "observed": len(cards), "snapshotDays": paper_days, "snapshotFiles": days, "sourceAsOf": day}]
+    return S, P, A, [{"module": "mtg", "status": "HEALTHY" if not unresolved else "DEGRADED", "via": "Scryfall /cards (paper printings pinned; derived only)",
+                      "observed": len(cards), "unresolved": unresolved, "snapshotDays": paper_days, "snapshotFiles": days, "sourceAsOf": day}]
+
+
+def _printing(c):
+    return {"provider": "scryfall", "id": c["id"], "set": c["set"], "cn": c["cn"], "lang": c["lang"], "finish": c["finish"], "paper": c["paper"]}
+
+
+def _pkey(c):
+    return ("scryfall", c.get("id"), c.get("set"), c.get("cn"), c.get("lang", "en"), c.get("finish", "nonfoil"))
+
+
+def _bind(sigs, c):
+    """Every MTG market observation carries the exact printing it was computed from; the UI joins on this, not the name."""
+    for x in sigs:
+        x["printing"] = _printing(c)
+    return sigs
 
 
 def mod_cs2(ctx):

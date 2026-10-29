@@ -22,6 +22,7 @@ RULES = [  # (glob, status, source, renderedFrom)
     ("tests/fixtures/replay/*.json", "synthetic", "hand-written replay fixtures (invented values)", None),
     ("tests/fixtures/adjudication-vignettes-r7.json", "synthetic", "R7-01 written vignettes for the decision table (invented descriptions, no labels of real events)", None),
     ("tests/fixtures/adjudication-vignettes-r8.json", "synthetic", "R8-05 written vignettes (invented descriptions, no labels of real events)", None),
+    ("tests/fixtures/mtg/*.json", "synthetic", "hand-written Scryfall-shaped printings for the MTG paper-printing regression tests (invented ids and prices; file _note says SYNTHETIC)", None),
     ("tests/fixtures/tcg/*.json", "synthetic", "hand-written Scryfall-shaped card fixtures for the Card Explorer tests (invented ids, names and URLs; file _note says SYNTHETIC)", None),
     ("tests/fixtures/signals-fixtures.json", "synthetic", "hand-written detector fixtures (invented values; file _note says SYNTHETIC)", None),
     ("data/event-calendar.json", "public-official", "official US release schedules (Federal Reserve FOMC calendar, BLS, Treasury auctions); rights row in PROVIDER-RIGHTS.md", None),

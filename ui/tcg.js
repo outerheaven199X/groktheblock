@@ -11,8 +11,9 @@ function tcgData() {
   if (C && Array.isArray(C.groups)) return { C, synced: true };
   // Unsynced checkout: tracked printings from committed derived data, no artwork, text fallback only.
   const groups = (EV.live.assets || []).filter(a => a.universe === "mtg").map(a => {
-    const m = /scryfall\.com\/card\/([^/]+)\/([^/]+)\//.exec(a.url || "") || [];
-    const p = { key: "scryfall:?:" + (m[1] || "?") + ":" + (m[2] || "?") + ":en", id: null, name: a.name, set: m[1] || "?", set_name: null, cn: m[2] || "?", lang: "en", rarity: null, finishes: ["nonfoil"], variant: [], kind: "tracked", image_status: "unknown", faces: [{ face: 0, name: a.name, img: {}, state: "not-synced" }], uri: a.url, tracked: { asset: a.name, finish: "nonfoil" } };
+    const m = /scryfall\.com\/card\/([^/]+)\/([^/]+)\//.exec(a.url || "") || [], pr = a.printing || {};
+    const set = pr.set || m[1] || "?", cn = pr.cn || m[2] || "?", lang = pr.lang || "en", fin = pr.finish || "nonfoil";
+    const p = { key: "scryfall:" + (pr.id || "?") + ":" + set + ":" + cn + ":" + lang, id: pr.id || null, name: a.name, set, set_name: null, cn, lang, rarity: null, finishes: [fin], variant: [], kind: "tracked", digital: pr.paper === false, image_status: "unknown", faces: [{ face: 0, name: a.name, img: {}, state: "not-synced" }], uri: a.url, tracked: { asset: a.name, finish: fin } };
     return { oracle_id: a.name, name: a.name, printings: [p] };
   });
   return { C: { groups, syncedAt: null, adapters: REG.TCG_GAMES, artworkRights: "BLOCKED", attribution: "Card data: Scryfall (scryfall.com)." }, synced: false };
@@ -53,11 +54,17 @@ document.addEventListener("error", (e) => {
   const hit = tcgAll(tcgData().C).find(x => x.p.key === i.dataset.key); if (!hit) return;
   const f = hit.p.faces[+i.dataset.face] || hit.p.faces[0]; i.parentElement.outerHTML = tcgPH(hit.p, f, "Cache file missing: re-run the artwork sync", i.parentElement.classList.contains("big"));
 }, true);
+// Observations join on the EXACT printing identity (provider id + set + collector number + language + finish), never the name:
+// the tracked asset's committed printing must equal this printing, and every signal must carry that same printing.
+const tcgSame = (a, b) => !!(a && b) && a.set === b.set && String(a.cn) === String(b.cn) && (a.lang || "en") === (b.lang || "en") && (!a.id || !b.id || a.id === b.id);
 function tcgObs(p) {
   if (!p.tracked) return null;
-  const nm = p.tracked.asset;
+  const nm = p.tracked.asset, fin = p.tracked.finish || "nonfoil";
+  const a = (EV.live.assets || []).find(x => x.universe === "mtg" && x.name === nm), pr = a && a.printing;
+  const why = !a ? "not a tracked instrument" : !pr ? "tracked instrument has no exact printing identity" : pr.paper === false ? "bound printing is digital-only" : !tcgSame(pr, p) || (pr.finish || "nonfoil") !== fin ? "market data is bound to a different printing (" + String(pr.set).toUpperCase() + " #" + pr.cn + ")" : null;
+  if (why) return { nm, probes: [], sigs: [], unbound: why };
   const probes = (EV.live.probes || []).filter(x => x.module === "mtg" && x.asset === nm);
-  const sigs = EV_SIGS.filter(x => x.set === "live" && x.s && (x.s.instrument === nm || (x.s.subject || {}).name === nm || JSON.stringify(x.s.metrics || {}).includes(JSON.stringify(nm))));
+  const sigs = EV_SIGS.filter(x => x.set === "live" && x.s && x.s.source === "mtg" && x.s.asset === nm && tcgSame(x.s.printing, pr) && (x.s.printing.finish || "nonfoil") === fin);
   return { nm, probes, sigs };
 }
 function vTcg(P) {
@@ -83,7 +90,8 @@ function vTcg(P) {
 function tcgDetail({ g, p }, C) {
   const fi = Math.min(TCG.face, p.faces.length - 1), o = tcgObs(p);
   const groups = TCG_KIND.map(([k, l]) => [l, g.printings.filter(x => x.kind === k)]).filter(([, xs]) => xs.length);
-  const obsHTML = o ? `<dl class="kv"><dt>Bound to</dt><dd>${esc(String(p.set).toUpperCase())} #${esc(p.cn)} · ${esc(p.lang)} · ${esc(o.nm === p.name ? "" : o.nm + " · ")}finish ${esc(p.tracked.finish)}</dd>${o.probes.map(x => `<dt>${esc(x.type)}</dt><dd>${esc(x.state === "measured" && x.ratio != null ? x.ratio.toFixed(2) + "× threshold" : x.reason || x.state)}</dd>`).join("")}<dt>Signals</dt><dd>${o.sigs.length ? o.sigs.length + " flagged" : "none flagged"}</dd></dl><div class="lim">One daily snapshot is not a price history. Observations are derived numbers, not a price table.</div>`
+  const obsHTML = o && o.unbound ? `<div class="lim">No market observation shown for this printing: ${esc(o.unbound)}. Observations are only shown on the exact printing and finish they were computed from.</div>`
+    : o ? `<dl class="kv"><dt>Bound to</dt><dd>${esc(String(p.set).toUpperCase())} #${esc(p.cn)} · ${esc(p.lang)} · ${esc(o.nm === p.name ? "" : o.nm + " · ")}finish ${esc(p.tracked.finish)}</dd>${o.probes.map(x => `<dt>${esc(x.type)}</dt><dd>${esc(x.state === "measured" && x.ratio != null ? x.ratio.toFixed(2) + "× threshold" : x.reason || x.state)}</dd>`).join("")}<dt>Signals</dt><dd>${o.sigs.length ? o.sigs.length + " flagged" : "none flagged"}</dd></dl><div class="lim">One daily snapshot is not a price history. Observations are derived numbers, not a price table.</div>`
     : `<div class="lim">No market observation for this printing. Observations are kept on the exact tracked printing and finish; they are never copied to another printing of the same name.</div>`;
   const tr = g.printings.find(x => x.tracked);
   const ask = askBtn("Ask about this", ["TCGs // Card Explorer", p.name + " (" + String(p.set).toUpperCase() + " #" + p.cn + ")", p.key, "tcg-explorer-cache", ["Set: " + (p.set_name || p.set), "Collector #: " + p.cn, "Language: " + p.lang, "Finishes: " + (p.finishes || []).join(", "), "Kind: " + p.kind, "Image status: " + p.image_status, o ? "Market observations: " + o.probes.length + " checks, " + o.sigs.length + " flagged" : "No market observation for this printing"]], "btn y", "Ask Grok Bot about this card");
