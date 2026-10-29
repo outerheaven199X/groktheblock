@@ -403,6 +403,7 @@ function curReport() { if (S.target && ["token", "wallet", "replay"].includes(S.
 function doExport() { const r = curReport(); if (!r) return flash("Nothing to export"); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(r.j, null, 2)], { type: "application/json" })); a.download = r.name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); flash("Exported " + r.name); }
 $("#pick").onchange = async (e) => { let n = 0; for (const f of e.target.files) { try { if (addReport(f.name, JSON.parse(await f.text()))) n++; } catch (x) { } } S.pool = buildPool(); flash(n ? "Opened " + n + " report" + (n > 1 ? "s" : "") : "Not a Grok The Block report"); render(); };
 window.GTB.open = () => $("#pick").click();
+$("#openBtn").onclick = () => $("#pick").click();
 
 /* ---------------- boot ---------------- */
 addEventListener("resize", () => { const w = wide(); if ((w ? "wide" : "narrow") !== $("#root").className) render(); });
