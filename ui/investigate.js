@@ -144,8 +144,11 @@ function localAnalysis(O, packet) {
 }
 
 /* ---------------- local API (npx launcher only, same origin) ---------------- */
+// The npx launcher marks its pages with a Server-Timing entry; a static preview has none, so it never sends an /api request.
+const launcherHint = () => { try { const n = performance.getEntriesByType("navigation")[0]; return !!(n && (n.serverTiming || []).some(x => x.name === "gtb")); } catch (e) { return false; } };
 async function session(force) {
   if (IV.api && !force) return IV.api;
+  if (!launcherHint()) { IV.api = null; IV.apiState = "static"; return null; }
   try {
     const r = await fetch("/api/session", { method: "POST", headers: { "Content-Type": "application/json", "X-GTB-Request": "1" }, body: "{}", cache: "no-store", credentials: "same-origin" });
     if (!r.ok) throw new Error("status " + r.status); const j = await r.json(); if (!j || typeof j.token !== "string") throw new Error("bad session");
@@ -245,7 +248,7 @@ function connectedBody(O, packet, bytes, redacted, local) {
     ${bill}<label class="agree"><input type="checkbox" id="invConsent"${IV.consent ? " checked" : ""}> Send exactly this packet to xAI</label><div class="invacts"><button class="btn y" id="invSend"${IV.consent && bytes <= IV.maxBytes ? "" : " disabled"}>Send to Grok</button></div>`;
   const res = last ? (last.status === "answered" ? `<div class="gstate ok" data-grok-state="answered">Grok answered${last.mock ? " (mock xAI endpoint, test)" : ""}. Model text is interpretation, not measurement.</div>` + usageHTML(last) + sectionsHTML(last)
     : `<div class="gstate bad" data-grok-state="${esc(last.status)}">${esc(errText(last))}</div>` + (last.usage ? usageHTML(last) : "") + `<div class="lim">Showing the evidence-only summary instead.</div>` + sectionsHTML(local)) : "";
-  return keyPanel + (g.available ? (res ? res + `<details class="send"><summary>Ask again (review the packet and bounds)</summary>${consent}</details>` : consent) : bill);
+  return keyPanel + (g.available ? (res ? res + `<details class="send" id="invAgain"${IV.again ? " open" : ""}><summary>Ask again (review the packet and bounds)</summary>${consent}</details>` : consent) : bill);
 }
 function errText(r) {
   const m = { disconnected: "Grok not connected.", auth: "xAI rejected the API key (401). Check the key; nothing else was sent.", rate: "xAI rate or spending limit reached (429). Nothing was retried automatically." + (r.retryAfter ? " Retry after " + r.retryAfter + " s." : ""),
@@ -272,7 +275,7 @@ async function send(question) {
   let r;
   try { const x = await post("/api/investigate", { runId, consent: true, packet, question: question || "", options: { web: IV.web, x: IV.x, turns: IV.turns, toolCalls: IV.toolCalls, timeoutMs: IV.timeoutMs, outputTokens: IV.outputTokens, maxEvidenceBytes: IV.maxBytes } }, ac.signal); r = x.j || {}; if (!r.status) r.status = x.ok ? "answered" : "error"; }
   catch (e) { r = { status: ac.signal.aborted ? "cancelled" : "network", error: "request did not complete" }; }
-  clearInterval(tick); IV.run = null; IV.consent = false; r.question = question || null; r.at = new Date().toISOString().replace(/\.\d{3}Z$/, "Z"); r.packetIds = [packet.observations[0].id].concat(packet.related.map(x => x.observationId));
+  clearInterval(tick); IV.run = null; IV.consent = false; IV.again = false; r.question = question || null; r.at = new Date().toISOString().replace(/\.\d{3}Z$/, "Z"); r.packetIds = [packet.observations[0].id].concat(packet.related.map(x => x.observationId));
   IV.answers.push(r); if (question && r.status === "answered") IV.fu++; if (S.view === "investigate") render();
 }
 function wireInvestigate(P, O) {
@@ -281,6 +284,7 @@ function wireInvestigate(P, O) {
   const cp = $("#invCopy"); if (cp) cp.onclick = () => copyText($("#invPrompt").value);
   const kg = $("#invKeyGo"); if (kg) kg.onclick = async () => { const i = $("#invKey"), k = i.value; i.value = ""; const r = await post("/api/grok/key", { key: k }).catch(() => null); if (!r || !r.ok) flash((r && r.j && r.j.error) || "Key not accepted"); else IV.api.grok = r.j.grok; render(); };
   const fg = $("#invForget"); if (fg) fg.onclick = async () => { const r = await post("/api/grok/forget", {}).catch(() => null); if (r && r.ok) IV.api.grok = r.j.grok; render(); };
+  const ag = $("#invAgain"); if (ag) ag.ontoggle = () => { IV.again = ag.open; };
   const cs = $("#invConsent"); if (cs) cs.onchange = () => { readBounds(); IV.consent = cs.checked; render(); };
   ["invWeb", "invX", "invTurns", "invTools", "invTimeout"].forEach(id => { const e = $("#" + id); if (e) e.onchange = () => { readBounds(); IV.consent = false; render(); }; });
   const sd = $("#invSend"); if (sd) sd.onclick = () => { if (IV.consent) send(""); };

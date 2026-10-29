@@ -106,7 +106,8 @@ export function start({ root, port = 0, open = false, log = console.log, env = {
       if (r.status === 405) h.Allow = "GET, HEAD";
       res.writeHead(r.status, h); return res.end(req.method === "HEAD" ? undefined : String(r.status));
     }
-    res.writeHead(200, { ...clean(SEC), "Content-Type": r.type, "Content-Length": r.size });
+    // Server-Timing tells the page (via its own navigation timing) that the same-origin /api exists, so a static preview never probes it.
+    res.writeHead(200, { ...clean(SEC), "Content-Type": r.type, "Content-Length": r.size, "Server-Timing": 'gtb;desc="launcher-api"' });
     if (req.method === "HEAD") return res.end();
     createReadStream(r.file).on("error", () => res.destroy()).pipe(res);
   });
