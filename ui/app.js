@@ -2,6 +2,17 @@
 "use strict";
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+// Central external-link gate: only explicit https: URLs become links; everything else renders as inert text.
+function safeExternalUrl(v) {
+  if (typeof v !== "string") return null;
+  const raw = v.trim(); if (!raw || raw.length > 2048 || /[\u0000-\u001f\u007f\s\\]/.test(raw)) return null;
+  if (!/^https:\/\//i.test(raw)) return null;
+  let u; try { u = new URL(raw); } catch (e) { return null; }
+  if (u.protocol !== "https:" || !u.hostname || u.username || u.password) return null;
+  return u.href;
+}
+const extLink = (url, label) => { const h = safeExternalUrl(url); return h ? `<a href="${esc(h)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : `<span class="nolink" title="Link not shown: only https links are allowed">${esc(label)}</span>`; };
+window.GTB_safeExternalUrl = safeExternalUrl;
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const RM = matchMedia("(prefers-reduced-motion: reduce)");
 const reduced = () => RM.matches;
@@ -528,7 +539,7 @@ function renderDetails() {
     const sc = $("#scrub"); if (sc) sc.oninput = () => { S.scrub = +sc.value; renderDetails(); $("#scrub").focus(); };
     const wx = $("#withx"); if (wx) wx.onchange = () => { S.withX = wx.checked; renderDetails(); };
   }
-  if (S.tab === 2) B.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;padding:16px"><div class="why">${t.why.map(y => `<div>${esc(y)}</div>`).join("") || "<div>No findings in this report.</div>"}<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span style="font-size:10px;letter-spacing:.04em">FINDING // FROM THE REPORT // DO NOT PARAPHRASE</span>${askBtn("Ask about this", [t.kind + " // Why flagged", t.title, t.evId + "#finding:" + t.whyId, repLabel(t.r), t.why.slice(0, 4)], "ask", "Ask Grok Bot about this finding").replace('class="ask"', 'class="ask" style="background:#0b0b0d;border-color:#0b0b0d"')}</div></div>${(t.evidence || []).map(e => `<div class="lim">Source: <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.label)}</a></div>`).join("")}${t.limits.map(y => `<div class="lim">${esc(y)}</div>`).join("")}</div>`;
+  if (S.tab === 2) B.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;padding:16px"><div class="why">${t.why.map(y => `<div>${esc(y)}</div>`).join("") || "<div>No findings in this report.</div>"}<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span style="font-size:10px;letter-spacing:.04em">FINDING // FROM THE REPORT // DO NOT PARAPHRASE</span>${askBtn("Ask about this", [t.kind + " // Why flagged", t.title, t.evId + "#finding:" + t.whyId, repLabel(t.r), t.why.slice(0, 4)], "ask", "Ask Grok Bot about this finding").replace('class="ask"', 'class="ask" style="background:#0b0b0d;border-color:#0b0b0d"')}</div></div>${(t.evidence || []).map(e => `<div class="lim">Source: ${extLink(e.url, e.label)}</div>`).join("")}${t.limits.map(y => `<div class="lim">${esc(y)}</div>`).join("")}</div>`;
 }
 $("#dtabs").addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (!b) return; const i = +b.dataset.tab; S.open = S.tab === i ? !S.open : true; S.tab = i; if (three()) three().spin(); renderDetails(); });
 
@@ -556,7 +567,7 @@ const evFor = (uid, quiet = false) => EV_SIGS.filter(x => UNI_OF(x.s) === uid &&
 const SEV_RANK = (s) => ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"].indexOf(s);
 function uniDetail(u) {
   const ev = evFor(u.id);
-  return `<div class="card" id="uniDetail"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2 class="disp">${esc(u.name)}</h2><button class="btn" id="uniClose" aria-label="Close details">×</button></div><dl class="kv"><dt>Status</dt><dd>${ST[u.status][0]}${u.status === "blocked-licence" ? " (blocked by a data licence, not by code)" : ""}</dd><dt>Venues</dt><dd>${esc(u.venues)}</dd><dt>Common arbitrage</dt><dd>${esc(u.arbitrage)}</dd><dt>Best source</dt><dd><a href="${esc(u.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(u.source)}</a></dd><dt>Access</dt><dd>${esc(ACC[u.access])}${u.verified ? " · terms read 2026-10-28" : " · terms not yet verified"}</dd>${u.note ? `<dt>Note</dt><dd>${esc(u.note)}</dd>` : ""}</dl>
+  return `<div class="card" id="uniDetail"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2 class="disp">${esc(u.name)}</h2><button class="btn" id="uniClose" aria-label="Close details">×</button></div><dl class="kv"><dt>Status</dt><dd>${ST[u.status][0]}${u.status === "blocked-licence" ? " (blocked by a data licence, not by code)" : ""}</dd><dt>Venues</dt><dd>${esc(u.venues)}</dd><dt>Common arbitrage</dt><dd>${esc(u.arbitrage)}</dd><dt>Best source</dt><dd>${extLink(u.sourceUrl, u.source)}</dd><dt>Access</dt><dd>${esc(ACC[u.access])}${u.verified ? " · terms read 2026-10-28" : " · terms not yet verified"}</dd>${u.note ? `<dt>Note</dt><dd>${esc(u.note)}</dd>` : ""}</dl>
   ${evFor(u.id, true).length ? `<div class="dim" style="margin:10px 0 6px">Tracked, nothing past threshold</div><div class="chips">${evFor(u.id, true).slice(0, 30).map(x => `<button class="chip" data-scan="${esc("asset:" + x.s.key)}">${esc(x.s.name.replace(/\s*\(.*?\)$/, "").slice(0, 26))}</button>`).join("")}</div>` : ""}<div class="list" style="margin-top:8px">${ev.map(x => evRow(x)).join("") || `<div class="empty">${u.status === "shipped" ? "Nothing past threshold in the cached run." : "No detector runs on this class yet."}</div>`}</div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">${u.status === "shipped" && REG.byId[REG.UNI_TOOL[u.id]] ? `<button class="btn y" data-feat-go="${esc(REG.UNI_TOOL[u.id])}">Open ${esc(REG.byId[REG.UNI_TOOL[u.id]].name)}</button>` : ""}${askBtn("Ask about this", ["Universe", u.name, "universe:" + u.id, "everything-universe.json", ["Status: " + u.status, "Access: " + u.access, "Source: " + u.source, "Arbitrage pattern: " + u.arbitrage]], "btn y")}</div></div>`;
 }
 function evRow({ s, set }) {

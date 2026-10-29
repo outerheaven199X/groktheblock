@@ -9,3 +9,21 @@ PROGRESS.log
 
 # R5-02: real provider responses for local developer verification only; never commit
 tests/fixtures/private/
+
+# Credentials and local auth: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials*
+*credentials*.json
+secrets*
+.npmrc
+.yarnrc.yml
+.netrc
+*.tgz
