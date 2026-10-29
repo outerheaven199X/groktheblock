@@ -6,6 +6,21 @@
    "source": "official US release schedules (Federal Reserve FOMC calendar, BLS, Treasury auctions); rights row in PROVIDER-RIGHTS.md",
    "sha256": "ef9128956f5beec7668575e5ac260d4da323adc8a7bd03441531face5028ff82"
   },
+  "data/everything/live-derived.json": {
+   "status": "project-generated",
+   "source": "tools/build_everything.py --fetch: detector output. Raw values only from redistributable official sources (ECB reference rates, EIA via FRED, CFTC COT); Nasdaq, Scryfall and Steam inputs appear only as derived numbers (z-scores, % gaps, counts)",
+   "sha256": "affe62d01e6796e73aa743dd139a47c715b82657a24778515ed3db4a8aa6061a"
+  },
+  "data/everything/synthetic.json": {
+   "status": "synthetic",
+   "source": "tools/build_everything.py: invented items and prices (seeded) run through the thin-market detectors; every signal is flagged synthetic",
+   "sha256": "3abdfb87fc4e3ecde9630bcd4856568d9bf9bec82132da15995c6f54676a766d"
+  },
+  "data/everything/universe.json": {
+   "status": "project-generated",
+   "source": "tools/universe_src.py: asset-universe map written by this project (venues, patterns, source URLs, terms status)",
+   "sha256": "4226214ff0431e65a97978396233c07794074705564c237d7c6b22cf98ab6a32"
+  },
   "docs/graph-copy-desktop-panel.png": {
    "status": "synthetic",
    "source": "Chromium-emulation screenshot of a graph node panel rendering only the synthetic on-chain examples (R6-04)",

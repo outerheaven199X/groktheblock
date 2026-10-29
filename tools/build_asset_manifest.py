@@ -32,6 +32,9 @@ RULES = [  # (glob, status, source, renderedFrom)
     ("docs/review/*.json", "project-generated", "evaluation config/results written by this project", None),
     ("docs/review/*.txt", "project-generated", "test logs written by this project (paths sanitized)", None),
     ("docs/screenshots-provenance.json", "project-generated", "round-5 screenshot provenance (superseded by this manifest; kept for the R5 test)", None),
+    ("data/everything/synthetic.json", "synthetic", "tools/build_everything.py: invented items and prices (seeded) run through the thin-market detectors; every signal is flagged synthetic", None),
+    ("data/everything/universe.json", "project-generated", "tools/universe_src.py: asset-universe map written by this project (venues, patterns, source URLs, terms status)", None),
+    ("data/everything/live-derived.json", "project-generated", "tools/build_everything.py --fetch: detector output. Raw values only from redistributable official sources (ECB reference rates, EIA via FRED, CFTC COT); Nasdaq, Scryfall and Steam inputs appear only as derived numbers (z-scores, % gaps, counts)", None),
     ("ui/fonts/*.woff2", "third-party-licensed", "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md", None),
     ("ui/licenses/*.txt", "license-text", "font/icon licence texts (OFL, MIT) shipped with the UI", None),
 ]

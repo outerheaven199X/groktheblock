@@ -22,6 +22,11 @@ All markets below run through one cross-market engine (`skills/signals`, `lib/gr
 | Macro and calendar | Macro series anomalies; activity linked to Fed decisions, BLS releases, Treasury auctions and options expiry (`data/event-calendar.json`) | Yahoo, federalreserve.gov, bls.gov, fiscaldata.treasury.gov |
 | Filings | SEC Form 4 and 8-K events as context (opt-in) | SEC EDGAR |
 | Crypto | Perp open-interest and funding shocks; stablecoin supply changes; daily anomalies | OKX/Coinbase, DefiLlama |
+| FX | ECB reference-rate moves vs realised volatility (16 EUR crosses); ECB vs Fed H.10 fix cross-check (data quality) | ECB statistics (via Frankfurter when the ECB host is unreachable), FRED H.10 |
+| Metals | Gold, silver, platinum and palladium through ETF proxies (GLD, IAU, SLV, PPLT, PALL): moves, volume, GLD-vs-IAU tracker divergence. Derived signals only, not spot | Nasdaq quote history |
+| Energy | WTI, Brent and Henry Hub spot moves | EIA via FRED |
+| Futures positioning | Weekly speculator positioning shifts in gold, silver, crude, grains, coffee, cocoa | CFTC Commitments of Traders |
+| Collectibles | Magic cards: US-vs-EU venue spread after FX, guide moves once 14 days of our own snapshots exist. Thin-market detectors (sparse-sale gate, per-grade outlier sales, grade-mix shift, round-trip patterns, supply shocks, guide-vs-sales lag) are built and shown on labelled synthetic examples. CS2 skins: ask-vs-sale gap, derived only and on the roadmap | Scryfall, Steam Community Market (undocumented endpoint) |
 | Solana module | Token, wallet, rug-replay, copy-trade and leaderboard scans, plus X promo-account and media checks | Solana RPC, DexScreener, RugCheck, Helius (optional) |
 
 Signals from different markets are linked when they line up (convergence, same-family repricing, divergence), and each link says how certain it is.
@@ -32,6 +37,8 @@ Signals from different markets are linked when they line up (convergence, same-f
 | View | Shows |
 |---|---|
 | Home | Search box, "Try" examples, and Grok Bot |
+| Universe | Every asset class (53 so far) as a tile grid with category and status filters. Each tile opens venues, the usual arbitrage pattern, the best data source and its licence status, plus the live evidence for that class |
+| Anomalies | One feed across every market. Live cached data and synthetic examples sit in separate columns, with "closest to threshold" and "unknown, not quiet" lists. Evidence opens on the result stage |
 | Token | Kinetic result sequence: hazard wipe, RESULT, five stats counting up, then the verdict roll. Details tabs: Holders, Timeline, Why flagged |
 | Wallet | The same result sequence for a wallet. Rows are the tokens it touched |
 | Replay | A token's timeline with a scrubber and an optional X-post overlay |

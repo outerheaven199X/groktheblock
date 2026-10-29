@@ -181,6 +181,29 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
 #fbk .sh{position:fixed;inset:0;z-index:70;background:var(--g);opacity:.85}
 #fbk .dl{position:fixed;z-index:71;left:50%;top:12vh;transform:translateX(-50%);width:min(620px,calc(100vw - 24px));background:var(--p);border:1px solid var(--b);padding:16px}
 #fbk textarea{width:100%;height:220px;background:var(--g);color:var(--w);border:1px solid var(--b);padding:12px;font-size:12px;line-height:18px;resize:none}
+/* everything markets */
+.frow{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+.unigrid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.unigrid.withsel{grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);align-items:start}
+#root.narrow .unigrid.withsel{grid-template-columns:minmax(0,1fr)}
+#root.narrow .unigrid.withsel #uniDetail{order:-1}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.tile{display:flex;flex-direction:column;gap:6px;min-width:0;padding:12px;background:var(--p);border:1px solid var(--l);color:var(--w);text-align:left;cursor:pointer;min-height:118px}
+.tile:hover{border-color:var(--c)}.tile.on{border-color:var(--y);box-shadow:inset 0 0 0 1px var(--y)}
+.tile .tt{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tile .nm{font-size:19px;line-height:1;overflow-wrap:anywhere;color:var(--w)}
+.tile .cat{font-size:10px;line-height:14px}
+.tile .ct{display:flex;justify-content:space-between;gap:8px;font-size:11px;margin-top:auto}.tile .ct span{display:flex;align-items:center;gap:6px}
+.tile .sq{width:7px;height:7px;display:inline-block}
+.spark{width:100%;height:28px;display:block}.nospark{height:28px;display:block;border-bottom:1px dashed var(--l)}
+.erow{display:grid;grid-template-columns:8px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px 4px 12px 6px;border-bottom:1px solid var(--b)}
+.erow .sq{width:8px;height:8px;margin-top:5px;display:inline-block}
+.erow .eb{display:flex;flex-direction:column;gap:4px;min-width:0}
+.erow .hd{display:flex;justify-content:space-between;gap:8px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--m)}
+.erow .ti{font-size:12px;line-height:17px;overflow-wrap:anywhere}
+.erow .ea{display:flex;gap:6px;align-items:center}
+.erow.syn .ti{color:#c8c8cc}.synbox{background:repeating-linear-gradient(-45deg,var(--p) 0 14px,#121216 14px 28px)}
+@media (max-width:767px){.erow{grid-template-columns:8px minmax(0,1fr)}.erow .ea{grid-column:2}.erow .hd{flex-direction:column;gap:2px}.tiles{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.tile .nm{font-size:17px}}
 /* narrow / touch */
 #root.narrow header{gap:10px;flex-wrap:wrap;padding:6px 12px}
 #root.narrow{grid-template-rows:30px auto 44px auto auto}
@@ -223,7 +246,7 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
   </main>
   <footer>
     <span class="nfa up">Not financial advice</span>
-    <p>Research preview. Grok The Block is an informational research tool, not financial, investment, legal or tax advice, and not a recommendation to buy, sell or hold any asset. Signals are statistical patterns in public data; they are not accusations of wrongdoing or claims about anyone's identity or intent, and they may be wrong, incomplete or stale. Labels such as "insider" or "sniper" are timing patterns, not identities. Example data is synthetic. Provided as is, without warranty. Not affiliated with or endorsed by xAI, X, Solana, Polymarket, Kalshi, the SEC, BLS, the Federal Reserve or any exchange. Do your own research and consult a licensed professional.</p>
+    <p>Research preview. Grok The Block is an informational research tool, not financial, investment, legal or tax advice, and not a recommendation to buy, sell or hold any asset. Signals are statistical patterns in public data; they are not accusations of wrongdoing or claims about anyone's identity or intent, and they may be wrong, incomplete or stale. Labels such as "insider" or "sniper" are timing patterns, not identities. Example data is synthetic and labelled. Collectible signals are not appraisals. Provided as is, without warranty. Not affiliated with or endorsed by xAI, X, Solana, Polymarket, Kalshi, Valve, Scryfall, the ECB, the CFTC, the SEC, BLS, the Federal Reserve or any exchange. Do your own research and consult a licensed professional.</p>
     <span class="links"><a href="#legal">Legal notice (README)</a><a href="#risk">Risk disclosure</a><a href="#methodology">Methodology</a></span>
   </footer>
   <div id="notif" role="status" aria-live="polite" hidden></div>
@@ -233,6 +256,7 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
   <input type="file" id="pick" accept=".json,application/json" multiple hidden>
 </div>
 <script src="data/reports.js"></script>
+<script src="data/everything.js"></script>
 <script src="app.js"></script>
 <script type="module" src="stage.js"></script>
 </body>

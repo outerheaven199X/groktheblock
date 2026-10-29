@@ -97,11 +97,48 @@ function replayTarget(r) {
     limits: ((a.coverage || {}).limits || []).map(l => l.text || l).slice(0, 3).concat((j.notes || []).slice(0, 1)),
   };
 }
-function targets() { return of("token").map(tokenTarget).concat(of("wallet").map(walletTarget), of("replay").map(replayTarget)); }
+/* ---------------- everything markets (data/everything.js: real cached derived signals + flagged synthetic examples) ---------------- */
+const EV = window.GTB_EVERYTHING || { categories: [], universe: [], live: { signals: [], probes: [], coverage: [], assets: [] }, synthetic: { signals: [], probes: [] } };
+const EV_SIGS = (EV.live.signals || []).map(s => ({ s, set: "live" })).concat((EV.synthetic.signals || []).map(s => ({ s, set: "synthetic" })));
+// Tracked-but-quiet assets: every live asset with no signal gets a "nothing past threshold" (or "unknown") evidence view.
+const MOD_CAT = { fx: "fx", metals: "metals", energy: "energy", cot: "positioning", mtg: "cards", cs2: "skins" };
+(EV.live.assets || []).forEach(a => {
+  if ((EV.live.signals || []).some(s => s.asset === a.id)) return;
+  const ps = (EV.live.probes || []).filter(p => p.asset === a.id || p.asset === a.name); if (!ps.length) return;
+  const m = ps.filter(p => p.state === "measured").sort((x, y) => y.ratio - x.ratio)[0], u = ps.find(p => p.state === "unknown"), mod = ps[0].module;
+  EV_SIGS.push({ set: "live", quiet: true, s: { key: mod + ":" + a.id + ":CHECKS", source: mod, category: MOD_CAT[mod] || mod, asset: a.id, name: a.name, type: m ? m.type : u.type, severity: m ? "NONE" : "UNKNOWN", basis: "observed",
+    title: m ? a.name + ": nothing past threshold (closest check " + m.type.replace(/_/g, " ").toLowerCase() + " at " + m.ratio.toFixed(2) + "×)" : a.name + ": unknown, not quiet (" + u.reason + ")",
+    what: ps.map(p => p.type.replace(/_/g, " ").toLowerCase() + ": " + (p.state === "measured" ? p.ratio.toFixed(2) + "× threshold" : "unknown, " + p.reason)).join("; ") + ".",
+    when: EV.live.generatedAt, metrics: Object.fromEntries(ps.slice(0, 4).map(p => [p.type.toLowerCase().replace(/_(.)/g, (x, c) => c.toUpperCase()), p.state === "measured" ? p.ratio.toFixed(2) + "×" : "unknown"])),
+    trigger: m ? { observed: m.ratio.toFixed(2), threshold: 1, unit: "× threshold", window: "latest observation" } : {}, evidence: a.url ? [{ label: "Item page", url: a.url }] : [], limits: ["A quiet check is not an all-clear: it only means this detector did not cross its threshold on the cached data."], derivedOnly: !a.redistributable, synthetic: false } });
+});
+const CAT_OF = { fx: "FX", metals: "Metals", energy: "Energy", positioning: "Agriculture", cards: "Cards", skins: "Skins", games: "Games", collectibles: "Collectibles" };
+const UNI_OF = (s) => { const a = (EV.live.assets || []).find(x => x.id === s.asset || x.name === s.asset); return a ? a.universe : ({ fx: "fx-majors", metals: "gold", energy: "crude", cot: "cot", mtg: "mtg", cs2: "cs2-skins" })[s.source] || null; };
+const EV_VI = { CRITICAL: 7, HIGH: 6, MEDIUM: 4, LOW: 3, INFO: 3, NONE: 2, UNKNOWN: 3 };
+function evReport(set) { return { name: set === "live" ? "everything-live-derived.json" : "everything-synthetic.json", j: set === "live" ? EV.live : EV.synthetic }; }
+const fmtM = (k, v) => [k.replace(/([A-Z])/g, " $1").replace(/^./, c => c.toUpperCase()).replace(" Pct", " %").replace(" Bp", " (bp)"), typeof v === "number" ? (Math.abs(v) >= 1000 ? num(v) : String(v)) : typeof v === "object" ? Object.entries(v).map(([a, b]) => a + " " + b).join(", ") : String(v)];
+function assetTarget({ s, set }) {
+  const r = evReport(set), a = (EV.live.assets || []).find(x => x.id === s.asset || x.name === s.asset) || {};
+  const tr = s.trigger || {}, PR = (set === "live" ? EV.live.probes : EV.synthetic.probes) || [], mod = (PR.find(q => q.asset === s.asset || q.asset.startsWith(s.asset + "/")) || {}).module, peers = PR.filter(p => p.module === mod).slice(0, 14);
+  const spark = a.spark || [], mx = Math.max(...spark, 0), mn = Math.min(...spark, mx);
+  const events = spark.length ? spark.map((v, i) => [Math.round(i / Math.max(1, spark.length - 1) * 100), i === spark.length - 1 ? SEVC[s.severity] || "grey" : "green", (a.sparkLabel || "value") + " " + v + " · point " + (i + 1) + " of " + spark.length, null, (v - mn) / ((mx - mn) || 1)]) : [[100, SEVC[s.severity] || "grey", s.title.replace(/^\[SYNTHETIC\]\s*/, "")]];
+  return {
+    id: "asset:" + s.key + (set === "synthetic" ? ":syn" : ""), view: "asset", r, kind: (CAT_OF[s.category] || s.category) + (set === "synthetic" ? " · synthetic example" : " · cached real data"), title: s.name.replace(/\s*\[ETF proxy\]/, ""), evId: s.key, set, sig: s,
+    chips: [s.type.replace(/_/g, " ").toLowerCase(), s.basis, s.derivedOnly ? "derived signal only" : "official data", iso(s.when).slice(0, 10)],
+    sev: s.severity, vi: EV_VI[s.severity] ?? 3, vc: SEVC[s.severity] || "grey", verdictNote: s.title.replace(/^\[SYNTHETIC\]\s*/, ""),
+    score: { label: "Trigger", value: String(tr.observed ?? "—"), unit: tr.unit ? "/ " + tr.threshold + " " + tr.unit : "", note: "Threshold " + tr.threshold + " " + (tr.unit || "") + " over " + (tr.window || "the window") + ". Severity is distance past the threshold, not a probability." },
+    metrics: Object.entries(s.metrics || {}).filter(([k]) => k !== "fxDate" && k !== "z").slice(0, 4).map(([k, v]) => fmtM(k, v)),
+    rowsLabel: "Same module", rows: peers.map(p => ({ a: p.asset, full: p.asset, cls: p.state === "unknown" ? "unknown" : p.ratio >= 1 ? "flagged" : "measured", c: p.state === "unknown" ? "grey" : p.ratio >= 1 ? "amber" : "green", share: p.ratio == null ? "—" : p.ratio.toFixed(2) + "×", note: p.state === "unknown" ? "Unknown, not quiet: " + p.reason : p.type.replace(/_/g, " ").toLowerCase() + " at " + p.ratio.toFixed(2) + "× threshold" })),
+    events, evidence: s.evidence || [], why: [s.title.replace(/^\[SYNTHETIC\]\s*/, ""), s.what].filter(Boolean), whyId: s.type, limits: (s.limits || []).concat(set === "synthetic" ? ["Synthetic example: invented item and prices, shown to demonstrate the detector."] : []),
+  };
+}
+function assetTargets() { return EV_SIGS.map(assetTarget); }
+window.GTB_EV = { EV, EV_SIGS, assetTargets };
+function targets() { return of("token").map(tokenTarget).concat(of("wallet").map(walletTarget), of("replay").map(replayTarget), assetTargets()); }
 
 /* ---------------- state ---------------- */
-const VIEWS = [["home", "Home"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
-const S = { view: "home", target: null, scanning: false, brel: 0, t0: 0, tab: 0, open: false, scrub: 62, withX: false, dl: 0, dc: 0, dh: 0, feed: [], pool: [], paused: false, notifAt: 0, sel: {}, sort: { col: "appearances", dir: -1 }, filter: "ALL", sigFilter: "all", lastAsk: null };
+const VIEWS = [["home", "Home"], ["universe", "Universe"], ["anomalies", "Anomalies"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
+const S = { view: "home", target: null, scanning: false, brel: 0, t0: 0, tab: 0, open: false, scrub: 62, withX: false, dl: 0, dc: 0, dh: 0, feed: [], pool: [], paused: false, notifAt: 0, sel: {}, sort: { col: "appearances", dir: -1 }, filter: "ALL", sigFilter: "all", lastAsk: null, uCat: "All", uStat: "all", uSel: null, aCat: "All", aSet: "both" };
 window.GTB = { S, REPORTS, targets, addReport };
 const three = () => window.GTB_STAGE || null;
 // Wide = fixed full-height grid. If that leaves the stage too short for the result (short windows, zoom), fall back to the scrolling layout.
@@ -123,7 +160,7 @@ let toastT; function flash(m) { const t = $("#toast"); t.textContent = m; t.styl
 $("#fbkClose").onclick = $("#fbkSh").onclick = () => $("#fbk").classList.remove("on");
 
 /* ---------------- feed (replays loaded reports; never invents items) ---------------- */
-const MKT = { polymarket: "Prediction", kalshi: "Prediction", equities: "Stocks", options: "Stocks", treasury: "Rates", crypto: "Crypto", stablecoins: "Crypto", cross: "Cross-market", macro: "Macro", sec: "Filings", solana: "Crypto" };
+const MKT = { fx: "FX", metals: "Metals", energy: "Energy", cot: "Agriculture", mtg: "Cards", cs2: "Skins", synthetic: "Synthetic", polymarket: "Prediction", kalshi: "Prediction", equities: "Stocks", options: "Stocks", treasury: "Rates", crypto: "Crypto", stablecoins: "Crypto", cross: "Cross-market", macro: "Macro", sec: "Filings", solana: "Crypto" };
 function buildPool() {
   const out = [];
   of("signals").forEach(r => {
@@ -132,11 +169,12 @@ function buildPool() {
   });
   of("threats").forEach(r => r.j.forEach(a => out.push({ id: a.id || a.key, mkt: "Crypto", subject: "$" + a.tokenSymbol, text: a.detail, c: SEVC[a.severity] || "grey", sev: a.severity, ts: a.timestamp, open: "threats", report: repLabel(r) })));
   of("watch").forEach(r => (r.j.alerts || []).slice(0, 12).forEach(a => out.push({ id: a.key || a.signature, mkt: "Crypto", subject: "$" + a.tokenSymbol, text: a.detail || a.type, c: SEVC[a.severity] || "grey", sev: a.severity, ts: a.timestamp, open: "token:" + a.tokenSymbol, report: repLabel(r) })));
+  EV_SIGS.filter(x => x.set === "live" && !x.quiet).forEach(({ s }) => out.push({ id: s.key, mkt: MKT[s.source] || s.source, subject: s.name, text: s.title, c: SEVC[s.severity] || "grey", sev: s.severity, ts: s.when, open: "asset:" + s.key, report: "everything-live-derived.json" }));
   return out.sort((a, b) => (b.ts || 0) - (a.ts || 0));
 }
 S.pool = buildPool(); S.feed = S.pool.slice(0, 9); let poolI = 9;
 const fTime = (f) => f.ts ? utc(new Date(f.ts < 1e12 ? f.ts * 1000 : f.ts)) : "--:--";
-function openItem(o) { if (!o) return; if (o.startsWith("token:")) { const t = targets().find(x => x.id === o); if (t) return scan(t.id); } go(o); }
+function openItem(o) { if (!o) return; if (o.startsWith("token:") || o.startsWith("asset:")) { const t = targets().find(x => x.id === o); if (t) return scan(t.id); } go(o); }
 function renderFeed() {
   $("#feedN").textContent = S.feed.length;
   $("#feedList").innerHTML = S.feed.map(f => `<div class="fi${f.id === S.newId ? " new" : ""}"><button class="o" ${f.open ? `data-open="${esc(f.open)}"` : ""}><span style="width:8px;height:8px;margin-top:4px;background:${C[f.c]}"></span><span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span class="up" style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--m)"><span>${esc(f.mkt)} // ${esc(f.subject)}</span><span>${fTime(f)}</span></span><span style="font-size:12px;line-height:17px;overflow-wrap:anywhere">${esc(f.text)}</span></span></button><span style="padding-top:10px">${askBtn("Ask", ["Live feed // " + f.mkt, f.subject, f.id, f.report, ["Market: " + f.mkt, "Event: " + f.text, "Severity: " + (f.sev || "no data"), "Time: " + iso(f.ts)]])}</span></div>`).join("") || `<div class="empty">No items in the loaded reports.</div>`;
@@ -163,7 +201,7 @@ $("#pauseBtn").onclick = () => { S.paused = !S.paused; $("#pauseBtn").textConten
 function suggestions(q) {
   q = q.trim().toLowerCase().replace("$", "");
   const all = targets().map(t => ({ label: t.title, kind: t.kind, id: t.id, hay: (t.title + " " + t.kind + " " + t.evId).toLowerCase().replace("$", "") }))
-    .concat([["signals", "Signals", "Cross-market report"], ["threats", "Threats", "Alert feed"], ["shill", "Shill net", "Social graph"], ["copy", "Copy net", "Copy-trade graph"], ["board", "Leaderboard", "Wallet ranking"], ["prov", "Provenance", "Media checks"]].map(([v, l, k]) => ({ label: l, kind: k, id: "view:" + v, hay: (l + " " + k).toLowerCase() })));
+    .concat([["universe", "Universe", "Every asset class"], ["anomalies", "Anomalies", "Unified feed"], ["signals", "Signals", "Cross-market report"], ["threats", "Threats", "Alert feed"], ["shill", "Shill net", "Social graph"], ["copy", "Copy net", "Copy-trade graph"], ["board", "Leaderboard", "Wallet ranking"], ["prov", "Provenance", "Media checks"]].map(([v, l, k]) => ({ label: l, kind: k, id: "view:" + v, hay: (l + " " + k).toLowerCase() })));
   return q ? all.filter(s => s.hay.includes(q)) : all.slice(0, 6);
 }
 function wireSearch(inp, box) {
@@ -188,7 +226,7 @@ $("#views").innerHTML = VIEWS.map(([k, l]) => `<button data-view="${k}">${esc(l)
 $("#views").addEventListener("click", (e) => { const b = e.target.closest("[data-view]"); if (b) go(b.dataset.view); });
 $("#logo").onclick = () => go("home");
 function go(v) {
-  if (v === "token" || v === "wallet" || v === "replay") { const t = targets().find(x => x.view === v && (!S.target || S.target.view !== v ? true : x.id === S.target.id)); if (t) return scan(t.id, true); }
+  if (v === "token" || v === "wallet" || v === "replay" || v === "asset") { const t = targets().find(x => x.view === v && (!S.target || S.target.view !== v ? true : x.id === S.target.id)); if (t) return scan(t.id, true); }
   S.view = v; history.replaceState(null, "", "#" + v); if (three()) { three().setMode(v === "home" ? "home" : "result"); three().spin && v !== "home" && three().spin(); }
   render();
 }
@@ -200,7 +238,7 @@ function scan(id, quiet) {
   const t = targets().find(x => x.id === id); if (!t) return flash("Nothing loaded matches that");
   S.view = t.view; S.target = t; S.tab = 0; S.open = false; S.brel = 0; S.dl = 0; S.dc = 0; S.dh = 0; S.scrub = 62; S._rv = -1; S._slam = false;
   $("#vdBox").dataset.landed = "0";
-  history.replaceState(null, "", "#" + t.view + "/" + encodeURIComponent(t.title.replace("$", "")));
+  history.replaceState(null, "", "#" + t.view + "/" + encodeURIComponent(t.title.replace("$", "")) + (t.set ? "|" + t.set : ""));
   if (three()) { three().setMode("result"); three().set && three().set(); }
   clearTimeout(scanT);
   if (reduced()) { S.scanning = false; S.t0 = performance.now() - 20000; render(); return; }
@@ -279,7 +317,7 @@ function layoutStage(t) {
   W.dataset.layout = (L.side ? "side" : "stack") + (L.f ? " f" + L.f : "");
 }
 function frame() {
-  const t = S.target, stageView = ["home", "token", "wallet", "replay"].includes(S.view);
+  const t = S.target, stageView = ["home", "token", "wallet", "replay", "asset"].includes(S.view);
   if (stageView) {
     const B = S.view === "home" || S.scanning || !S.t0 ? 0 : performance.now() - S.t0; S.brel = B;
     layoutStage(t);
@@ -328,11 +366,11 @@ function head(title, kindTxt, chips, askArgs, extra = "") {
 function render() {
   $("#root").className = wide() ? "wide" : "narrow";
   $$("#views [data-view]").forEach(b => b.dataset.view === S.view ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
-  const stageView = ["home", "token", "wallet", "replay"].includes(S.view);
+  const stageView = ["home", "token", "wallet", "replay", "asset"].includes(S.view);
   $("#stageWrap").hidden = !stageView; $("#panel").hidden = stageView; $("#home").hidden = S.view !== "home"; $("#res").hidden = !stageView || S.view === "home";
   $("#details").hidden = !stageView || S.view === "home"; $("#hsbox").hidden = S.view === "home"; $("#rhead").hidden = S.view === "home";
   if (three()) three().setVisible(stageView);
-  if (S.view === "home") { $("#tryChips").innerHTML = targets().filter((t, i, a) => a.findIndex(x => x.view === t.view) === i || t.view === "token").slice(0, 4).map(t => `<button data-scan="${esc(t.id)}">${esc(t.title)}</button>`).join(""); return; }
+  if (S.view === "home") { $("#tryChips").innerHTML = targets().filter((t, i, a) => (a.findIndex(x => x.view === t.view) === i && t.view !== "asset") || t.view === "token").slice(0, 3).concat(assetTargets().filter(t => t.set === "live").slice(0, 1)).map(t => `<button data-scan="${esc(t.id)}">${esc(t.title)}</button>`).join(""); return; }
   if (stageView) {
     const t = S.target;
     head(t.title, t.kind, t.chips, [t.kind, t.title, t.evId, repLabel(t.r), [t.score.label + ": " + t.score.value + (t.score.unit ? " " + t.score.unit : ""), "Verdict phrase: " + HYPE[t.vi][0] + " (severity " + (t.sev || "n/a") + ")"].concat(t.metrics.slice(0, 3).map(([k, v]) => k + ": " + v))],
@@ -340,7 +378,7 @@ function render() {
     $("#rescanBtn").onclick = () => scan(t.id); const nr = $("#nextRep"); if (nr) nr.onclick = () => { const l = targets().filter(x => x.view === t.view); scan(l[(l.findIndex(x => x.id === t.id) + 1) % l.length].id); };
     renderDetails(); return;
   }
-  const P = $("#panel"); P.innerHTML = ""; ({ signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`))(P);
+  const P = $("#panel"); P.innerHTML = ""; ({ universe: vUniverse, anomalies: vAnomalies, signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`))(P);
 }
 document.addEventListener("click", (e) => { const b = e.target.closest("[data-scan]"); if (b) scan(b.dataset.scan); if (e.target.id === "exportBtn") doExport(); });
 function renderDetails() {
@@ -351,13 +389,13 @@ function renderDetails() {
   if (S.tab === 0) B.innerHTML = t.rows.map(r => `<div class="hrow"><span class="a"><b>${esc(r.a)}</b><small>${esc(r.note)}</small></span><span class="tag ${r.c === "grey" ? "" : "t-" + r.c}">${esc(r.cls)}-pattern</span><span class="sh" style="text-align:right">${esc(r.share)}</span>${askBtn("Ask", [t.kind + " // " + t.rowsLabel, r.full || r.a, t.evId + "#" + (r.full || r.a), repLabel(t.r), ["Class: " + r.cls + " (timing pattern, not identity)", (t.rowsLabel === "Holders" ? "Supply share: " : "Value: ") + r.share, "Note: " + r.note, "Parent: " + t.title]])}</div>`).join("") || `<div class="empty">No rows in this report.</div>`;
   if (S.tab === 1) {
     let ev = t.events[0]; t.events.forEach(e => { if (e[0] <= S.scrub) ev = e; });
-    const bars = Array.from({ length: 40 }, (_, i) => { const pct = (i + 0.5) / 40 * 100; let c = (t.events[0] || [0, "grey"])[1]; t.events.forEach(e => { if (e[0] <= pct) c = e[1]; }); const h = 18 + Math.abs(Math.sin(i * 1.7 + t.title.length)) * 50 * (1 - i / 60); return `<span style="height:${h.toFixed(0)}px;background:${C[c]};opacity:${pct <= S.scrub ? 1 : .25}"></span>`; }).join("");
+    const bars = Array.from({ length: 40 }, (_, i) => { const pct = (i + 0.5) / 40 * 100; let c = (t.events[0] || [0, "grey"])[1]; t.events.forEach(e => { if (e[0] <= pct) c = e[1]; }); const sp = t.events.length > 2 && t.events[0][4] != null ? t.events[Math.min(t.events.length - 1, Math.floor(i / 40 * t.events.length))][4] : null; const h = sp != null ? 8 + sp * 90 : 18 + Math.abs(Math.sin(i * 1.7 + t.title.length)) * 50 * (1 - i / 60); return `<span style="height:${h.toFixed(0)}px;background:${C[c]};opacity:${pct <= S.scrub ? 1 : .25}"></span>`; }).join("");
     const xs = t.xposts && S.withX ? t.xposts.slice(0, 3) : [];
     B.innerHTML = t.events.length ? `<div style="padding:16px"><div class="bars">${bars}<span class="cur" style="left:${S.scrub}%"></span></div><input type="range" id="scrub" min="0" max="100" value="${S.scrub}" aria-label="Scrub timeline" style="width:100%;height:28px;margin-top:8px"><div id="evText" style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;text-wrap:pretty"><span style="width:8px;height:8px;background:${C[ev[1]]};margin-top:5px;flex-shrink:0"></span>${esc(ev[2])}</div>${t.xposts ? `<label style="display:flex;gap:8px;align-items:center;min-height:32px"><input type="checkbox" id="withx" ${S.withX ? "checked" : ""}> Overlay X posts (${t.xposts.length} merged)</label>` + xs.map(x => `<div class="lim">${esc((x.relativeTime || "") + " · " + (x.detail || "X post"))}</div>`).join("") : ""}</div>` : `<div class="empty">No timeline in this report.</div>`;
     const sc = $("#scrub"); if (sc) sc.oninput = () => { S.scrub = +sc.value; renderDetails(); $("#scrub").focus(); };
     const wx = $("#withx"); if (wx) wx.onchange = () => { S.withX = wx.checked; renderDetails(); };
   }
-  if (S.tab === 2) B.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;padding:16px"><div class="why">${t.why.map(y => `<div>${esc(y)}</div>`).join("") || "<div>No findings in this report.</div>"}<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span style="font-size:10px;letter-spacing:.04em">FINDING // FROM THE REPORT // DO NOT PARAPHRASE</span>${askBtn("Ask about this", [t.kind + " // Why flagged", t.title, t.evId + "#finding:" + t.whyId, repLabel(t.r), t.why.slice(0, 4)], "ask", "Ask Grok Bot about this finding").replace('class="ask"', 'class="ask" style="background:#0b0b0d;border-color:#0b0b0d"')}</div></div>${t.limits.map(y => `<div class="lim">${esc(y)}</div>`).join("")}</div>`;
+  if (S.tab === 2) B.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;padding:16px"><div class="why">${t.why.map(y => `<div>${esc(y)}</div>`).join("") || "<div>No findings in this report.</div>"}<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span style="font-size:10px;letter-spacing:.04em">FINDING // FROM THE REPORT // DO NOT PARAPHRASE</span>${askBtn("Ask about this", [t.kind + " // Why flagged", t.title, t.evId + "#finding:" + t.whyId, repLabel(t.r), t.why.slice(0, 4)], "ask", "Ask Grok Bot about this finding").replace('class="ask"', 'class="ask" style="background:#0b0b0d;border-color:#0b0b0d"')}</div></div>${(t.evidence || []).map(e => `<div class="lim">Source: <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.label)}</a></div>`).join("")}${t.limits.map(y => `<div class="lim">${esc(y)}</div>`).join("")}</div>`;
 }
 $("#dtabs").addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (!b) return; const i = +b.dataset.tab; S.open = S.tab === i ? !S.open : true; S.tab = i; if (three()) three().spin(); renderDetails(); });
 
@@ -376,6 +414,52 @@ function vSignals(P) {
   <div class="card"><h2 class="disp">Watch telemetry</h2><dl class="kv">${Object.entries(tel).filter(([, v]) => typeof v === "number").map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl></div></div></div>
   <div class="card"><h2 class="disp">Coverage</h2><div class="tw"><table class="t"><thead><tr><th>Source</th><th>Family</th><th>Status</th><th>Last valid</th><th>Universe</th><th>Observed</th><th>Note</th></tr></thead><tbody>${(cov.matrix || []).map(m => `<tr><td>${esc(m.source)}</td><td>${esc(m.family || "—")}</td><td style="color:${m.status === "HEALTHY" ? C.green : m.status === "UNAVAILABLE" ? C.red : C.amber}">${esc(m.status)}</td><td>${esc(m.lastValidAt || "—")}</td><td>${esc(m.universe || "—")}</td><td>${m.observed ?? "—"}</td><td class="dim">${esc(m.detail || "")}</td></tr>`).join("")}</tbody></table></div>${(cov.limits || []).map(l => `<div class="lim">${esc(l.kind)}: ${esc(l.text)}</div>`).join("")}</div>`;
   $$("[data-sf]", P).forEach(b => b.onclick = () => { S.sigFilter = b.dataset.sf; render(); });
+}
+/* ---------------- universe + anomalies ---------------- */
+const ST = { shipped: ["Shipped", "t-amber"], "feasible-next": ["Next", "t-green"], "blocked-licence": ["Licence", "t-red"] };
+const ACC = { "free-redistributable": "Free, redistributable", "derived-signals-only": "Derived signals only", paid: "Paid", "partner-only": "Partner only", blocked: "Blocked" };
+const sparkSVG = (v, w = 120, h = 28) => { if (!v || v.length < 2) return ""; const mx = Math.max(...v), mn = Math.min(...v), d = v.map((x, i) => (i / (v.length - 1) * w).toFixed(1) + "," + (h - 2 - (x - mn) / ((mx - mn) || 1) * (h - 4)).toFixed(1)).join(" "); return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${d}" fill="none" stroke="#faf905" stroke-width="1.5"/></svg>`; };
+const evFor = (uid, quiet = false) => EV_SIGS.filter(x => UNI_OF(x.s) === uid && !!x.quiet === quiet);
+function vUniverse(P) {
+  const U = EV.universe || [], cats = ["All"].concat(EV.categories.filter(c => U.some(u => u.category === c)));
+  const n = (st) => U.filter(u => u.status === st).length;
+  head("Universe", "Everything with a price", [U.length + " asset classes", n("shipped") + " shipped", n("feasible-next") + " next", n("blocked-licence") + " licence-gated"], ["Universe", "Asset universe", "universe:" + U.length, "everything-universe.json", ["Asset classes: " + U.length, "Shipped: " + n("shipped"), "Next: " + n("feasible-next"), "Licence-gated: " + n("blocked-licence")]]);
+  const vis = U.filter(u => (S.uCat === "All" || u.category === S.uCat) && (S.uStat === "all" || u.status === S.uStat));
+  const sel = U.find(u => u.id === S.uSel);
+  const tile = (u) => { const ev = evFor(u.id), live = ev.filter(x => x.set === "live"), a = (EV.live.assets || []).find(x => x.universe === u.id && x.spark); const top = live.concat(ev).sort((x, y) => SEV_RANK(y.s.severity) - SEV_RANK(x.s.severity))[0];
+    return `<button class="tile${S.uSel === u.id ? " on" : ""}" data-uni="${esc(u.id)}" aria-pressed="${S.uSel === u.id}"><span class="tt"><span class="disp nm">${esc(u.name)}</span><span class="tag ${ST[u.status][1]}">${ST[u.status][0]}</span></span><span class="dim cat">${esc(u.category)} · ${esc(ACC[u.access])}</span>${a ? sparkSVG(a.spark) : `<span class="nospark"></span>`}<span class="ct">${live.length ? `<span>${sq(SEVC[top.s.severity])}${live.length} live</span>` : `<span class="dim">${u.status === "shipped" ? "no live flags" : "not tracked yet"}</span>`}${ev.length - live.length ? `<span class="dim">${ev.length - live.length} synthetic</span>` : ""}</span></button>`; };
+  P.innerHTML = `<div class="card"><div class="frow"><div class="chips" role="group" aria-label="Category filter">${cats.map(c => `<button class="chip" data-ucat="${esc(c)}" aria-pressed="${S.uCat === c}">${esc(c)}</button>`).join("")}</div><div class="chips" role="group" aria-label="Status filter">${[["all", "Any status"], ["shipped", "Shipped"], ["feasible-next", "Next"], ["blocked-licence", "Licence-gated"]].map(([k, l]) => `<button class="chip" data-ustat="${k}" aria-pressed="${S.uStat === k}">${l}</button>`).join("")}</div></div></div>
+  <div class="unigrid${sel ? " withsel" : ""}"><div class="tiles" id="tiles">${vis.map(tile).join("") || `<div class="empty">Nothing in this filter.</div>`}</div>${sel ? uniDetail(sel) : ""}</div>
+  <div class="card"><h2 class="disp">Module health</h2><div class="tw"><table class="t"><thead><tr><th>Module</th><th>Status</th><th>Via</th><th>Observed</th></tr></thead><tbody>${(EV.live.coverage || []).map(c => `<tr><td>${esc(c.module)}</td><td style="color:${c.status === "HEALTHY" ? C.green : c.status === "UNAVAILABLE" ? C.red : C.amber}">${esc(c.status)}</td><td class="dim">${esc(c.via)}${c.attribution ? " · " + esc(c.attribution) : ""}</td><td>${c.observed ?? "—"}</td></tr>`).join("")}</tbody></table></div><div class="lim">Cached ${esc(iso(EV.live.generatedAt))}. A module that did not answer shows as unknown, never as quiet.</div></div>`;
+  $$("[data-ucat]", P).forEach(b => b.onclick = () => { S.uCat = b.dataset.ucat; render(); });
+  $$("[data-ustat]", P).forEach(b => b.onclick = () => { S.uStat = b.dataset.ustat; render(); });
+  $$("[data-uni]", P).forEach(b => b.onclick = () => { S.uSel = S.uSel === b.dataset.uni ? null : b.dataset.uni; render(); const d = $("#uniDetail"); if (d && $("#root").className === "narrow") d.scrollIntoView({ block: "nearest" }); });
+  const cl = $("#uniClose"); if (cl) cl.onclick = () => { S.uSel = null; render(); };
+}
+const SEV_RANK = (s) => ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"].indexOf(s);
+function uniDetail(u) {
+  const ev = evFor(u.id);
+  return `<div class="card" id="uniDetail"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2 class="disp">${esc(u.name)}</h2><button class="btn" id="uniClose" aria-label="Close details">×</button></div><dl class="kv"><dt>Status</dt><dd>${ST[u.status][0]}${u.status === "blocked-licence" ? " (blocked by a data licence, not by code)" : ""}</dd><dt>Venues</dt><dd>${esc(u.venues)}</dd><dt>Common arbitrage</dt><dd>${esc(u.arbitrage)}</dd><dt>Best source</dt><dd><a href="${esc(u.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(u.source)}</a></dd><dt>Access</dt><dd>${esc(ACC[u.access])}${u.verified ? " · terms read 2026-10-28" : " · terms not yet verified"}</dd>${u.note ? `<dt>Note</dt><dd>${esc(u.note)}</dd>` : ""}</dl>
+  ${evFor(u.id, true).length ? `<div class="lim" style="margin-top:8px">Tracked, nothing past threshold: ${evFor(u.id, true).slice(0, 30).map(x => `<button class="chip" data-scan="${esc("asset:" + x.s.key)}">${esc(x.s.name.replace(/\s*\(.*?\)$/, "").slice(0, 26))}</button>`).join(" ")}</div>` : ""}<div class="list" style="margin-top:8px">${ev.map(x => evRow(x)).join("") || `<div class="empty">${u.status === "shipped" ? "Nothing past threshold in the cached run." : "No detector runs on this class yet."}</div>`}</div><div style="margin-top:10px">${askBtn("Ask about this", ["Universe", u.name, "universe:" + u.id, "everything-universe.json", ["Status: " + u.status, "Access: " + u.access, "Source: " + u.source, "Arbitrage pattern: " + u.arbitrage]], "btn y")}</div></div>`;
+}
+function evRow({ s, set }) {
+  const id = "asset:" + s.key + (set === "synthetic" ? ":syn" : "");
+  return `<div class="erow${set === "synthetic" ? " syn" : ""}">${sq(SEVC[s.severity])}<span class="eb"><span class="hd"><span>${esc(CAT_OF[s.category] || s.category)} // ${esc(s.name)}</span><span>${esc(s.severity)} · ${esc(s.basis)}${set === "synthetic" ? " · synthetic" : ""}</span></span><span class="ti">${esc(s.title.replace(/^\[SYNTHETIC\]\s*/, ""))}</span></span><span class="ea"><button class="btn y" data-scan="${esc(id)}">Evidence</button>${askBtn("Ask", ["Anomalies", s.title, s.key, evReport(set).name, ["Type: " + s.type, "Severity: " + s.severity, "Basis: " + s.basis, "What: " + String(s.what).slice(0, 140)]])}</span></div>`;
+}
+function vAnomalies(P) {
+  const all = EV_SIGS.filter(x => !x.quiet && (S.aCat === "All" || (CAT_OF[x.s.category] || x.s.category) === S.aCat));
+  const live = all.filter(x => x.set === "live").sort((a, b) => SEV_RANK(b.s.severity) - SEV_RANK(a.s.severity) || b.s.when - a.s.when), syn = all.filter(x => x.set === "synthetic");
+  const cats = ["All"].concat([...new Set(EV_SIGS.filter(x => !x.quiet).map(x => CAT_OF[x.s.category] || x.s.category))]);
+  const unk = (EV.live.probes || []).filter(p => p.state === "unknown"), meas = (EV.live.probes || []).filter(p => p.state === "measured");
+  head("Anomalies", "Every market, one feed", [live.length + " live", syn.length + " synthetic", meas.length + " checks measured", unk.length + " unknown"], ["Anomalies", "Unified anomaly feed", "anomalies:" + live.length, "everything-live-derived.json", ["Live flags: " + live.length, "Synthetic examples: " + syn.length, "Unknown checks: " + unk.length]]);
+  const showL = S.aSet !== "synthetic", showS = S.aSet !== "live";
+  P.innerHTML = `<div class="card"><div class="frow"><div class="chips" role="group" aria-label="Category filter">${cats.map(c => `<button class="chip" data-acat="${esc(c)}" aria-pressed="${S.aCat === c}">${esc(c)}</button>`).join("")}</div><div class="chips" role="group" aria-label="Data set">${[["both", "Live + synthetic"], ["live", "Live only"], ["synthetic", "Synthetic only"]].map(([k, l]) => `<button class="chip" data-aset="${k}" aria-pressed="${S.aSet === k}">${l}</button>`).join("")}</div></div></div>
+  <div class="grid2">${showL ? `<div class="card"><h2 class="disp">Live</h2><div class="lim" style="margin-bottom:6px">Cached real data, ${esc(iso(EV.live.generatedAt))}. Vendor-sourced items show derived numbers only.</div><div class="list">${live.map(evRow).join("") || `<div class="empty">Nothing past threshold in this category in the cached run.</div>`}</div></div>` : ""}
+  <div style="display:flex;flex-direction:column;gap:12px">${showS ? `<div class="card synbox"><h2 class="disp">Synthetic examples</h2><div class="lim" style="margin-bottom:6px">${esc(EV.synthetic.note || "")}</div><div class="list">${syn.map(evRow).join("") || `<div class="empty">No synthetic examples in this category.</div>`}</div></div>` : ""}
+  <div class="card"><h2 class="disp">Closest to threshold</h2>${meas.slice().sort((x, y) => y.ratio - x.ratio).slice(0, 8).map(p => `<div class="lim">${esc(p.asset)} · ${esc(p.type.replace(/_/g, " ").toLowerCase())} at ${p.ratio.toFixed(2)}× threshold</div>`).join("") || `<div class="empty">No measured checks.</div>`}</div>
+  <div class="card"><h2 class="disp">Unknown, not quiet</h2>${unk.slice(0, 12).map(p => `<div class="lim">${esc(p.asset)} · ${esc(p.type.replace(/_/g, " ").toLowerCase())}: ${esc(p.reason)}</div>`).join("") || `<div class="empty">Every check returned a measurement.</div>`}${unk.length > 12 ? `<div class="lim">…and ${unk.length - 12} more</div>` : ""}</div></div></div>`;
+  $$("[data-acat]", P).forEach(b => b.onclick = () => { S.aCat = b.dataset.acat; render(); });
+  $$("[data-aset]", P).forEach(b => b.onclick = () => { S.aSet = b.dataset.aset; render(); });
 }
 function sigItem(s, r) {
   const m = s.metrics || {};
@@ -457,7 +541,7 @@ function vProv(P) {
 }
 
 /* ---------------- export / open (no network) ---------------- */
-function curReport() { if (S.target && ["token", "wallet", "replay"].includes(S.view)) return S.target.r; return ({ signals: of("signals")[0], threats: of("threats")[0], shill: of("shill")[0], copy: of("token").find(x => x.name === S.copyRep) || of("token")[0], board: of("board")[0], prov: of("prov")[0] })[S.view]; }
+function curReport() { if (S.target && ["token", "wallet", "replay", "asset"].includes(S.view)) return S.target.r; if (S.view === "universe") return { name: "everything-universe.json", j: { categories: EV.categories, assets: EV.universe } }; if (S.view === "anomalies") return { name: "everything-anomalies.json", j: { live: EV.live, synthetic: EV.synthetic } }; return ({ signals: of("signals")[0], threats: of("threats")[0], shill: of("shill")[0], copy: of("token").find(x => x.name === S.copyRep) || of("token")[0], board: of("board")[0], prov: of("prov")[0] })[S.view]; }
 function doExport() { const r = curReport(); if (!r) return flash("Nothing to export"); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(r.j, null, 2)], { type: "application/json" })); a.download = r.name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); flash("Exported " + r.name); }
 $("#pick").onchange = async (e) => { let n = 0; for (const f of e.target.files) { try { if (addReport(f.name, JSON.parse(await f.text()))) n++; } catch (x) { } } S.pool = buildPool(); flash(n ? "Opened " + n + " report" + (n > 1 ? "s" : "") : "Not a Grok The Block report"); render(); };
 window.GTB.open = () => $("#pick").click();
@@ -468,7 +552,7 @@ addEventListener("resize", () => { const w = wide(); if ((w ? "wide" : "narrow")
 RM.addEventListener && RM.addEventListener("change", render);
 renderFeed();
 const h = decodeURIComponent(location.hash.slice(1));
-if (h.includes("/")) { const [v, sym] = h.split("/"); const t = targets().find(x => x.view === v && x.title.replace("$", "") === sym); if (t) scan(t.id); else go(v); } else if (VIEWS.some(([k]) => k === h)) go(h); else render();
+if (h.includes("/")) { const [v, sym] = h.split("/"); const t = targets().find(x => x.view === v && x.title.replace("$", "") === sym.split("|")[0] && (v !== "asset" || !sym.includes("|") || x.set === sym.split("|")[1])); if (t) scan(t.id); else go(v); } else if (VIEWS.some(([k]) => k === h)) go(h); else render();
 requestAnimationFrame(frame);
 window.GTB.ready = true;
 })();
