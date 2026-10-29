@@ -15,5 +15,8 @@ Existing assertions changed only where the release candidate intentionally chang
 | `tests/ui/ui_v6_sweep.py` | click `[data-uni=mtg]` | open families, then click | Mobile families start collapsed |
 | `tests/test_ui_v6_static.py` | network scan over index.html, app.js, stage.js | also scans registry.js | New UI source file |
 | `tests/run_all.py` | — | adds `test_registry.py` | New suite |
+| `tests/ui/ui_rc.py` (RC-M10, TCG Card Explorer) | every route view in {token … universe} | same list plus `tcg` | New Card Explorer renderer; nothing removed |
+| `tests/test_ui_v6_static.py` (TCG) | network scan over index.html, app.js, stage.js, registry.js | also scans tcg.js | New UI source file |
+| `tests/run_all.py` (TCG) | — | adds `test_tcg.py` | New suite |
 
 No threshold, detector or fixture was changed.

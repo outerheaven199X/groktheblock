@@ -33,7 +33,7 @@ with sync_playwright() as p:
     reg = pg.evaluate("({F: GTB_REGISTRY.F.map(f=>({id:f.id,cat:f.cat,name:f.name,view:f.route.view,impl:f.impl})), C: GTB_REGISTRY.CATS.map(c=>c.id)})")
     ids = [f["id"] for f in reg["F"]]
     res("registry: unique feature ids", len(ids) == len(set(ids)), len(ids))
-    res("registry: every route targets a known renderer", all(f["view"] in ["token", "wallet", "replay", "shill", "copy", "threats", "board", "prov", "signals", "market", "universe"] for f in reg["F"]))
+    res("registry: every route targets a known renderer", all(f["view"] in ["token", "wallet", "replay", "shill", "copy", "threats", "board", "prov", "signals", "market", "universe", "tcg"] for f in reg["F"]))  # RC-M10: Card Explorer renderer (see RC-TEST-MIGRATIONS.md)
     navf = pg.evaluate("[...document.querySelectorAll('#views .navm [data-feat]')].map(b=>b.dataset.feat)")
     res("nav menus are generated from the registry (same ids, no duplicates)", sorted(navf) == sorted(i for i in ids if True) and len(navf) == len(set(navf)), len(navf))
     res("Anomalies is a top-level destination, not inside a category", pg.locator("#views > [data-view=anomalies]").count() == 1)

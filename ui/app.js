@@ -138,7 +138,7 @@ window.GTB_EV = { EV, EV_SIGS, assetTargets };
 function targets() { return of("token").map(tokenTarget).concat(of("wallet").map(walletTarget), of("replay").map(replayTarget), assetTargets()); }
 
 /* ---------------- state ---------------- */
-const VIEWS = [["home", "Home"], ["market", "Market"], ["limited", "Limited"], ["universe", "Universe"], ["anomalies", "Anomalies"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
+const VIEWS = [["home", "Home"], ["market", "Market"], ["limited", "Limited"], ["universe", "Universe"], ["anomalies", "Anomalies"], ["tcg", "Card Explorer"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
 const S = { view: "home", target: null, scanning: false, brel: 0, t0: 0, tab: 0, open: false, scrub: 62, withX: false, dl: 0, dc: 0, dh: 0, feed: [], pool: [], paused: false, notifAt: 0, sel: {}, sort: { col: "appearances", dir: -1 }, filter: "ALL", sigFilter: "all", lastAsk: null, uCat: "All", uStat: "all", uSel: null, aCat: "all", aSet: "both", aMode: "cached", aSrc: "all", aSev: "all", feat: null, uQ: "", uOpen: {}, limited: null };
 window.GTB = { S, REPORTS, targets, addReport };
 const three = () => window.GTB_STAGE || null;
@@ -220,6 +220,8 @@ function classify(raw) {
   COMMOD.forEach(([re, feat, id]) => { if (re.test(lq)) { const h = id ? assetHit(t => t.sig.asset === id) : assetHit(t => (t.sig.asset || "").toLowerCase().includes(lq.replace(/s$/, ""))); h.length ? out.push({ label: h[0].title, kind: catName("commodities") + " · " + REG.byId[feat].name, id: h[0].id, domain: "Commodities" }) : out.push({ label: REG.byId[feat].name, kind: catName("commodities"), id: "feat:" + feat, domain: "Commodities" }); } });
   // MTG cards and CS2 items (cached, derived only)
   if (lq.length >= 3) assetHit(t => (t.sig.source === "mtg" || t.sig.source === "cs2") && t.sig.asset.toLowerCase().includes(lq)).slice(0, 4).forEach(t => out.push({ label: t.title, kind: t.sig.source === "mtg" ? "TCG · MTG card (derived only)" : "CS2 item · experimental", id: t.id, domain: t.sig.source === "mtg" ? "TCGs" : "More" }));
+  // Card Explorer: printings in the local artwork cache (or tracked printings when unsynced)
+  if (lq.length >= 3 && TCGX) TCGX.tcgData().C.groups.filter(g => (g.name || "").toLowerCase().includes(lq)).slice(0, 3).forEach(g => out.push({ label: g.name, kind: "TCGs · Card Explorer · " + g.printings.length + " printings", id: "card:" + g.printings[0].key, domain: "TCGs" }));
   // prediction market questions or venues
   if (/\b(will|polymarket|kalshi|odds|election|fed cut|by (dec|jan|end))\b|\?$/.test(lq)) {
     const rep = of("signals")[0], m = rep && (rep.j.signals || []).filter(s => ["polymarket", "kalshi"].includes(s.source) && String(s.title).toLowerCase().includes(lq.replace(/\?$/, "").slice(0, 24)));
@@ -255,7 +257,7 @@ function wireSearch(inp, box) {
   box.addEventListener("mousedown", (e) => { const b = e.target.closest("button"); if (b) { e.preventDefault(); pickId(b.dataset.id); } });
   inp.addEventListener("keydown", (e) => { const sg = suggestions(inp.value); if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sg.length - 1, sel + 1); draw(); } if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); draw(); } if (e.key === "Enter") { e.preventDefault(); submit(inp, sel); } if (e.key === "Escape") inp.blur(); });
 }
-function pickId(id) { $("#q").value = ""; $("#hq").value = ""; document.activeElement && document.activeElement.blur(); if (id.startsWith("view:")) go(id.slice(5)); else if (id.startsWith("feat:")) goFeat(id.slice(5)); else if (id.startsWith("lim:")) { S.limited = JSON.parse(id.slice(4)); S.feat = null; S.view = "limited"; history.replaceState(null, "", "#limited"); render(); } else scan(id); }
+function pickId(id) { $("#q").value = ""; $("#hq").value = ""; document.activeElement && document.activeElement.blur(); if (id.startsWith("view:")) go(id.slice(5)); else if (id.startsWith("card:")) { if (TCGX) { TCGX.TCG.sel = id.slice(5); TCGX.TCG.face = 0; } goFeat("tcg.explorer"); } else if (id.startsWith("feat:")) goFeat(id.slice(5)); else if (id.startsWith("lim:")) { S.limited = JSON.parse(id.slice(4)); S.feat = null; S.view = "limited"; history.replaceState(null, "", "#limited"); render(); } else scan(id); }
 function submit(inp, sel = 0) { const sg = suggestions(inp.value); const doms = [...new Set(classify(inp.value).map(x => x.domain))]; if (sel === 0 && doms.length > 1 && !inp.dataset.chose) { inp.dataset.chose = "1"; inp.dispatchEvent(new Event("focus")); return flash("Matches " + doms.join(" and ") + ". Pick one"); } delete inp.dataset.chose; if (inp.value.trim() && sg[sel]) pickId(sg[sel].id); else if (!inp.value.trim()) pickId(targets()[0].id); else flash('Nothing loaded matches "' + inp.value.trim().slice(0, 40) + '"'); }
 wireSearch($("#q"), $("#sugg")); wireSearch($("#hq"), $("#hsugg"));
 $("#scanBtn").onclick = () => submit($("#q"));
@@ -276,6 +278,7 @@ const featProbes = (f) => { const names = new Set(featAssets(f).flatMap(a => [a.
 function dataState(f) {
   const r = f.route;
   if (r.view === "universe") return "cached";
+  if (r.view === "tcg") return window.GTB_TCG_CACHE ? "cached" : "unavailable";
   if (r.view === "market") { const ps = featProbes(f); if (!ps.length && !featAssets(f).length) return "unavailable"; if (ps.length && ps.every(p => p.state === "unknown")) return "insufficient"; return "cached"; }
   if (r.view === "signals") { const rep = of("signals")[0]; if (!rep) return "unavailable"; const st = rep.j.sourceStatus || {}; const srcs = (r.src || []).filter(k => st[k]); if (srcs.length && srcs.every(k => st[k].state !== "HEALTHY")) return "unavailable"; return isSynRep(rep) ? "synthetic" : "cached"; }
   const reps = (f.kinds || []).flatMap(k => of(k)); if (!reps.length) return "unavailable"; return reps.every(isSynRep) ? "synthetic" : "cached";
@@ -338,18 +341,18 @@ function wireNav() {
   addEventListener("scroll", () => { if (NAV.open) menuPlace(NAV.open); if (!$("#mobMenu").hidden) $("#mobMenu").style.top = Math.round($("#views").getBoundingClientRect().bottom) + "px"; }, { passive: true });
 }
 function navState() {
-  const fc = S.feat ? catOfFeat(S.feat) : (S.view === "token" || S.view === "wallet" || S.view === "replay" ? "crypto" : S.view === "asset" && S.target && S.target.feat ? catOfFeat(S.target.feat) : null);
+  const fc = S.feat ? catOfFeat(S.feat) : S.view === "tcg" ? "tcg" : (S.view === "token" || S.view === "wallet" || S.view === "replay" ? "crypto" : S.view === "asset" && S.target && S.target.feat ? catOfFeat(S.target.feat) : null);
   $$("#views [data-view]").forEach(b => b.dataset.view === S.view && !S.feat ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
   $$("#views [data-cat]").forEach(b => b.classList.toggle("act", b.dataset.cat === fc));
   $("#mktBtn").classList.toggle("act", !!fc);
-  const curF = S.feat || (S.view === "asset" && S.target && S.target.feat) || ({ token: "crypto.token", wallet: "crypto.wallet", replay: "crypto.replay", shill: "crypto.shill", copy: "crypto.copy", threats: "crypto.threats", board: "crypto.board", prov: "more.prov", universe: "more.all" })[S.view];
+  const curF = S.feat || (S.view === "asset" && S.target && S.target.feat) || ({ token: "crypto.token", wallet: "crypto.wallet", replay: "crypto.replay", shill: "crypto.shill", copy: "crypto.copy", threats: "crypto.threats", board: "crypto.board", prov: "more.prov", universe: "more.all", tcg: "tcg.explorer" })[S.view];
   $$("#views [data-feat]").forEach(b => b.dataset.feat === curF ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
 }
 function goFeat(id, push = true) {
   const f = REG.byId[id]; if (!f) return go("home");
   const r = f.route; closeMenu(false); toggleMob(false);
   if (["token", "wallet", "replay"].includes(r.view)) { S.feat = null; return go(r.view); }
-  S.feat = r.view === "signals" || r.view === "market" ? id : null; S.sigFilter = "all";
+  S.feat = r.view === "signals" || r.view === "market" ? id : null; S.sigFilter = "all"; S.focus = null;
   S.view = r.view; if (push) history.replaceState(null, "", "#f/" + id);
   if (three()) three().setMode("result");
   render(); scrollTo(0, 0);
@@ -363,6 +366,9 @@ function go(v) {
   render();
 }
 window.GTB.go = go; window.GTB.goFeat = (id) => goFeat(id);
+// Card Explorer -> that card's existing research data (MTG market tool focused on the tracked printing's instrument).
+window.GTB.analyzeCard = (asset) => { goFeat("tcg.mtg"); S.focus = asset; render(); };
+const TCGX = window.GTB_TCG_MAKE ? window.GTB_TCG_MAKE({ $, $$, esc, head, askBtn, iso, render, S, EV, EV_SIGS, REG }) : null;
 addEventListener("hashchange", () => { const h2 = decodeURIComponent(location.hash.slice(1)); if (h2.startsWith("f/") && h2.slice(2) !== S.feat) goFeat(h2.slice(2), false); });
 
 /* ---------------- scan + kinetic result sequence ---------------- */
@@ -511,7 +517,7 @@ function render() {
     $("#rescanBtn").onclick = () => scan(t.id); const nr = $("#nextRep"); if (nr) nr.onclick = () => { const l = targets().filter(x => x.view === t.view); scan(l[(l.findIndex(x => x.id === t.id) + 1) % l.length].id); };
     renderDetails(); return;
   }
-  const P = $("#panel"); P.innerHTML = ""; ((S.feat && REG.byId[S.feat] && (S.view === "signals" || S.view === "market") ? (P) => (S.view === "market" ? vMarket : vFeatSignals)(P, REG.byId[S.feat]) : null) || ({ limited: vLimited, universe: vUniverse, anomalies: vAnomalies, signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`)))(P);
+  const P = $("#panel"); P.innerHTML = ""; ((S.feat && REG.byId[S.feat] && (S.view === "signals" || S.view === "market") ? (P) => (S.view === "market" ? vMarket : vFeatSignals)(P, REG.byId[S.feat]) : null) || ({ limited: vLimited, tcg: (P) => TCGX ? TCGX.vTcg(P) : (P.innerHTML = `<div class="empty">Card Explorer not loaded.</div>`), universe: vUniverse, anomalies: vAnomalies, signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`)))(P);
 }
 document.addEventListener("click", (e) => { const b = e.target.closest("[data-scan]"); if (b) scan(b.dataset.scan); if (e.target.id === "exportBtn") doExport(); });
 function renderDetails() {
@@ -640,12 +646,13 @@ function vFeatSignals(P, f) {
 const SPREAD_LIM = "Observed spread, not executable arbitrage. Trading fees, currency conversion, bid/ask, available depth, taxes, shipping, insurance, grading, settlement delays and stale listings are not measured.";
 function assetTid(a) { const x = EV_SIGS.find(e => e.set === "live" && (e.s.asset === a.id || e.s.asset === a.name)); return x ? "asset:" + x.s.key : null; }
 function vMarket(P, f) {
-  const d = dataState(f), A = featAssets(f), PR = featProbes(f), mods = [...new Set((f.route.uni || []).map(u => UNI_MOD[u]))];
+  const d = dataState(f), A = featAssets(f).filter(a => !S.focus || a.id === S.focus || a.name === S.focus), PR = featProbes(f).filter(p => !S.focus || p.asset === S.focus), mods = [...new Set((f.route.uni || []).map(u => UNI_MOD[u]))];
   const cov = (EV.live.coverage || []).filter(c => mods.includes(c.module) || (f.id === "fx.h10" && c.module === "fx-h10"));
-  const sigs = EV_SIGS.filter(x => x.set === "live" && !x.quiet && (f.route.uni || []).includes(UNI_OF(x.s)) && (!f.route.types || f.route.types.includes(x.s.type)));
+  const sigs = EV_SIGS.filter(x => x.set === "live" && !x.quiet && (f.route.uni || []).includes(UNI_OF(x.s)) && (!f.route.types || f.route.types.includes(x.s.type)) && (!S.focus || JSON.stringify(x.s).includes(JSON.stringify(S.focus))));
   const meas = PR.filter(p => p.state === "measured"), unk = PR.filter(p => p.state === "unknown");
   const obs = A.map(a => a.asOf).filter(Boolean).sort(), spread = (f.route.types || []).includes("CROSS_VENUE_SPREAD") || f.id === "tcg.mtg";
-  head(f.name, catName(f.cat), [A.length + " instruments", meas.length + " checks measured", unk.length + " unknown", DATA_TAG[d]], [catName(f.cat), f.name, "feature:" + f.id, "everything-live-derived.json", ["Data: " + DATA_LBL[d], "Instruments: " + A.length, "Measured: " + meas.length, "Unknown: " + unk.length]]);
+  head(f.name, catName(f.cat), [A.length + " instruments", meas.length + " checks measured", unk.length + " unknown", DATA_TAG[d]], [catName(f.cat), f.name, "feature:" + f.id, "everything-live-derived.json", ["Data: " + DATA_LBL[d], "Instruments: " + A.length, "Measured: " + meas.length, "Unknown: " + unk.length]], S.focus ? `<button class="btn" id="focusBack">Card: ${esc(S.focus)} · back to card</button><button class="btn" id="focusAll">Show all cards</button>` : "");
+  if (S.focus) { $("#focusAll").onclick = () => { S.focus = null; render(); }; $("#focusBack").onclick = () => { S.focus = null; goFeat("tcg.explorer"); }; }
   const lims = [].concat(spread ? [SPREAD_LIM] : [], f.id === "cm.metals" ? ["ETF prices are stand-ins for spot metal, not the benchmark price."] : [], f.experimental ? ["Experimental: undocumented endpoint, kept out of the default Anomalies feed until access and rights are resolved."] : [], f.id === "cm.ag" ? ["Positioning only: no agricultural price feed is integrated yet."] : [], f.id === "tcg.history" ? ["A trend needs 14 daily snapshots; the cache has " + ((cov[0] || {}).snapshotDays ?? "?") + ". Moves are unassessable until then, never quiet."] : [], ["A cached fetch is not live data. Refresh is manual (python3 tools/build_everything.py)."]);
   const verdict = sigs.length ? `<div class="list">${sigs.map(evRow).join("")}</div>`
     : !PR.length ? `<div class="card limited"><div class="lim">No checks loaded for this tool: unknown, not quiet.</div></div>`
