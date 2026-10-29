@@ -209,6 +209,18 @@ def test_registry_tcg_menu_items():
     assert 'id: "tcg.explorer", cat: "tcg", name: "Card Explorer", route: { view: "tcg" }' in reg
 
 
+def test_every_ui_href_goes_through_the_single_url_validator():
+    """Regression for RC2-final F-1: Card Explorer source links bypassed safeExternalUrl. Every interpolated href in the UI must
+    be the output of safeExternalUrl (extLink in app.js, tcgLink in tcg.js); nothing else may build an href from data."""
+    for f in ("ui/app.js", "ui/tcg.js", "ui/registry.js", "ui/stage.js"):
+        src = (R / f).read_text()
+        hits = re.findall(r'href="\$\{([^}]*)\}', src)
+        assert all(h.strip() == "esc(h)" for h in hits), (f, hits)
+        for line in src.splitlines():
+            if 'href="${esc(h)}"' in line:
+                assert "safeExternalUrl" in line or "GTB_safeExternalUrl" in line, (f, line[:120])
+
+
 if __name__ == "__main__":
     ts = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_")]
     ok = 0

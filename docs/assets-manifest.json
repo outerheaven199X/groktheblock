@@ -9,7 +9,7 @@
   "data/everything/live-derived.json": {
    "status": "project-generated",
    "source": "tools/build_everything.py --fetch: detector output. Raw values only from redistributable official sources (ECB reference rates, EIA via FRED, CFTC COT); Nasdaq, Scryfall and Steam inputs appear only as derived numbers (z-scores, % gaps, counts)",
-   "sha256": "b43891d094e09e4d58b80bcab3f9b500ece30ae40778aac104adf19cfd01f584"
+   "sha256": "4f6bae022b3476f2c2b5d24bd597564ae5f5d459cadafea3f0ee96ccc5dacb71"
   },
   "data/everything/markets-derived.json": {
    "status": "project-generated",
@@ -551,6 +551,11 @@
    "status": "synthetic",
    "source": "R8-05 written vignettes (invented descriptions, no labels of real events)",
    "sha256": "d521a6930535cb6e976641ea014dc191aa20191d380da4612230bff74b930eff"
+  },
+  "tests/fixtures/mtg/paper-printings-synthetic.json": {
+   "status": "synthetic",
+   "source": "hand-written Scryfall-shaped printings for the MTG paper-printing regression tests (invented ids and prices; file _note says SYNTHETIC)",
+   "sha256": "dfa7d3f291cc359b69f32a3e50f291fc40a7f1df14433ca923ccb6811e20e7d1"
   },
   "tests/fixtures/onchain-denylist.json": {
    "status": "project-generated",

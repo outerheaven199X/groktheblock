@@ -5,7 +5,7 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 // Central external-link gate: only explicit https: URLs become links; everything else renders as inert text.
 function safeExternalUrl(v) {
   if (typeof v !== "string") return null;
-  const raw = v.trim(); if (!raw || raw.length > 2048 || /[\u0000-\u001f\u007f\s\\]/.test(raw)) return null;
+  const raw = v.trim(); if (!raw || raw.length > 2048 || /[\u0000-\u001f\u007f-\u009f\s\\\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/.test(raw)) return null;
   if (!/^https:\/\//i.test(raw)) return null;
   let u; try { u = new URL(raw); } catch (e) { return null; }
   if (u.protocol !== "https:" || !u.hostname || u.username || u.password) return null;
@@ -20,7 +20,11 @@ const C = { red: "#ff3d00", amber: "#faf905", green: "#6584f8", grey: "#6a6a72",
 const SEVC = { CRITICAL: "red", HIGH: "red", MEDIUM: "amber", LOW: "green" };
 const pad = (n) => String(n).padStart(2, "0");
 const utc = (d) => pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
-const iso = (ts) => ts == null ? "unknown time" : new Date((typeof ts === "number" ? (ts < 1e12 ? ts * 1000 : ts) : Date.parse(ts))).toISOString().replace(".000Z", "Z").replace("T", " ");
+// Imported reports are untrusted: an unparseable or out-of-range timestamp reads "unknown time" instead of throwing (RC2-final F-2).
+// Hash/title encoding must never throw on untrusted input (lone surrogates, malformed %-escapes): RC2-final F-3.
+const encU = (v) => { try { return encodeURIComponent(v); } catch (e) { return encodeURIComponent(String(v).replace(/[\ud800-\udfff]/g, "\ufffd")); } };
+const decU = (v) => { try { return decodeURIComponent(v); } catch (e) { return ""; } };
+const iso = (ts) => { if (ts == null) return "unknown time"; const d = new Date(typeof ts === "number" ? (ts < 1e12 ? ts * 1000 : ts) : Date.parse(ts)); return isNaN(d.getTime()) ? "unknown time" : d.toISOString().replace(".000Z", "Z").replace("T", " "); };
 const short = (a) => !a ? "—" : a.length > 12 ? a.slice(0, 4) + "…" + a.slice(-4) : a;
 const num = (n, d = 0) => n == null || isNaN(n) ? "—" : Number(n).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
 const usd = (n) => n == null ? "—" : n >= 1e6 ? "$" + (n / 1e6).toFixed(2) + "M" : n >= 1e3 ? "$" + (n / 1e3).toFixed(1) + "K" : "$" + num(n);
@@ -385,7 +389,7 @@ window.GTB.go = go; window.GTB.goFeat = (id) => goFeat(id);
 // Card Explorer -> that card's existing research data (MTG market tool focused on the tracked printing's instrument).
 window.GTB.analyzeCard = (asset) => { goFeat("tcg.mtg"); S.focus = asset; render(); };
 const TCGX = window.GTB_TCG_MAKE ? window.GTB_TCG_MAKE({ $, $$, esc, head, askBtn, iso, render, S, EV, EV_SIGS, REG }) : null;
-addEventListener("hashchange", () => { const h2 = decodeURIComponent(location.hash.slice(1)); if (h2.startsWith("f/") && h2.slice(2) !== S.feat) goFeat(h2.slice(2), false); });
+addEventListener("hashchange", () => { const h2 = decU(location.hash.slice(1)); if (h2.startsWith("f/") && h2.slice(2) !== S.feat) goFeat(h2.slice(2), false); });
 
 /* ---------------- scan + kinetic result sequence ---------------- */
 let scanT;
@@ -393,7 +397,7 @@ function scan(id, quiet) {
   const t = targets().find(x => x.id === id); if (!t) return flash("Nothing loaded matches that");
   S.view = t.view; S.feat = null; S.target = t; S.tab = 0; S.open = false; S.brel = 0; S.dl = 0; S.dc = 0; S.dh = 0; S.scrub = 62; S._rv = -1; S._slam = false;
   { const vb = $("#vdBox"), rw = $("#resWord"); vb.dataset.landed = "0"; [vb, rw].forEach(e => { e.style.transition = "none"; e.style.opacity = 0; }); void vb.offsetWidth; requestAnimationFrame(() => requestAnimationFrame(() => { vb.style.transition = ""; })); } // a re-scan never animates the old verdict back out across the TL;DR
-  history.replaceState(null, "", "#" + t.view + "/" + encodeURIComponent(t.title.replace("$", "")) + (t.set ? "|" + t.set : ""));
+  history.replaceState(null, "", "#" + t.view + "/" + encU(t.title.replace("$", "")) + (t.set ? "|" + t.set : ""));
   if (three()) { three().setMode("result"); three().set && three().set(); }
   clearTimeout(scanT);
   if (reduced()) { S.scanning = false; S.t0 = performance.now() - 20000; render(); return; }
@@ -520,7 +524,7 @@ $("#dlg").onclick = () => { if (S.scanning) return; const L = dlgLines(S.target)
 
 /* ---------------- render ---------------- */
 function head(title, kindTxt, chips, askArgs, extra = "") {
-  const h = $("#rhead"); h.hidden = false;
+  const h = $("#rhead"); h.hidden = false; h.dataset.v = S.view;
   h.innerHTML = `<div class="l"><h1 class="disp">${esc(title)}</h1><span class="meta up">${esc(kindTxt)}${chips.length ? " // " + chips.map(esc).join(" // ") : ""}</span></div><div class="acts">${askArgs ? askBtn("Ask about this", askArgs, "btn y", "Ask Grok Bot about this report") : ""}${extra}<button class="btn" id="exportBtn">Export</button></div>`;
 }
 function render() {
@@ -794,7 +798,7 @@ $("#openBtn").onclick = () => $("#pick").click();
 addEventListener("resize", () => { const w = wide(); if ((w ? "wide" : "narrow") !== $("#root").className) render(); });
 RM.addEventListener && RM.addEventListener("change", render);
 renderFeed();
-const h = decodeURIComponent(location.hash.slice(1));
+const h = decU(location.hash.slice(1));
 if (h.startsWith("f/")) goFeat(h.slice(2), false); else if (h.includes("/")) { const [v, sym] = h.split("/"); const t = targets().find(x => x.view === v && x.title.replace("$", "") === sym.split("|")[0] && (v !== "asset" || !sym.includes("|") || x.set === sym.split("|")[1])); if (t) scan(t.id); else go(v); } else if (VIEWS.some(([k]) => k === h)) go(h); else render();
 requestAnimationFrame(frame);
 window.GTB.ready = true;
