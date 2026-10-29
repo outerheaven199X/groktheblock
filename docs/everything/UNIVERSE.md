@@ -39,7 +39,7 @@ Total: 53 asset classes.
 | Asset class | Venues | Common arbitrage pattern | Best data source | Access | Status | Verified | Notes |
 |---|---|---|---|---|---|---|---|
 | Grains & oilseeds (corn, wheat, soy) | CBOT/KC/MGEX, cash elevators | Inter-market wheat spreads; basis; crush | [CFTC COT positioning + USDA NASS (key)](https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm) | free-redistributable | Shipped (this branch or main) | yes | COT positioning shipped. USDA NASS Quick Stats needs a free key and an attribution line; feasible next. |
-| Softs (coffee, cocoa, sugar) | ICE US/EU | London-NY arb; certified stocks | [CFTC COT positioning](https://publicreporting.cftc.gov/) | free-redistributable | Shipped (this branch or main) | yes | Positioning only; futures prices need an exchange licence. |
+| Softs (coffee, cocoa) | ICE US/EU | London-NY arb; certified stocks | [CFTC COT positioning](https://publicreporting.cftc.gov/) | free-redistributable | Shipped (this branch or main) | yes | Positioning only; futures prices need an exchange licence. Sugar No. 11 is one COT name away (next). |
 | Livestock (cattle, hogs) | CME LE/HE, USDA cash | Futures vs USDA cash index | [USDA AMS MyMarketNews API](https://mymarketnews.ams.usda.gov/mymarketnews-api) | free-redistributable | Feasible next | yes | Free account key required. |
 | Futures positioning (all COT markets) | CFTC weekly report | Positioning extremes vs price | [CFTC Public Reporting (Socrata)](https://publicreporting.cftc.gov/) | free-redistributable | Shipped (this branch or main) | yes | No token needed; IP throttled. |
 

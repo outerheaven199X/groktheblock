@@ -19,7 +19,7 @@
   "data/everything/universe.json": {
    "status": "project-generated",
    "source": "tools/universe_src.py: asset-universe map written by this project (venues, patterns, source URLs, terms status)",
-   "sha256": "4226214ff0431e65a97978396233c07794074705564c237d7c6b22cf98ab6a32"
+   "sha256": "474b269b46e8429ab17fefb433d8a0175167a5941ac71cead4063a44c780efc9"
   },
   "docs/graph-copy-desktop-panel.png": {
    "status": "synthetic",
