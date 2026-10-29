@@ -126,7 +126,7 @@ with sync_playwright() as p:
     pg.on("popup", lambda pp: dialogs.append("POPUP " + pp.url))
     pg.add_init_script("document.addEventListener('securitypolicyviolation', e => (window.__csp = window.__csp || []).push(e.violatedDirective + ' ' + e.blockedURI))")
     pg.goto(U); pg.wait_for_function("window.GTB&&GTB.ready", timeout=30000); pg.wait_for_timeout(500)
-    res("packaged server: page boots under its CSP meta (hashed import map, no unsafe-inline scripts, connect-src 'none')", pg.evaluate("(()=>{const c=document.querySelector('meta[http-equiv=Content-Security-Policy]').content;return /script-src 'self' 'sha256-/.test(c)&&!/script-src[^;]*unsafe-inline/.test(c)&&/connect-src 'none'/.test(c)})()"))
+    res("packaged server: page boots under its CSP meta (hashed import map, no unsafe-inline scripts, connect-src 'self', same-origin /api only)", pg.evaluate("(()=>{const c=document.querySelector('meta[http-equiv=Content-Security-Policy]').content;return /script-src 'self' 'sha256-/.test(c)&&!/script-src[^;]*unsafe-inline/.test(c)&&/connect-src 'self'/.test(c)})()"))
     base = pg.evaluate(CHECK); res("baseline page has no inline handlers / injected elements", clean(base), base)
     bu = pg.evaluate("a=>a.map(v=>GTB_safeExternalUrl(v))", BADURL); gu = pg.evaluate("a=>a.map(v=>GTB_safeExternalUrl(v))", GOOD)
     res(f"safeExternalUrl: all {len(BADURL)} hostile URLs (control chars, encoded, mixed case, data:, vbscript:, credentials, non-https) rejected", all(x is None for x in bu), [(str(a)[:30], x) for a, x in zip(BADURL, bu) if x])

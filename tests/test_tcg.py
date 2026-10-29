@@ -190,7 +190,8 @@ def test_cache_is_gitignored_and_untracked():
 
 def test_csp_unchanged_and_scripts_same_origin():
     h = (R / "ui/index.html").read_text()
-    assert "img-src 'self' data: blob:;" in h and "connect-src 'none'" in h
+    # Migration (Investigations): connect-src 'none' -> 'self' (same-origin launcher /api only).
+    assert "img-src 'self' data: blob:;" in h and "connect-src 'self'" in h
     srcs = re.findall(r'<script[^>]+src="([^"]+)"', h)
     assert all(not s.startswith(("http:", "https:", "//")) for s in srcs) and "cache/tcg/mtg/explorer.js" in srcs
 

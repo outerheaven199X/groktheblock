@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 // Grok The Block launcher. Node built-ins only. Serves dist/ui read-only on 127.0.0.1.
-// Never reads the environment for secrets, home directory, ~/.npmrc, ~/.ssh or credentials; no network calls; no daemon.
+// Static files: GET/HEAD only. The only other surface is the small /api/ in ../lib/investigate.mjs (same-origin, token-gated).
+// Reads exactly one secret, XAI_API_KEY, and only if it was set in the launch environment; never reads ~/.npmrc, ~/.ssh or
+// credential files. No network calls unless the user approves a Connected Grok request in the UI. No daemon.
+// Writes only the opt-in watchlist file in its own local state directory, and only after the user saves something.
 import { createServer } from "node:http";
 import { readFileSync, realpathSync, statSync, createReadStream } from "node:fs";
 import { join, sep, extname, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import { createApi, defaultStateDir } from "../lib/investigate.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const PKG = JSON.parse(readFileSync(join(HERE, "..", "package.json"), "utf8"));
@@ -22,7 +26,11 @@ Usage: grok-the-block [--no-open] [--port N] [--version] [--help]
   --version   print the version and exit
   --help      show this help and exit
 
-Not financial advice. No wallet, sign-in, telemetry or network calls. Ctrl+C to stop.`;
+Optional: XAI_API_KEY in the environment (or a session-only key entered in the UI) enables Connected Grok. Nothing is
+sent to xAI until you approve the evidence packet in the UI; xAI bills your account for those requests.
+Watchlist state (opt-in): GTB_STATE_DIR, or the platform's local state directory.
+
+Not financial advice. No wallet, sign-in, telemetry or background network calls. Ctrl+C to stop.`;
 
 export function parseArgs(argv) {
   const o = { open: true, port: 0 };
@@ -82,11 +90,15 @@ function openBrowser(url) {
   } catch { return null; }
 }
 
-export function start({ root, port = 0, open = false, log = console.log }) {
+export function start({ root, port = 0, open = false, log = console.log, env = {}, stateDir = null, fetchImpl } = {}) {
   root = realpathSync(root);
   const sockets = new Set();
+  const api = createApi({ env, stateDir, pkgRoot: join(HERE, ".."), log, fetchImpl });
   const srv = createServer((req, res) => {
     const addr = srv.address();
+    if (typeof req.url === "string" && (req.url === "/api" || req.url.startsWith("/api/"))) {
+      return void api.handle(req, res, addr.port).catch(() => { if (!res.headersSent) { res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" }); res.end("500"); } });
+    }
     const r = resolveRequest(root, req.method, req.url, req.headers.host, addr.port);
     if (r.redirect) { res.writeHead(302, { ...clean(SEC), Location: r.redirect }); return res.end(); }
     if (r.status) {
@@ -94,7 +106,8 @@ export function start({ root, port = 0, open = false, log = console.log }) {
       if (r.status === 405) h.Allow = "GET, HEAD";
       res.writeHead(r.status, h); return res.end(req.method === "HEAD" ? undefined : String(r.status));
     }
-    res.writeHead(200, { ...clean(SEC), "Content-Type": r.type, "Content-Length": r.size });
+    // Server-Timing tells the page (via its own navigation timing) that the same-origin /api exists, so a static preview never probes it.
+    res.writeHead(200, { ...clean(SEC), "Content-Type": r.type, "Content-Length": r.size, "Server-Timing": 'gtb;desc="launcher-api"' });
     if (req.method === "HEAD") return res.end();
     createReadStream(r.file).on("error", () => res.destroy()).pipe(res);
   });
@@ -107,6 +120,7 @@ export function start({ root, port = 0, open = false, log = console.log }) {
       const url = `http://127.0.0.1:${srv.address().port}/`;
       log(`Grok The Block ${PKG.version} running at ${url}`);
       log("Local research preview. Not financial advice. Press Ctrl+C to stop.");
+      const g = api.status(); log(g.available ? "Grok: XAI_API_KEY found in the environment. Nothing is sent until you approve an evidence packet in the UI." : "Grok not connected (optional). Local-only mode.");
       if (open) child = openBrowser(url);
       ok(url);
     });
@@ -116,7 +130,7 @@ export function start({ root, port = 0, open = false, log = console.log }) {
     srv.close(() => done());
     for (const s of sockets) s.destroy();
   });
-  return { server: srv, ready, stop };
+  return { server: srv, ready, stop, api };
 }
 function clean(o) { return Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)); }
 
@@ -128,7 +142,9 @@ function main() {
   let o; try { o = parseArgs(process.argv.slice(2)); } catch (e) { console.error(e.message); process.exit(2); }
   if (o.help) { console.log(HELP); return; }
   if (o.version) { console.log(PKG.version); return; }
-  const app = start({ root: join(HERE, "..", "dist", "ui"), port: o.port, open: o.open });
+  const E = process.env, env = {};
+  for (const k of ["XAI_API_KEY", "GTB_XAI_BASE_URL", "GTB_XAI_MODEL"]) if (typeof E[k] === "string" && E[k]) env[k] = E[k];
+  const app = start({ root: join(HERE, "..", "dist", "ui"), port: o.port, open: o.open, env, stateDir: defaultStateDir(E) });
   app.ready.catch(e => { console.error(e.code === "EADDRINUSE" ? `Port ${o.port} is already in use. Try another --port or omit it.` : `Could not start: ${e.message}`); process.exit(1); });
   let stopping = false;
   const shut = () => { if (stopping) return; stopping = true; console.log("\nStopping Grok The Block."); app.stop().then(() => process.exit(0)); setTimeout(() => process.exit(0), 2000).unref(); };

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-CmdlgsRAk9ZIeXy65Hqw0vq1o7eJWZnbPTvyjBgsPRo='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; worker-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-CmdlgsRAk9ZIeXy65Hqw0vq1o7eJWZnbPTvyjBgsPRo='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; worker-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Grok the Block</title>
 <link rel="icon" href="data:,">
 <!-- v6 design (ANTIMEME house style). Everything is local: fonts in ./fonts, three.js r164 in ./vendor, data in ./data. No network requests. -->
@@ -279,6 +279,38 @@ footer .links{flex-wrap:wrap}
 @media (max-width:520px){.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.tph.big .tn{font-size:26px}}
 @media (max-width:359px){#root.narrow header{gap:6px;padding:6px 8px}.logo{gap:8px}.logo .t{font-size:17px}#openBtn{padding:0 10px}#feedBtn{gap:8px;padding:0 10px}main{padding:12px 10px;gap:8px}#rhead[data-v=tcg]{gap:6px}#rhead[data-v=tcg] h1{font-size:30px}#rhead[data-v=tcg] .meta{font-size:10px;letter-spacing:0}.tcgx{gap:6px}.tbar{padding:6px}.tstat{font-size:10px;gap:0 12px}.tst1{letter-spacing:0}}
 @media (prefers-reduced-motion:reduce){.timg.ld{animation:none}.tcard:hover{transform:none}#ticker .track{animation:none}.blinkdot,#dlg .arr{animation:none}*{transition-duration:0s!important}#ticker .vp{overflow-x:auto}}
+/* investigations · pulse · watchlist */
+.inv{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:12px;min-height:0;align-items:start}
+#root.narrow .inv{grid-template-columns:minmax(0,1fr)}
+.rail{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rail .evid{border-left:3px solid var(--y);padding-left:10px}
+.invm{display:flex;flex-direction:column;gap:12px;min-width:0}
+.invacts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ans .chips{margin-bottom:10px}
+.ansec{border-top:1px solid var(--l);padding:10px 0}.ansec h3{font-size:16px;color:var(--y);margin:0 0 6px;text-transform:uppercase}
+.ansec.interp h3{color:var(--c)}.ansec.limits h3,.ansec.disprove h3{color:var(--m)}
+.ait{font-size:12px;line-height:18px;overflow-wrap:anywhere;padding:3px 0}.ait .id{font-size:10px;color:var(--m)}.ait .evid{display:block;font-size:10px;line-height:15px;color:var(--m);margin-top:2px}
+.gstate{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--b);padding:3px 8px;color:var(--m)}
+.gstate.ok{color:var(--y);border-color:var(--y)}.gstate.bad{color:var(--r);border-color:var(--r)}
+.send{border:1px solid var(--l);padding:8px 10px;margin-top:10px}.send summary{cursor:pointer;color:var(--y);font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.send pre{max-height:260px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:10px;line-height:14px;background:var(--g);border:1px solid var(--l);padding:8px}
+.consent,.fu{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12px;margin:8px 0}
+.fu{flex-direction:column;align-items:stretch;gap:4px}
+.fu input,.fu textarea,.consent select,.consent input[type=number],.wl{background:var(--g);border:1px solid var(--b);color:var(--w);font:inherit;font-size:12px;padding:6px 8px;min-height:32px;max-width:100%}
+.agree{display:flex;gap:8px;align-items:center;font-size:12px;margin:10px 0}
+.rrow{grid-template-columns:24px minmax(0,1fr)}.rck{padding-top:2px}
+.tw{overflow-x:auto;margin-top:8px}.tw table.t{border-collapse:collapse;width:100%;font-size:11px}.tw th,.tw td{text-align:left;border-bottom:1px solid var(--l);padding:5px 6px;vertical-align:top}.tw th{color:var(--m);font-weight:400}
+.nolink{color:var(--m);text-decoration:underline dotted}
+.usage{font-size:10px;color:var(--m);letter-spacing:.03em;margin-top:6px}
+.rej{font-size:11px;color:var(--r)}
+.wst{color:var(--m)}.wst[data-state=changed]{color:var(--y)}.wst[data-state=unknown]{color:var(--r)}
+.hpulse{display:flex;flex-direction:column;gap:4px;margin-top:14px;max-width:560px}
+.hpl{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hpgo{background:none;border:0;color:var(--y);font:inherit;font-size:11px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;min-height:32px}
+.hpulse .pr{display:grid;grid-template-columns:8px minmax(0,1fr) auto;gap:8px;align-items:center;background:rgba(22,22,26,.85);border:1px solid var(--l);color:var(--w);font:inherit;font-size:11px;padding:6px 8px;text-align:left;cursor:pointer;min-height:32px}
+.hpulse .pr .sq{width:8px;height:8px}.hpulse .pr .pt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hpulse .pr .pa{color:var(--m);font-size:10px}
+@media (max-width:420px){.hpulse .pr{grid-template-columns:8px minmax(0,1fr)}.hpulse .pr .pa{grid-column:2}}
+@media print{#ticker,nav#views,header,#feed,#stageWrap,.ask,.invacts,.send,.rck{display:none!important}body,#root,.card{background:#fff!important;color:#000!important}.inv{display:block}.rail{position:static}a{color:#000}}
 </style>
 <script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/examples/jsm/"}}</script>
 </head>
@@ -302,6 +334,7 @@ footer .links{flex-wrap:wrap}
         <p>Paste a token, wallet or ticker. Grok Bot reads the loaded reports and tells you what the evidence supports, and what it doesn't.</p>
         <div style="position:relative"><div class="hin"><span style="color:var(--y);font-size:16px">›</span><input id="q" placeholder="$TICKER, WALLET OR MARKET" aria-label="Search loaded reports" autocomplete="off"><button class="scanbtn" id="scanBtn">Scan</button></div><div class="sugg" id="sugg" hidden></div></div>
         <div class="try"><span class="lab up">Try</span><span id="tryChips" style="display:contents"></span></div>
+        <div class="hpulse" id="hpulse" aria-label="What's weird right now"></div>
       </div>
       <div id="res" hidden>
         <div id="resWord"><span class="disp" id="resSpan">Result</span></div>
@@ -330,6 +363,7 @@ footer .links{flex-wrap:wrap}
 <script src="registry.js"></script>
 <script src="cache/tcg/mtg/explorer.js"></script>
 <script src="tcg.js"></script>
+<script src="investigate.js"></script>
 <script src="app.js"></script>
 <script type="module" src="stage.js"></script>
 </body>

@@ -3,7 +3,7 @@ import re, subprocess, sys
 from pathlib import Path
 R = Path(__file__).resolve().parents[1]
 UI = R / "ui"
-CODE = ["index.html", "app.js", "stage.js", "registry.js", "tcg.js"] + [str(p.relative_to(UI)) for p in (UI / "vendor").rglob("*.js")]
+CODE = ["index.html", "app.js", "stage.js", "registry.js", "tcg.js", "investigate.js"] + [str(p.relative_to(UI)) for p in (UI / "vendor").rglob("*.js")]
 
 def test_v6_loads_nothing_from_the_network():
     pat = re.compile(r"""(?:\bsrc=|\bhref=|url\(|\bimport\s*\(|\bfrom\s+|\bfetch\s*\(|XMLHttpRequest|new\s+WebSocket|EventSource)\s*['"]?(?:https?:)?//""", re.I)
@@ -13,7 +13,14 @@ def test_v6_loads_nothing_from_the_network():
     for f in ("index.html", "app.js", "stage.js"):
         t = (UI / f).read_text()
         assert "fetch(" not in t and "XMLHttpRequest" not in t and "WebSocket" not in t, f
-    assert "connect-src 'none'" in (UI / "index.html").read_text()
+    # Migration (Investigations): connect-src went from 'none' to 'self' so the page can reach the
+    # npx launcher's same-origin /api. Only ui/investigate.js may fetch, and only relative /api/ paths.
+    assert "connect-src 'self'" in (UI / "index.html").read_text() and "connect-src 'none'" not in (UI / "index.html").read_text()
+    inv = (UI / "investigate.js").read_text()
+    calls = re.findall(r"fetch\(([^,)]*)", inv)
+    assert calls and all(c.strip() in ("path", '"/api/session"') for c in calls), calls
+    assert "XMLHttpRequest" not in inv and "WebSocket" not in inv and "EventSource" not in inv
+    assert all(p.startswith("/api/") for p in re.findall(r'post\("([^"]+)"', inv))
 
 def test_v6_embedded_reports_match_examples():
     r = subprocess.run([sys.executable, str(R / "tools/build_ui_data.py"), "--check"], capture_output=True, text=True)

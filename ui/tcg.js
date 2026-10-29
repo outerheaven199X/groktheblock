@@ -72,6 +72,14 @@ function tcgObs(p) {
   const sigs = EV_SIGS.filter(x => x.set === "live" && x.s && x.s.source === "mtg" && x.s.asset === nm && tcgSame(x.s.printing, pr) && (x.s.printing.finish || "nonfoil") === fin);
   return { nm, probes, sigs };
 }
+// Investigate only the exact bound printing's observation (a flagged signal, else its measured-checks row); never a same-name printing.
+function tcgInvBtn(o) {
+  if (!GTB.inv) return "";
+  if (!o || o.unbound) return `<button class="btn" disabled title="${esc(o ? o.unbound : "no market observation for this printing")}">Investigate</button>`;
+  const q = EV_SIGS.find(x => x.set === "live" && x.quiet && x.s && (x.s.source || x.s.module) === "mtg" && (x.s.name === o.nm || x.s.asset === o.nm));
+  const k = o.sigs.length ? o.sigs[0].s.key : q ? q.s.key : null;
+  return k && GTB.inv.index().has(k) ? `<button class="btn" data-inv="${esc(k)}">Investigate</button>` : `<button class="btn" disabled>Investigate</button>`;
+}
 function vTcg(P) {
   const { C, synced } = tcgData(); const all = tcgAll(C);
   const ageDays = C.syncedAt ? (Date.now() / 1000 - C.syncedAt) / 86400 : null, stale = ageDays != null && ageDays > TCG.STALE_DAYS;
@@ -109,7 +117,7 @@ function tcgDetail({ g, p }, C) {
   <div class="tdr"><div class="tdh"><h2 class="disp">${esc(p.faces.length > 1 ? (p.faces[fi].name || p.name) : p.name)}</h2><button class="btn" id="tcgClose" aria-label="Close card detail">Close</button></div>
   <dl class="kv"><dt>Set</dt><dd>${esc(p.set_name || "")} (${esc(String(p.set).toUpperCase())})</dd><dt>Collector #</dt><dd>${esc(p.cn)}</dd><dt>Language</dt><dd>${esc(p.lang)}</dd><dt>Rarity</dt><dd>${esc(p.rarity || "—")}</dd><dt>Finishes</dt><dd>${esc((p.finishes || []).join(", ") || "—")}</dd><dt>Printing</dt><dd>${esc(p.kind)}${p.variant && p.variant.length ? " · " + esc(p.variant.join(", ")) : ""}${p.digital ? " · digital (MTGO)" : ""}</dd><dt>Artist</dt><dd>${esc(p.artist || "—")}</dd><dt>Identity</dt><dd class="mono">${esc(p.key)}</dd><dt>Image</dt><dd>${esc(p.image_status)} · ${esc(tcgFaceState(p, p.faces[fi])[0] === "ok" ? (p.faces[fi].img.normal ? "local cache, 488×680" : "local cache, thumbnail only (larger image not fetched)") : tcgFaceState(p, p.faces[fi])[1])}</dd><dt>Provenance</dt><dd>Scryfall${C.syncedAt ? ", synced " + esc(iso(C.syncedAt)) : ""}${p.uri ? " · " + tcgLink(p.uri, "source") : ""}</dd><dt>Artwork rights</dt><dd class="tbk">${esc(C.artworkRights || "BLOCKED")} for redistribution</dd></dl>
   <h3 class="disp th3">Market observations</h3>${obsHTML}
-  <div class="tact">${tr ? `<button class="btn y" id="tcgAnalyze" data-asset="${esc(tr.tracked.asset)}">Analyze market${tr !== p ? " (tracked printing)" : ""}</button>` : `<button class="btn" disabled>Not price-tracked</button>`}${ask}</div>
+  <div class="tact">${tr ? `<button class="btn y" id="tcgAnalyze" data-asset="${esc(tr.tracked.asset)}">Analyze market${tr !== p ? " (tracked printing)" : ""}</button>` : `<button class="btn" disabled>Not price-tracked</button>`}${tcgInvBtn(o)}${ask}</div>
   <h3 class="disp th3">Printings</h3><div class="tpr">${groups.map(([l, xs]) => `<div class="tpg"><div class="tpl">${esc(l)} · ${xs.length}</div><div class="tps">${xs.map(x => `<button class="tpb" data-tkey="${esc(x.key)}" aria-pressed="${x.key === p.key}" aria-label="${esc(x.name + ", " + (x.set_name || x.set) + " #" + x.cn + ", " + x.kind)}">${tcgImg(x, 0, "small", false)}<span>${esc(String(x.set).toUpperCase())} #${esc(x.cn)}</span></button>`).join("")}</div></div>`).join("")}</div></div></section>`;
 }
 document.addEventListener("click", (e) => {
