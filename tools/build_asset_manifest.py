@@ -7,7 +7,7 @@ import fnmatch, hashlib, json, subprocess, sys
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
-EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".mp4", ".zip", ".json", ".jsonl", ".csv", ".txt"}
+EXT = {".woff2", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".mp4", ".zip", ".json", ".jsonl", ".csv", ".txt"}
 SYN_EX = sorted(f for f in subprocess.run(["git", "ls-files", "examples"], cwd=R, capture_output=True, text=True).stdout.split()
                 if f.endswith(".json") and f != "examples/provenance-sample.json")
 RULES = [  # (glob, status, source, renderedFrom)
@@ -32,6 +32,7 @@ RULES = [  # (glob, status, source, renderedFrom)
     ("docs/review/*.json", "project-generated", "evaluation config/results written by this project", None),
     ("docs/review/*.txt", "project-generated", "test logs written by this project (paths sanitized)", None),
     ("docs/screenshots-provenance.json", "project-generated", "round-5 screenshot provenance (superseded by this manifest; kept for the R5 test)", None),
+    ("ui/fonts/*.woff2", "third-party-licensed", "self-hosted v6 UI fonts (Big Shoulders Display, Martian Mono, Noto Sans JP subset), SIL OFL 1.1; see ui/licenses/NOTICE-v6.md", None),
     ("ui/licenses/*.txt", "license-text", "font/icon licence texts (OFL, MIT) shipped with the UI", None),
 ]
 

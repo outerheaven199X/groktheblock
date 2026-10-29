@@ -237,9 +237,9 @@ def test_R4_03_example_report_and_ui_do_not_render_exact_span_for_lower_bounds()
             m = s["metrics"]
             if any(x.get("temporalCertainty") != "exact" for x in m.get("contributing", [])):
                 assert m["spanHours"] is None and "0.0h" not in s["title"], s["title"]
-    ui = (R / "ui/index.html").read_text()
+    ui = (R / "ui/index.html").read_text() + (R / "ui/app.js").read_text()  # v6: logic lives in ui/app.js
     assert "timing comparison approximate" in ui and 'm.spanHours??"?"}h apart' not in ui
-    assert "m.timingComparable===false||m.spanHours==null" in ui
+    assert "m.timingComparable===false||m.spanHours==null" in ui.replace(" ", "")
 
 
 # ======================= R4-04: provider clocks, per-instrument completion, fetched vs analyzed =======================
@@ -351,7 +351,7 @@ def test_R4_05_wording_distinct_counted_groups_not_independent_evidence():
                          fake("kalshi", "fed-policy", NOW, None, title="Fed rate cut in December 2026?")], NOW + 60)
     c = [x for x in out if x["type"] == "CONVERGENCE"][0]
     assert "distinct counted evidence groups" in c["title"]
-    for f in ("ui/index.html", "README.md", "skills/signals/SKILL.md", "lib/grok_the_block/markets/detectors.py", "lib/grok_the_block/markets/feed.py"):
+    for f in ("ui/index.html", "ui/app.js", "README.md", "skills/signals/SKILL.md", "lib/grok_the_block/markets/detectors.py", "lib/grok_the_block/markets/feed.py"):
         t = (R / f).read_text().lower()
         assert "independent evidence group" not in t and "independent corroboration" not in t.replace("not independent corroboration", ""), f
 

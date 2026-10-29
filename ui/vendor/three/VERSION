@@ -1,0 +1,3 @@
+0.164.1
+source: npm three@0.164.1 (npm pack), tarball sha256 3798b9631ab02167095f0be742981da98a8d6f2cde1f1bb9b27ad44fe2e58771
+files copied unmodified: build/three.module.min.js, examples/jsm/postprocessing/{EffectComposer,RenderPass,AfterimagePass,UnrealBloomPass,OutputPass,Pass,ShaderPass,MaskPass}.js, examples/jsm/shaders/{AfterimageShader,CopyShader,LuminosityHighPassShader,OutputShader}.js
