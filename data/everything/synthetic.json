@@ -1,0 +1,332 @@
+{
+ "kind": "everything",
+ "note": "Synthetic examples only: invented items and prices that exercise the thin-market detectors. Not real market data.",
+ "probes": [
+  {
+   "asset": "SYN-SNES-RPG/CIB",
+   "module": "synthetic",
+   "ratio": 6.072,
+   "reason": null,
+   "state": "measured",
+   "type": "OUTLIER_SALE"
+  },
+  {
+   "asset": "SYN-SNES-RPG/loose",
+   "module": "synthetic",
+   "ratio": 0.328,
+   "reason": null,
+   "state": "measured",
+   "type": "OUTLIER_SALE"
+  },
+  {
+   "asset": "SYN-HOLO-CARD",
+   "module": "synthetic",
+   "ratio": 21.174,
+   "reason": null,
+   "state": "measured",
+   "type": "GRADE_MIX_SHIFT"
+  },
+  {
+   "asset": "SYN-SPORTS-CARD",
+   "module": "synthetic",
+   "ratio": 2.0,
+   "reason": null,
+   "state": "measured",
+   "type": "ROUND_TRIP_PATTERN"
+  },
+  {
+   "asset": "SYN-POP-REPORT",
+   "module": "synthetic",
+   "ratio": 1.701,
+   "reason": null,
+   "state": "measured",
+   "type": "SUPPLY_SHOCK"
+  },
+  {
+   "asset": "SYN-COMIC",
+   "module": "synthetic",
+   "ratio": 2.426,
+   "reason": null,
+   "state": "measured",
+   "type": "GUIDE_VS_SALES"
+  },
+  {
+   "asset": "SYN skin (Field-Tested)",
+   "module": "synthetic",
+   "ratio": 2.436,
+   "reason": null,
+   "state": "measured",
+   "type": "ASK_VS_MEDIAN_SALE"
+  },
+  {
+   "asset": "SYN sticker capsule",
+   "module": "synthetic",
+   "ratio": null,
+   "reason": "thin market (1 sales in 24h, need 5)",
+   "state": "unknown",
+   "type": "ASK_VS_MEDIAN_SALE"
+  },
+  {
+   "asset": "SYN sneaker (size 10)",
+   "module": "synthetic",
+   "ratio": 1.284,
+   "reason": null,
+   "state": "measured",
+   "type": "CROSS_VENUE_SPREAD"
+  },
+  {
+   "asset": "SYN-RARE-WATCH",
+   "module": "synthetic",
+   "ratio": null,
+   "reason": "insufficient sales (1 of 5); last sale 2026-09-21",
+   "state": "unknown",
+   "type": "THIN_MARKET"
+  }
+ ],
+ "signals": [
+  {
+   "asset": "SYN-SNES-RPG",
+   "basis": "observed",
+   "category": "games",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN-SNES-RPG:OUTLIER_SALE",
+   "limits": [
+    "Single sales are noisy in thin markets."
+   ],
+   "metrics": {
+    "grade": "CIB",
+    "repeats7d": 2,
+    "sales": 14,
+    "z": 21.25
+   },
+   "name": "Example SNES RPG cartridge",
+   "severity": "MEDIUM",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] Example SNES RPG cartridge (CIB): latest sale 210% above the grade median",
+   "trigger": {
+    "observed": 21.25,
+    "threshold": 3.5,
+    "unit": "Hampel z",
+    "window": "13 sales, same grade"
+   },
+   "type": "OUTLIER_SALE",
+   "what": "2 outlier sale(s) in 7 days; Hampel z 21.3 against 13 prior sales in the same grade.",
+   "when": 1791166400
+  },
+  {
+   "asset": "SYN-HOLO-CARD",
+   "basis": "observed",
+   "category": "cards",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN-HOLO-CARD:GRADE_MIX_SHIFT",
+   "limits": [],
+   "metrics": {
+    "gradeCounts": {
+     "PSA 10": 6,
+     "raw": 6
+    },
+    "overallPct": 423.5,
+    "withinGradePct": 1.6
+   },
+   "name": "Example holo trading card",
+   "severity": "INFO",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] Example holo trading card: median sale up 423%, but within-grade prices moved only +2%",
+   "trigger": {
+    "observed": 423.5,
+    "threshold": 20.0,
+    "unit": "%",
+    "window": "two equal windows"
+   },
+   "type": "GRADE_MIX_SHIFT",
+   "what": "The headline move comes from which grades sold, not from prices changing. This is a mix shift.",
+   "when": 1793067200
+  },
+  {
+   "asset": "SYN-SPORTS-CARD",
+   "basis": "heuristic",
+   "category": "cards",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN-SPORTS-CARD:ROUND_TRIP_PATTERN",
+   "limits": [
+    "Statistical pattern in public price data, not an accusation. It says nothing about who traded or why."
+   ],
+   "metrics": {
+    "identicalPriceCount": 4,
+    "roundTrips": 4,
+    "sales": 7
+   },
+   "name": "Example rookie sports card",
+   "severity": "MEDIUM",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] Example rookie sports card: 4 sales at the identical price in 14 days, 4 A-B-A-B round trips",
+   "trigger": {
+    "observed": 2.0,
+    "threshold": 1,
+    "unit": "pattern score",
+    "window": "14 days"
+   },
+   "type": "ROUND_TRIP_PATTERN",
+   "what": "Repeated identical or alternating prices are a known wash-trading signature, and also happen with fixed-price listings.",
+   "when": 1793974400
+  },
+  {
+   "asset": "SYN-POP-REPORT",
+   "basis": "observed",
+   "category": "cards",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN-POP-REPORT:SUPPLY_SHOCK",
+   "limits": [],
+   "metrics": {
+    "baseline": 120.5,
+    "now": 410,
+    "ratio": 3.4
+   },
+   "name": "Example PSA 10 population",
+   "severity": "MEDIUM",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] Example PSA 10 population: supply count 3.4× its 30-day median (120 → 410)",
+   "trigger": {
+    "observed": 3.4,
+    "threshold": 2.0,
+    "unit": "× median",
+    "window": "30 days"
+   },
+   "type": "SUPPLY_SHOCK",
+   "what": "A jump in listings or graded population usually precedes price pressure; it is not a price move itself.",
+   "when": 1792592000
+  },
+  {
+   "asset": "SYN-COMIC",
+   "basis": "observed",
+   "category": "collectibles",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN-COMIC:GUIDE_VS_SALES",
+   "limits": [
+    "Not an appraisal."
+   ],
+   "metrics": {
+    "gapPct": 60.7,
+    "salesUsed": 10
+   },
+   "name": "Example key-issue comic (CGC 9.8)",
+   "severity": "MEDIUM",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] Example key-issue comic (CGC 9.8): recent sales run 61% above the price guide",
+   "trigger": {
+    "observed": 60.7,
+    "threshold": 25.0,
+    "unit": "%",
+    "window": "last 10 sales"
+   },
+   "type": "GUIDE_VS_SALES",
+   "what": "Price guides update slowly; a persistent gap means the guide is lagging actual sales.",
+   "when": 1790388800
+  },
+  {
+   "asset": "SYN skin (Field-Tested)",
+   "basis": "observed",
+   "category": "skins",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Steam Community Market listing",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "cs2:SYN skin (Field-Tested):ASK_VS_MEDIAN_SALE",
+   "limits": [
+    "Undocumented Steam endpoint, not covered by the Steam Web API terms: derived signal only, roadmap item."
+   ],
+   "metrics": {
+    "gapPct": 36.5,
+    "volume24h": 40
+   },
+   "name": "SYN skin (Field-Tested)",
+   "severity": "LOW",
+   "source": "cs2",
+   "synthetic": true,
+   "title": "[SYNTHETIC] SYN skin (Field-Tested): lowest ask is 37% above the 24h median sale",
+   "trigger": {
+    "observed": 36.5,
+    "threshold": 15.0,
+    "unit": "%",
+    "window": "24h"
+   },
+   "type": "ASK_VS_MEDIAN_SALE",
+   "what": "40 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
+   "when": 1790000000
+  },
+  {
+   "asset": "SYN sneaker (size 10)",
+   "basis": "observed",
+   "category": "collectibles",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page (venue prices and links)",
+     "url": "https://example.invalid/synthetic"
+    }
+   ],
+   "key": "synthetic:SYN sneaker (size 10):CROSS_VENUE_SPREAD",
+   "limits": [
+    "Not an executable arbitrage: condition, printing, fees, shipping, FX timing and liquidity are not modelled.",
+    "Vendor prices are shown only as a derived percentage; follow the link for the source."
+   ],
+   "metrics": {
+    "fxDate": "synthetic",
+    "spreadPct": 51.3
+   },
+   "name": "SYN sneaker (size 10)",
+   "severity": "LOW",
+   "source": "synthetic",
+   "synthetic": true,
+   "title": "[SYNTHETIC] SYN sneaker (size 10): US-venue price sits 51% above the EU venue after FX",
+   "trigger": {
+    "observed": 51.3,
+    "threshold": 40.0,
+    "unit": "% of midpoint",
+    "window": "single snapshot"
+   },
+   "type": "CROSS_VENUE_SPREAD",
+   "what": "Venue gap +51% of midpoint, converting at the ECB EUR/USD reference rate of synthetic.",
+   "when": 1790000000
+  }
+ ],
+ "synthetic": true
+}

@@ -29,6 +29,7 @@ with sync_playwright() as p:
         pg.goto(U); pg.wait_for_function("window.GTB&&GTB.ready"); inject(pg); settle(pg, 400)
         rec(tag0 + " home", check(pg))
         ids = [t for t in pg.evaluate("GTB.targets().map(t=>t.id)") if t.startswith(("wallet", "replay"))][:2]
+        ids += pg.evaluate("(()=>{const a=GTB.targets().filter(t=>t.view==='asset');return [a.find(t=>t.set==='live'&&!t.id.endsWith(':CHECKS')),a.find(t=>t.set==='synthetic'),a.find(t=>t.events.length>2),a.slice().sort((x,y)=>y.title.length-x.title.length)[0]].filter(Boolean).map(t=>t.id)})()")
         for tid in TOK + ids:
             end_state(pg, tid); rec(f"{tag0} {tid} end", check(pg))
         end_state(pg, "token:SYNTHING")
@@ -39,8 +40,9 @@ with sync_playwright() as p:
         pg.click("#feedBtn"); pg.wait_for_timeout(250); rec(f"{tag0} feed open", check(pg, False)); pg.keyboard.press("Escape"); pg.wait_for_timeout(200)
         pg.evaluate("GTB.notify && GTB.notify(GTB.targets()[0] && {id:'x',mkt:'Solana',subject:'$SYNTHETICEXTRALONGTICKERNAME2026',text:'A very long synthetic notification title that keeps going to test wrapping inside the toast',sev:'HIGH'})"); pg.wait_for_timeout(200)
         rec(f"{tag0} toast", check(pg, False))
-        for v in ["signals", "threats", "shill", "copy", "board", "prov"]:
+        for v in ["universe", "anomalies", "signals", "threats", "shill", "copy", "board", "prov"]:
             pg.evaluate("v=>GTB.go(v)", v); pg.wait_for_timeout(120); rec(f"{tag0} view {v}", check(pg, False))
+        pg.evaluate("GTB.go('universe')"); pg.wait_for_timeout(80); pg.evaluate("document.querySelectorAll('details.fam').forEach(d=>d.open=true)"); pg.click("[data-uni=mtg]"); pg.wait_for_timeout(120); rec(f"{tag0} universe detail", check(pg, False))  # MIGRATED (RC): families can start collapsed on narrow screens
         if errs: rec(tag0 + " page errors", errs)
         ctx.close()
     # resize mid-animation and after the result (motion ON)

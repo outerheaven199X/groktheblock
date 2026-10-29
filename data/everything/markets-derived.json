@@ -1,0 +1,2351 @@
+{
+ "_note": "Real cached derived signals from the last markets refresh (prediction markets, equities, options, Treasury, crypto). Not live.",
+ "assessment": {
+  "lead": {
+   "basis": "observed",
+   "signal": "stablecoins:USDT:SUPPLY_CHANGE",
+   "text": "USDT aggregate circulating supply -998M (-0.55%) in a day. Now $180.82B; 7-day -1,799M. Largest chain changes: Ethereum -505M, Solana -180M, Tron -173M. Not configured: sec, solana.",
+   "why": "Highest-severity of 32 signals; basis observed."
+  },
+  "severity": "MEDIUM"
+ },
+ "calendar": {
+  "builtAt": "2026-10-28T14:10:19Z",
+  "notIncluded": [
+   "Earnings dates: no free official schedule; listed tickers are not tagged for earnings.",
+   "PCE (BEA) and political milestones: not yet included."
+  ],
+  "types": [
+   "AUCTION",
+   "CPI",
+   "FOMC",
+   "NFP",
+   "OPEX"
+  ],
+  "upcoming": []
+ },
+ "counts": {
+  "byBasis": {
+   "heuristic": 28,
+   "inferred": 2,
+   "observed": 4,
+   "unverified": 2
+  },
+  "bySeverity": {
+   "INFO": 4,
+   "LOW": 22,
+   "MEDIUM": 10
+  },
+  "bySource": {
+   "cross": 2,
+   "kalshi": 13,
+   "options": 9,
+   "polymarket": 11,
+   "stablecoins": 1
+  },
+  "total": 36
+ },
+ "coverage": {
+  "limits": [
+   {
+    "kind": "not_configured",
+    "text": "solana: NOT_CONFIGURED — no watch-token reports in out/; run watch-token to include on-chain alerts. Its markets are unknown this run, not quiet."
+   },
+   {
+    "kind": "not_configured",
+    "text": "sec: NOT_CONFIGURED — set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K. Its markets are unknown this run, not quiet."
+   },
+   {
+    "kind": "latency",
+    "text": "Signals appear at the next observation or scan, subject to each provider's latency (options ~15 min delayed; equities, FX and Treasuries are daily)."
+   },
+   {
+    "kind": "heuristic",
+    "text": "Thresholds are the review's proposed shadow-mode starting settings, not optimized or validated cutoffs."
+   },
+   {
+    "kind": "inferred",
+    "text": "Related observations are linked through canonical entities and typed relations; mechanically linked instruments count once and each causal family contributes one distinct counted evidence group (a conservative filter, not proof of independent information). It shows co-occurrence, not a shared actor, intent or causality."
+   },
+   {
+    "kind": "unvalidated",
+    "text": "No historical hit rate or lead time has been measured on real history. Rankings are uncalibrated."
+   }
+  ],
+  "matrix": [
+   {
+    "detail": "address tracing failed on 4 market(s)",
+    "exclusions": [
+     "45 live sports/esports markets skipped"
+    ],
+    "family": "prediction",
+    "lastValidAt": "2026-10-29T12:35:18Z",
+    "observed": 155,
+    "outcome": "DEGRADED",
+    "sampleFraction": null,
+    "source": "polymarket",
+    "status": "DEGRADED",
+    "universe": "top 200 open markets by 24h volume"
+   },
+   {
+    "detail": "via events",
+    "exclusions": [
+     "Sports category",
+     "multivariate parlays"
+    ],
+    "family": "prediction",
+    "lastValidAt": "2026-10-29T12:35:18Z",
+    "observed": 16157,
+    "outcome": "FETCHED",
+    "sampleFraction": null,
+    "source": "kalshi",
+    "status": "HEALTHY",
+    "universe": "first 2,000 open events, Sports category and parlays excluded"
+   },
+   {
+    "detail": "daily bar for 2026-10-28",
+    "exclusions": [],
+    "family": "equity",
+    "lastValidAt": "2026-10-28T20:00:00Z",
+    "observed": 15,
+    "outcome": "FETCHED",
+    "sampleFraction": 1.0,
+    "source": "equities",
+    "status": "HEALTHY",
+    "universe": "15 configured: SPY, QQQ, IWM, TLT, HYG, GLD, USO, UUP, XLE, NVDA, TSLA, AAPL, MSFT, COIN, MSTR"
+   },
+   {
+    "detail": "last session snapshot",
+    "exclusions": [],
+    "family": "equity",
+    "lastValidAt": "2026-10-29T12:13:24Z",
+    "observed": 6,
+    "outcome": "FETCHED",
+    "sampleFraction": 1.0,
+    "source": "options",
+    "status": "HEALTHY",
+    "universe": "6 underlyings: SPY, QQQ, NVDA, TSLA, COIN, TLT"
+   },
+   {
+    "detail": "curve for 2026-10-28",
+    "exclusions": [],
+    "family": "rates",
+    "lastValidAt": "2026-10-28T19:30:00Z",
+    "observed": 4,
+    "outcome": "FETCHED",
+    "sampleFraction": 1.0,
+    "source": "treasury",
+    "status": "HEALTHY",
+    "universe": "2Y, 10Y, 30Y, 2s10s"
+   },
+   {
+    "detail": "12.6h old",
+    "exclusions": [
+     "single venue (OKX) for perps",
+     "intraday OI (1h/4h) not used"
+    ],
+    "family": "crypto",
+    "lastValidAt": "2026-10-29T00:00:00Z",
+    "observed": 3,
+    "outcome": "FETCHED",
+    "sampleFraction": 1.0,
+    "source": "crypto",
+    "status": "HEALTHY",
+    "universe": "BTC, ETH, SOL (OKX spot + perps; Coinbase spot fallback)"
+   },
+   {
+    "detail": "DefiLlama aggregate supply",
+    "exclusions": [
+     "transaction-level mints/burns not read"
+    ],
+    "family": "crypto",
+    "lastValidAt": "2026-10-29T12:35:18Z",
+    "observed": 14,
+    "outcome": "FETCHED",
+    "sampleFraction": null,
+    "source": "stablecoins",
+    "status": "HEALTHY",
+    "universe": "stablecoins with > $1B circulating (DefiLlama aggregate)"
+   },
+   {
+    "detail": "daily bar for 2026-10-28",
+    "exclusions": [],
+    "family": "macro",
+    "lastValidAt": "2026-10-29T00:00:00Z",
+    "observed": 6,
+    "outcome": "FETCHED",
+    "sampleFraction": 1.0,
+    "source": "macro",
+    "status": "HEALTHY",
+    "universe": "6 configured: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X"
+   },
+   {
+    "detail": "set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K",
+    "exclusions": [],
+    "family": "disclosure",
+    "lastValidAt": null,
+    "observed": 0,
+    "outcome": "NOT_CONFIGURED",
+    "sampleFraction": null,
+    "source": "sec",
+    "status": "NOT_CONFIGURED",
+    "universe": "EDGAR latest filings"
+   },
+   {
+    "detail": "no watch-token reports in out/; run watch-token to include on-chain alerts",
+    "exclusions": [
+     "only tokens you watch"
+    ],
+    "family": "crypto",
+    "lastValidAt": null,
+    "observed": 0,
+    "outcome": "NOT_CONFIGURED",
+    "sampleFraction": null,
+    "source": "solana",
+    "status": "NOT_CONFIGURED",
+    "universe": "your local watch-token reports"
+   }
+  ]
+ },
+ "derivedOnly": true,
+ "disclaimer": "Not financial advice. Grok The Block flags unusual activity in selected public market data, with the evidence behind it, at the next observation or scan, subject to each provider's latency. A signal is not a prediction, a recommendation to buy or sell, or an accusation against anyone. Rankings are uncalibrated; no historical hit rate or lead time has been measured.",
+ "generatedAt": 1793277318,
+ "kind": "signals",
+ "signals": [
+  {
+   "basis": "inferred",
+   "calendar": [],
+   "entities": [
+    "fed-policy"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    },
+    {
+     "label": "treasury:2Y (quiet, z -0.6)",
+     "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+    }
+   ],
+   "family": null,
+   "instrument": null,
+   "key": "cross:fed-policy:DIVERGENCE:prediction",
+   "limits": [
+    "Compared on daily observations over overlapping windows only."
+   ],
+   "metrics": {
+    "granularity": "daily",
+    "moved": "polymarket:0x723822eb2b143cee54c0bd7c1efba322b21f0051984c266df8879c394f1011c0:VOLUME_SPIKE",
+    "quiet": [
+     {
+      "availableTime": "2026-10-28T22:00:00Z",
+      "granularity": "daily",
+      "instrument": "treasury:2Y",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "z": -0.58
+     }
+    ]
+   },
+   "relations": {
+    "fed-policy": "UNRESOLVED"
+   },
+   "severity": "LOW",
+   "source": "cross",
+   "subject": {
+    "id": "fed-policy",
+    "name": "fed-policy",
+    "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+   },
+   "title": "Divergence on fed-policy: 24h volume 26× its prior-6-day average: “Will there be no change in Fed interest rates aft — but 2Y barely moved",
+   "type": "DIVERGENCE",
+   "what": "A hypothesis to investigate, not a finding: the related market may not have caught up, may disagree, or the link may be weak.",
+   "when": 1793277318
+  },
+  {
+   "basis": "inferred",
+   "calendar": [],
+   "entities": [
+    "fed-policy"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    },
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxnextatlfed"
+    }
+   ],
+   "family": null,
+   "instrument": null,
+   "key": "cross:fed-policy:RELATED_ACTIVITY",
+   "limits": [
+    "Which venue led is unknown without independent event availability timestamps."
+   ],
+   "metrics": {
+    "chain": [
+     {
+      "key": "polymarket:0x723822eb2b143cee54c0bd7c1efba322b21f0051984c266df8879c394f1011c0:VOLUME_SPIKE",
+      "title": "24h volume 26× its prior-6-day average: “Will there be no change in Fed interest rates after the December 2026 meeting?”",
+      "when": 1793277318
+     },
+     {
+      "key": "kalshi:KXNEXTATLFED-30JAN01-DALT:VOLUME_SPIKE",
+      "title": "Volume 1763× its lifetime daily average: “Will David Altig be the next President of the Federal Reserve Bank of Atlanta before Jan 1, 2030? David Altig”",
+      "when": 1793277318
+     }
+    ],
+    "sameTerms": false
+   },
+   "relations": {
+    "fed-policy": "UNRESOLVED"
+   },
+   "severity": "INFO",
+   "source": "cross",
+   "subject": {
+    "id": "fed-policy",
+    "name": "fed-policy",
+    "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+   },
+   "title": "Different prediction questions about fed-policy moved",
+   "type": "RELATED_ACTIVITY",
+   "what": "The questions differ in settlement date or direction, so they are not the same event and don't corroborate each other.",
+   "when": 1793277318
+  },
+  {
+   "basis": "observed",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "tether"
+   ],
+   "evidence": [
+    {
+     "label": "Tether supply by chain (DefiLlama)",
+     "url": "https://defillama.com/stablecoin/tether"
+    }
+   ],
+   "family": "crypto",
+   "instrument": "stablecoins:USDT",
+   "key": "stablecoins:USDT:SUPPLY_CHANGE",
+   "limits": [
+    "Aggregate supply changes can reflect issuance, redemptions, cross-chain bridging, peg/price effects, tracking changes or data revisions. Not evidence of a mint or burn transaction."
+   ],
+   "metrics": {},
+   "relations": {
+    "tether": "SAME_UNDERLYING"
+   },
+   "severity": "MEDIUM",
+   "source": "stablecoins",
+   "subject": {
+    "id": "USDT",
+    "name": "USDT",
+    "url": "https://defillama.com/stablecoin/tether"
+   },
+   "title": "USDT aggregate circulating supply -998M (-0.55%) in a day",
+   "type": "SUPPLY_CHANGE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "fed-policy"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-there-be-no-change-in-fed-interest-rates-after-the-december-2026-meeting-20260729232808635"
+    },
+    {
+     "label": "Sibling: Will the Fed increase interest rates by 25 bps after the December 2026",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    },
+    {
+     "label": "Sibling: Will the Fed decrease interest rates by 50+ bps after the December 202",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    },
+    {
+     "label": "Sibling: Will the Fed decrease interest rates by 25 bps after the December 2026",
+     "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x723822eb2b143cee54c0bd7c1efba322b21f0051984c266df8879c394f1011c0:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days."
+   ],
+   "metrics": {
+    "ratio": 26.4
+   },
+   "relations": {
+    "fed-policy": "SAME_EVENT"
+   },
+   "severity": "MEDIUM",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x723822eb2b143cee54c0bd7c1efba322b21f0051984c266df8879c394f1011c0",
+    "name": "Will there be no change in Fed interest rates after the December 2026 meeting?",
+    "url": "https://polymarket.com/event/fed-decision-in-december-20260729232808632"
+   },
+   "title": "24h volume 26× its prior-6-day average: “Will there be no change in Fed interest rates after the December 2026 meeting?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=us-x-iran-ceasefire-continues-through-november-8"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0xdbcc19248725b32aa85acbdd91f1877cb124a68cf6d7bc2d036e0e91ffa0f9c6:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days."
+   ],
+   "metrics": {
+    "ratio": 11.6
+   },
+   "relations": {},
+   "severity": "MEDIUM",
+   "source": "polymarket",
+   "subject": {
+    "id": "0xdbcc19248725b32aa85acbdd91f1877cb124a68cf6d7bc2d036e0e91ffa0f9c6",
+    "name": "US x Iran ceasefire continues through November 8?",
+    "url": "https://polymarket.com/event/us-iran-ceasefire-continues-throughptptpt"
+   },
+   "title": "24h volume 12× its prior-6-day average: “US x Iran ceasefire continues through November 8?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=us-announces-end-of-iranian-blockade-by-november-30-2026"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x7a70fc60ee280fa7b4312f5dd128d148d74ae5b3e4a2e8215ccf0030a08ebb04:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days."
+   ],
+   "metrics": {
+    "ratio": 17.5
+   },
+   "relations": {},
+   "severity": "MEDIUM",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x7a70fc60ee280fa7b4312f5dd128d148d74ae5b3e4a2e8215ccf0030a08ebb04",
+    "name": "US announces end of Iranian blockade by November 30, 2026?",
+    "url": "https://polymarket.com/event/us-announces-end-of-iranian-blockade-byptptpt-20260713152715080"
+   },
+   "title": "24h volume 17× its prior-6-day average: “US announces end of Iranian blockade by November 30, 2026?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/alaska-senate-election-winner"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-dan-sullivan-win-the-alaska-senate-race-in-2026"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x741bb46008b72234857c5118c8365ab3c2f69dbf28b30b59de04f173b8a778de:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days."
+   ],
+   "metrics": {
+    "ratio": 9.9
+   },
+   "relations": {},
+   "severity": "MEDIUM",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x741bb46008b72234857c5118c8365ab3c2f69dbf28b30b59de04f173b8a778de",
+    "name": "Will Dan Sullivan win the Alaska Senate race in 2026?",
+    "url": "https://polymarket.com/event/alaska-senate-election-winner"
+   },
+   "title": "24h volume 10× its prior-6-day average: “Will Dan Sullivan win the Alaska Senate race in 2026?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "observed",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/israel-election-raam-of-seats"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-raam-win-exactly-7-seats-in-the-2026-knesset-elections"
+    },
+    {
+     "label": "Sibling: Will Ra'am win 8 or more seats in the 2026 Knesset elections?",
+     "url": "https://polymarket.com/event/israel-election-raam-of-seats"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x897da588e08a508aa20f38df67e6e05cbd1a1c496bb417f7f4c1c65924180e05:ODDS_REPRICING",
+   "limits": [
+    "Real traded notional in the same window isn't available from Gamma; 24h volume is used as a floor.",
+    "CLOB history has irregular sample spacing; only 10–20 minute pairs were used.",
+    "Event time is the start of the measurement window; the exact moment of repricing isn't known."
+   ],
+   "metrics": {},
+   "relations": {},
+   "severity": "MEDIUM",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x897da588e08a508aa20f38df67e6e05cbd1a1c496bb417f7f4c1c65924180e05",
+    "name": "Will Ra'am win exactly 7 seats in the 2026 Knesset elections?",
+    "url": "https://polymarket.com/event/israel-election-raam-of-seats"
+   },
+   "title": "Yes repriced down 35 pts in 1h: “Will Ra'am win exactly 7 seats in the 2026 Knesset elections?”",
+   "type": "ODDS_REPRICING",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "observed",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxisraelgovt"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXISRAELGOVT-28JAN01-NOAM"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXISRAELGOVT-28JAN01-NOAM:ODDS_REPRICING",
+   "limits": [
+    "Previous-day comparison only (no intraday history); 15m/1h windows not available."
+   ],
+   "metrics": {},
+   "relations": {},
+   "severity": "MEDIUM",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXISRAELGOVT-28JAN01-NOAM",
+    "name": "Will Noam be a part of the next government in Israel? Noam",
+    "url": "https://kalshi.com/markets/kxisraelgovt"
+   },
+   "title": "Yes midpoint down 43 pts vs previous day: “Will Noam be a part of the next government in Israel? Noam”",
+   "type": "ODDS_REPRICING",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.2h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "sp500"
+   ],
+   "evidence": [
+    {
+     "label": "SPY delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/spy/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:SPY",
+   "key": "options:SPY:UNUSUAL_OPTIONS_VOLUME",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "sp500": "SAME_UNDERLYING"
+   },
+   "severity": "MEDIUM",
+   "source": "options",
+   "subject": {
+    "id": "SPY",
+    "name": "SPY",
+    "url": "https://www.cboe.com/delayed_quotes/spy/quote_table"
+   },
+   "title": "SPY: 9 contracts with unusual observed volume vs open interest",
+   "type": "UNUSUAL_OPTIONS_VOLUME",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793276004
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.2h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "nasdaq-100"
+   ],
+   "evidence": [
+    {
+     "label": "QQQ delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/qqq/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:QQQ",
+   "key": "options:QQQ:UNUSUAL_OPTIONS_VOLUME",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "nasdaq-100": "SAME_UNDERLYING"
+   },
+   "severity": "MEDIUM",
+   "source": "options",
+   "subject": {
+    "id": "QQQ",
+    "name": "QQQ",
+    "url": "https://www.cboe.com/delayed_quotes/qqq/quote_table"
+   },
+   "title": "QQQ: 8 contracts with unusual observed volume vs open interest",
+   "type": "UNUSUAL_OPTIONS_VOLUME",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793275959
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "16.0h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "nvidia"
+   ],
+   "evidence": [
+    {
+     "label": "NVDA delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/nvda/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:NVDA",
+   "key": "options:NVDA:UNUSUAL_OPTIONS_VOLUME",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "nvidia": "SAME_UNDERLYING"
+   },
+   "severity": "MEDIUM",
+   "source": "options",
+   "subject": {
+    "id": "NVDA",
+    "name": "NVDA",
+    "url": "https://www.cboe.com/delayed_quotes/nvda/quote_table"
+   },
+   "title": "NVDA: 19 contracts with unusual observed volume vs open interest",
+   "type": "UNUSUAL_OPTIONS_VOLUME",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793268098
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "bitcoin"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-october-2026"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-bitcoin-reach-102pt5k-in-october-2026"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x19e75f32a671c3c9cbdd96530d9c0e87a71937f3809e1629109aadeffa6e70cd:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days.",
+    "Settlement-extreme price: downgraded one level."
+   ],
+   "metrics": {
+    "ratio": 6.5
+   },
+   "relations": {
+    "bitcoin": "RELATED_ACTIVITY"
+   },
+   "severity": "LOW",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x19e75f32a671c3c9cbdd96530d9c0e87a71937f3809e1629109aadeffa6e70cd",
+    "name": "Will Bitcoin reach $102,500 in October?",
+    "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-october-2026"
+   },
+   "title": "24h volume 6× its prior-6-day average: “Will Bitcoin reach $102,500 in October?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "ethereum"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/what-price-will-ethereum-hit-in-october-2026"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-ethereum-reach-2800-in-october-2026"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0xd286cc1c4d999a56b39b00c38aed976ad0e05c5435404077ae93bcb5a4b19842:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days.",
+    "Settlement-extreme price: downgraded one level."
+   ],
+   "metrics": {
+    "ratio": 13.5
+   },
+   "relations": {
+    "ethereum": "RELATED_ACTIVITY"
+   },
+   "severity": "LOW",
+   "source": "polymarket",
+   "subject": {
+    "id": "0xd286cc1c4d999a56b39b00c38aed976ad0e05c5435404077ae93bcb5a4b19842",
+    "name": "Will Ethereum reach $2,800 in October?",
+    "url": "https://polymarket.com/event/what-price-will-ethereum-hit-in-october-2026"
+   },
+   "title": "24h volume 14× its prior-6-day average: “Will Ethereum reach $2,800 in October?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-ruben-gallego-win-the-2028-democratic-presidential-nomination"
+    },
+    {
+     "label": "Sibling: Will Mark Kelly win the 2028 Democratic presidential nomination?",
+     "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x98933c78b5e277b62d91a6c174b412218de000b54c4c67ec8673bf561cec6e81:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days.",
+    "Settlement-extreme price: downgraded one level."
+   ],
+   "metrics": {
+    "ratio": 140.0
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x98933c78b5e277b62d91a6c174b412218de000b54c4c67ec8673bf561cec6e81",
+    "name": "Will Ruben Gallego win the 2028 Democratic presidential nomination?",
+    "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+   },
+   "title": "24h volume 140× its prior-6-day average: “Will Ruben Gallego win the 2028 Democratic presidential nomination?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "fed-policy"
+   ],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxnextatlfed"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNEXTATLFED-30JAN01-DALT"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXNEXTATLFED-30JAN01-DALT:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 1763.3
+   },
+   "relations": {
+    "fed-policy": "RELATED_ACTIVITY"
+   },
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXNEXTATLFED-30JAN01-DALT",
+    "name": "Will David Altig be the next President of the Federal Reserve Bank of Atlanta before Jan 1, 2030? David Altig",
+    "url": "https://kalshi.com/markets/kxnextatlfed"
+   },
+   "title": "Volume 1763× its lifetime daily average: “Will David Altig be the next President of the Federal Reserve Bank of Atlanta before Jan 1, 2030? David Altig”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxbond"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBOND-30-CAL"
+    },
+    {
+     "label": "Sibling: Will Josh O'Connor be the next James Bond? Josh O'Connor",
+     "url": "https://kalshi.com/markets/kxbond"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXBOND-30-CAL:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 8.8
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXBOND-30-CAL",
+    "name": "Will Callum Turner be the next James Bond? Callum Turner",
+    "url": "https://kalshi.com/markets/kxbond"
+   },
+   "title": "Volume 9× its lifetime daily average: “Will Callum Turner be the next James Bond? Callum Turner”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxnextpressecperm"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXNEXTPRESSECPERM-29JAN20-TROG"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXNEXTPRESSECPERM-29JAN20-TROG:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 6.5
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXNEXTPRESSECPERM-29JAN20-TROG",
+    "name": "Will Taylor Rogers be the next White House Press Secretary before Jan 20, 2029? Taylor Rogers",
+    "url": "https://kalshi.com/markets/kxnextpressecperm"
+   },
+   "title": "Volume 6× its lifetime daily average: “Will Taylor Rogers be the next White House Press Secretary before Jan 20, 2029? Taylor Rogers”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxpresperson"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXPRESPERSON-28-AOCA"
+    },
+    {
+     "label": "Sibling: Who will win the next presidential election? Josh Shapiro",
+     "url": "https://kalshi.com/markets/kxpresperson"
+    },
+    {
+     "label": "Sibling: Who will win the next presidential election? Ron DeSantis",
+     "url": "https://kalshi.com/markets/kxpresperson"
+    },
+    {
+     "label": "Sibling: Who will win the next presidential election? Tim Walz",
+     "url": "https://kalshi.com/markets/kxpresperson"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXPRESPERSON-28-AOCA:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 8.2
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXPRESPERSON-28-AOCA",
+    "name": "Who will win the next presidential election? Alexandria Ocasio-Cortez",
+    "url": "https://kalshi.com/markets/kxpresperson"
+   },
+   "title": "Volume 8× its lifetime daily average: “Who will win the next presidential election? Alexandria Ocasio-Cortez”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "observed",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxscotusresign"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXSCOTUSRESIGN-29-CT"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXSCOTUSRESIGN-29-CT:ODDS_REPRICING",
+   "limits": [
+    "Previous-day comparison only (no intraday history); 15m/1h windows not available."
+   ],
+   "metrics": {},
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXSCOTUSRESIGN-29-CT",
+    "name": "Will Clarence Thomas resign during Trump's term? Clarence Thomas",
+    "url": "https://kalshi.com/markets/kxscotusresign"
+   },
+   "title": "Yes midpoint up 13 pts vs previous day: “Will Clarence Thomas resign during Trump's term? Clarence Thomas”",
+   "type": "ODDS_REPRICING",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kximpeach"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXIMPEACH-29-JAN20"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXIMPEACH-29-JAN20:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 10.0
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXIMPEACH-29-JAN20",
+    "name": "Will the President be impeached before Jan 20, 2029? Before Jan 20, 2029",
+    "url": "https://kalshi.com/markets/kximpeach"
+   },
+   "title": "Volume 10× its lifetime daily average: “Will the President be impeached before Jan 20, 2029? Before Jan 20, 2029”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxpresnomd"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXPRESNOMD-28-HCLI"
+    },
+    {
+     "label": "Sibling: Will Ruben Gallego be the Democratic Presidential nominee in 2028? Rub",
+     "url": "https://kalshi.com/markets/kxpresnomd"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXPRESNOMD-28-HCLI:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 94.4
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXPRESNOMD-28-HCLI",
+    "name": "Will Hilary Clinton be the Democratic Presidential nominee in 2028? Hillary Clinton",
+    "url": "https://kalshi.com/markets/kxpresnomd"
+   },
+   "title": "Volume 94× its lifetime daily average: “Will Hilary Clinton be the Democratic Presidential nominee in 2028? Hillary Clinton”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxbaa"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXBAA-28JANDELIV-600"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXBAA-28JANDELIV-600:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 48.0
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXBAA-28JANDELIV-600",
+    "name": "Will Boeing Company (The) report Above 600 commercial airplane deliveries in 2026? Above 600",
+    "url": "https://kalshi.com/markets/kxbaa"
+   },
+   "title": "Volume 48× its lifetime daily average: “Will Boeing Company (The) report Above 600 commercial airplane deliveries in 2026? Above 600”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxtxsenoutcome"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXTXSENOUTCOME-27JAN-PAXTAL"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXTXSENOUTCOME-27JAN-PAXTAL:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 7.6
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXTXSENOUTCOME-27JAN-PAXTAL",
+    "name": "Will GOP Nominee be Ken Paxton AND General Election Winner be Republican for Jan 2027? Paxton defeats Talarico",
+    "url": "https://kalshi.com/markets/kxtxsenoutcome"
+   },
+   "title": "Volume 8× its lifetime daily average: “Will GOP Nominee be Ken Paxton AND General Election Winner be Republican for Jan 2027? Paxton defeats Talarico”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxoscarpic"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXOSCARPIC-27-ART"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXOSCARPIC-27-ART:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 6.2
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXOSCARPIC-27-ART",
+    "name": "Will Artificial win Best Picture at the Oscars? Artificial",
+    "url": "https://kalshi.com/markets/kxoscarpic"
+   },
+   "title": "Volume 6× its lifetime daily average: “Will Artificial win Best Picture at the Oscars? Artificial”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXMIDTERMMOV-TXSENR-P5"
+    },
+    {
+     "label": "Sibling: Will the margin of victory for Republicans in the U.S. Senate election",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    },
+    {
+     "label": "Sibling: Will the margin of victory for Republicans in the U.S. Senate election",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    },
+    {
+     "label": "Sibling: Will the margin of victory for Republicans in the U.S. Senate election",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXMIDTERMMOV-TXSENR-P5:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 9.1
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXMIDTERMMOV-TXSENR-P5",
+    "name": "Will the margin of victory for Republicans in the U.S. Senate election in Texas be at least 5 percentage points? Ken Paxton, 5+ pts",
+    "url": "https://kalshi.com/markets/kxmidtermmov"
+   },
+   "title": "Volume 9× its lifetime daily average: “Will the margin of victory for Republicans in the U.S. Senate election in Texas be at least 5 percentage points? Ken Paxton, 5+ pts”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Kalshi market",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    },
+    {
+     "label": "Kalshi API record",
+     "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXMIDTERMMOV-TXSEND-P3"
+    },
+    {
+     "label": "Sibling: Will the margin of victory for Democrats in the U.S. Senate election i",
+     "url": "https://kalshi.com/markets/kxmidtermmov"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "kalshi:KXMIDTERMMOV-TXSEND-P3:VOLUME_SPIKE",
+   "limits": [
+    "Context only: lifetime-average volume spikes are confounded by event proximity (review §03). Capped at LOW."
+   ],
+   "metrics": {
+    "ratio": 7.9
+   },
+   "relations": {},
+   "severity": "LOW",
+   "source": "kalshi",
+   "subject": {
+    "id": "KXMIDTERMMOV-TXSEND-P3",
+    "name": "Will the margin of victory for Democrats in the U.S. Senate election in Texas be at least 3 percentage points? James Talarico, 3+ pts",
+    "url": "https://kalshi.com/markets/kxmidtermmov"
+   },
+   "title": "Volume 8× its lifetime daily average: “Will the margin of victory for Democrats in the U.S. Senate election in Texas be at least 3 percentage points? James Talarico, 3+ pts”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.2h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "sp500"
+   ],
+   "evidence": [
+    {
+     "label": "SPY delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/spy/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:SPY",
+   "key": "options:SPY:SHORT_DATED_OPTIONS",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "sp500": "SAME_UNDERLYING"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "SPY",
+    "name": "SPY",
+    "url": "https://www.cboe.com/delayed_quotes/spy/quote_table"
+   },
+   "title": "SPY: 32 short-dated (0DTE/1DTE) contracts with unusual observed volume vs open interest",
+   "type": "SHORT_DATED_OPTIONS",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793276004
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.2h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "nasdaq-100"
+   ],
+   "evidence": [
+    {
+     "label": "QQQ delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/qqq/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:QQQ",
+   "key": "options:QQQ:SHORT_DATED_OPTIONS",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "nasdaq-100": "SAME_UNDERLYING"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "QQQ",
+    "name": "QQQ",
+    "url": "https://www.cboe.com/delayed_quotes/qqq/quote_table"
+   },
+   "title": "QQQ: 31 short-dated (0DTE/1DTE) contracts with unusual observed volume vs open interest",
+   "type": "SHORT_DATED_OPTIONS",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793275959
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "16.1h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "tesla"
+   ],
+   "evidence": [
+    {
+     "label": "TSLA delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/tsla/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:TSLA",
+   "key": "options:TSLA:UNUSUAL_OPTIONS_VOLUME",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "tesla": "SAME_UNDERLYING"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "TSLA",
+    "name": "TSLA",
+    "url": "https://www.cboe.com/delayed_quotes/tsla/quote_table"
+   },
+   "title": "TSLA: 1 contract with unusual observed volume vs open interest",
+   "type": "UNUSUAL_OPTIONS_VOLUME",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793268202
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "16.1h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "tesla"
+   ],
+   "evidence": [
+    {
+     "label": "TSLA delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/tsla/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:TSLA",
+   "key": "options:TSLA:SHORT_DATED_OPTIONS",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "tesla": "SAME_UNDERLYING"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "TSLA",
+    "name": "TSLA",
+    "url": "https://www.cboe.com/delayed_quotes/tsla/quote_table"
+   },
+   "title": "TSLA: 12 short-dated (0DTE/1DTE) contracts with unusual observed volume vs open interest",
+   "type": "SHORT_DATED_OPTIONS",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793268202
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "16.0h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "fed-policy",
+    "us-treasuries"
+   ],
+   "evidence": [
+    {
+     "label": "TLT delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/tlt/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:TLT",
+   "key": "options:TLT:SHORT_DATED_OPTIONS",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "fed-policy": "MACRO_EXPOSURE",
+    "us-treasuries": "DIRECT_PROXY"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "TLT",
+    "name": "TLT",
+    "url": "https://www.cboe.com/delayed_quotes/tlt/quote_table"
+   },
+   "title": "TLT: 1 short-dated (0DTE/1DTE) contract with unusual observed volume vs open interest",
+   "type": "SHORT_DATED_OPTIONS",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793268133
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "16.0h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "nvidia"
+   ],
+   "evidence": [
+    {
+     "label": "NVDA delayed option chain",
+     "url": "https://www.cboe.com/delayed_quotes/nvda/quote_table"
+    }
+   ],
+   "family": "equity",
+   "instrument": "options:NVDA",
+   "key": "options:NVDA:SHORT_DATED_OPTIONS",
+   "limits": [
+    "Open interest is a prior-session snapshot; volume above it doesn't prove new positioning.",
+    "Historical matched-contract relative volume (≥3× 20–60 sessions) is not available: limited detector.",
+    "Delayed snapshot (~15 min); retrospective anomaly report, not an immediate flow alert.",
+    "Event time is the provider's snapshot time; availability is the same snapshot time (already delayed)."
+   ],
+   "metrics": {},
+   "relations": {
+    "nvidia": "SAME_UNDERLYING"
+   },
+   "severity": "LOW",
+   "source": "options",
+   "subject": {
+    "id": "NVDA",
+    "name": "NVDA",
+    "url": "https://www.cboe.com/delayed_quotes/nvda/quote_table"
+   },
+   "title": "NVDA: 8 short-dated (0DTE/1DTE) contracts with unusual observed volume vs open interest",
+   "type": "SHORT_DATED_OPTIONS",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793268098
+  },
+  {
+   "basis": "heuristic",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-october-31-20260810151043583"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=strait-of-hormuz-traffic-returns-to-normal-by-october-31-20260810151043583"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x405b56fc75f56d7635a94df9836d6cb6f9b9571d1fd33eb165c1e59d1d11801f:VOLUME_SPIKE",
+   "limits": [
+    "Baseline is the 7-day total minus the last 24h, averaged over 6 days.",
+    "Settlement-extreme price: downgraded one level."
+   ],
+   "metrics": {
+    "ratio": 5.1
+   },
+   "relations": {},
+   "severity": "INFO",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x405b56fc75f56d7635a94df9836d6cb6f9b9571d1fd33eb165c1e59d1d11801f",
+    "name": "Strait of Hormuz traffic returns to normal by October 31?",
+    "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-october-31-20260810151043583"
+   },
+   "title": "24h volume 5× its prior-6-day average: “Strait of Hormuz traffic returns to normal by October 31?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "unverified",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/what-will-trump-say-during-his-midterm-rally-in-lubbock-texas-october-27-lubbock-tx"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=will-trump-say-two-percent-during-his-midterm-rally-in-lubbock-texas-october-27-lubbock-tx"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0x0c70435e732638de1e447a37724c3d4b1ed1572afd93ded5fccd97515b615883:VOLUME_SPIKE",
+   "limits": [
+    "Insufficient historical baseline. This is not a maximal anomaly."
+   ],
+   "metrics": {
+    "ratio": null
+   },
+   "relations": {},
+   "severity": "INFO",
+   "source": "polymarket",
+   "subject": {
+    "id": "0x0c70435e732638de1e447a37724c3d4b1ed1572afd93ded5fccd97515b615883",
+    "name": "Will Trump say \"Two Percent\" during his Midterm Rally in Lubbock, Texas?",
+    "url": "https://polymarket.com/event/what-will-trump-say-during-his-midterm-rally-in-lubbock-texas-october-27-lubbock-tx"
+   },
+   "title": "Insufficient baseline: volume traded in 24h on “Will Trump say \"Two Percent\" during his Midterm Rally in Lubbock, Texas?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  },
+  {
+   "basis": "unverified",
+   "calendar": [
+    {
+     "availableAtObservation": true,
+     "eventId": "FOMC:2026-10-28:",
+     "label": "FOMC decision 2026-10-28",
+     "phase": "POST_EVENT_CONTEXT",
+     "rationale": "18.6h after the release; daily/approximate timing, context only",
+     "source": "federalreserve.gov",
+     "tenor": null,
+     "time": "2026-10-28T18:00:00Z",
+     "timeExact": true,
+     "type": "FOMC"
+    }
+   ],
+   "derivedOnly": true,
+   "entities": [
+    "bitcoin"
+   ],
+   "evidence": [
+    {
+     "label": "Polymarket market",
+     "url": "https://polymarket.com/event/bitcoin-above-on-october-29-2026"
+    },
+    {
+     "label": "Gamma API record",
+     "url": "https://gamma-api.polymarket.com/markets?slug=bitcoin-above-72k-on-october-29-2026"
+    },
+    {
+     "label": "Sibling: Will the price of Bitcoin be above $82,000 on October 29?",
+     "url": "https://polymarket.com/event/bitcoin-above-on-october-29-2026"
+    }
+   ],
+   "family": "prediction",
+   "instrument": null,
+   "key": "polymarket:0xa57edacd92aac986a6fbd40798410de4995e18724e83006139d51bc24353b514:VOLUME_SPIKE",
+   "limits": [
+    "Insufficient historical baseline. This is not a maximal anomaly."
+   ],
+   "metrics": {
+    "ratio": null
+   },
+   "relations": {
+    "bitcoin": "SETTLES_ON_UNDERLYING"
+   },
+   "severity": "INFO",
+   "source": "polymarket",
+   "subject": {
+    "id": "0xa57edacd92aac986a6fbd40798410de4995e18724e83006139d51bc24353b514",
+    "name": "Will the price of Bitcoin be above $72,000 on October 29?",
+    "url": "https://polymarket.com/event/bitcoin-above-on-october-29-2026"
+   },
+   "title": "Insufficient baseline: volume traded in 24h on “Will the price of Bitcoin be above $72,000 on October 29?”",
+   "type": "VOLUME_SPIKE",
+   "what": "Derived observation: provider values are not stored in the committed cache. Follow the evidence link for the source data.",
+   "when": 1793277318
+  }
+ ],
+ "sourceStatus": {
+  "crypto": {
+   "assessment": "quiet",
+   "coverage": {
+    "exclusions": [
+     "single venue (OKX) for perps",
+     "intraday OI (1h/4h) not used"
+    ],
+    "observed": 3,
+    "sampleFraction": 1.0,
+    "universe": "BTC, ETH, SOL (OKX spot + perps; Coinbase spot fallback)"
+   },
+   "detail": "12.6h old",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T00:00:00Z",
+   "lastValidTs": 1793232000,
+   "outcome": "FETCHED",
+   "signals": 0,
+   "state": "HEALTHY"
+  },
+  "equities": {
+   "assessment": "quiet",
+   "coverage": {
+    "exclusions": [],
+    "failedInstruments": [],
+    "observed": 15,
+    "observedInstruments": [
+     "SPY",
+     "QQQ",
+     "IWM",
+     "TLT",
+     "HYG",
+     "GLD",
+     "USO",
+     "UUP",
+     "XLE",
+     "NVDA",
+     "TSLA",
+     "AAPL",
+     "MSFT",
+     "COIN",
+     "MSTR"
+    ],
+    "sampleFraction": 1.0,
+    "universe": "15 configured: SPY, QQQ, IWM, TLT, HYG, GLD, USO, UUP, XLE, NVDA, TSLA, AAPL, MSFT, COIN, MSTR"
+   },
+   "detail": "daily bar for 2026-10-28",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-28T20:00:00Z",
+   "lastValidTs": 1793217600,
+   "outcome": "FETCHED",
+   "signals": 0,
+   "state": "HEALTHY"
+  },
+  "kalshi": {
+   "assessment": "findings",
+   "coverage": {
+    "active24h": 1752,
+    "exclusions": [
+     "Sports category",
+     "multivariate parlays"
+    ],
+    "observed": 16157,
+    "sampleFraction": null,
+    "universe": "first 2,000 open events, Sports category and parlays excluded"
+   },
+   "detail": "via events",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T12:35:18Z",
+   "lastValidTs": 1793277318,
+   "outcome": "FETCHED",
+   "signals": 13,
+   "state": "HEALTHY"
+  },
+  "macro": {
+   "assessment": "quiet",
+   "coverage": {
+    "exclusions": [],
+    "failedInstruments": [],
+    "observed": 6,
+    "observedInstruments": [
+     "^VIX",
+     "DX-Y.NYB",
+     "GC=F",
+     "CL=F",
+     "EURUSD=X",
+     "USDJPY=X"
+    ],
+    "sampleFraction": 1.0,
+    "universe": "6 configured: ^VIX, DX-Y.NYB, GC=F, CL=F, EURUSD=X, USDJPY=X"
+   },
+   "detail": "daily bar for 2026-10-28",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T00:00:00Z",
+   "lastValidTs": 1793232000,
+   "outcome": "FETCHED",
+   "signals": 0,
+   "state": "HEALTHY"
+  },
+  "options": {
+   "assessment": "findings",
+   "coverage": {
+    "exclusions": [],
+    "failedInstruments": [],
+    "observed": 6,
+    "observedInstruments": [
+     "SPY",
+     "QQQ",
+     "NVDA",
+     "TSLA",
+     "COIN",
+     "TLT"
+    ],
+    "sampleFraction": 1.0,
+    "universe": "6 underlyings: SPY, QQQ, NVDA, TSLA, COIN, TLT"
+   },
+   "detail": "last session snapshot",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T12:13:24Z",
+   "lastValidTs": 1793276004,
+   "outcome": "FETCHED",
+   "signals": 9,
+   "state": "HEALTHY"
+  },
+  "polymarket": {
+   "assessment": "findings",
+   "coverage": {
+    "exclusions": [
+     "45 live sports/esports markets skipped"
+    ],
+    "observed": 155,
+    "priceHistory": "20/20 most-active markets had CLOB 15-minute history",
+    "sampleFraction": null,
+    "universe": "top 200 open markets by 24h volume"
+   },
+   "detail": "address tracing failed on 4 market(s)",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T12:35:18Z",
+   "lastValidTs": 1793277318,
+   "outcome": "DEGRADED",
+   "signals": 11,
+   "state": "DEGRADED"
+  },
+  "sec": {
+   "assessment": "unknown",
+   "coverage": {
+    "observed": 0,
+    "universe": "EDGAR latest filings"
+   },
+   "detail": "set GTB_SEC_USER_AGENT=\"Your Name you@example.org\" (SEC fair-access rule) to include EDGAR Form 4 / 8-K",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": null,
+   "lastValidAt": null,
+   "lastValidTs": null,
+   "outcome": "NOT_CONFIGURED",
+   "signals": 0,
+   "state": "NOT_CONFIGURED"
+  },
+  "solana": {
+   "assessment": "unknown",
+   "coverage": {
+    "exclusions": [
+     "only tokens you watch"
+    ],
+    "observed": 0,
+    "sampleFraction": null,
+    "universe": "your local watch-token reports"
+   },
+   "detail": "no watch-token reports in out/; run watch-token to include on-chain alerts",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": null,
+   "lastValidAt": null,
+   "lastValidTs": null,
+   "outcome": "NOT_CONFIGURED",
+   "signals": 0,
+   "state": "NOT_CONFIGURED"
+  },
+  "stablecoins": {
+   "assessment": "findings",
+   "coverage": {
+    "exclusions": [
+     "transaction-level mints/burns not read"
+    ],
+    "observed": 14,
+    "sampleFraction": null,
+    "universe": "stablecoins with > $1B circulating (DefiLlama aggregate)"
+   },
+   "detail": "DefiLlama aggregate supply",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-29T12:35:18Z",
+   "lastValidTs": 1793277318,
+   "outcome": "FETCHED",
+   "signals": 1,
+   "state": "HEALTHY"
+  },
+  "treasury": {
+   "assessment": "quiet",
+   "coverage": {
+    "exclusions": [],
+    "observed": 4,
+    "sampleFraction": 1.0,
+    "universe": "2Y, 10Y, 30Y, 2s10s"
+   },
+   "detail": "curve for 2026-10-28",
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "lastValidAt": "2026-10-28T19:30:00Z",
+   "lastValidTs": 1793215800,
+   "outcome": "FETCHED",
+   "signals": 0,
+   "state": "HEALTHY"
+  }
+ },
+ "sources": [
+  "polymarket",
+  "kalshi",
+  "equities",
+  "options",
+  "treasury",
+  "crypto",
+  "stablecoins",
+  "macro",
+  "sec",
+  "solana"
+ ],
+ "status": "partial",
+ "version": 2
+}
