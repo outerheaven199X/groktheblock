@@ -24,6 +24,6 @@ def main():
                 files[rel.replace(os.sep, "/")] = hashlib.sha256(b).hexdigest()
     sha = subprocess.run(["git", "-C", REPO, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     dirty = bool(subprocess.run(["git", "-C", REPO, "status", "--porcelain", "--", "ui"], capture_output=True, text=True).stdout.strip())
-    json.dump({"sourceCommit": sha, "uiDirtyAtBuild": dirty, "files": files}, open(os.path.join(PKG, "dist", "BUILD-INFO.json"), "w"), indent=1, sort_keys=True)
+    json.dump({"sourceCommit": sha, "uiDirtyAtBuild": dirty, "files": files}, open(os.path.join(DST, "BUILD-INFO.json"), "w"), indent=1, sort_keys=True)
     print(f"dist/ui: {len(files)} files from {sha}{' (+uncommitted ui changes)' if dirty else ''}")
 if __name__ == "__main__": sys.exit(main())
