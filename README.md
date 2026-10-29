@@ -1,6 +1,8 @@
 # Grok The Block
 
-**Unusual-activity analysis across selected public markets, with the evidence behind every flag.**
+**Grok the Block: The Best Way To Lose All Your Money**
+
+Unusual-activity analysis across selected public markets, with the evidence behind every flag.
 
 > **Experimental, user-run market-forensics research tool; rule-based observations with linked evidence and explicit coverage limits. No measured predictive accuracy.**
 
@@ -30,6 +32,36 @@ All markets below run through one cross-market engine (`skills/signals`, `lib/gr
 | Solana module | Token, wallet, rug-replay, copy-trade and leaderboard scans, plus X promo-account and media checks | Solana RPC, DexScreener, RugCheck, Helius (optional) |
 
 Signals from different markets are linked when they line up (convergence, same-family repricing, divergence), and each link says how certain it is.
+
+## Everything it tracks
+**Commodities**
+- **Precious metals:** gold (GLD, IAU), silver (SLV), platinum (PPLT) and palladium (PALL), through ETF proxies
+- **Energy:** WTI crude, Brent crude and Henry Hub natural gas (EIA spot via FRED)
+- **Futures positioning (CFTC COT):** gold and silver (COMEX), WTI crude (NYMEX), SRW wheat, corn and soybeans (CBOT), coffee C and cocoa (ICE US)
+- **Commodity ETFs in the equities set:** GLD, SLV, USO, XLE
+
+**Rates and FX**
+- **FX:** 16 currencies against the euro (USD, JPY, GBP, CHF, CNY, AUD, CAD, MXN, TRY, INR, BRL, ZAR, SEK, NOK, KRW, PLN) from ECB reference rates, cross-checked against the Fed H.10 fix for USD, JPY and GBP
+- **Treasuries:** 3-month, 2-year, 5-year, 10-year and 30-year yields
+- **Rates and dollar ETFs:** TLT, IEF, SHY, HYG, UUP
+
+**Stocks and options**
+- **Index and sector ETFs:** SPY, QQQ, IWM, XLF, SMH, XLE
+- **Options:** unusual volume and open interest (Cboe delayed)
+- **Filings:** SEC Form 4 and 8-K (opt-in)
+
+**Prediction markets**
+- Polymarket and Kalshi (all non-sports categories)
+
+**Crypto**
+- Perp open interest and funding, stablecoin supply, daily anomalies and the Solana token and wallet module
+
+**Collectibles**
+- **Magic: The Gathering (24 cards, pinned to paper printings):** Black Lotus, Mox Sapphire, Ancestral Recall, Time Walk, Timetwister, Underground Sea, Volcanic Island, Gaea's Cradle, The One Ring, Sheoldred the Apocalypse, Ragavan Nimble Pilferer, Orcish Bowmasters, Mana Crypt, Jeweled Lotus, Force of Will, Wrenn and Six, Mox Diamond, Cyclonic Rift, Rhystic Study, Dockside Extortionist, Smothering Tithe, Fierce Guardianship, Imperial Seal, Grim Monolith
+- **Counter-Strike 2 skins and cases (experimental):** AK-47 Redline, AWP Asiimov, AK-47 Vulcan, M4A4 Howl, Desert Eagle Blaze, USP-S Kill Confirmed, Operation Breakout Weapon Case, Kilowatt Case, Revolution Case, Natus Vincere Paris 2023 sticker
+- **Coming next:** Pokémon cards, retro game cartridges and other card games use the same adapter and switch on once their data and image rights are cleared
+
+The full directory of 53 asset classes is in **All Markets** inside the app.
 
 ## What it does
 **Views** (`ui/`, top navigation):
