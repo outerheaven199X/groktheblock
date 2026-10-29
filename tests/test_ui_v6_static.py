@@ -3,7 +3,7 @@ import re, subprocess, sys
 from pathlib import Path
 R = Path(__file__).resolve().parents[1]
 UI = R / "ui"
-CODE = ["index.html", "app.js", "stage.js"] + [str(p.relative_to(UI)) for p in (UI / "vendor").rglob("*.js")]
+CODE = ["index.html", "app.js", "stage.js", "registry.js"] + [str(p.relative_to(UI)) for p in (UI / "vendor").rglob("*.js")]
 
 def test_v6_loads_nothing_from_the_network():
     pat = re.compile(r"""(?:\bsrc=|\bhref=|url\(|\bimport\s*\(|\bfrom\s+|\bfetch\s*\(|XMLHttpRequest|new\s+WebSocket|EventSource)\s*['"]?(?:https?:)?//""", re.I)

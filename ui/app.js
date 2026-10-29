@@ -303,14 +303,14 @@ function openMenu(id, focusFirst) {
   clearTimeout(NAV.tOpen); clearTimeout(NAV.tClose);
   if (NAV.open && NAV.open !== id) closeMenu(false);
   const t = $("#nt-" + id), m = $("#nm-" + id); if (!t || !m) return;
-  m.hidden = false; t.setAttribute("aria-expanded", "true"); NAV.open = id; menuPlace(id); $("#notif").classList.remove("on");
+  if ($("#feed").classList.contains("on")) toggleFeed(false); m.hidden = false; t.setAttribute("aria-expanded", "true"); NAV.open = id; menuPlace(id); $("#notif").classList.remove("on");
   if (focusFirst) { const f = $(".ni", m); f && f.focus(); }
 }
 function closeMenu(refocus) {
   clearTimeout(NAV.tOpen); clearTimeout(NAV.tClose); const id = NAV.open; if (!id) return;
   const t = $("#nt-" + id), m = $("#nm-" + id); if (m) m.hidden = true; if (t) t.setAttribute("aria-expanded", "false"); NAV.open = null; if (refocus && t) t.focus();
 }
-function toggleMob(on) { const b = $("#mktBtn"), m = $("#mobMenu"); on = on ?? m.hidden; m.hidden = !on; b.setAttribute("aria-expanded", on); if (on) { m.style.top = Math.round($("#views").getBoundingClientRect().bottom) + "px"; $("#notif").classList.remove("on"); } }
+function toggleMob(on) { const b = $("#mktBtn"), m = $("#mobMenu"); on = on ?? m.hidden; m.hidden = !on; b.setAttribute("aria-expanded", on); if (on) { if ($("#feed").classList.contains("on")) toggleFeed(false); m.style.top = Math.round($("#views").getBoundingClientRect().bottom) + "px"; $("#notif").classList.remove("on"); } }
 function wireNav() {
   const V = $("#views"); V.innerHTML = navHTML();
   V.addEventListener("click", (e) => {
@@ -370,7 +370,7 @@ let scanT;
 function scan(id, quiet) {
   const t = targets().find(x => x.id === id); if (!t) return flash("Nothing loaded matches that");
   S.view = t.view; S.feat = null; S.target = t; S.tab = 0; S.open = false; S.brel = 0; S.dl = 0; S.dc = 0; S.dh = 0; S.scrub = 62; S._rv = -1; S._slam = false;
-  $("#vdBox").dataset.landed = "0";
+  { const vb = $("#vdBox"), rw = $("#resWord"); vb.dataset.landed = "0"; [vb, rw].forEach(e => { e.style.transition = "none"; e.style.opacity = 0; }); void vb.offsetWidth; requestAnimationFrame(() => requestAnimationFrame(() => { vb.style.transition = ""; })); } // a re-scan never animates the old verdict back out across the TL;DR
   history.replaceState(null, "", "#" + t.view + "/" + encodeURIComponent(t.title.replace("$", "")) + (t.set ? "|" + t.set : ""));
   if (three()) { three().setMode("result"); three().set && three().set(); }
   clearTimeout(scanT);
@@ -467,7 +467,7 @@ function seqFrame(t, B) {
   if (r !== S._rv) { if (r > S._rv && three()) { if (r === n + 1) { three().react(t.vc); three().punch(); shake(t.vc === "red" ? 14 : 8); } else if (r > 0) three().hop(); } S._rv = r; }
   const wp = B < 50 ? 0 : B < 260 ? 1 : 2; const wipe = $("#wipe");
   wipe.style.transition = wp === 0 ? "none" : "clip-path .2s cubic-bezier(.7,0,.3,1)"; wipe.style.clipPath = S.scanning ? "inset(0 100% 0 0)" : wp === 0 ? "inset(0 100% 0 0)" : wp === 1 ? "inset(0 0 0 0)" : "inset(0 0 0 100%)";
-  const rw = $("#resWord"); rw.style.opacity = B >= 280 ? 1 : 0; rw.style.transition = B >= 280 ? "transform .28s cubic-bezier(.2,1.25,.4,1), opacity .08s" : "none"; rw.style.transform = B >= 280 ? "rotate(-8deg) scale(1)" : "rotate(-12deg) scale(1.45)";
+  const rw = $("#resWord"); rw.style.opacity = B >= 280 ? 1 : 0; rw.style.transition = B >= 280 ? "transform .26s cubic-bezier(.2,1.08,.4,1), opacity .08s" : "none"; rw.style.transform = B >= 280 ? "rotate(-8deg) scale(1)" : "rotate(-8deg) scale(1.3)";
   $("#hzTop").style.transform = B >= 750 ? "scaleX(1)" : "scaleX(0)"; $("#hzMid").style.transform = r > n - 1 && B >= 900 + n * 420 ? "scaleX(1)" : "scaleX(0)";
   const rows = boardRows(t); const box = $("#srows");
   $$(".srow", box).forEach((el, i) => { const [k, v, c] = rows[i]; const on = r > i; const pp = easeO(Math.min(1, Math.max(0, B - 900 - i * 420) / 380)); el.classList.toggle("on", on); el.children[0].textContent = k; el.children[1].textContent = on ? countTo(v, pp) : v; el.children[1].style.color = c === "red" ? C.red : C.ink; });
@@ -576,11 +576,11 @@ function anomalyItems() {
   of("watch").forEach(r => { const syn = isSynRep(r); (r.j.alerts || []).forEach(a => add({ key: a.key || a.signature, mode: syn ? "examples" : "cached", cat: "crypto", instrument: "$" + a.tokenSymbol, type: a.type || "ALERT", sev: a.severity, when: a.timestamp, ingested: null, source: "solana", title: a.detail || a.type, limits: [], evidence: [], scan: "token:" + a.tokenSymbol, feat: "crypto.threats", report: r.name, dedupe: "sol|" + a.tokenSymbol + "|" + (a.type || "") + "|" + a.timestamp })); });
   return out;
 }
-window.GTB.anomalyItems = anomalyItems;
+window.GTB.anomalyItems = anomalyItems; window.GTB_SUG = (q) => suggestions(q).slice(0, 3).map(x => x.label + " -> " + x.id.slice(0, 40));
 const MODE_LBL = { cached: "Real cached", experimental: "Experimental", examples: "Examples (synthetic)" };
 function aRow(it) {
   const tid = it.scan && targets().some(t => t.id === it.scan) ? it.scan : null;
-  return `<div class="erow${it.mode === "examples" ? " syn" : ""}" data-akey="${esc(it.key)}">${sq(SEVC[it.sev])}<span class="eb"><span class="hd"><span>${esc(catName(it.cat))} // ${esc(it.instrument)}</span><span>${esc(String(it.type).replace(/_/g, " ").toLowerCase())} · ${esc(it.sev || "no severity")} · ${esc(it.source)}${it.mode === "examples" ? " · synthetic" : it.mode === "experimental" ? " · experimental" : ""}</span></span><span class="ti">${esc(it.title)}</span><span class="hd"><span>observed ${esc(iso(it.when))}${it.ingested ? " · ingested " + esc(iso(it.ingested)) : ""}</span><span>${it.reports.size > 1 ? "same incident in " + it.reports.size + " reports, counted once" : esc(it.report)}</span></span>${it.limits[0] ? `<span class="lim">${esc(String(it.limits[0]).slice(0, 220))}</span>` : ""}</span><span class="ea">${tid ? `<button class="btn y" data-scan="${esc(tid)}">Evidence</button>` : ""}${it.feat ? `<button class="btn" data-feat-go="${esc(it.feat)}">Open tool</button>` : ""}${askBtn("Ask", ["Anomalies", it.title, it.key, it.report, ["Category: " + catName(it.cat), "Type: " + it.type, "Severity: " + it.sev, "Data: " + MODE_LBL[it.mode]]])}</span></div>`;
+  return `<div class="erow${it.mode === "examples" ? " syn" : ""}" data-akey="${esc(it.key)}">${sq(SEVC[it.sev])}<span class="eb"><span class="hd"><span>${esc(catName(it.cat))} // ${esc(it.instrument)}</span><span>${esc(String(it.type).replace(/_/g, " ").toLowerCase())} · ${esc(it.sev || "no severity")} · ${esc(it.source)}${it.mode === "examples" ? " · synthetic" : it.mode === "experimental" ? " · experimental" : ""}</span></span><span class="ti">${esc(it.title)}</span><span class="hd"><span>${it.mode === "examples" ? "synthetic example · " : ""}observed ${esc(iso(it.when))}${it.ingested ? " · ingested " + esc(iso(it.ingested)) : ""}</span><span>${it.reports.size > 1 ? "same incident in " + it.reports.size + " reports, counted once" : esc(it.report)}</span></span>${it.limits[0] ? `<span class="lim">${esc(String(it.limits[0]).slice(0, 220))}</span>` : ""}</span><span class="ea">${tid ? `<button class="btn y" data-scan="${esc(tid)}">Evidence</button>` : ""}${it.feat ? `<button class="btn" data-feat-go="${esc(it.feat)}">Open tool</button>` : ""}${askBtn("Ask", ["Anomalies", it.title, it.key, it.report, ["Category: " + catName(it.cat), "Type: " + it.type, "Severity: " + it.sev, "Data: " + MODE_LBL[it.mode]]])}</span></div>`;
 }
 function vAnomalies(P) {
   const all = anomalyItems(), modeOf = (m) => all.filter(x => x.mode === m);

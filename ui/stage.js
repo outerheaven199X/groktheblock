@@ -94,6 +94,7 @@ async function init() {
   const easeIO = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   const bounce = (x) => { const n1 = 7.5625, d1 = 2.75; if (x < 1 / d1) return n1 * x * x; if (x < 2 / d1) return n1 * (x -= 1.5 / d1) * x + 0.75; if (x < 2.5 / d1) return n1 * (x -= 2.25 / d1) * x + 0.9375; return n1 * (x -= 2.625 / d1) * x + 0.984375; };
   let frames = 0;
+  let lastStepT = 0;
   const step = (now) => {
     resize(); const still = RM.matches; const tt = still ? 0 : now;
     let y = 0, sx = 1, sy = 1, rz = 0, ry = 0, ox = 0, eyeS = 1, fk = 0;
@@ -105,7 +106,7 @@ async function init() {
       if (a.type === "shake") { rz += Math.sin(p * Math.PI * 7) * 0.16 * (1 - p); ox += Math.sin(p * Math.PI * 9) * 0.08 * (1 - p); }
       if (a.type === "tilt") rz += Math.sin(Math.PI * p) * 0.28;
       if (a.type === "blink") eyeS = Math.min(eyeS, Math.abs(Math.cos(Math.PI * p)) * 0.9 + 0.1);
-      if (a.type === "punch") fk += Math.sin(Math.PI * p) * 4.5;
+      if (a.type === "punch") fk += Math.sin(Math.PI * p) * 2.6;
     }
     camera.fov = 28 - fk; camera.updateProjectionMatrix();
     if (!still) {
@@ -118,9 +119,11 @@ async function init() {
     const idle = still ? 0 : Math.sin(now * 0.0021) * 0.05;
     // Fit the bot inside the free box the layout reserved (stage px), so it never covers the text.
     const W = lastW || 1, H = lastH || 1, ppw = (H / 2) / (camBase.z * TAN), b = window.GTB_BOX || { x: W * 0.25, y: H * 0.2, w: W * 0.5, h: H * 0.6 };
-    const kT = Math.max(0.12, Math.min(1.35, Math.min(b.w, b.h) / 2 * 0.66 / ppw));
+    const kT = Math.max(0.12, Math.min(1.35, Math.min(b.w, b.h) / 2 * 0.6 / ppw));
     const xT = (b.x + b.w / 2 - W / 2) / ppw, yT = 1.75 + (H / 2 - (b.y + b.h / 2)) / ppw;
-    if (curX == null || still) { curX = xT; curY = yT; curK = kT; } const ease = 0.12; curX += (xT - curX) * ease; curY += (yT - curY) * ease; curK += (kT - curK) * ease;
+    // Frame-rate independent travel (~110 ms time constant) and never larger than the target, so a moving bot does not sweep across text on slow devices.
+    const dtE = Math.min(250, Math.max(0, now - (lastStepT || now))); lastStepT = now;
+    if (curX == null || still) { curX = xT; curY = yT; curK = kT; } const ease = 1 - Math.exp(-dtE / 110); curX += (xT - curX) * ease; curY += (yT - curY) * ease; curK = Math.min(kT, curK + (kT - curK) * ease);
     const u = curK / 1.35, hx = curX + (still ? 0 : Math.sin(now * 0.00055) * 0.3 * u), hy = still ? 0 : Math.sin(now * 0.0011) * 0.12 * u;
     root.scale.setScalar(curK);
     root.position.set(ox * u + hx, curY - curK + (y + hy + idle * u) * u, still ? 0 : Math.sin(now * 0.0004) * 0.3 * u);
