@@ -197,6 +197,7 @@ let scanT;
 function scan(id, quiet) {
   const t = targets().find(x => x.id === id); if (!t) return flash("Nothing loaded matches that");
   S.view = t.view; S.target = t; S.tab = 0; S.open = false; S.brel = 0; S.dl = 0; S.dc = 0; S.dh = 0; S.scrub = 62; S._rv = -1; S._slam = false;
+  $("#vdBox").dataset.landed = "0";
   history.replaceState(null, "", "#" + t.view + "/" + encodeURIComponent(t.title.replace("$", "")));
   if (three()) { three().setMode("result"); three().set && three().set(); }
   clearTimeout(scanT);
