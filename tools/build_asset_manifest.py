@@ -18,6 +18,7 @@ RULES = [  # (glob, status, source, renderedFrom)
     ("examples/provenance-sample.json", "project-generated", "promo-provenance analysis of a generated test clip (C2PA test fixture); no chain, X or market data", None),
     ("examples/*.json", "synthetic", "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted", None),
     ("tests/fixtures/onchain-denylist.json", "project-generated", "SHA-256 hashes of real identifiers (no identifiers themselves), for the R6-04 test", None),
+    ("packages/cli/package.json", "project-generated", "npm manifest for the zero-dependency local launcher; no data", None),
     ("tests/fixtures/replay/*.json", "synthetic", "hand-written replay fixtures (invented values)", None),
     ("tests/fixtures/adjudication-vignettes-r7.json", "synthetic", "R7-01 written vignettes for the decision table (invented descriptions, no labels of real events)", None),
     ("tests/fixtures/adjudication-vignettes-r8.json", "synthetic", "R8-05 written vignettes (invented descriptions, no labels of real events)", None),

@@ -110,7 +110,7 @@ test("manifest: no lifecycle hooks, no dependencies, bin mapping, engines", () =
   assert.deepEqual(j.dependencies, {}); assert.ok(!j.devDependencies && !j.optionalDependencies && !j.peerDependencies);
   assert.equal(j.bin["grok-the-block"], "./bin/grok-the-block.mjs"); assert.equal(j.engines.node, ">=22.14.0");
 });
-test("launcher source: no env/home/credential reads, no shell, no network clients", () => {
+test("launcher source: no env, home-dir or credential reads, no shell, no network clients", () => {
   const s = readFileSync(BIN, "utf8");
   for (const bad of [/process\.env/, /homedir/, /\.npmrc/, /\.ssh/, /shell:\s*true/, /exec\(/, /execSync/, /node:https/, /fetch\(/, /node:net/, /require\(/, /eval\(/]) assert.ok(!bad.test(s.replace(/^\/\/.*$/gm, "")), String(bad));
 });

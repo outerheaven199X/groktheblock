@@ -1,3 +1,4 @@
+# STAGED COPY: move to .github/workflows/publish.yml (the agent's GitHub token lacks the `workflow` scope, so it could not push it there).
 # Publishes packages/cli to npm with Trusted Publishing (OIDC) and provenance. NO long-lived npm token.
 # Runs ONLY on a pushed release tag cli-v*.*.* and only after an owner approves the protected `npm-release` environment.
 # Never runs on pull_request, forks or schedule. Prerequisites (owner, not automated): first manual publish of

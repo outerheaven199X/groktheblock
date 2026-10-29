@@ -532,6 +532,11 @@
    "source": "tools/synthesize_onchain.py: transformed public on-chain scan; identifiers, names, links invented; amounts scaled; times shifted",
    "sha256": "14a47807c7fd6d5a57767e8f499849a1242810001e6badcf72ffb9cba5564515"
   },
+  "packages/cli/package.json": {
+   "status": "project-generated",
+   "source": "npm manifest for the zero-dependency local launcher; no data",
+   "sha256": "9301e04dac79d851066e7b2e847b2c8358fa282949056e9b6bdea4089a45ae4d"
+  },
   "tests/fixtures/adjudication-vignettes-r7.json": {
    "status": "synthetic",
    "source": "R7-01 written vignettes for the decision table (invented descriptions, no labels of real events)",
