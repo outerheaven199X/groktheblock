@@ -59,8 +59,8 @@ def connected(pg):
     pg.click('[data-invmode="connected"]'); pg.wait_for_timeout(300); return wait_state(pg, ["connected", "not-connected", "no-launcher"])
 def ask(pg, scenario=None, H=None, timeout_s=None):
     if scenario and H: H.scenario(scenario)
-    if timeout_s: pg.fill("#invTimeout", str(timeout_s)); pg.dispatch_event("#invTimeout", "change"); pg.wait_for_timeout(100)
     if pg.locator("details.send:not([open]) > summary").count(): pg.click("details.send:not([open]) > summary")
+    if timeout_s: pg.fill("#invTimeout", str(timeout_s)); pg.dispatch_event("#invTimeout", "change"); pg.wait_for_timeout(100)
     pg.check("#invConsent"); pg.wait_for_timeout(100); pg.click("#invSend")
     return wait_state(pg, ["answered", "auth", "rate", "timeout", "interrupted", "malformed", "upstream", "budget", "cancelled", "network", "rejected", "error"], 20000)
 
@@ -172,8 +172,9 @@ with sync_playwright() as p:
         res("mock malformed citation: dropped; uncited claim labelled", s == "answered" and "uncited" in T(pg, "#invAns") and "dropped" in T(pg, "#invAns") and pg.locator('#invAns a[href^="javascript"], #invAns a[href^="http:"]').count() == 0)
         s = ask(pg, "timeout", Hn, timeout_s=5)
         res("mock timeout: request cancelled at the user's time limit", s == "timeout", s)
-        Hn.scenario("timeout"); pg.fill("#invTimeout", "60"); pg.dispatch_event("#invTimeout", "change"); pg.wait_for_timeout(100)
+        Hn.scenario("timeout")
         if pg.locator("details.send:not([open]) > summary").count(): pg.click("details.send:not([open]) > summary")
+        pg.fill("#invTimeout", "60"); pg.dispatch_event("#invTimeout", "change"); pg.wait_for_timeout(100)
         pg.check("#invConsent"); pg.click("#invSend"); wait_state(pg, ["running"], 5000); shot(pg, "10-connected-running-cancel-desktop.png"); pg.click("#invCancel")
         res("cancel: user cancel stops the request", wait_state(pg, ["cancelled"], 8000) == "cancelled")
         Hn.scenario("toolerror"); s = ask(pg)
