@@ -5,7 +5,7 @@
   "type": "module",
   "bin": { "grok-the-block": "./bin/grok-the-block.mjs" },
   "engines": { "node": ">=22.14.0" },
-  "files": ["bin/", "dist/ui/", "LICENSE", "licenses/"],
+  "files": ["bin/", "lib/", "dist/ui/", "LICENSE", "licenses/"],
   "dependencies": {},
   "license": "SEE LICENSE IN LICENSE",
   "repository": { "type": "git", "url": "git+https://github.com/outerheaven199X/groktheblock.git", "directory": "packages/cli" },

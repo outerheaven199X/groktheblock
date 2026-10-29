@@ -5,7 +5,7 @@ Writes dist/BUILD-INFO.json with the source commit SHA and a sha256 per file. Us
 import hashlib, json, os, shutil, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); PKG = os.path.dirname(HERE); REPO = os.path.dirname(os.path.dirname(PKG))
 SRC = os.path.join(REPO, "ui"); DST = os.path.join(PKG, "dist", "ui")
-ALLOW_TOP = {"index.html", "app.js", "registry.js", "stage.js", "tcg.js", "data", "fonts", "licenses", "vendor"}
+ALLOW_TOP = {"index.html", "app.js", "registry.js", "stage.js", "tcg.js", "investigate.js", "data", "fonts", "licenses", "vendor"}
 ALLOW_EXT = {".html", ".js", ".mjs", ".css", ".json", ".woff2", ".txt", ".md", ".svg", ".png", ".webp", ".jpg"}
 def main():
     if os.path.exists(os.path.join(PKG, "dist")): shutil.rmtree(os.path.join(PKG, "dist"))
