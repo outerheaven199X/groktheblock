@@ -62,9 +62,14 @@ async function init() {
     const tilt = new THREE.Group(); holder.add(tilt);
     const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.12, 0.32, 10, 20), eyeMat); m.scale.z = 0.25; tilt.add(m); return tilt;
   });
-  let composer = null;
-  if (PP) { try { composer = new PP.EffectComposer(renderer); composer.addPass(new PP.RenderPass(scene, camera)); composer.addPass(new PP.AfterimagePass(0.72)); composer.addPass(new PP.UnrealBloomPass(new THREE.Vector2(512, 512), 0.28, 0.4, 0.86)); composer.addPass(new PP.OutputPass()); } catch (e) { composer = null; } }
-  el.dataset.post = composer ? "on" : "off";
+  let composer = null, afterPass = null;
+  // Adaptive effects: software rasterizers (SwiftShader/llvmpipe) get shorter trails; any device that measures slow frames drops post-processing.
+  let rendererName = ""; try { const g = renderer.getContext(), x = g.getExtension("WEBGL_debug_renderer_info"); rendererName = x ? String(g.getParameter(x.UNMASKED_RENDERER_WEBGL)) : ""; } catch (e) { }
+  const softGL = /swiftshader|llvmpipe|software|basic render/i.test(rendererName);
+  let fxTier = softGL ? "soft" : "full", fxN = 0, fxSum = 0, fxLast = 0;
+  if (PP) { try { composer = new PP.EffectComposer(renderer); composer.addPass(new PP.RenderPass(scene, camera)); afterPass = new PP.AfterimagePass(0.72); composer.addPass(afterPass); composer.addPass(new PP.UnrealBloomPass(new THREE.Vector2(512, 512), 0.28, 0.4, 0.86)); composer.addPass(new PP.OutputPass()); } catch (e) { composer = null; } }
+  if (afterPass && softGL) afterPass.uniforms.damp.value = 0.5;
+  el.dataset.post = composer ? "on" : "off"; el.dataset.fx = composer ? fxTier : "none";
   let lastW = 0, lastH = 0;
   const resize = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h || (w === lastW && h === lastH)) return; lastW = w; lastH = h; renderer.setSize(w, h, false); if (composer) composer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(el); resize();
@@ -129,7 +134,9 @@ async function init() {
       if (k === "worried") rot += (i === 0 ? -0.45 : 0.45) * ew; if (k === "determined") { rot += (i === 0 ? 0.45 : -0.45) * ew; ey *= 1 - 0.2 * ew; }
       e.scale.set(ex, ey, 1); e.rotation.z = rot; e.position.y = py; });
     key.shadow.radius = 6 + Math.max(0, root.position.y) * 4; if (!drag) rotY += (0 - rotY) * 0.01;
-    if (composer && !still) composer.render(); else renderer.render(scene, camera);
+    if (composer && fxTier !== "low" && fxLast && fxN < 150) { const d = now - fxLast; if (d < 250) { fxN++; if (fxN > 30) fxSum += d; } if (fxN === 150 && fxSum / 120 > 34) { fxTier = "low"; el.dataset.fx = "low"; } }
+    fxLast = now; el.dataset.frameMs = fxN > 30 ? (fxSum / (fxN - 30)).toFixed(1) : "";
+    if (composer && !still && fxTier !== "low") composer.render(); else renderer.render(scene, camera);
     body.getWorldPosition(bodyW); const pc = bodyW.clone().project(camera), dist = camera.position.distanceTo(bodyW);
     el.dataset.bot = [(pc.x + 1) / 2 * W, (1 - pc.y) / 2 * H, curK * Math.max(sx, sy) * (H / 2) / (dist * Math.tan(camera.fov * Math.PI / 360))].map(Math.round).join(",");
     el.dataset.frames = ++frames;

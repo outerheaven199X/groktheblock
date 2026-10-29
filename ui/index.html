@@ -204,6 +204,42 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
 .erow .ea{display:flex;gap:6px;align-items:center}
 .erow.syn .ti{color:#c8c8cc}.synbox{background:repeating-linear-gradient(-45deg,var(--p) 0 14px,#121216 14px 28px)}
 @media (max-width:767px){.erow{grid-template-columns:8px minmax(0,1fr)}.erow .ea{grid-column:2}.erow .hd{flex-direction:column;gap:2px}.tiles{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.tile .nm{font-size:17px}}
+/* asset-first nav */
+nav#views{overflow:visible;flex-wrap:nowrap;position:relative;z-index:9}
+nav#views .ng{position:relative;display:flex;flex-shrink:0}
+nav#views .nt{display:flex;align-items:center;gap:6px;flex-shrink:0;padding:0 12px;background:transparent;border:0;color:#c8c8cc;font-size:11px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;min-height:40px;white-space:nowrap}
+nav#views .nt:hover,nav#views .nt[aria-expanded=true]{color:var(--w);box-shadow:inset 0 -2px 0 var(--y)}
+nav#views .nt.act{color:var(--y)}nav#views .nt[aria-current=page]{background:var(--y);color:var(--g);box-shadow:none}
+nav#views .nt .car{font-size:9px;color:var(--m);transition:transform .12s}nav#views .nt[aria-expanded=true] .car{transform:rotate(180deg);color:var(--y)}
+nav#views .nt.an{margin-left:auto;border-left:1px solid var(--l)}
+nav#views .sqy{width:7px;height:7px;background:var(--y)}nav#views .nt.an[aria-current=page] .sqy{background:var(--g)}
+nav#views .mk{display:none}
+.navm{position:fixed;z-index:40;min-width:280px;max-width:calc(100vw - 16px);background:var(--p);border:1px solid var(--b);border-top:2.4px solid var(--y);display:flex;flex-direction:column;box-shadow:0 12px 0 -6px rgba(0,0,0,.35)}
+.ni{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:40px;padding:0 12px 0 14px;background:transparent;border:0;border-bottom:1px solid var(--l);color:var(--w);font-size:12px;text-align:left;cursor:pointer;width:100%}
+.ni:last-child{border-bottom:0}.ni:hover,.ni:focus-visible{background:#1f1f24;box-shadow:inset 2px 0 0 var(--y)}.ni[aria-current=page]{box-shadow:inset 3px 0 0 var(--y);color:var(--y)}
+.ni .ns{display:flex;gap:6px;flex-shrink:0}
+.tg{font-size:9px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--b);color:var(--m);padding:0 5px;line-height:15px}
+.tg.d-cached{border-color:var(--bl);color:#aab8ff}.tg.d-synthetic{border-style:dashed}.tg.d-unavailable,.tg.d-insufficient{border-color:var(--r);color:#ff9a7a}.tg.x{border-color:var(--y);color:var(--y)}
+.mob{position:fixed;left:0;right:0;z-index:40;max-height:calc(100vh - 120px);overflow:auto;background:var(--p);border-top:2.4px solid var(--y);border-bottom:1px solid var(--b)}
+.mg{-webkit-tap-highlight-color:transparent;width:100%;display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 16px;background:transparent;border:0;border-bottom:1px solid var(--l);color:var(--w);font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:20px;cursor:pointer}
+.mg[aria-expanded=true]{color:var(--y)}.mg .car{font-family:'Martian Mono',monospace;font-size:11px;color:var(--m)}
+.mgi{background:var(--g);border-bottom:1px solid var(--b)}.mgi .ni{min-height:44px;padding-left:24px}
+@media (max-width:1023px){nav#views .ng{display:none}nav#views .mk{display:flex}}
+.sstrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--l);background:var(--p)}
+.sstrip>span{display:flex;flex-direction:column;gap:2px;padding:8px 12px;border-right:1px solid var(--l);font-size:11px;line-height:15px;min-width:0;overflow-wrap:anywhere}.sstrip>span:last-child{border-right:0}
+.sstrip b{font-weight:400;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--m)}
+.sstrip .d-synthetic{background:repeating-linear-gradient(-45deg,var(--p) 0 10px,#121216 10px 20px)}.sstrip .d-unavailable,.sstrip .d-insufficient{box-shadow:inset 0 -2px 0 var(--r)}.sstrip .d-cached{box-shadow:inset 0 -2px 0 var(--bl)}
+@media (max-width:767px){.sstrip{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sstrip>span:nth-child(2){border-right:0}.sstrip>span:nth-child(-n+2){border-bottom:1px solid var(--l)}}
+.limited{border-left:2.4px solid var(--r)}
+td.nmc{overflow-wrap:anywhere;min-width:120px}
+.fam{border:1px solid var(--l);background:var(--g);margin-bottom:8px}.fam>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0 12px;cursor:pointer;list-style:none;border-bottom:1px solid var(--l)}
+.fam>summary::-webkit-details-marker{display:none}.fam>summary .disp{font-size:20px}.fam[open]>summary .disp{color:var(--y)}.fam>.tiles{padding:8px}.fam.rest>summary .disp{color:var(--m)}
+.tile{position:relative;padding:0;cursor:default}.tile .tmain{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;padding:12px 12px 8px;background:transparent;border:0;color:var(--w);text-align:left;cursor:pointer}
+button.tmain:hover .nm{color:var(--y)}.tile .tinfo{align-self:stretch;min-height:32px;background:transparent;border:0;border-top:1px solid var(--l);color:var(--m);font-size:10px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;text-align:left;padding:0 12px}.tile .tinfo:hover{color:var(--w)}
+.uq{display:flex;align-items:center;gap:8px;border:1px solid var(--b);background:var(--p);padding:0 10px;height:36px;min-width:min(260px,100%)}.uq input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--w);font-size:12px}
+.uq:focus-within{border-color:var(--c)}
+#feedBtn.bump{box-shadow:inset 0 0 0 1px var(--y)}
+@media (max-width:767px){.tile .tinfo{min-height:44px}nav#views .nt{min-height:44px}}
 /* narrow / touch */
 #root.narrow header{gap:10px;flex-wrap:wrap;padding:6px 12px}
 #root.narrow{grid-template-rows:30px auto 44px auto auto}
@@ -221,7 +257,7 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
     <button class="btn" id="openBtn" aria-label="Open report JSON files from this device">Open</button>
     <button class="btn up" id="feedBtn" aria-label="Live feed" aria-expanded="false" aria-controls="feed"><span class="blinkdot" style="color:var(--y)"></span>Live feed<span class="n" id="feedN">0</span></button>
   </header>
-  <nav id="views" aria-label="Views"></nav>
+  <nav id="views" aria-label="Markets"></nav>
   <main id="main">
     <div class="rhead" id="rhead" hidden></div>
     <div id="stageWrap">
@@ -257,6 +293,7 @@ footer .links{flex-shrink:0;display:flex;gap:14px;font-size:11px;line-height:17p
 </div>
 <script src="data/reports.js"></script>
 <script src="data/everything.js"></script>
+<script src="registry.js"></script>
 <script src="app.js"></script>
 <script type="module" src="stage.js"></script>
 </body>
