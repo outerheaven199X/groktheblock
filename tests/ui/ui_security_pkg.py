@@ -118,7 +118,9 @@ tmp = tempfile.mkdtemp(prefix="gtb-hostile-")
 with sync_playwright() as p:
     b = p.chromium.launch(channel="chrome", args=GL)
     ctx = b.new_context(viewport={"width": 1440, "height": 900}); pg = ctx.new_page(); errs, off, dialogs, flashes = [], [], [], []
+    cons = []
     pg.on("pageerror", lambda e: errs.append(str(e)[:200]))
+    pg.on("console", lambda m: m.type == "error" and cons.append(m.text[:200]))
     pg.on("request", lambda r: (not r.url.startswith((ORIGIN, "data:", "blob:"))) and off.append(r.url))
     pg.on("dialog", lambda d: (dialogs.append(d.message), d.dismiss()))
     pg.on("popup", lambda pp: dialogs.append("POPUP " + pp.url))
@@ -137,7 +139,6 @@ with sync_playwright() as p:
     files = []
     for m in muts:
         fp = os.path.join(tmp, m["name"]); open(fp, "w", encoding="utf-8", errors="surrogatepass").write(json.dumps(m["j"])); files.append(fp)
-    pg.on("console", lambda msg: None)
     before = set(pg.evaluate("GTB.targets().map(t=>t.id)"))
     pg.set_input_files("#pick", files); pg.wait_for_timeout(1500)
     got = pg.evaluate("GTB.REPORTS.filter(r=>r.name.startsWith('evil-')).map(r=>r.k)")
@@ -232,7 +233,7 @@ with sync_playwright() as p:
     framed = [f.url for f in ev2.frames if f.url.startswith(ORIGIN) and f.evaluate("!!document.querySelector('#root')")]
     res("app refuses to be framed", not framed, framed)
     res("whole session: zero off-origin requests, zero dialogs/popups, zero CSP violations", not off and not dialogs and not pg.evaluate("window.__csp||[]"), (off[:3], dialogs[:3], pg.evaluate("window.__csp||[]")[:3]))
-    res("whole session: no uncaught page errors", not errs, errs[:3])
+    res("whole session: no uncaught page errors and no console errors (incl. no 404 for the artwork-cache script)", not errs and not cons, (errs[:3], cons[:3]))
     b.close()
 STOP.set()
 if MON:

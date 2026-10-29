@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { request } from "node:http";
 import { spawn } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, existsSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, symlinkSync, readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -113,4 +113,13 @@ test("manifest: no lifecycle hooks, no dependencies, bin mapping, engines", () =
 test("launcher source: no env, home-dir or credential reads, no shell, no network clients", () => {
   const s = readFileSync(BIN, "utf8");
   for (const bad of [/process\.env/, /homedir/, /\.npmrc/, /\.ssh/, /shell:\s*true/, /exec\(/, /execSync/, /node:https/, /fetch\(/, /node:net/, /require\(/, /eval\(/]) assert.ok(!bad.test(s.replace(/^\/\/.*$/gm, "")), String(bad));
+});
+test("package ships no artwork or artwork cache: explorer.js at the cache path is a data-free stub; no images in dist", () => {
+  const stub = join(PKG, "dist", "ui", "cache", "tcg", "mtg", "explorer.js");
+  if (!existsSync(stub)) return;
+  const s = readFileSync(stub, "utf8");
+  assert.ok(s.length < 400 && !/GTB_TCG_CACHE|groups|img\//.test(s), "stub must carry no cache data");
+  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
+  const imgs = walk(join(PKG, "dist", "ui")).filter(f => /\.(jpe?g|png|webp|gif)$/i.test(f));
+  assert.deepEqual(imgs, []);
 });
