@@ -1,0 +1,13 @@
+{
+  "name": "grok-the-block",
+  "version": "0.1.0",
+  "description": "Grok The Block local research preview: serves the read-only browser UI on 127.0.0.1. No wallet, no sign-in, no telemetry, no install hooks.",
+  "type": "module",
+  "bin": { "grok-the-block": "./bin/grok-the-block.mjs" },
+  "engines": { "node": ">=22.14.0" },
+  "files": ["bin/", "dist/ui/", "LICENSE", "licenses/"],
+  "dependencies": {},
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": { "type": "git", "url": "git+https://github.com/outerheaven199X/groktheblock.git", "directory": "packages/cli" },
+  "publishConfig": { "access": "public" }
+}

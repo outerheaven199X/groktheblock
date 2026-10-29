@@ -1,0 +1,1 @@
+# npm uses the files allowlist in package.json; this empty file stops .gitignore from hiding dist/

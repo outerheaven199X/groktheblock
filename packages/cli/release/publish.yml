@@ -1,0 +1,67 @@
+# STAGED COPY: move to .github/workflows/publish.yml (the agent's GitHub token lacks the `workflow` scope, so it could not push it there).
+# Publishes packages/cli to npm with Trusted Publishing (OIDC) and provenance. NO long-lived npm token.
+# Runs ONLY on a pushed release tag cli-v*.*.* and only after an owner approves the protected `npm-release` environment.
+# Never runs on pull_request, forks or schedule. Prerequisites (owner, not automated): first manual publish of
+# grok-the-block with 2FA, then npm package settings -> Trusted Publisher = outerheaven199X/groktheblock, workflow publish.yml,
+# environment npm-release; then disallow token publishing. GitHub: create environment `npm-release` with required reviewer.
+name: publish-cli
+on:
+  push:
+    tags: ["cli-v*.*.*"]
+permissions:
+  contents: read
+concurrency:
+  group: publish-cli
+  cancel-in-progress: false
+jobs:
+  test:
+    if: github.repository == 'outerheaven199X/groktheblock'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - name: Python checks
+        run: python3 tests/run_all.py
+      - name: Build dist/ui and run CLI tests
+        working-directory: packages/cli
+        run: |
+          python3 scripts/build_dist.py
+          node --test test/cli.test.mjs
+      - name: Tag matches package version
+        working-directory: packages/cli
+        run: test "cli-v$(node -p 'require(`./package.json`).version')" = "${GITHUB_REF_NAME}"
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: npm-release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+      - name: npm >= 11.5.1 (Trusted Publishing)
+        run: npm install -g npm@11.6.2 --ignore-scripts && npm --version
+      - name: Build and inspect tarball
+        working-directory: packages/cli
+        run: |
+          python3 scripts/build_dist.py
+          npm pack --dry-run --json --ignore-scripts > pack.json
+          node -e 'const f=require("./pack.json")[0].files.map(x=>x.path);const ok=/^(LICENSE|README\.md|package\.json|bin\/grok-the-block\.mjs|licenses\/[^/]+|dist\/ui\/.+)$/;const bad=f.filter(p=>!ok.test(p)||/(^|\/)\.|\.env|\.npmrc|\.pem$|\.key$/.test(p));if(bad.length){console.error("unexpected files",bad);process.exit(1)}'
+          rm pack.json
+      - name: Publish with provenance (OIDC, no token)
+        working-directory: packages/cli
+        run: npm publish --access public --provenance --ignore-scripts

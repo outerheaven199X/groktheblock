@@ -1,0 +1,5 @@
+dist/
+*.tgz
+node_modules/
+.npmrc
+licenses/
