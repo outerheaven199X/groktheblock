@@ -44,10 +44,11 @@ window.GTB_REGISTRY = (() => {
     { id: "cm.energy", cat: "commodities", name: "Energy", route: { view: "market", uni: ["crude", "natgas"] }, kinds: ["everything"], impl: "implemented", rights: "verified", evidence: "EIA spot series via FRED", filters: ["WTI", "Brent", "Henry Hub"] },
     { id: "cm.ag", cat: "commodities", name: "Agricultural Markets", route: { view: "market", uni: ["grains", "softs"] }, kinds: ["everything"], impl: "partial", rights: "verified", evidence: "CFTC positioning only; no ag price feed yet", filters: ["corn", "wheat", "coffee"] },
     { id: "cm.cot", cat: "commodities", name: "CFTC Positioning", route: { view: "market", uni: ["cot", "grains", "softs"], types: ["COT_POSITIONING_SHIFT"] }, kinds: ["everything"], impl: "implemented", rights: "verified", evidence: "weekly Commitments of Traders", filters: ["contract"] },
-    // TCGs
-    { id: "tcg.mtg", cat: "tcg", name: "MTG Card Markets", route: { view: "market", uni: ["mtg"] }, kinds: ["everything"], impl: "implemented", rights: "unverified", evidence: "Scryfall daily prices (derived only)", filters: ["card"] },
-    { id: "tcg.spread", cat: "tcg", name: "US/EU Spread", route: { view: "market", uni: ["mtg"], types: ["CROSS_VENUE_SPREAD"] }, kinds: ["everything"], impl: "implemented", rights: "unverified", evidence: "observed USD vs EUR price gap, not executable arbitrage", filters: ["card"] },
-    { id: "tcg.history", cat: "tcg", name: "Price History / Snapshots", route: { view: "market", uni: ["mtg"], types: ["GUIDE_MOVE_VS_30D_MEDIAN"] }, kinds: ["everything"], impl: "partial", rights: "unverified", evidence: "needs 14 daily snapshots before it can assess a move", filters: ["card"] },
+    // TCGs (Card Explorer browses the local artwork cache; the market tools carry the derived observations)
+    { id: "tcg.explorer", cat: "tcg", name: "Card Explorer", route: { view: "tcg" }, kinds: [], impl: "implemented", rights: "restricted", evidence: "Scryfall printings + locally cached artwork; artwork rights BLOCKED for redistribution", filters: ["card", "set", "collector #"] },
+    { id: "tcg.mtg", cat: "tcg", name: "Market Signals", route: { view: "market", uni: ["mtg"] }, kinds: ["everything"], impl: "implemented", rights: "unverified", evidence: "card- and printing-level anomalies from Scryfall daily prices (derived only)", filters: ["card"] },
+    { id: "tcg.spread", cat: "tcg", name: "Cross-Venue Spreads", route: { view: "market", uni: ["mtg"], types: ["CROSS_VENUE_SPREAD"] }, kinds: ["everything"], impl: "implemented", rights: "unverified", evidence: "observed USD vs EUR price gap, not executable arbitrage", filters: ["card"] },
+    { id: "tcg.history", cat: "tcg", name: "Price History", route: { view: "market", uni: ["mtg"], types: ["GUIDE_MOVE_VS_30D_MEDIAN"] }, kinds: ["everything"], impl: "partial", rights: "unverified", evidence: "collected daily snapshots and their dates; needs 14 before it can assess a move", filters: ["card"] },
     // More markets
     { id: "more.cs2", cat: "more", name: "CS2 Skins (experimental)", route: { view: "market", uni: ["cs2-skins"] }, kinds: ["everything"], impl: "partial", rights: "restricted", experimental: true, evidence: "undocumented Steam endpoint; derived numbers only", filters: ["skin", "case"] },
     { id: "more.prov", cat: "more", name: "Media Provenance", route: { view: "prov" }, kinds: ["provenance"], impl: "implemented", rights: "verified", evidence: "media integrity checks", filters: [] },
@@ -57,5 +58,11 @@ window.GTB_REGISTRY = (() => {
   const byId = Object.fromEntries(F.map(f => [f.id, f]));
   // Universe id -> best capability (Universe tiles open the tool directly).
   const UNI_TOOL = { "fx-majors": "fx.rates", "fx-h10": "fx.h10", gold: "cm.metals", silver: "cm.metals", pgm: "cm.metals", crude: "cm.energy", natgas: "cm.energy", grains: "cm.ag", softs: "cm.ag", cot: "cm.cot", treasuries: "rt.treasury", "fed-bls": "pm.context", equities: "eq.signals", options: "eq.options", sec: "eq.sec", mtg: "tcg.mtg", "cs2-skins": "more.cs2", polymarket: "pm.odds", kalshi: "pm.odds", "prediction-markets": "pm.odds", "solana-tokens": "crypto.token", "crypto-spot": "crypto.market", stablecoins: "crypto.market", "crypto-majors": "crypto.market" };
-  return { CATS, F, GLOBAL, byId, UNI_TOOL };
+  // Card games behind one adapter interface. Only active games are browsable; the rest are listed as unavailable, never supported.
+  const TCG_GAMES = [
+    { game: "mtg", name: "Magic: The Gathering", provider: "Scryfall", active: true },
+    { game: "pokemon", name: "Pokémon TCG", provider: "TCGdex", active: false, reason: "artwork and price rights not cleared" },
+    { game: "pokemon-scrydex", name: "Pokémon / Lorcana / One Piece", provider: "Scrydex", active: false, reason: "paid API; written redistribution permission required" },
+  ];
+  return { CATS, F, GLOBAL, byId, UNI_TOOL, TCG_GAMES };
 })();

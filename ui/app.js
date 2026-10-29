@@ -45,6 +45,9 @@ window.GTB_verdictIndex = verdictIndex; window.GTB_HYPE = HYPE;
 const REPORTS = [];
 function kind(j) { if (!j || typeof j !== "object") return null; if (j.tool && j.result) return kind(j.result); if (Array.isArray(j)) return "threats"; if (j.kind === "signals") return "signals"; if (j.kind === "watch") return "watch"; if (j.organicScore != null) return "token"; if (j.coordinationIndex != null) return "shill"; if (j.wallet && j.tokens) return "wallet"; if (j.timeline) return "replay"; if (j.entries) return "board"; if (j.results) return "prov"; return null; }
 function addReport(name, j) { if (j && j.tool && j.result) j = j.result; const k = kind(j); if (!k) return false; const i = REPORTS.findIndex(r => r.name === name); const r = { name, k, j }; if (i >= 0) REPORTS[i] = r; else REPORTS.push(r); return true; }
+// Real cached markets report (prediction markets, equities, options, Treasury, crypto) first, so the market tools read it; the
+// embedded synthetic examples stay available under Anomalies > Examples.
+if (window.GTB_EVERYTHING && window.GTB_EVERYTHING.markets) addReport("markets-live-derived.json", window.GTB_EVERYTHING.markets);
 (window.GTB_REPORTS || []).forEach(r => addReport(r.name, r.json));
 const of = (k) => REPORTS.filter(r => r.k === k);
 const genAt = (r) => { const j = r.j; const g = j.generatedAt ?? j.checkedAt ?? (j.wallet && j.window && j.window.to) ?? (j.token && j.token.createdAt); return g == null ? "generated time not in report" : "generated " + iso(g); };
@@ -149,7 +152,7 @@ window.GTB_EV = { EV, EV_SIGS, assetTargets };
 function targets() { return of("token").map(tokenTarget).concat(of("wallet").map(walletTarget), of("replay").map(replayTarget), assetTargets()); }
 
 /* ---------------- state ---------------- */
-const VIEWS = [["home", "Home"], ["market", "Market"], ["limited", "Limited"], ["universe", "Universe"], ["anomalies", "Anomalies"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
+const VIEWS = [["home", "Home"], ["market", "Market"], ["limited", "Limited"], ["universe", "Universe"], ["anomalies", "Anomalies"], ["tcg", "Card Explorer"], ["token", "Token"], ["wallet", "Wallet"], ["replay", "Replay"], ["signals", "Signals"], ["threats", "Threats"], ["shill", "Shill net"], ["copy", "Copy net"], ["board", "Leaderboard"], ["prov", "Provenance"]];
 const S = { view: "home", target: null, scanning: false, brel: 0, t0: 0, tab: 0, open: false, scrub: 62, withX: false, dl: 0, dc: 0, dh: 0, feed: [], pool: [], paused: false, notifAt: 0, sel: {}, sort: { col: "appearances", dir: -1 }, filter: "ALL", sigFilter: "all", lastAsk: null, uCat: "All", uStat: "all", uSel: null, aCat: "all", aSet: "both", aMode: "cached", aSrc: "all", aSev: "all", feat: null, uQ: "", uOpen: {}, limited: null };
 window.GTB = { S, REPORTS, targets, addReport };
 const three = () => window.GTB_STAGE || null;
@@ -189,7 +192,7 @@ const fTime = (f) => f.ts ? utc(new Date(f.ts < 1e12 ? f.ts * 1000 : f.ts)) : "-
 function openItem(o) { if (!o) return; if (o.startsWith("token:") || o.startsWith("asset:")) { const t = targets().find(x => x.id === o); if (t) return scan(t.id); } go(o); }
 function renderFeed() {
   $("#feedN").textContent = S.feed.length;
-  $("#feedList").innerHTML = S.feed.map(f => `<div class="fi${f.id === S.newId ? " new" : ""}"><button class="o" ${f.open ? `data-open="${esc(f.open)}"` : ""}><span style="width:8px;height:8px;margin-top:4px;background:${C[f.c]}"></span><span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span class="up" style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--m)"><span>${esc(f.mkt)} // ${esc(f.subject)}</span><span>${fTime(f)}</span></span><span style="font-size:12px;line-height:17px;overflow-wrap:anywhere">${esc(f.text)}</span></span></button><span style="padding-top:10px">${askBtn("Ask", ["Live feed // " + f.mkt, f.subject, f.id, f.report, ["Market: " + f.mkt, "Event: " + f.text, "Severity: " + (f.sev || "no data"), "Time: " + iso(f.ts)]])}</span></div>`).join("") || `<div class="empty">No items in the loaded reports.</div>`;
+  $("#feedList").innerHTML = S.feed.map(f => `<div class="fi${f.id === S.newId ? " new" : ""}"><button class="o" ${f.open ? `data-open="${esc(f.open)}"` : ""}><span style="width:8px;height:8px;margin-top:4px;background:${C[f.c]}"></span><span style="display:flex;flex-direction:column;gap:4px;min-width:0"><span class="up" style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--m)"><span>${esc(f.mkt)} // ${esc(f.subject)}</span><span>${fTime(f)}</span></span><span style="font-size:12px;line-height:17px;overflow-wrap:anywhere">${esc(f.text)}</span></span></button><span style="padding-top:10px">${askBtn("Ask", ["Feed // " + f.mkt, f.subject, f.id, f.report, ["Market: " + f.mkt, "Event: " + f.text, "Severity: " + (f.sev || "no data"), "Time: " + iso(f.ts)]])}</span></div>`).join("") || `<div class="empty">No items in the loaded reports.</div>`;
   const tk = S.feed.slice(0, 10); const items = tk.concat(tk).map(f => `<button class="tk" tabindex="-1" ${f.open ? `data-open="${esc(f.open)}"` : ""}><span class="sq" style="background:${C[f.c]}"></span><span class="up dim">${esc(f.mkt)} // ${esc(f.subject)}</span><span>${esc(f.text.length > 90 ? f.text.slice(0, 88) + "…" : f.text)}</span><span style="color:var(--b)">${fTime(f)}</span></button>`).join("");
   const tr = $("#track"); if (tr.dataset.sig !== tk.map(f => f.id).join()) { tr.innerHTML = items; tr.dataset.sig = tk.map(f => f.id).join(); tr.style.setProperty("--dur", Math.max(30, tk.length * 7) + "s"); }
 }
@@ -231,6 +234,8 @@ function classify(raw) {
   COMMOD.forEach(([re, feat, id]) => { if (re.test(lq)) { const h = id ? assetHit(t => t.sig.asset === id) : assetHit(t => (t.sig.asset || "").toLowerCase().includes(lq.replace(/s$/, ""))); h.length ? out.push({ label: h[0].title, kind: catName("commodities") + " · " + REG.byId[feat].name, id: h[0].id, domain: "Commodities" }) : out.push({ label: REG.byId[feat].name, kind: catName("commodities"), id: "feat:" + feat, domain: "Commodities" }); } });
   // MTG cards and CS2 items (cached, derived only)
   if (lq.length >= 3) assetHit(t => (t.sig.source === "mtg" || t.sig.source === "cs2") && t.sig.asset.toLowerCase().includes(lq)).slice(0, 4).forEach(t => out.push({ label: t.title, kind: t.sig.source === "mtg" ? "TCG · MTG card (derived only)" : "CS2 item · experimental", id: t.id, domain: t.sig.source === "mtg" ? "TCGs" : "More" }));
+  // Card Explorer: printings in the local artwork cache (or tracked printings when unsynced)
+  if (lq.length >= 3 && TCGX) TCGX.tcgData().C.groups.filter(g => (g.name || "").toLowerCase().includes(lq)).slice(0, 3).forEach(g => out.push({ label: g.name, kind: "TCGs · Card Explorer · " + g.printings.length + " printings", id: "card:" + g.printings[0].key, domain: "TCGs" }));
   // prediction market questions or venues
   if (/\b(will|polymarket|kalshi|odds|election|fed cut|by (dec|jan|end))\b|\?$/.test(lq)) {
     const rep = of("signals")[0], m = rep && (rep.j.signals || []).filter(s => ["polymarket", "kalshi"].includes(s.source) && String(s.title).toLowerCase().includes(lq.replace(/\?$/, "").slice(0, 24)));
@@ -241,6 +246,8 @@ function classify(raw) {
     const sym = lq.toUpperCase(), tok = T.filter(t => t.view === "token" && t.title.replace("$", "").toUpperCase() === sym);
     const rep = of("signals")[0], eq = rep ? (rep.j.signals || []).filter(s => ["equities", "options"].includes(s.source) && String(s.instrument || "").toUpperCase().endsWith(":" + sym)) : [];
     const cr = rep ? (rep.j.signals || []).filter(s => ["crypto", "stablecoins"].includes(s.source) && String(s.instrument || "").toUpperCase().endsWith(":" + sym)) : [];
+    // assessed but quiet: the ticker is in the fetched equities universe even with no finding
+    const inEq = rep && !eq.length && (((rep.j.sourceStatus || {}).equities || {}).coverage || {}).observedInstruments; if (inEq && inEq.includes(sym)) eq.push({ source: "equities" });
     tok.forEach(t => out.push({ label: t.title, kind: "Crypto · Token Scanner", id: t.id, domain: "Crypto" }));
     if (eq.length) out.push({ label: sym, kind: "Stocks & Options · " + (eq[0].source === "options" ? "Options Activity" : "Equity Signals"), id: "feat:" + (eq[0].source === "options" ? "eq.options" : "eq.signals"), domain: "Stocks" });
     if (cr.length) out.push({ label: sym, kind: "Crypto · Spot & Stablecoin Signals", id: "feat:crypto.market", domain: "Crypto" });
@@ -266,7 +273,7 @@ function wireSearch(inp, box) {
   box.addEventListener("mousedown", (e) => { const b = e.target.closest("button"); if (b) { e.preventDefault(); pickId(b.dataset.id); } });
   inp.addEventListener("keydown", (e) => { const sg = suggestions(inp.value); if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sg.length - 1, sel + 1); draw(); } if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); draw(); } if (e.key === "Enter") { e.preventDefault(); submit(inp, sel); } if (e.key === "Escape") inp.blur(); });
 }
-function pickId(id) { $("#q").value = ""; $("#hq").value = ""; document.activeElement && document.activeElement.blur(); if (id.startsWith("view:")) go(id.slice(5)); else if (id.startsWith("feat:")) goFeat(id.slice(5)); else if (id.startsWith("lim:")) { S.limited = JSON.parse(id.slice(4)); S.feat = null; S.view = "limited"; history.replaceState(null, "", "#limited"); render(); } else scan(id); }
+function pickId(id) { $("#q").value = ""; $("#hq").value = ""; document.activeElement && document.activeElement.blur(); if (id.startsWith("view:")) go(id.slice(5)); else if (id.startsWith("card:")) { if (TCGX) { TCGX.TCG.sel = id.slice(5); TCGX.TCG.face = 0; } goFeat("tcg.explorer"); } else if (id.startsWith("feat:")) goFeat(id.slice(5)); else if (id.startsWith("lim:")) { S.limited = JSON.parse(id.slice(4)); S.feat = null; S.view = "limited"; history.replaceState(null, "", "#limited"); render(); } else scan(id); }
 function submit(inp, sel = 0) { const sg = suggestions(inp.value); const doms = [...new Set(classify(inp.value).map(x => x.domain))]; if (sel === 0 && doms.length > 1 && !inp.dataset.chose) { inp.dataset.chose = "1"; inp.dispatchEvent(new Event("focus")); return flash("Matches " + doms.join(" and ") + ". Pick one"); } delete inp.dataset.chose; if (inp.value.trim() && sg[sel]) pickId(sg[sel].id); else if (!inp.value.trim()) pickId(targets()[0].id); else flash('Nothing loaded matches "' + inp.value.trim().slice(0, 40) + '"'); }
 wireSearch($("#q"), $("#sugg")); wireSearch($("#hq"), $("#hsugg"));
 $("#scanBtn").onclick = () => submit($("#q"));
@@ -287,6 +294,7 @@ const featProbes = (f) => { const names = new Set(featAssets(f).flatMap(a => [a.
 function dataState(f) {
   const r = f.route;
   if (r.view === "universe") return "cached";
+  if (r.view === "tcg") return window.GTB_TCG_CACHE ? "cached" : "unavailable";
   if (r.view === "market") { const ps = featProbes(f); if (!ps.length && !featAssets(f).length) return "unavailable"; if (ps.length && ps.every(p => p.state === "unknown")) return "insufficient"; return "cached"; }
   if (r.view === "signals") { const rep = of("signals")[0]; if (!rep) return "unavailable"; const st = rep.j.sourceStatus || {}; const srcs = (r.src || []).filter(k => st[k]); if (srcs.length && srcs.every(k => st[k].state !== "HEALTHY")) return "unavailable"; return isSynRep(rep) ? "synthetic" : "cached"; }
   const reps = (f.kinds || []).flatMap(k => of(k)); if (!reps.length) return "unavailable"; return reps.every(isSynRep) ? "synthetic" : "cached";
@@ -349,18 +357,18 @@ function wireNav() {
   addEventListener("scroll", () => { if (NAV.open) menuPlace(NAV.open); if (!$("#mobMenu").hidden) $("#mobMenu").style.top = Math.round($("#views").getBoundingClientRect().bottom) + "px"; }, { passive: true });
 }
 function navState() {
-  const fc = S.feat ? catOfFeat(S.feat) : (S.view === "token" || S.view === "wallet" || S.view === "replay" ? "crypto" : S.view === "asset" && S.target && S.target.feat ? catOfFeat(S.target.feat) : null);
+  const fc = S.feat ? catOfFeat(S.feat) : S.view === "tcg" ? "tcg" : (S.view === "token" || S.view === "wallet" || S.view === "replay" ? "crypto" : S.view === "asset" && S.target && S.target.feat ? catOfFeat(S.target.feat) : null);
   $$("#views [data-view]").forEach(b => b.dataset.view === S.view && !S.feat ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
   $$("#views [data-cat]").forEach(b => b.classList.toggle("act", b.dataset.cat === fc));
   $("#mktBtn").classList.toggle("act", !!fc);
-  const curF = S.feat || (S.view === "asset" && S.target && S.target.feat) || ({ token: "crypto.token", wallet: "crypto.wallet", replay: "crypto.replay", shill: "crypto.shill", copy: "crypto.copy", threats: "crypto.threats", board: "crypto.board", prov: "more.prov", universe: "more.all" })[S.view];
+  const curF = S.feat || (S.view === "asset" && S.target && S.target.feat) || ({ token: "crypto.token", wallet: "crypto.wallet", replay: "crypto.replay", shill: "crypto.shill", copy: "crypto.copy", threats: "crypto.threats", board: "crypto.board", prov: "more.prov", universe: "more.all", tcg: "tcg.explorer" })[S.view];
   $$("#views [data-feat]").forEach(b => b.dataset.feat === curF ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
 }
 function goFeat(id, push = true) {
   const f = REG.byId[id]; if (!f) return go("home");
   const r = f.route; closeMenu(false); toggleMob(false);
   if (["token", "wallet", "replay"].includes(r.view)) { S.feat = null; return go(r.view); }
-  S.feat = r.view === "signals" || r.view === "market" ? id : null; S.sigFilter = "all";
+  S.feat = r.view === "signals" || r.view === "market" ? id : null; S.sigFilter = "all"; S.focus = null;
   S.view = r.view; if (push) history.replaceState(null, "", "#f/" + id);
   if (three()) three().setMode("result");
   render(); scrollTo(0, 0);
@@ -374,6 +382,9 @@ function go(v) {
   render();
 }
 window.GTB.go = go; window.GTB.goFeat = (id) => goFeat(id);
+// Card Explorer -> that card's existing research data (MTG market tool focused on the tracked printing's instrument).
+window.GTB.analyzeCard = (asset) => { goFeat("tcg.mtg"); S.focus = asset; render(); };
+const TCGX = window.GTB_TCG_MAKE ? window.GTB_TCG_MAKE({ $, $$, esc, head, askBtn, iso, render, S, EV, EV_SIGS, REG }) : null;
 addEventListener("hashchange", () => { const h2 = decodeURIComponent(location.hash.slice(1)); if (h2.startsWith("f/") && h2.slice(2) !== S.feat) goFeat(h2.slice(2), false); });
 
 /* ---------------- scan + kinetic result sequence ---------------- */
@@ -471,6 +482,11 @@ function frame() {
   if (!reduced() && !S.paused && Date.now() - (S.lastPush || 0) > 3800) { S.lastPush = Date.now(); if (S.lastPushInit) pushFeed(); S.lastPushInit = true; }
   requestAnimationFrame(frame);
 }
+// Verdict entry scale: v6 slams in from 2.4x, clamped so the scaled box never crosses the stage edge (narrow screens).
+// The roll swaps the verdict text, so the clamp uses the widest verdict word at the current font size (measured once per size).
+const VDW = {};
+function vdMaxW(vb) { const k = vb.style.fontSize + "|" + innerWidth; if (VDW[k]) return VDW[k]; const tx = $("#vdTx"), old = tx.textContent; let m = 0; HYPE.forEach(([w]) => { tx.textContent = w; m = Math.max(m, vb.offsetWidth); }); tx.textContent = old; return (VDW[k] = m); }
+function vdEntry(vb) { const sw = $("#stageWrap").getBoundingClientRect(), r = vb.getBoundingClientRect(), w = Math.max(vb.offsetWidth, vdMaxW(vb)), h = vb.offsetHeight; if (!w || !h) return 2.4; const cy = (r.top + r.bottom) / 2; return Math.max(1, Math.min(2.4, (r.right - sw.left - 4) / w, 2 * (cy - sw.top - 2) / h, 2 * (sw.bottom - cy - 2) / h)).toFixed(3); }
 function seqFrame(t, B) {
   const L = S.L || {};
   const { r, n, land } = reveal(t, B);
@@ -486,7 +502,7 @@ function seqFrame(t, B) {
   if (B >= rollStart && B < land) { rolling = true; const pr = easeO((B - rollStart) / (land - rollStart)); hi = ((t.vi - steps + Math.floor(pr * steps)) % HYPE.length + HYPE.length) % HYPE.length; }
   const tone = TONE[HYPE[hi][1]], done = r > n; const vb = $("#vdBox");
   $("#vdLab").style.opacity = B >= rollStart ? 1 : 0; 
-  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(2.4)"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border;
+  vb.style.opacity = B >= rollStart ? 1 : 0; vb.style.transform = done ? "scale(1)" : rolling ? "scale(0.92)" : "scale(" + vdEntry(vb) + ")"; vb.style.background = tone.bg; vb.style.color = tone.color; vb.style.borderColor = tone.border;
   $("#vdJp").textContent = tone.jp; $("#vdJp").style.display = tone.jp ? "inline" : "none"; $("#vdTx").textContent = HYPE[hi][0];
   vb.dataset.landed = done ? "1" : "0"; vb.dataset.tone = HYPE[hi][1];
 }
@@ -522,7 +538,7 @@ function render() {
     $("#rescanBtn").onclick = () => scan(t.id); const nr = $("#nextRep"); if (nr) nr.onclick = () => { const l = targets().filter(x => x.view === t.view); scan(l[(l.findIndex(x => x.id === t.id) + 1) % l.length].id); };
     renderDetails(); return;
   }
-  const P = $("#panel"); P.innerHTML = ""; ((S.feat && REG.byId[S.feat] && (S.view === "signals" || S.view === "market") ? (P) => (S.view === "market" ? vMarket : vFeatSignals)(P, REG.byId[S.feat]) : null) || ({ limited: vLimited, universe: vUniverse, anomalies: vAnomalies, signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`)))(P);
+  const P = $("#panel"); P.innerHTML = ""; ((S.feat && REG.byId[S.feat] && (S.view === "signals" || S.view === "market") ? (P) => (S.view === "market" ? vMarket : vFeatSignals)(P, REG.byId[S.feat]) : null) || ({ limited: vLimited, tcg: (P) => TCGX ? TCGX.vTcg(P) : (P.innerHTML = `<div class="empty">Card Explorer not loaded.</div>`), universe: vUniverse, anomalies: vAnomalies, signals: vSignals, threats: vThreats, shill: vShill, copy: vCopy, board: vBoard, prov: vProv }[S.view] || (() => P.innerHTML = `<div class="empty">Unknown view.</div>`)))(P);
 }
 document.addEventListener("click", (e) => { const b = e.target.closest("[data-scan]"); if (b) scan(b.dataset.scan); if (e.target.id === "exportBtn") doExport(); });
 function renderDetails() {
@@ -546,18 +562,20 @@ $("#dtabs").addEventListener("click", (e) => { const b = e.target.closest("[data
 /* ---------------- panel views ---------------- */
 const sq = (c) => `<span class="sq" style="background:${C[c] || C.grey}"></span>`;
 function vSignals(P) {
-  const r = of("signals")[0]; if (!r) { head("Signals", "Cross-market", [], null); P.innerHTML = `<div class="empty">No signals report loaded. Open a signals JSON file from the Export menu.</div>`; return; }
+  const all = of("signals"), r = all.find(x => x.name === S.sigRep) || all[0]; if (!r) { head("Signals", "Cross-market", [], null); P.innerHTML = `<div class="empty">No signals report loaded. Open a signals JSON file from the Export menu.</div>`; return; }
   const j = r.j, a = j.assessment || {}, cov = j.coverage || {}, w = j.watch || {}, tel = w.telemetry || {};
   head("Signals", "Cross-market report", [num((j.signals || []).length) + " signals", "status " + (j.status || "?"), genAt(r)], ["Signals", "Signals report", "signals:" + (a.lead || {}).signal, repLabel(r), ["Lead: " + (a.lead || {}).text, "Severity: " + a.severity, "Status: " + j.status]]);
   const srcs = Object.entries(j.sourceStatus || {});
   const fams = ["all"].concat([...new Set((j.signals || []).map(s => s.source))]);
   const sigs = (j.signals || []).filter(s => S.sigFilter === "all" || s.source === S.sigFilter);
-  P.innerHTML = `<div class="card"><h2 class="disp">Summary</h2><dl class="kv"><dt>What happened</dt><dd>${esc((a.lead || {}).text)}</dd><dt>How fresh</dt><dd>${esc(genAt(r))}</dd><dt>What was observed</dt><dd>${srcs.filter(([, v]) => v.state === "HEALTHY").length} of ${srcs.length} sources answered; ${esc(srcs.filter(([, v]) => v.state !== "HEALTHY").map(([k, v]) => k + " " + v.state).join(", "))}</dd><dt>Why it was flagged</dt><dd>${esc((a.lead || {}).why || "—")}</dd></dl></div>
+  const pick = all.length > 1 ? `<div class="chips" role="group" aria-label="Signals report">${all.map(x => `<button class="chip" data-srep="${esc(x.name)}" aria-pressed="${x === r}">${esc(isSynRep(x) ? "Example: " + x.name : "Real cached: " + x.name)}</button>`).join("")}</div>` : "";
+  P.innerHTML = (pick ? `<div class="card">${pick}</div>` : "") + (isSynRep(r) ? `<div class="card synbox"><div class="lim">Example report: synthetic generator, no provider contacted. Instruments and moves are invented.</div></div>` : "") + `<div class="card"><h2 class="disp">Summary</h2><dl class="kv"><dt>What happened</dt><dd>${esc((a.lead || {}).text)}</dd><dt>How fresh</dt><dd>${esc(genAt(r))}</dd><dt>What was observed</dt><dd>${srcs.filter(([, v]) => v.state === "HEALTHY").length} of ${srcs.length} sources answered; ${esc(srcs.filter(([, v]) => v.state !== "HEALTHY").map(([k, v]) => k + " " + v.state).join(", "))}</dd><dt>Why it was flagged</dt><dd>${esc((a.lead || {}).why || "—")}</dd></dl></div>
   <div class="grid2"><div class="card"><h2 class="disp">Feed</h2><div class="chips" role="group" aria-label="Source filter">${fams.map(f => `<button class="chip" data-sf="${esc(f)}" aria-pressed="${S.sigFilter === f}">${esc(f)}</button>`).join("")}</div><div class="list">${sigs.map(s => sigItem(s, r)).join("") || `<div class="empty">No signals from this source.</div>`}</div></div>
   <div style="display:flex;flex-direction:column;gap:12px"><div class="card"><h2 class="disp">Calendar</h2>${((j.calendar || {}).upcoming || []).map(c => `<div class="lim">${esc(c.label)} · ${esc(c.time)}${c.timeExact ? "" : " (approximate)"}</div>`).join("") || `<div class="empty">No calendar events.</div>`}</div>
   <div class="card"><h2 class="disp">Watch telemetry</h2><dl class="kv">${Object.entries(tel).filter(([, v]) => typeof v === "number").map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl></div></div></div>
   <div class="card"><h2 class="disp">Coverage</h2><div class="tw"><table class="t"><thead><tr><th>Source</th><th>Family</th><th>Status</th><th>Last valid</th><th>Universe</th><th>Observed</th><th>Note</th></tr></thead><tbody>${(cov.matrix || []).map(m => `<tr><td>${esc(m.source)}</td><td>${esc(m.family || "—")}</td><td style="color:${m.status === "HEALTHY" ? C.green : m.status === "UNAVAILABLE" ? C.red : C.amber}">${esc(m.status)}</td><td>${esc(m.lastValidAt || "—")}</td><td>${esc(m.universe || "—")}</td><td>${m.observed ?? "—"}</td><td class="dim">${esc(m.detail || "")}</td></tr>`).join("")}</tbody></table></div>${(cov.limits || []).map(l => `<div class="lim">${esc(l.kind)}: ${esc(l.text)}</div>`).join("")}</div>`;
   $$("[data-sf]", P).forEach(b => b.onclick = () => { S.sigFilter = b.dataset.sf; render(); });
+  $$("[data-srep]", P).forEach(b => b.onclick = () => { S.sigRep = b.dataset.srep; S.sigFilter = "all"; render(); });
 }
 /* ---------------- universe + anomalies ---------------- */
 const ST = { shipped: ["Shipped", "t-amber"], "feasible-next": ["Next", "t-green"], "blocked-licence": ["Licence", "t-red"] };
@@ -601,10 +619,12 @@ function vAnomalies(P) {
   const unk = (EV.live.probes || []).filter(p => p.state === "unknown"), meas = (EV.live.probes || []).filter(p => p.state === "measured");
   head("Anomalies", "Every market, one feed", [modeOf("cached").length + " real cached", modeOf("experimental").length + " experimental", modeOf("examples").length + " examples", meas.length + " checks measured", unk.length + " unknown"], ["Anomalies", "Unified anomaly feed", "anomalies:" + S.aMode, "everything-live-derived.json", ["Mode: " + MODE_LBL[S.aMode], "Shown: " + vis.length, "Unknown checks: " + unk.length]]);
   const chips = (label, key, vals, name) => `<div class="chips" role="group" aria-label="${label}">${vals.map(v => `<button class="chip" data-af="${key}" data-v="${esc(v)}" aria-pressed="${S[key] === v}">${esc(name(v))}</button>`).join("")}</div>`;
-  const empty = S.aMode === "cached" ? `<div class="empty">No real cached observation crossed a threshold${S.aCat !== "all" ? " in " + esc(catName(S.aCat)) : ""}. ${meas.length} checks measured; ${unk.length} are unknown and not counted as quiet.</div>` : `<div class="empty">Nothing in this filter.</div>`;
+  const CR = coverageRows().filter(c => !c.exp && (S.aCat === "all" || c.cat === S.aCat)), crA = CR.filter(c => c.state !== "unknown"), crU = CR.filter(c => c.state === "unknown");
+  const empty = S.aMode === "cached" ? (crA.length ? `<div class="empty">No findings in the assessed markets${S.aCat !== "all" ? " in " + esc(catName(S.aCat)) : ""}: ${crA.length} sources assessed (${esc(crA.map(c => c.src).join(", "))}).${crU.length ? " Unknown / not assessed: " + esc(crU.map(c => c.src + " " + c.outcome).join(", ")) + "." : ""}</div>` : `<div class="empty limited">Unknown / not assessed${S.aCat !== "all" ? " in " + esc(catName(S.aCat)) : ""}: ${crU.length ? esc(crU.map(c => c.src + " " + c.outcome).join(", ")) : "no source covers this filter"}. No verdict without data.</div>`) : `<div class="empty">Nothing in this filter.</div>`;
+  const covCard = `<div class="card"><h2 class="disp">Coverage</h2><div class="tw"><table class="t"><thead><tr><th>Source</th><th>Outcome</th><th>Assessment</th><th>Last success</th></tr></thead><tbody>${CR.map(c => `<tr><td>${esc(c.src)}</td><td style="color:${c.outcome === "FETCHED" ? C.green : c.outcome === "DEGRADED" ? C.amber : C.red}">${esc(c.outcome)}</td><td>${c.state === "unknown" ? "unknown, not assessed" : c.state === "quiet" ? "assessed, quiet" : c.n + " finding" + (c.n === 1 ? "" : "s")}</td><td>${esc(c.last ? age(c.last) : "never")}</td></tr>`).join("") || `<tr><td colspan="4">No source covers this filter.</td></tr>`}</tbody></table></div></div>`;
   P.innerHTML = `<div class="card"><div class="frow">${chips("Data mode", "aMode", ["cached", "experimental", "examples"], v => MODE_LBL[v] + " (" + modeOf(v).length + ")")}</div><div class="frow" style="margin-top:8px">${chips("Category filter", "aCat", cats, v => v === "all" ? "All markets" : catName(v))}${chips("Severity filter", "aSev", sevs, v => v === "all" ? "Any severity" : v)}</div><div class="frow" style="margin-top:8px">${chips("Source filter", "aSrc", srcs, v => v === "all" ? "Any source" : v)}</div></div>
-  <div class="grid2"><div class="card${S.aMode === "examples" ? " synbox" : ""}"><h2 class="disp">${esc(MODE_LBL[S.aMode])}</h2><div class="lim" style="margin-bottom:6px">${S.aMode === "cached" ? "Cached real data from the last manual refresh (" + esc(iso(EV.live.generatedAt)) + "). Not live." : S.aMode === "experimental" ? "Undocumented or unverified sources. Derived numbers only; not part of the default feed." : "Synthetic examples: invented instruments and prices that demonstrate the detectors. Not market activity."}</div><div class="list">${vis.map(aRow).join("") || empty}</div></div>
-  <div style="display:flex;flex-direction:column;gap:12px"><div class="card"><h2 class="disp">Closest to threshold</h2>${meas.slice().sort((x, y) => y.ratio - x.ratio).slice(0, 8).map(p => `<div class="lim">${esc(p.asset)} · ${esc(p.type.replace(/_/g, " ").toLowerCase())} at ${p.ratio.toFixed(2)}× threshold</div>`).join("") || `<div class="empty">No measured checks.</div>`}</div>
+  <div class="grid2"><div class="card${S.aMode === "examples" ? " synbox" : ""}"><h2 class="disp">${esc(MODE_LBL[S.aMode])}</h2><div class="lim" style="margin-bottom:6px">${S.aMode === "cached" ? "Cached real data from the last refresh (" + esc(iso(EV.live.generatedAt)) + ", " + esc(age(EV.live.generatedAt)) + (EV.markets ? "; markets " + esc(age(EV.markets.generatedAt)) : "") + "). Not live." : S.aMode === "experimental" ? "Undocumented or unverified sources. Derived numbers only; not part of the default feed." : "Synthetic examples: invented instruments and prices that demonstrate the detectors. Not market activity."}</div><div class="list">${vis.map(aRow).join("") || empty}</div></div>
+  <div style="display:flex;flex-direction:column;gap:12px">${S.aMode === "cached" ? covCard : ""}<div class="card"><h2 class="disp">Closest to threshold</h2>${meas.slice().sort((x, y) => y.ratio - x.ratio).slice(0, 8).map(p => `<div class="lim">${esc(p.asset)} · ${esc(p.type.replace(/_/g, " ").toLowerCase())} at ${p.ratio.toFixed(2)}× threshold</div>`).join("") || `<div class="empty">No measured checks.</div>`}</div>
   <div class="card"><h2 class="disp">Unknown, not quiet</h2>${unk.slice(0, 8).map(p => `<div class="lim">${esc(p.asset)} · ${esc(p.type.replace(/_/g, " ").toLowerCase())}: ${esc(p.reason)}</div>`).join("") || `<div class="empty">Every check returned a measurement.</div>`}${unk.length > 8 ? `<div class="lim">…and ${unk.length - 8} more</div>` : ""}</div></div></div>`;
   $$("[data-af]", P).forEach(b => b.onclick = () => { S[b.dataset.af] = b.dataset.v; if (b.dataset.af === "aMode") { S.aCat = S.aSrc = S.aSev = "all"; } render(); });
 }
@@ -633,31 +653,42 @@ function statusStrip(f, d) {
   return `<div class="sstrip" role="group" aria-label="Capability status"><span><b>Implementation</b>${esc(f.impl)}${f.experimental ? " · experimental" : ""}</span><span class="d-${d}"><b>Data</b>${esc(DATA_LBL[d])}</span><span><b>Rights</b>${esc(RIGHTS_LBL[f.rights] || f.rights)}</span><span><b>Evidence</b>${esc(f.evidence)}</span></div>`;
 }
 const catName = (id) => (REG.CATS.find(c => c.id === id) || {}).name || id;
+const OUTCOME_OF = { HEALTHY: "FETCHED", DEGRADED: "DEGRADED", STALE: "DEGRADED", UNAVAILABLE: "BLOCKED_EXTERNAL", NOT_CONFIGURED: "NOT_CONFIGURED" };
+// One coverage list across the everything modules and the markets report: assessed-and-quiet vs findings vs unknown.
+function coverageRows() {
+  const out = [], H = Object.fromEntries((EV.live.health || []).map(h => [h.module, h]));
+  (EV.live.coverage || []).forEach(c => { const h = H[c.module] || {}, ok = ["HEALTHY", "DEGRADED"].includes(c.status), n = (EV.live.signals || []).filter(s => s.module === c.module || (c.module === "fx-h10" && s.type === "FIX_CROSSCHECK")).length;
+    out.push({ src: c.module, cat: SRC_CAT[c.module] || "more", outcome: OUTCOME_OF[c.status] || c.status, observed: c.observed, state: ok ? (n ? "findings" : "quiet") : "unknown", n, last: c.lastSuccessAt || h.lastSuccessAt || EV.live.generatedAt, err: c.errorCategory || null, exp: c.module === "cs2" }); });
+  const M = EV.markets; if (M) Object.entries(M.sourceStatus || {}).forEach(([k, v]) => out.push({ src: k, cat: SRC_CAT[k] || "more", outcome: v.outcome || OUTCOME_OF[v.state] || v.state, observed: (v.coverage || {}).observed, state: v.assessment || (["HEALTHY", "DEGRADED"].includes(v.state) ? "quiet" : "unknown"), n: v.signals || 0, last: v.lastSuccessAt || null, err: v.state === "NOT_CONFIGURED" ? "not configured" : null, detail: v.detail }));
+  return out;
+}
 function vFeatSignals(P, f) {
   const d = dataState(f), rep = of("signals")[0], r = f.route;
   head(f.name, catName(f.cat), [DATA_TAG[d]], rep ? [catName(f.cat), f.name, "feature:" + f.id, repLabel(rep), ["Data: " + DATA_LBL[d], "Sources: " + (r.src || []).join(", ")]] : null);
   if (!rep) { P.innerHTML = statusStrip(f, d) + `<div class="card limited"><h2 class="disp">No report loaded</h2><div class="lim">This tool reads a signals report. None is loaded, so the state is unknown, not quiet. Open a signals JSON file with Open.</div></div>`; return; }
   const j = rep.j, st = j.sourceStatus || {}, syn = isSynRep(rep);
   const sigs = (j.signals || []).filter(s => (r.src || []).includes(s.source) && (!r.types || r.types.includes(s.type)));
-  const srcRows = (r.src || []).filter(k => st[k]).map(k => { const v = st[k], c = (v.coverage || {}); return `<tr><td>${esc(k)}</td><td style="color:${v.state === "HEALTHY" ? C.green : v.state === "UNAVAILABLE" ? C.red : C.amber}">${esc(v.state)}</td><td>${esc(v.lastValidAt || "—")}</td><td>${esc(iso(j.generatedAt))}</td><td>${esc(v.lastValidAt ? age(v.lastValidAt) : "no valid data")}</td><td class="dim">${esc(c.universe || "")}${v.detail ? " · " + esc(v.detail) : ""}</td></tr>`; }).join("");
-  const down = (r.src || []).filter(k => st[k] && st[k].state !== "HEALTHY");
-  const empty = down.length && !sigs.length
-    ? `<div class="card limited"><h2 class="disp">Provider unavailable</h2>${down.map(k => `<div class="lim">${esc(k)}: ${esc(st[k].state)}. ${esc(st[k].detail || "")}</div>`).join("")}<div class="lim">Unknown, not quiet: no verdict is given when the source did not answer.</div></div>`
-    : `<div class="empty">Nothing in this report crossed a threshold for ${esc(f.name)}. Sources answered: ${esc((r.src || []).filter(k => st[k] && st[k].state === "HEALTHY").join(", ") || "none")}.</div>`;
+  const srcRows = (r.src || []).filter(k => st[k]).map(k => { const v = st[k], c = (v.coverage || {}), oc = v.outcome || OUTCOME_OF[v.state] || v.state; return `<tr><td>${esc(k)}</td><td style="color:${oc === "FETCHED" ? C.green : oc === "DEGRADED" ? C.amber : C.red}">${esc(oc)}</td><td>${esc(v.lastValidAt || "—")}</td><td>${esc(v.lastSuccessAt ? iso(v.lastSuccessAt) : iso(j.generatedAt))}</td><td>${esc(v.lastValidAt ? age(v.lastValidAt) : "no valid data")}</td><td class="dim">${c.observed != null ? esc(num(c.observed)) + " observed · " : ""}${esc(c.universe || "")}${v.detail ? " · " + esc(v.detail) : ""}</td></tr>`; }).join("");
+  const assessed = (r.src || []).filter(k => st[k] && ["HEALTHY", "DEGRADED"].includes(st[k].state)), unassessed = (r.src || []).filter(k => !st[k] || !["HEALTHY", "DEGRADED"].includes(st[k].state));
+  const nObs = assessed.reduce((n, k) => n + ((st[k].coverage || {}).observed || 0), 0);
+  const unkTxt = unassessed.length ? `<div class="card limited"><h2 class="disp">Unknown / not assessed</h2>${unassessed.map(k => `<div class="lim">${esc(k)}: ${esc(st[k] ? (st[k].outcome || OUTCOME_OF[st[k].state] || st[k].state) : "not in this report")}. ${esc((st[k] || {}).detail || "")}</div>`).join("")}<div class="lim">Unknown, not quiet: no verdict is given when the source did not answer or is not configured.</div></div>` : "";
+  const empty = !assessed.length ? unkTxt
+    : `<div class="empty">No findings in the assessed markets: ${esc(assessed.join(", "))}, ${esc(num(nObs))} instruments or markets observed${syn ? "" : ", fetched " + esc(age(j.generatedAt))}. Quiet means no detector crossed its threshold, not an all-clear.</div>` + unkTxt;
   const cal = r.cal ? `<div class="card"><h2 class="disp">Calendar</h2>${((j.calendar || {}).upcoming || []).map(c => `<div class="lim">${esc(c.label)} · ${esc(c.time)}${c.timeExact ? "" : " (approximate)"}</div>`).join("") || `<div class="empty">No calendar events in this report.</div>`}<div class="lim">Settlement rules for individual contracts are not parsed yet.</div></div>` : "";
   P.innerHTML = statusStrip(f, d) + (syn ? `<div class="card synbox"><div class="lim">Example report: ${esc(String(j._note || "synthetic generator, no provider contacted").replace(/\.+\s*$/, ""))}. Instruments and moves are invented to exercise the detectors.</div></div>` : "")
-    + `<div class="grid2"><div class="card${syn ? " synbox" : ""}"><h2 class="disp">${esc(f.name)}</h2><div class="list">${sigs.map(s => sigItem(s, rep)).join("") || empty}</div></div><div style="display:flex;flex-direction:column;gap:12px">${cal}<div class="card"><h2 class="disp">Sources</h2><div class="tw"><table class="t"><thead><tr><th>Source</th><th>Status</th><th>Observed at</th><th>Ingested at</th><th>Freshness</th><th>Coverage</th></tr></thead><tbody>${srcRows || `<tr><td colspan="6">No source status in this report.</td></tr>`}</tbody></table></div></div></div></div>`;
+    + `<div class="grid2"><div class="card${syn ? " synbox" : ""}"><h2 class="disp">${esc(f.name)}</h2><div class="list">${sigs.map(s => sigItem(s, rep)).join("") || empty}</div></div><div style="display:flex;flex-direction:column;gap:12px">${cal}<div class="card"><h2 class="disp">Sources</h2><div class="tw"><table class="t"><thead><tr><th>Source</th><th>Outcome</th><th>Observed at</th><th>Last success</th><th>Data age</th><th>Coverage</th></tr></thead><tbody>${srcRows || `<tr><td colspan="6">No source status in this report.</td></tr>`}</tbody></table></div></div></div></div>`;
 }
 const SPREAD_LIM = "Observed spread, not executable arbitrage. Trading fees, currency conversion, bid/ask, available depth, taxes, shipping, insurance, grading, settlement delays and stale listings are not measured.";
 function assetTid(a) { const x = EV_SIGS.find(e => e.set === "live" && (e.s.asset === a.id || e.s.asset === a.name)); return x ? "asset:" + x.s.key : null; }
 function vMarket(P, f) {
-  const d = dataState(f), A = featAssets(f), PR = featProbes(f), mods = [...new Set((f.route.uni || []).map(u => UNI_MOD[u]))];
+  const d = dataState(f), A = featAssets(f).filter(a => !S.focus || a.id === S.focus || a.name === S.focus), PR = featProbes(f).filter(p => !S.focus || p.asset === S.focus), mods = [...new Set((f.route.uni || []).map(u => UNI_MOD[u]))];
   const cov = (EV.live.coverage || []).filter(c => mods.includes(c.module) || (f.id === "fx.h10" && c.module === "fx-h10"));
-  const sigs = EV_SIGS.filter(x => x.set === "live" && !x.quiet && (f.route.uni || []).includes(UNI_OF(x.s)) && (!f.route.types || f.route.types.includes(x.s.type)));
+  const sigs = EV_SIGS.filter(x => x.set === "live" && !x.quiet && (f.route.uni || []).includes(UNI_OF(x.s)) && (!f.route.types || f.route.types.includes(x.s.type)) && (!S.focus || JSON.stringify(x.s).includes(JSON.stringify(S.focus))));
   const meas = PR.filter(p => p.state === "measured"), unk = PR.filter(p => p.state === "unknown");
   const obs = A.map(a => a.asOf).filter(Boolean).sort(), spread = (f.route.types || []).includes("CROSS_VENUE_SPREAD") || f.id === "tcg.mtg";
-  head(f.name, catName(f.cat), [A.length + " instruments", meas.length + " checks measured", unk.length + " unknown", DATA_TAG[d]], [catName(f.cat), f.name, "feature:" + f.id, "everything-live-derived.json", ["Data: " + DATA_LBL[d], "Instruments: " + A.length, "Measured: " + meas.length, "Unknown: " + unk.length]]);
-  const lims = [].concat(spread ? [SPREAD_LIM] : [], f.id === "cm.metals" ? ["ETF prices are stand-ins for spot metal, not the benchmark price."] : [], f.experimental ? ["Experimental: undocumented endpoint, kept out of the default Anomalies feed until access and rights are resolved."] : [], f.id === "cm.ag" ? ["Positioning only: no agricultural price feed is integrated yet."] : [], f.id === "tcg.history" ? ["A trend needs 14 daily snapshots; the cache has " + ((cov[0] || {}).snapshotDays ?? "?") + ". Moves are unassessable until then, never quiet."] : [], ["A cached fetch is not live data. Refresh is manual (python3 tools/build_everything.py)."]);
+  head(f.name, catName(f.cat), [A.length + " instruments", meas.length + " checks measured", unk.length + " unknown", DATA_TAG[d]], [catName(f.cat), f.name, "feature:" + f.id, "everything-live-derived.json", ["Data: " + DATA_LBL[d], "Instruments: " + A.length, "Measured: " + meas.length, "Unknown: " + unk.length]], S.focus ? `<button class="btn" id="focusBack">Card: ${esc(S.focus)} · back to card</button><button class="btn" id="focusAll">Show all cards</button>` : "");
+  if (S.focus) { $("#focusAll").onclick = () => { S.focus = null; render(); }; $("#focusBack").onclick = () => { S.focus = null; goFeat("tcg.explorer"); }; }
+  const lims = [].concat(spread ? [SPREAD_LIM] : [], f.id === "cm.metals" ? ["ETF prices are stand-ins for spot metal, not the benchmark price."] : [], f.experimental ? ["Experimental: undocumented endpoint, kept out of the default Anomalies feed until access and rights are resolved."] : [], f.id === "cm.ag" ? ["Positioning only: no agricultural price feed is integrated yet."] : [], f.id === "tcg.history" ? ["A trend needs 14 daily snapshots; the cache has " + ((cov[0] || {}).snapshotDays ?? "?") + ". Moves are unassessable until then, never quiet."] : [], ["A cached fetch is not live data. Refresh with python3 tools/build_everything.py --fetch, or opt in to the scheduled runner (docs/everything/REFRESH.md)."]);
   const verdict = sigs.length ? `<div class="list">${sigs.map(evRow).join("")}</div>`
     : !PR.length ? `<div class="card limited"><div class="lim">No checks loaded for this tool: unknown, not quiet.</div></div>`
     : !meas.length ? `<div class="empty limited">Unassessable: ${esc(unk[0].reason)}. No verdict until the detector has enough history.</div>`
@@ -665,7 +696,7 @@ function vMarket(P, f) {
   const row = (a) => { const ps = PR.filter(p => p.asset === a.id || p.asset === a.name), tid = assetTid(a); const pv = ps.map(p => p.state === "measured" ? p.type.replace(/_/g, " ").toLowerCase() + " " + p.ratio.toFixed(2) + "×" : "unknown: " + p.reason).join("; ") || "no check of this type";
     return `<tr><td class="nmc">${esc(a.name)}</td><td>${a.redistributable ? esc(String(a.last ?? "—")) : `<span class="dim">derived only</span>`}</td><td>${a.redistributable && a.spark ? sparkSVG(a.spark, 90, 22) : ""}</td><td>${esc(a.asOf || "—")}</td><td class="dim">${esc(pv)}</td><td>${tid ? `<button class="btn" data-scan="${esc(tid)}">Evidence</button>` : ""}</td></tr>`; };
   P.innerHTML = statusStrip(f, d) + `<div class="grid2"><div class="card"><h2 class="disp">Findings</h2>${verdict}<h2 class="disp" style="margin-top:14px">Instruments</h2><div class="tw"><table class="t"><thead><tr><th>Instrument</th><th>Last</th><th>History</th><th>Observed</th><th>Check</th><th></th></tr></thead><tbody>${A.filter(a => !f.route.types || PR.some(p => p.asset === a.id || p.asset === a.name)).map(row).join("") || `<tr><td colspan="6">${PR.length ? PR.map(p => esc(p.asset + ": " + (p.state === "measured" ? p.ratio.toFixed(2) + "× threshold" : p.reason))).join("<br>") : "No instruments loaded."}</td></tr>`}</tbody></table></div></div>
-  <div style="display:flex;flex-direction:column;gap:12px"><div class="card"><h2 class="disp">Data status</h2><dl class="kv"><dt>Provider</dt><dd>${cov.map(c => esc(c.via) + (c.attribution ? " · " + esc(c.attribution) : "")).join("<br>") || "—"}</dd><dt>Observed at</dt><dd>${esc(obs.length ? obs[0] + (obs[0] !== obs[obs.length - 1] ? " to " + obs[obs.length - 1] : "") : "—")}</dd><dt>Ingested at</dt><dd>${esc(iso(EV.live.generatedAt))} (${esc(age(EV.live.generatedAt))})</dd><dt>Data type</dt><dd>${esc(DATA_LBL[d])}${f.experimental ? " · experimental" : ""}</dd><dt>Module health</dt><dd>${cov.map(c => esc(c.module + " " + c.status)).join(", ") || "—"}</dd></dl></div><div class="card"><h2 class="disp">Limitations</h2>${lims.map(l => `<div class="lim">${esc(l)}</div>`).join("")}</div></div></div>`;
+  <div style="display:flex;flex-direction:column;gap:12px"><div class="card"><h2 class="disp">Data status</h2><dl class="kv"><dt>Provider</dt><dd>${cov.map(c => esc(c.via) + (c.attribution ? " · " + esc(c.attribution) : "")).join("<br>") || "—"}</dd><dt>Observed at</dt><dd>${esc(obs.length ? obs[0] + (obs[0] !== obs[obs.length - 1] ? " to " + obs[obs.length - 1] : "") : "—")}</dd><dt>Ingested at</dt><dd>${esc(iso(EV.live.generatedAt))} (${esc(age(EV.live.generatedAt))})</dd><dt>Data type</dt><dd>${esc(DATA_LBL[d])}${f.experimental ? " · experimental" : ""}</dd><dt>Module health</dt><dd>${cov.map(c => esc(c.module + " " + c.status + (c.errorCategory ? " (" + c.errorCategory + ")" : "") + (c.lastSuccessAt ? ", last success " + age(c.lastSuccessAt) : ""))).join("<br>") || "—"}</dd></dl></div><div class="card"><h2 class="disp">Limitations</h2>${lims.map(l => `<div class="lim">${esc(l)}</div>`).join("")}</div></div></div>`;
 }
 function vLimited(P) {
   const L = S.limited || {}; const f = REG.byId[L.feat];

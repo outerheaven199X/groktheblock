@@ -4,6 +4,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/AUD",
    "last": 1.583,
+   "module": "fx",
    "name": "EUR/AUD",
    "redistributable": true,
    "spark": [
@@ -104,6 +105,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/BRL",
    "last": 5.9307,
+   "module": "fx",
    "name": "EUR/BRL",
    "redistributable": true,
    "spark": [
@@ -204,6 +206,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/CAD",
    "last": 1.5638,
+   "module": "fx",
    "name": "EUR/CAD",
    "redistributable": true,
    "spark": [
@@ -304,6 +307,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/CHF",
    "last": 0.9247,
+   "module": "fx",
    "name": "EUR/CHF",
    "redistributable": true,
    "spark": [
@@ -404,6 +408,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/CNY",
    "last": 7.4217,
+   "module": "fx",
    "name": "EUR/CNY",
    "redistributable": true,
    "spark": [
@@ -504,6 +509,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/GBP",
    "last": 0.83785,
+   "module": "fx",
    "name": "EUR/GBP",
    "redistributable": true,
    "spark": [
@@ -604,6 +610,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/INR",
    "last": 106.0095,
+   "module": "fx",
    "name": "EUR/INR",
    "redistributable": true,
    "spark": [
@@ -704,6 +711,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/JPY",
    "last": 175.86,
+   "module": "fx",
    "name": "EUR/JPY",
    "redistributable": true,
    "spark": [
@@ -804,6 +812,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/KRW",
    "last": 1492.35,
+   "module": "fx",
    "name": "EUR/KRW",
    "redistributable": true,
    "spark": [
@@ -904,6 +913,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/MXN",
    "last": 20.7416,
+   "module": "fx",
    "name": "EUR/MXN",
    "redistributable": true,
    "spark": [
@@ -1004,6 +1014,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/NOK",
    "last": 10.3475,
+   "module": "fx",
    "name": "EUR/NOK",
    "redistributable": true,
    "spark": [
@@ -1104,6 +1115,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/PLN",
    "last": 4.4045,
+   "module": "fx",
    "name": "EUR/PLN",
    "redistributable": true,
    "spark": [
@@ -1204,6 +1216,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/SEK",
    "last": 11.056,
+   "module": "fx",
    "name": "EUR/SEK",
    "redistributable": true,
    "spark": [
@@ -1304,6 +1317,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/TRY",
    "last": 55.4846,
+   "module": "fx",
    "name": "EUR/TRY",
    "redistributable": true,
    "spark": [
@@ -1404,6 +1418,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/USD",
    "last": 1.1133,
+   "module": "fx",
    "name": "EUR/USD",
    "redistributable": true,
    "spark": [
@@ -1504,6 +1519,7 @@
    "asOf": "2026-10-28",
    "id": "EUR/ZAR",
    "last": 18.5339,
+   "module": "fx",
    "name": "EUR/ZAR",
    "redistributable": true,
    "spark": [
@@ -1603,6 +1619,7 @@
   {
    "asOf": "2026-10-28",
    "id": "GLD",
+   "module": "metals",
    "name": "Gold (SPDR Gold Shares)",
    "redistributable": false,
    "universe": "gold"
@@ -1610,6 +1627,7 @@
   {
    "asOf": "2026-10-28",
    "id": "IAU",
+   "module": "metals",
    "name": "Gold (iShares Gold Trust)",
    "redistributable": false,
    "universe": "gold"
@@ -1617,6 +1635,7 @@
   {
    "asOf": "2026-10-28",
    "id": "SLV",
+   "module": "metals",
    "name": "Silver (iShares Silver Trust)",
    "redistributable": false,
    "universe": "silver"
@@ -1624,6 +1643,7 @@
   {
    "asOf": "2026-10-28",
    "id": "PPLT",
+   "module": "metals",
    "name": "Platinum (abrdn Platinum)",
    "redistributable": false,
    "universe": "pgm"
@@ -1631,6 +1651,7 @@
   {
    "asOf": "2026-10-28",
    "id": "PALL",
+   "module": "metals",
    "name": "Palladium (abrdn Palladium)",
    "redistributable": false,
    "universe": "pgm"
@@ -1639,6 +1660,7 @@
    "asOf": "2026-10-27",
    "id": "DCOILWTICO",
    "last": 103.37,
+   "module": "energy",
    "name": "WTI crude oil spot (EIA via FRED)",
    "redistributable": true,
    "spark": [
@@ -1739,6 +1761,7 @@
    "asOf": "2026-10-27",
    "id": "DCOILBRENTEU",
    "last": 123.1,
+   "module": "energy",
    "name": "Brent crude oil spot (EIA via FRED)",
    "redistributable": true,
    "spark": [
@@ -1839,6 +1862,7 @@
    "asOf": "2026-10-27",
    "id": "DHHNGSP",
    "last": 2.76,
+   "module": "energy",
    "name": "Henry Hub natural gas spot (EIA via FRED)",
    "redistributable": true,
    "spark": [
@@ -1938,6 +1962,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Gold futures (COMEX)",
+   "module": "cot",
    "name": "Gold futures (COMEX)",
    "redistributable": true,
    "spark": [
@@ -2008,6 +2033,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Silver futures (COMEX)",
+   "module": "cot",
    "name": "Silver futures (COMEX)",
    "redistributable": true,
    "spark": [
@@ -2078,6 +2104,7 @@
   {
    "asOf": "2026-10-20",
    "id": "WTI crude futures (NYMEX)",
+   "module": "cot",
    "name": "WTI crude futures (NYMEX)",
    "redistributable": true,
    "spark": [
@@ -2148,6 +2175,7 @@
   {
    "asOf": "2026-10-20",
    "id": "SRW wheat futures (CBOT)",
+   "module": "cot",
    "name": "SRW wheat futures (CBOT)",
    "redistributable": true,
    "spark": [
@@ -2218,6 +2246,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Corn futures (CBOT)",
+   "module": "cot",
    "name": "Corn futures (CBOT)",
    "redistributable": true,
    "spark": [
@@ -2288,6 +2317,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Soybean futures (CBOT)",
+   "module": "cot",
    "name": "Soybean futures (CBOT)",
    "redistributable": true,
    "spark": [
@@ -2358,6 +2388,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Coffee C futures (ICE US)",
+   "module": "cot",
    "name": "Coffee C futures (ICE US)",
    "redistributable": true,
    "spark": [
@@ -2428,6 +2459,7 @@
   {
    "asOf": "2026-10-20",
    "id": "Cocoa futures (ICE US)",
+   "module": "cot",
    "name": "Cocoa futures (ICE US)",
    "redistributable": true,
    "spark": [
@@ -2498,63 +2530,143 @@
   {
    "asOf": "2026-10-29",
    "id": "Black Lotus",
+   "module": "mtg",
    "name": "Black Lotus",
+   "printing": {
+    "cn": "233",
+    "finish": "nonfoil",
+    "id": "4a2e428c-dd25-484c-bbc8-2d6ce10ef42c",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/4/black-lotus"
+   "url": "https://scryfall.com/card/2ed/233/black-lotus"
   },
   {
    "asOf": "2026-10-29",
    "id": "Mox Sapphire",
+   "module": "mtg",
    "name": "Mox Sapphire",
+   "printing": {
+    "cn": "266",
+    "finish": "nonfoil",
+    "id": "f7d82f1d-631e-4668-9d10-7bf0ee515267",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/9/mox-sapphire"
+   "url": "https://scryfall.com/card/2ed/266/mox-sapphire"
   },
   {
    "asOf": "2026-10-29",
    "id": "Ancestral Recall",
+   "module": "mtg",
    "name": "Ancestral Recall",
+   "printing": {
+    "cn": "48",
+    "finish": "nonfoil",
+    "id": "2dd41293-d7c8-4422-9f0c-b3e96350f5c9",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/1/ancestral-recall"
+   "url": "https://scryfall.com/card/2ed/48/ancestral-recall"
   },
   {
    "asOf": "2026-10-29",
    "id": "Time Walk",
+   "module": "mtg",
    "name": "Time Walk",
+   "printing": {
+    "cn": "84",
+    "finish": "nonfoil",
+    "id": "ade7d00d-4e7b-46e9-ace1-63f628a589fc",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/2/time-walk"
+   "url": "https://scryfall.com/card/2ed/84/time-walk"
   },
   {
    "asOf": "2026-10-29",
    "id": "Timetwister",
+   "module": "mtg",
    "name": "Timetwister",
+   "printing": {
+    "cn": "85",
+    "finish": "nonfoil",
+    "id": "01bda3d7-122a-48a0-bab3-676c4a557b74",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/3/timetwister"
+   "url": "https://scryfall.com/card/2ed/85/timetwister"
   },
   {
    "asOf": "2026-10-29",
    "id": "Underground Sea",
+   "module": "mtg",
    "name": "Underground Sea",
+   "printing": {
+    "cn": "286",
+    "finish": "nonfoil",
+    "id": "bc98d888-4af3-43a3-b035-40c651057b6e",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/323/underground-sea"
+   "url": "https://scryfall.com/card/2ed/286/underground-sea"
   },
   {
    "asOf": "2026-10-29",
    "id": "Volcanic Island",
+   "module": "mtg",
    "name": "Volcanic Island",
+   "printing": {
+    "cn": "287",
+    "finish": "nonfoil",
+    "id": "9dc7ab05-a5f5-4a02-87e7-3c47be35b5cb",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2ed"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/vma/324/volcanic-island"
+   "url": "https://scryfall.com/card/2ed/287/volcanic-island"
   },
   {
    "asOf": "2026-10-29",
    "id": "Gaea's Cradle",
+   "module": "mtg",
    "name": "Gaea's Cradle",
+   "printing": {
+    "cn": "321",
+    "finish": "nonfoil",
+    "id": "25b0b816-0583-44aa-9dc5-f3ff48993a51",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "usg"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/usg/321/gaeas-cradle"
@@ -2562,7 +2674,17 @@
   {
    "asOf": "2026-10-29",
    "id": "The One Ring",
+   "module": "mtg",
    "name": "The One Ring",
+   "printing": {
+    "cn": "246",
+    "finish": "nonfoil",
+    "id": "d5806e68-1054-458e-866d-1f2470f682b2",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "ltr"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/ltr/246/the-one-ring"
@@ -2570,7 +2692,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Sheoldred, the Apocalypse",
+   "module": "mtg",
    "name": "Sheoldred, the Apocalypse",
+   "printing": {
+    "cn": "107",
+    "finish": "nonfoil",
+    "id": "d67be074-cdd4-41d9-ac89-0a0456c4e4b2",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "dmu"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/dmu/107/sheoldred-the-apocalypse"
@@ -2578,7 +2710,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Ragavan, Nimble Pilferer",
+   "module": "mtg",
    "name": "Ragavan, Nimble Pilferer",
+   "printing": {
+    "cn": "138",
+    "finish": "nonfoil",
+    "id": "a9738cda-adb1-47fb-9f4c-ecd930228c4d",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "mh2"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/mh2/138/ragavan-nimble-pilferer"
@@ -2586,7 +2728,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Orcish Bowmasters",
+   "module": "mtg",
    "name": "Orcish Bowmasters",
+   "printing": {
+    "cn": "103",
+    "finish": "nonfoil",
+    "id": "7c024bae-5631-4e20-ac69-df392ac9e109",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "ltr"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/ltr/103/orcish-bowmasters"
@@ -2594,7 +2746,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Mana Crypt",
+   "module": "mtg",
    "name": "Mana Crypt",
+   "printing": {
+    "cn": "270",
+    "finish": "nonfoil",
+    "id": "4d960186-4559-4af0-bd22-63baa15f8939",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2xm"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/2xm/270/mana-crypt"
@@ -2602,7 +2764,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Jeweled Lotus",
+   "module": "mtg",
    "name": "Jeweled Lotus",
+   "printing": {
+    "cn": "396",
+    "finish": "nonfoil",
+    "id": "d7183700-6941-4a3d-a581-4f33bea795e9",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "cmm"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/cmm/396/jeweled-lotus"
@@ -2610,7 +2782,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Force of Will",
+   "module": "mtg",
    "name": "Force of Will",
+   "printing": {
+    "cn": "50",
+    "finish": "nonfoil",
+    "id": "89f612d6-7c59-4a7b-a87d-45f789e88ba5",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "dmr"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/dmr/50/force-of-will"
@@ -2618,7 +2800,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Wrenn and Six",
+   "module": "mtg",
    "name": "Wrenn and Six",
+   "printing": {
+    "cn": "296",
+    "finish": "nonfoil",
+    "id": "5bd498cc-a609-4457-9325-6888d59ca36f",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2x2"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/2x2/296/wrenn-and-six"
@@ -2626,15 +2818,35 @@
   {
    "asOf": "2026-10-29",
    "id": "Mox Diamond",
+   "module": "mtg",
    "name": "Mox Diamond",
+   "printing": {
+    "cn": "138",
+    "finish": "nonfoil",
+    "id": "28028830-83ed-45e2-b495-3b9ad9d3e988",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "sth"
+   },
    "redistributable": false,
    "universe": "mtg",
-   "url": "https://scryfall.com/card/tpr/228/mox-diamond"
+   "url": "https://scryfall.com/card/sth/138/mox-diamond"
   },
   {
    "asOf": "2026-10-29",
    "id": "Cyclonic Rift",
+   "module": "mtg",
    "name": "Cyclonic Rift",
+   "printing": {
+    "cn": "40",
+    "finish": "nonfoil",
+    "id": "dfb7c4b9-f2f4-4d4e-baf2-86551c8150fe",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "rvr"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/rvr/40/cyclonic-rift"
@@ -2642,7 +2854,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Rhystic Study",
+   "module": "mtg",
    "name": "Rhystic Study",
+   "printing": {
+    "cn": "114",
+    "finish": "nonfoil",
+    "id": "9f37c5b6-a59c-45cd-9a99-e9357fe9ea1b",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "j22"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/j22/114/rhystic-study"
@@ -2650,7 +2872,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Dockside Extortionist",
+   "module": "mtg",
    "name": "Dockside Extortionist",
+   "printing": {
+    "cn": "107",
+    "finish": "nonfoil",
+    "id": "9e2e3efb-75cb-430f-b9f4-cb58f3aeb91b",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2x2"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/2x2/107/dockside-extortionist"
@@ -2658,7 +2890,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Smothering Tithe",
+   "module": "mtg",
    "name": "Smothering Tithe",
+   "printing": {
+    "cn": "57",
+    "finish": "nonfoil",
+    "id": "861b5889-0183-4bee-afeb-a4b2aa700a8e",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "cmm"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/cmm/57/smothering-tithe"
@@ -2666,7 +2908,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Fierce Guardianship",
+   "module": "mtg",
    "name": "Fierce Guardianship",
+   "printing": {
+    "cn": "94",
+    "finish": "nonfoil",
+    "id": "f7f3dd95-bd14-4e0f-a388-444f9cf1b0dc",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "cmm"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/cmm/94/fierce-guardianship"
@@ -2674,7 +2926,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Imperial Seal",
+   "module": "mtg",
    "name": "Imperial Seal",
+   "printing": {
+    "cn": "79",
+    "finish": "nonfoil",
+    "id": "e71a6bd3-7478-4c3a-8ae0-98352ce28492",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "2x2"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/2x2/79/imperial-seal"
@@ -2682,7 +2944,17 @@
   {
    "asOf": "2026-10-29",
    "id": "Grim Monolith",
+   "module": "mtg",
    "name": "Grim Monolith",
+   "printing": {
+    "cn": "126",
+    "finish": "nonfoil",
+    "id": "9ddc9fe1-17c8-4e1d-aeb8-c4214e881280",
+    "lang": "en",
+    "paper": true,
+    "provider": "scryfall",
+    "set": "ulg"
+   },
    "redistributable": false,
    "universe": "mtg",
    "url": "https://scryfall.com/card/ulg/126/grim-monolith"
@@ -2690,6 +2962,7 @@
   {
    "asOf": "2026-10-29",
    "id": "AK-47 | Redline (Field-Tested)",
+   "module": "cs2",
    "name": "AK-47 | Redline (Field-Tested)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2698,6 +2971,7 @@
   {
    "asOf": "2026-10-29",
    "id": "AWP | Asiimov (Field-Tested)",
+   "module": "cs2",
    "name": "AWP | Asiimov (Field-Tested)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2706,6 +2980,7 @@
   {
    "asOf": "2026-10-29",
    "id": "AK-47 | Vulcan (Field-Tested)",
+   "module": "cs2",
    "name": "AK-47 | Vulcan (Field-Tested)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2714,6 +2989,7 @@
   {
    "asOf": "2026-10-29",
    "id": "M4A4 | Howl (Field-Tested)",
+   "module": "cs2",
    "name": "M4A4 | Howl (Field-Tested)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2722,6 +2998,7 @@
   {
    "asOf": "2026-10-29",
    "id": "Operation Breakout Weapon Case",
+   "module": "cs2",
    "name": "Operation Breakout Weapon Case",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2730,6 +3007,7 @@
   {
    "asOf": "2026-10-29",
    "id": "Kilowatt Case",
+   "module": "cs2",
    "name": "Kilowatt Case",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2738,6 +3016,7 @@
   {
    "asOf": "2026-10-29",
    "id": "Revolution Case",
+   "module": "cs2",
    "name": "Revolution Case",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2746,6 +3025,7 @@
   {
    "asOf": "2026-10-29",
    "id": "Sticker | Natus Vincere | Paris 2023",
+   "module": "cs2",
    "name": "Sticker | Natus Vincere | Paris 2023",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2754,6 +3034,7 @@
   {
    "asOf": "2026-10-29",
    "id": "Desert Eagle | Blaze (Factory New)",
+   "module": "cs2",
    "name": "Desert Eagle | Blaze (Factory New)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2762,6 +3043,7 @@
   {
    "asOf": "2026-10-29",
    "id": "USP-S | Kill Confirmed (Field-Tested)",
+   "module": "cs2",
    "name": "USP-S | Kill Confirmed (Field-Tested)",
    "redistributable": false,
    "universe": "cs2-skins",
@@ -2771,52 +3053,153 @@
  "coverage": [
   {
    "attribution": "Source: ECB statistics",
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "fx",
    "observed": 16,
+   "sourceAsOf": "2026-10-28",
    "status": "HEALTHY",
    "via": "Frankfurter v1 (ECB reference rates; ECB host unreachable from this machine)"
   },
   {
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "fx-h10",
    "observed": 1,
+   "sourceAsOf": "2026-10-23",
    "status": "HEALTHY",
    "via": "FRED fredgraph (H.10 DEXUSEU)"
   },
   {
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "metals",
    "observed": 5,
+   "sourceAsOf": "2026-10-28",
    "status": "HEALTHY",
    "via": "Nasdaq quote history (unofficial; derived only)"
   },
   {
    "attribution": "Source: U.S. Energy Information Administration",
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "energy",
    "observed": 3,
+   "sourceAsOf": "2026-10-27",
    "status": "HEALTHY",
    "via": "FRED fredgraph (EIA series)"
   },
   {
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cot",
    "observed": 8,
+   "sourceAsOf": "2026-10-20",
    "status": "HEALTHY",
    "via": "CFTC Public Reporting (Socrata 6dca-aqww)"
   },
   {
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "mtg",
    "observed": 24,
    "snapshotDays": 1,
+   "snapshotFiles": 1,
+   "sourceAsOf": "2026-10-29",
    "status": "HEALTHY",
-   "via": "Scryfall /cards/named (derived only)"
+   "via": "Scryfall /cards (paper printings pinned; derived only)"
   },
   {
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
    "module": "cs2",
    "observed": 10,
+   "sourceAsOf": "2026-10-29",
    "status": "HEALTHY",
    "via": "Steam priceoverview (undocumented; derived only; roadmap)"
   }
  ],
- "generatedAt": 1793238420,
+ "generatedAt": 1793277341,
+ "health": [
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "fx",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-28",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "metals",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-28",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "energy",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-27",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "cot",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-20",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "mtg",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-29",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 86400,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "cs2",
+   "nextExpectedRun": 1793363643,
+   "sourceAsOf": "2026-10-29",
+   "status": "HEALTHY"
+  },
+  {
+   "cadenceS": 21600,
+   "errorCategory": null,
+   "lastAttemptAt": 1793277243,
+   "lastSuccessAt": 1793277243,
+   "module": "markets",
+   "nextExpectedRun": 1793298843,
+   "sourceAsOf": "2026-10-29",
+   "status": "DEGRADED"
+  }
+ ],
  "kind": "everything",
+ "lastRun": {
+  "at": 1793277341,
+  "id": "20261029T123541Z",
+  "ok": true,
+  "only": null,
+  "scheduled": true
+ },
  "probes": [
   {
    "asset": "EUR/AUD",
@@ -3150,7 +3533,7 @@
    "asset": "Ancestral Recall",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3158,7 +3541,7 @@
    "asset": "Time Walk",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3166,7 +3549,7 @@
    "asset": "Timetwister",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3174,7 +3557,7 @@
    "asset": "Underground Sea",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3182,7 +3565,7 @@
    "asset": "Volcanic Island",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3262,7 +3645,7 @@
    "asset": "Mox Diamond",
    "module": "mtg",
    "ratio": null,
-   "reason": "insufficient snapshot history (day 0 of 14)",
+   "reason": "insufficient snapshot history (day 1 of 14)",
    "state": "unknown",
    "type": "GUIDE_MOVE_VS_30D_MEDIAN"
   },
@@ -3341,41 +3724,41 @@
   {
    "asset": "Ancestral Recall",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 0.572,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
    "asset": "Time Walk",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 1.466,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
    "asset": "Timetwister",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 0.757,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
    "asset": "Underground Sea",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 0.759,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
    "asset": "Volcanic Island",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 0.07,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
@@ -3389,7 +3772,7 @@
   {
    "asset": "The One Ring",
    "module": "mtg",
-   "ratio": 0.021,
+   "ratio": 0.012,
    "reason": null,
    "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
@@ -3421,7 +3804,7 @@
   {
    "asset": "Mana Crypt",
    "module": "mtg",
-   "ratio": 0.292,
+   "ratio": 0.359,
    "reason": null,
    "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
@@ -3437,7 +3820,7 @@
   {
    "asset": "Force of Will",
    "module": "mtg",
-   "ratio": 0.058,
+   "ratio": 0.072,
    "reason": null,
    "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
@@ -3453,9 +3836,9 @@
   {
    "asset": "Mox Diamond",
    "module": "mtg",
-   "ratio": null,
-   "reason": "one venue has no price, or price below the noise floor",
-   "state": "unknown",
+   "ratio": 0.676,
+   "reason": null,
+   "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
   },
   {
@@ -3493,7 +3876,7 @@
   {
    "asset": "Fierce Guardianship",
    "module": "mtg",
-   "ratio": 0.262,
+   "ratio": 0.216,
    "reason": null,
    "state": "measured",
    "type": "CROSS_VENUE_SPREAD"
@@ -3517,7 +3900,7 @@
   {
    "asset": "AK-47 | Redline (Field-Tested)",
    "module": "cs2",
-   "ratio": 0.175,
+   "ratio": 0.522,
    "reason": null,
    "state": "measured",
    "type": "ASK_VS_MEDIAN_SALE"
@@ -3525,7 +3908,7 @@
   {
    "asset": "AWP | Asiimov (Field-Tested)",
    "module": "cs2",
-   "ratio": 0.729,
+   "ratio": 1.546,
    "reason": null,
    "state": "measured",
    "type": "ASK_VS_MEDIAN_SALE"
@@ -3549,7 +3932,7 @@
   {
    "asset": "Operation Breakout Weapon Case",
    "module": "cs2",
-   "ratio": 0.079,
+   "ratio": 0.25,
    "reason": null,
    "state": "measured",
    "type": "ASK_VS_MEDIAN_SALE"
@@ -3573,7 +3956,7 @@
   {
    "asset": "Sticker | Natus Vincere | Paris 2023",
    "module": "cs2",
-   "ratio": 1.333,
+   "ratio": 1.111,
    "reason": null,
    "state": "measured",
    "type": "ASK_VS_MEDIAN_SALE"
@@ -3589,13 +3972,84 @@
   {
    "asset": "USP-S | Kill Confirmed (Field-Tested)",
    "module": "cs2",
-   "ratio": 0.173,
+   "ratio": 0.117,
    "reason": null,
    "state": "measured",
    "type": "ASK_VS_MEDIAN_SALE"
   }
  ],
  "signals": [
+  {
+   "asset": "Time Walk",
+   "basis": "observed",
+   "category": "cards",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Item page (venue prices and links)",
+     "url": "https://scryfall.com/card/2ed/84/time-walk"
+    }
+   ],
+   "key": "mtg:Time Walk:CROSS_VENUE_SPREAD",
+   "limits": [
+    "Not an executable arbitrage: condition, printing, fees, shipping, FX timing and liquidity are not modelled.",
+    "Vendor prices are shown only as a derived percentage; follow the link for the source."
+   ],
+   "metrics": {
+    "fxDate": "2026-10-28",
+    "spreadPct": 58.6
+   },
+   "module": "mtg",
+   "name": "Time Walk",
+   "severity": "LOW",
+   "source": "mtg",
+   "synthetic": false,
+   "title": "Time Walk: US-venue price sits 59% above the EU venue after FX",
+   "trigger": {
+    "observed": 58.6,
+    "threshold": 40.0,
+    "unit": "% of midpoint",
+    "window": "single snapshot"
+   },
+   "type": "CROSS_VENUE_SPREAD",
+   "what": "Venue gap +59% of midpoint, converting at the ECB EUR/USD reference rate of 2026-10-28.",
+   "when": 1793277243
+  },
+  {
+   "asset": "AWP | Asiimov (Field-Tested)",
+   "basis": "observed",
+   "category": "skins",
+   "derivedOnly": true,
+   "evidence": [
+    {
+     "label": "Steam Community Market listing",
+     "url": "https://steamcommunity.com/market/listings/730/AWP%20%7C%20Asiimov%20%28Field-Tested%29"
+    }
+   ],
+   "key": "cs2:AWP | Asiimov (Field-Tested):ASK_VS_MEDIAN_SALE",
+   "limits": [
+    "Undocumented Steam endpoint, not covered by the Steam Web API terms: derived signal only, roadmap item."
+   ],
+   "metrics": {
+    "gapPct": 23.2,
+    "volume24h": 10
+   },
+   "module": "cs2",
+   "name": "AWP | Asiimov (Field-Tested)",
+   "severity": "LOW",
+   "source": "cs2",
+   "synthetic": false,
+   "title": "AWP | Asiimov (Field-Tested): lowest ask is 23% above the 24h median sale",
+   "trigger": {
+    "observed": 23.2,
+    "threshold": 15.0,
+    "unit": "%",
+    "window": "24h"
+   },
+   "type": "ASK_VS_MEDIAN_SALE",
+   "what": "10 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
+   "when": 1793277243
+  },
   {
    "asset": "Sticker | Natus Vincere | Paris 2023",
    "basis": "observed",
@@ -3612,23 +4066,24 @@
     "Undocumented Steam endpoint, not covered by the Steam Web API terms: derived signal only, roadmap item."
    ],
    "metrics": {
-    "gapPct": 20.0,
-    "volume24h": 557
+    "gapPct": -16.7,
+    "volume24h": 600
    },
+   "module": "cs2",
    "name": "Sticker | Natus Vincere | Paris 2023",
    "severity": "LOW",
    "source": "cs2",
    "synthetic": false,
-   "title": "Sticker | Natus Vincere | Paris 2023: lowest ask is 20% above the 24h median sale",
+   "title": "Sticker | Natus Vincere | Paris 2023: lowest ask is 17% below the 24h median sale",
    "trigger": {
-    "observed": 20.0,
+    "observed": 16.7,
     "threshold": 15.0,
     "unit": "%",
     "window": "24h"
    },
    "type": "ASK_VS_MEDIAN_SALE",
-   "what": "557 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
-   "when": 1793238420
+   "what": "600 sales in 24h. A wide ask-vs-sale gap means the order book moved away from recent prints.",
+   "when": 1793277243
   }
  ],
  "synthetic": false

@@ -15,5 +15,22 @@ Existing assertions changed only where the release candidate intentionally chang
 | `tests/ui/ui_v6_sweep.py` | click `[data-uni=mtg]` | open families, then click | Mobile families start collapsed |
 | `tests/test_ui_v6_static.py` | network scan over index.html, app.js, stage.js | also scans registry.js | New UI source file |
 | `tests/run_all.py` | — | adds `test_registry.py` | New suite |
+| `tests/ui/ui_rc.py` (RC-M10, TCG Card Explorer) | every route view in {token … universe} | same list plus `tcg` | New Card Explorer renderer; nothing removed |
+| `tests/test_ui_v6_static.py` (TCG) | network scan over index.html, app.js, stage.js, registry.js | also scans tcg.js | New UI source file |
+| `tests/run_all.py` (TCG) | — | adds `test_tcg.py` | New suite |
+
+## RC2 (real cached markets report, refresh runner)
+
+Lines carry `# MIGRATED (RC2)`.
+
+| Suite | Old assertion | New assertion | Why |
+|---|---|---|---|
+| `tests/ui/ui_rc.py` | `SYNX` -> Equity Signals, `SYNO` -> Options Activity | the first options-signal ticker in the loaded report -> Options Activity; a fetched equities ticker without an option signal -> Equity Signals | The real cached markets report is now the first signals report; SYN tickers exist only in the example report |
+| `tests/ui/ui_rc.py` | `AAPL` -> limited state | `ZZZQ` -> limited state | AAPL is in the fetched equities universe now; the check still covers an unknown ticker |
+| `tests/ui/ui_rc.py` | SEC shows "Provider unavailable" and not "Nothing in this report crossed" | SEC shows "Unknown / not assessed" and not "No findings in the assessed" | Directive wording for unconfigured/failed vs quiet-but-assessed |
+| `tests/ui/ui_v6.py` | `GTB.go('signals')` shows the example report | `GTB.S.sigRep='signals-EXAMPLE.json'` first (new report selector) | The example report is second now; the Ask and R4 timing checks are about that example's CONVERGENCE dossier |
+| `tests/ui/ui_v6.py` | feed Ask prefix `Live feed // ` | `Feed // ` | "Live feed" label removed: the feed replays cached data and is not live |
+| `tests/run_all.py` | — | adds `test_refresh.py` | New suite |
+| `tests/ui/ui_rc2.py` | — | new suite | Quiet vs unknown, outage simulation, paper MTG binding |
 
 No threshold, detector or fixture was changed.

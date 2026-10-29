@@ -9,7 +9,12 @@
   "data/everything/live-derived.json": {
    "status": "project-generated",
    "source": "tools/build_everything.py --fetch: detector output. Raw values only from redistributable official sources (ECB reference rates, EIA via FRED, CFTC COT); Nasdaq, Scryfall and Steam inputs appear only as derived numbers (z-scores, % gaps, counts)",
-   "sha256": "affe62d01e6796e73aa743dd139a47c715b82657a24778515ed3db4a8aa6061a"
+   "sha256": "b43891d094e09e4d58b80bcab3f9b500ece30ae40778aac104adf19cfd01f584"
+  },
+  "data/everything/markets-derived.json": {
+   "status": "project-generated",
+   "source": "tools/build_everything.py --fetch (markets module): signals-engine output for Polymarket, Kalshi, equities, options, Treasury, crypto. Raw values kept only for US-government sources (Treasury, SEC); vendor sources carry type, ratio, severity, time, market title and link only (derivedOnly)",
+   "sha256": "4e6507e2e3b5acf411bfd32e6f2995a9e3760628633c6f0a53c21fdf7b24d006"
   },
   "data/everything/synthetic.json": {
    "status": "synthetic",
@@ -591,6 +596,11 @@
    "status": "synthetic",
    "source": "hand-written detector fixtures (invented values; file _note says SYNTHETIC)",
    "sha256": "1c0d89c63ff87c12725ccb090b28b39a84ff6fae649991c8ab1d1b4edd38ca0c"
+  },
+  "tests/fixtures/tcg/scryfall-synthetic.json": {
+   "status": "synthetic",
+   "source": "hand-written Scryfall-shaped card fixtures for the Card Explorer tests (invented ids, names and URLs; file _note says SYNTHETIC)",
+   "sha256": "26d1d3ecbaa9896727af8091ed4f1b844683c1b7d0231694fe355869b7133a20"
   },
   "ui/fonts/BigShouldersDisplay-900-latin-ext.woff2": {
    "status": "third-party-licensed",

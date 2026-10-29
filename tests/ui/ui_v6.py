@@ -52,13 +52,13 @@ with sync_playwright() as p:
     pg.click("#dtabs [data-tab='1']"); pg.wait_for_timeout(300)
     res("timeline tab renders a scrubber", pg.locator("#scrub").count() == 1)
     pg.click("#feedBtn"); pg.wait_for_timeout(400)
-    ask_check(pg, "live feed item", lambda: pg.locator("#feedList [data-ask]").first.click(), "Live feed // ", "")
+    ask_check(pg, "live feed item", lambda: pg.locator("#feedList [data-ask]").first.click(), "Feed // ", "")  # MIGRATED (RC2): "Live feed" renamed to "Feed", cached data is not live
     pg.click("#feedClose")
     pg.evaluate("GTB.go('wallet')"); pg.wait_for_timeout(900)
     ask_check(pg, "wallet header", lambda: pg.click("#rhead [data-ask]"), "Wallet scan", "wallet:SynHEe")
     pg.evaluate("GTB.go('replay')"); pg.wait_for_timeout(900)
     ask_check(pg, "replay header", lambda: pg.click("#rhead [data-ask]"), "Rug replay", "replay:" + mint)
-    pg.evaluate("GTB.go('signals')"); pg.wait_for_timeout(400)
+    pg.evaluate("GTB.S.sigRep='signals-EXAMPLE.json'; GTB.go('signals')"); pg.wait_for_timeout(400)  # MIGRATED (RC2): select the example report; the real cached markets report is now first
     ask_check(pg, "signals feed item", lambda: pg.locator("#panel details.it summary [data-ask]").first.click(), "Signals", "cross:fed-policy:CONVERGENCE")
     pg.locator("#panel details.it summary").first.click(); pg.wait_for_timeout(200)
     ask_check(pg, "signals expanded dossier", lambda: pg.locator("#panel details[open] .dz [data-ask]").first.click(), "Signals // dossier", "cross:fed-policy:CONVERGENCE")

@@ -1,0 +1,394 @@
+{
+ "object": "list",
+ "has_more": false,
+ "data": [
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000001",
+   "oracle_id": "o-lotus",
+   "name": "Synthetic Lotus",
+   "set": "aaa",
+   "set_name": "AAA (synthetic)",
+   "collector_number": "1",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-1",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/aaa/1/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000001.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000001.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000001.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000001.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000002",
+   "oracle_id": "o-lotus",
+   "name": "Synthetic Lotus",
+   "set": "bbb",
+   "set_name": "BBB (synthetic)",
+   "collector_number": "7",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-1",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/bbb/7/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000002.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000002.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000002.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000002.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000003",
+   "oracle_id": "o-lotus",
+   "name": "Synthetic Lotus",
+   "set": "ccc",
+   "set_name": "CCC (synthetic)",
+   "collector_number": "300",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-2",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/ccc/300/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000003.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000003.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000003.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000003.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000004",
+   "oracle_id": "o-lotus",
+   "name": "Synthetic Lotus",
+   "set": "ccc",
+   "set_name": "CCC (synthetic)",
+   "collector_number": "301",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-1",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/ccc/301/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000004.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000004.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000004.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000004.jpg"
+   },
+   "border_color": "borderless"
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000005",
+   "oracle_id": "o-lotus",
+   "name": "Synthetic Lotus",
+   "set": "aaa",
+   "set_name": "AAA (synthetic)",
+   "collector_number": "1",
+   "lang": "de",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-1",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/aaa/1/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000005.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000005.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000005.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000005.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000006",
+   "oracle_id": "o-other",
+   "name": "Synthetic Lotus",
+   "set": "ddd",
+   "set_name": "DDD (synthetic)",
+   "collector_number": "9",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-9",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/ddd/9/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000006.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000006.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000006.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000006.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000007",
+   "oracle_id": "o-dfc",
+   "name": "Synthetic Delver // Synthetic Aberration",
+   "set": "eee",
+   "set_name": "EEE (synthetic)",
+   "collector_number": "51",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "transform",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/eee/51/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "card_faces": [
+    {
+     "name": "Synthetic Delver",
+     "oracle_id": "o-dfc",
+     "illustration_id": "ill-d1",
+     "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000007.jpg",
+      "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000007.jpg",
+      "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000007.jpg",
+      "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000007.jpg"
+     }
+    },
+    {
+     "name": "Synthetic Aberration",
+     "oracle_id": "o-dfc",
+     "illustration_id": "ill-d2",
+     "image_uris": {
+      "small": "https://cards.scryfall.io/small/back/00000000-0000-4000-8000-000000000007.jpg",
+      "normal": "https://cards.scryfall.io/normal/back/00000000-0000-4000-8000-000000000007.jpg",
+      "large": "https://cards.scryfall.io/large/back/00000000-0000-4000-8000-000000000007.jpg",
+      "png": "https://cards.scryfall.io/png/back/00000000-0000-4000-8000-000000000007.jpg"
+     }
+    }
+   ]
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000008",
+   "oracle_id": "o-adv",
+   "name": "Synthetic Borrower // Petty Synthetic",
+   "set": "fff",
+   "set_name": "FFF (synthetic)",
+   "collector_number": "3",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "adventure",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-a",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/fff/3/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-000000000008.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-000000000008.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-000000000008.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-000000000008.jpg"
+   },
+   "card_faces": [
+    {
+     "name": "Synthetic Borrower"
+    },
+    {
+     "name": "Petty Synthetic"
+    }
+   ]
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-000000000009",
+   "oracle_id": "o-miss",
+   "name": "Synthetic Missing",
+   "set": "ggg",
+   "set_name": "GGG (synthetic)",
+   "collector_number": "2",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-m",
+   "artist": "Synthetic Artist",
+   "image_status": "missing",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/ggg/2/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-00000000000a",
+   "oracle_id": "o-ph",
+   "name": "Synthetic Placeholder",
+   "set": "hhh",
+   "set_name": "HHH (synthetic)",
+   "collector_number": "290",
+   "lang": "fr",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-p",
+   "artist": "Synthetic Artist",
+   "image_status": "placeholder",
+   "digital": false,
+   "scryfall_uri": "https://scryfall.com/card/hhh/290/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-00000000000a.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-00000000000a.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-00000000000a.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-00000000000a.jpg"
+   }
+  },
+  {
+   "object": "card",
+   "id": "00000000-0000-4000-8000-00000000000b",
+   "oracle_id": "o-dig",
+   "name": "Synthetic Digital",
+   "set": "mmo",
+   "set_name": "MMO (synthetic)",
+   "collector_number": "4",
+   "lang": "en",
+   "rarity": "rare",
+   "released_at": "2020-01-01",
+   "layout": "normal",
+   "finishes": [
+    "nonfoil",
+    "foil"
+   ],
+   "illustration_id": "ill-x",
+   "artist": "Synthetic Artist",
+   "image_status": "highres_scan",
+   "digital": true,
+   "scryfall_uri": "https://scryfall.com/card/mmo/4/x",
+   "prices": {
+    "usd": "10.00",
+    "usd_foil": "99.00",
+    "eur": "9.00"
+   },
+   "image_uris": {
+    "small": "https://cards.scryfall.io/small/front/00000000-0000-4000-8000-00000000000b.jpg",
+    "normal": "https://cards.scryfall.io/normal/front/00000000-0000-4000-8000-00000000000b.jpg",
+    "large": "https://cards.scryfall.io/large/front/00000000-0000-4000-8000-00000000000b.jpg",
+    "png": "https://cards.scryfall.io/png/front/00000000-0000-4000-8000-00000000000b.jpg"
+   }
+  },
+  {
+   "object": "error",
+   "code": "not_found"
+  }
+ ],
+ "_note": "SYNTHETIC Scryfall-shaped fixtures for tests; ids and URLs are invented."
+}
