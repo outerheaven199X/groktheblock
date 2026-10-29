@@ -11,4 +11,5 @@ npx grok-the-block --port 8000
 - No wallet, sign-in, telemetry, install hooks or runtime dependencies. Node >= 22.14.0.
 - Serves only the files in `dist/ui/`. GET/HEAD only, Host-checked, no CORS, cannot be framed.
 - The browser UI makes no network requests (CSP `connect-src 'none'`). Data is a cached snapshot plus labelled synthetic examples.
+- Card Explorer shows text cards: card artwork is not included in the npm package. Images only appear when you run the app from a clone of the GitHub repo and run its optional `python3 tools/sync_tcg_art.py` there.
 - Ctrl+C stops it. Not financial advice.
