@@ -110,9 +110,19 @@ test("manifest: no lifecycle hooks, no dependencies, bin mapping, engines", () =
   assert.deepEqual(j.dependencies, {}); assert.ok(!j.devDependencies && !j.optionalDependencies && !j.peerDependencies);
   assert.equal(j.bin["grok-the-block"], "./bin/grok-the-block.mjs"); assert.equal(j.engines.node, ">=22.14.0");
 });
-test("launcher source: no env, home-dir or credential reads, no shell, no network clients", () => {
-  const s = readFileSync(BIN, "utf8");
-  for (const bad of [/process\.env/, /homedir/, /\.npmrc/, /\.ssh/, /shell:\s*true/, /exec\(/, /execSync/, /node:https/, /fetch\(/, /node:net/, /require\(/, /eval\(/]) assert.ok(!bad.test(s.replace(/^\/\/.*$/gm, "")), String(bad));
+// Migration (Investigations): the launcher now reads exactly three allowlisted env vars (XAI_API_KEY, GTB_XAI_BASE_URL,
+// GTB_XAI_MODEL) in one place, plus the state-dir env through defaultStateDir(). Everything else stays forbidden.
+test("launcher source: only allowlisted env reads, no home-dir or credential reads, no shell, no network clients", () => {
+  const s = readFileSync(BIN, "utf8").replace(/^\s*\/\/.*$/gm, "");
+  assert.equal((s.match(/process\.env/g) || []).length, 1, "exactly one process.env read");
+  assert.match(s, /for \(const k of \["XAI_API_KEY", "GTB_XAI_BASE_URL", "GTB_XAI_MODEL"\]\)/);
+  for (const bad of [/homedir/, /\.npmrc/, /\.ssh/, /shell:\s*true/, /exec\(/, /execSync/, /node:https/, /fetch\(/, /node:net/, /require\(/, /eval\(/]) assert.ok(!bad.test(s), String(bad));
+});
+test("investigate lib: no shell, eval, child processes, raw sockets or credential files; one fetch to the xAI base only", () => {
+  const s = readFileSync(join(PKG, "lib", "investigate.mjs"), "utf8").replace(/^\s*\/\/.*$/gm, "");
+  for (const bad of [/child_process/, /exec\(/, /execSync/, /spawn\(/, /eval\(/, /new Function/, /node:net/, /node:https?/, /["'`][^"'`\n]*\.(npmrc|ssh)\b/, /process\.env/, /require\(/]) assert.ok(!bad.test(s), String(bad));
+  assert.equal((s.match(/fetchImpl\(/g) || []).length, 1); assert.match(s, /fetchImpl\(url \+ "\/responses"/);
+  assert.match(s, /XAI_BASE = "https:\/\/api\.x\.ai\/v1"/);
 });
 test("package ships no artwork or artwork cache: explorer.js at the cache path is a data-free stub; no images in dist", () => {
   const stub = join(PKG, "dist", "ui", "cache", "tcg", "mtg", "explorer.js");

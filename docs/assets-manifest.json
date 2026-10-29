@@ -540,7 +540,7 @@
   "packages/cli/package.json": {
    "status": "project-generated",
    "source": "npm manifest for the zero-dependency local launcher; no data",
-   "sha256": "ee590499babf60b135e8ab3f268b5ba71405f34a7ba26394ffca7f424158ab53"
+   "sha256": "5f8db7702311f299d8e3f25c6a5b1bf27e06e8f37441ba46069b486a3732d382"
   },
   "tests/fixtures/adjudication-vignettes-r7.json": {
    "status": "synthetic",

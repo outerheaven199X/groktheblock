@@ -33,7 +33,7 @@ with sync_playwright() as p:
         r = route.fetch(); body = r.text().replace('"sourceUrl":"', '"sourceUrl":"javascript:window.__pwn=9;//', 1); route.fulfill(response=r, body=body)
     pg.route("**/data/everything.js", tamper)
     pg.goto(U); pg.wait_for_function("window.GTB&&GTB.ready", timeout=20000); pg.wait_for_timeout(400)
-    res("served by the npm launcher with CSP meta (no unsafe-inline in script-src)", pg.evaluate("(()=>{const c=document.querySelector('meta[http-equiv=Content-Security-Policy]').content;return /script-src 'self' 'sha256-/.test(c)&&!/script-src[^;]*unsafe-inline/.test(c)&&/connect-src 'none'/.test(c)})()"))
+    res("served by the npm launcher with CSP meta (no unsafe-inline in script-src)", pg.evaluate("(()=>{const c=document.querySelector('meta[http-equiv=Content-Security-Policy]').content;return /script-src 'self' 'sha256-/.test(c)&&!/script-src[^;]*unsafe-inline/.test(c)&&/connect-src 'self'/.test(c)})()"))
     res("import map executed under hashed CSP (three.js stage loaded)", pg.evaluate("!!document.querySelector('canvas')") and not pg.evaluate("window.__csp||[]"), pg.evaluate("window.__csp||[]"))
     bad = pg.evaluate("(a)=>a.map(v=>GTB_safeExternalUrl(v))", BADURLS); good = pg.evaluate("(a)=>a.map(v=>GTB_safeExternalUrl(v))", GOOD)
     res("safeExternalUrl rejects every non-https / malformed / encoded / credentialed variant", all(x is None for x in bad), list(zip(map(str, BADURLS), bad)))

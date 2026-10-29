@@ -58,7 +58,7 @@ export function validatePacket(p, maxBytes = LIMITS.evidenceBytes) {
   for (const o of p.observations) if (!o || typeof o.id !== "string" || !ID_RE.test(o.id)) return { error: "observation id missing or invalid" };
   if (p.related && (!Array.isArray(p.related) || p.related.length > 20)) return { error: "related must be a list of at most 20" };
   for (const r of p.related || []) if (!r || typeof r.observationId !== "string" || !ID_RE.test(r.observationId)) return { error: "related observation id invalid" };
-  const leaks = findSecretish(s); if (leaks.length) return { error: "packet contains a secret-like value, e-mail address or local path; nothing was sent" };
+  const leaks = findSecretish(s.replace(/\\\\/g, "\\")); if (leaks.length) return { error: "packet contains a secret-like value, e-mail address or local path; nothing was sent" };
   if (p.sourceSnapshot && /synthetic/.test(String(p.sourceSnapshot.kind)) && p.demo !== true) return { error: "synthetic data can only be sent with the Demo switch on" };
   return { ok: true, bytes };
 }
@@ -242,7 +242,7 @@ export async function investigate({ key, packet, question, opts, env = {}, signa
 }
 
 /* ---------------- watchlist state (local, restrictive, atomic) ---------------- */
-export function defaultStateDir(env = process.env, platform = process.platform) {
+export function defaultStateDir(env = {}, platform = process.platform) {
   if (env.GTB_STATE_DIR) return isAbsolute(env.GTB_STATE_DIR) ? resolve(env.GTB_STATE_DIR) : null;
   if (platform === "win32") return join(env.LOCALAPPDATA || join(homedir(), "AppData", "Local"), "grok-the-block");
   if (platform === "darwin") return join(homedir(), "Library", "Application Support", "grok-the-block");
