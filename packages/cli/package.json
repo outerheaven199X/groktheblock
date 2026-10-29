@@ -1,6 +1,6 @@
 {
   "name": "grok-the-block",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Grok The Block local research preview: serves the read-only browser UI on 127.0.0.1. No wallet, no sign-in, no telemetry, no install hooks.",
   "type": "module",
   "bin": { "grok-the-block": "./bin/grok-the-block.mjs" },
