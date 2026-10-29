@@ -128,17 +128,21 @@ def group_printings(printings: list[dict], tracked_ids: set[str] | None = None) 
         by.setdefault(p["oracle_id"] or p["key"], []).append(p)
     out = []
     for oid, ps in by.items():
-        ps.sort(key=lambda p: (p["id"] not in tracked_ids, p.get("released") or "", p["set"], p["cn"]))
-        base = ps[0]
+        # Canonical illustration = the earliest paper printing's; the tracked printing is listed on its own but never redefines "the art".
+        canon = min(ps, key=lambda p: (p.get("digital", False), p.get("released") or "9999", p["set"], p["cn"]))
         for p in ps:
-            if p is base:
-                p["kind"] = "tracked" if p["id"] in tracked_ids else "default"
-            elif p.get("illustration") and p["illustration"] != base.get("illustration"):
+            if p["id"] in tracked_ids:
+                p["kind"] = "tracked"
+            elif p is canon:
+                p["kind"] = "default"
+            elif p.get("illustration") and canon.get("illustration") and p["illustration"] != canon["illustration"]:
                 p["kind"] = "alternate art"
             elif p.get("variant"):
                 p["kind"] = "print variant"
             else:
                 p["kind"] = "reprint"
+        ps.sort(key=lambda p: (p["id"] not in tracked_ids, p is not canon, p.get("released") or "", p["set"], p["cn"]))
+        base = ps[0]
         out.append({"oracle_id": oid, "name": base["name"], "printings": ps})
     out.sort(key=lambda g: g["name"] or "")
     return out
